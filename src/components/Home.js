@@ -249,7 +249,7 @@ useEffect(() => {
                   <div className="icon-box">
                     <div className="icon"><i className="ri-stack-line"></i></div>
                     <h4 className="title"><a href="">About Us</a></h4>
-                    <p className="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                    <p className="description">College info</p>
                   </div>
                 </div>
 
@@ -257,7 +257,7 @@ useEffect(() => {
                   <div className="icon-box">
                     <div className="icon"><i className="ri-palette-line"></i></div>
                     <h4 className="title"><a href="">General Rules</a></h4>
-                    <p className="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+                    <p className="description">general rules of library</p>
                   </div>
                 </div>
 
@@ -265,7 +265,7 @@ useEffect(() => {
                   <div className="icon-box">
                     <div className="icon"><i className="ri-command-line"></i></div>
                     <h4 className="title"><a href="">Collections</a></h4>
-                    <p className="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+                    <p className="description">collections of books and papers</p>
                   </div>
                 </div>
 
@@ -273,7 +273,7 @@ useEffect(() => {
                   <div className="icon-box">
                     <div className="icon"><i className="ri-fingerprint-line"></i></div>
                     <h4 className="title"><a href="">Library Commitee</a></h4>
-                    <p className="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                    <p className="description">members of library commitee</p>
                   </div>
                 </div>
 
@@ -289,8 +289,8 @@ useEffect(() => {
                       <div className="swiper-slide">
                       <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib1.jpg')" }}>
                           <div className="img-bg-inner">
-                            <h2>The Best Homemade Masks for Face (keep the Pimples Away)</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                            <h2>News one of importance</h2>
+                            <p>ola</p>
                           </div>
                         </a>
                       </div>
@@ -298,8 +298,8 @@ useEffect(() => {
                       <div className="swiper-slide">
                       <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib2.jpeg')" }}>
                           <div className="img-bg-inner">
-                            <h2>17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                            <h2>News two of importance</h2>
+                            <p>hole</p>
                           </div>
                         </a>
                       </div>
@@ -307,8 +307,8 @@ useEffect(() => {
                       <div className="swiper-slide">
                       <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib3.jpeg')" }}>
                           <div className="img-bg-inner">
-                            <h2>13 Amazing Poems from Shel Silverstein with Valuable Life Lessons</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                            <h2>News three of importance</h2>
+                            <p>shola</p>
                           </div>
                         </a>
                       </div>
@@ -316,8 +316,8 @@ useEffect(() => {
                       <div className="swiper-slide">
                       <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib4.jpeg')" }}>
                           <div className="img-bg-inner">
-                            <h2>9 Half-up/half-down Hairstyles for Long and Medium Hair</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                            <h2>News four of importance</h2>
+                            <p>rola</p>
                           </div>
                         </a>
                       </div>
@@ -378,7 +378,7 @@ useEffect(() => {
                           <li>
                             <a href="single-post.html">
                               <span className="number">5</span>
-                              <h3>Life Insurance And Pregnancy: A Working Mom’s Guide</h3>
+                              <h3>Life Insurance</h3>
                             </a>
                           </li>
                         </ul>
@@ -520,29 +520,29 @@ useEffect(() => {
               <div className="row">
                 <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                   <div className="icon-box" >
-                    <h4 className="title"><a href="">Lorem Ipsum</a></h4>
-                    <p className="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                    <h4 className="title"><a href="">ONE THING</a></h4>
+                    <p className="description">HAF HKNAD </p>
                   </div>
                 </div>
 
                 <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                   <div className="icon-box" >
-                    <h4 className="title"><a href="">Sed ut perspiciatis</a></h4>
-                    <p className="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+                    <h4 className="title"><a href="">TWO THING</a></h4>
+                    <p className="description">AB NAKJN B</p>
                   </div>
                 </div>
 
                 <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                   <div className="icon-box" >
-                    <h4 className="title"><a href="">Magni Dolores</a></h4>
-                    <p className="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+                    <h4 className="title"><a href="">THREE THING</a></h4>
+                    <p className="description">HBIN AHBIKVOAIN</p>
                   </div>
                 </div>
 
                 <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                   <div className="icon-box" >
-                    <h4 className="title"><a href="">Nemo Enim</a></h4>
-                    <p className="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                    <h4 className="title"><a href="">FOUR THING</a></h4>
+                    <p className="description">AIJNHBDAIN KJN BLAKMEs</p>
                   </div>
                 </div>
 
@@ -555,7 +555,7 @@ useEffect(() => {
 
                 <div className="section-header">
                   <h2>Recent Blog Posts</h2>
-                  <p>Consequatur libero assumenda est voluptatem est quidem illum et officia imilique qui vel architecto accusamus fugit aut qui distinctio</p>
+                  <p>JB BKJBKJBbhbj va kjanvoian bkajnzgkiabnn kn lk akejg vaeouingpboa</p>
                 </div>
 
                 <div className="row gy-4">
@@ -570,7 +570,7 @@ useEffect(() => {
                       <p className="post-category">Politics</p>
 
                       <h2 className="title">
-                        <a href="blog-details.html">Dolorum optio tempore voluptas dignissimos</a>
+                        <a href="blog-details.html">jendag b naivn boainbdivna nk vanidbonadbkma</a>
                       </h2>
 
                       <div className="d-flex align-items-center">
@@ -596,7 +596,7 @@ useEffect(() => {
                       <p className="post-category">Sports</p>
 
                       <h2 className="title">
-                        <a href="blog-details.html">Nisi magni odit consequatur autem nulla dolorem</a>
+                        <a href="blog-details.html">iknwrj vns nkn bkolkjnhb</a>
                       </h2>
 
                       <div className="d-flex align-items-center">
