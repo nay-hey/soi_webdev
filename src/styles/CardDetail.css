@@ -1,0 +1,15 @@
+/* src/styles/CardDetail.css */
+.card-detail {
+    background-color: #FAEBD7;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.card-detail h2 {
+    color: #333;
+}
+.card-detail p {
+    color: #555;
+}

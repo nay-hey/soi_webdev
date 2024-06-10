@@ -1,0 +1,100 @@
+/* src/styles/AboutUs.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.about-us {
+    background-color: #fbf8f6;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    text-align: center;
+    padding: 30px;
+    position: sticky;
+  top: 0;
+  z-index: 999;
+  
+    
+    background-color: rgb(95, 9, 9);
+
+}
+
+.header h1 {
+    color: white; /* Set the text color to white */
+}
+
+.intro-section {
+    text-align: center;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.vision-section,
+.conclusion-section {
+    text-align: center;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.intro-container,
+.vision-container,
+.conclusion-container {
+    background-color: #ffffff;
+    border: 1px solid;
+    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    margin: 0 ;
+    display: flex; /* Use flexbox to align items horizontally */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between;
+}
+
+.intro-image {
+    max-width: 50%; /* Set the maximum width of the image */
+    height: auto;
+    margin-right: 20px; /* Add some space between the image and the text */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.intro-image2 {
+    max-width: 55%; /* Set the maximum width of the image */
+    height: auto;
+    margin-right: 20px; /* Add some space between the image and the text */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.intro-text {
+    max-width: 45%; /* Set the maximum width of the text container */
+}
+
+.intro-text2 {
+    max-width: 45%; /* Set the maximum width of the text container */
+}
+
+.intro-container h2,
+.vision-container h2,
+.conclusion-container h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.intro-container p,
+.vision-container p,
+.conclusion-container p {
+    color: #555;
+}
+
+.map-container {
+   
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+

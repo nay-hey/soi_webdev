@@ -1,0 +1,44 @@
+/* src/styles/Card.css */
+.card {
+    display: grid;
+    grid-template-rows: 65% 35%; /* 65% for image, 35% for text */
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer; /* Change cursor to pointer on hover */
+    width: 20%; /* Adjust width to fit four cards in a row */
+    min-width: 200px; /* Ensure cards are not too small */
+    margin: 10px;
+    transition: transform 0.2s; /* Smooth transformation */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Slightly enlarge card on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.card-image {
+    overflow: hidden; /* Hide any overflow */
+}
+
+.card-image img {
+    width: 100%; /* Make the image fill its container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px 8px 0 0; /* Round only top corners */
+}
+
+.card-text {
+    padding: 16px;
+    text-align: center; /* Center the text */
+}
+
+.card-text p {
+    color: #555;
+}
+
+.cards-section {
+    display: flex;
+    justify-content: space-around; /* Evenly space out the cards */
+    gap: 20px;
+}
