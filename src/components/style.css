@@ -166,7 +166,7 @@ section {
 
 .scroll-top i {
   font-size: 24px;
-  color: #fff;
+  color: #0b1116;
 }
 
 .scroll-top:hover i {
@@ -687,12 +687,37 @@ section {
   color: #0b1116;
 }
 
+#hero .icon-box:hover .title a,
+#hero .icon-box:hover .description {
+  color: white;
+}
+
+#hero .icon-box::before {
+  content: "";
+  position: absolute;
+  background: #050f2b;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 100%;
+  transition: all 0.3s;
+  z-index: -1;
+}
+
+#hero .icon-box:hover::before {
+  background: #050f2b;
+  top: 0;
+  border-radius: 0px;
+}
+
+
 #hero .icon-box:hover {
   transform: scale(1.08);
+  background: #050f2b;
 }
 
 #hero .icon-box:hover .title a {
-  color: black;
+  color: white;
 }
 
 @media (min-width: 1024px) {
@@ -722,7 +747,6 @@ section {
     line-height: 24px;
   }
 }
-
 
 /*--------------------------------------------------------------
 # About Section
@@ -999,6 +1023,28 @@ marquee {
     margin-right: 5px;
 }
 
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.book-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.book-item img {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
 .btn-primary:hover {
   background-color: #D1DCE1; 
 }
@@ -1154,67 +1200,6 @@ marquee {
   font-size: 14px;
 }
 /*--------------------------------------------------------------
-# Our Services Section
---------------------------------------------------------------*/
-.featured-services {
-  background-color: rgba(255, 255, 255, 0.6); 
-}
-
-.featured-services .icon-box {
-  padding: 60px;
-  position: relative;
-  overflow: hidden;
-  background: #D1DCE1;
-  box-shadow: 0 0 29px 0 rgba(75, 2, 80, 0.12);
-  transition: all 0.3s ease-in-out;
-  border-radius: 8px;
-  z-index: 1;
-}
-
-.featured-services .icon-box::before {
-  content: "";
-  position: absolute;
-  background: #0b1116;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  top: 100%;
-  transition: all 0.3s;
-  z-index: -1;
-}
-
-.featured-services .icon-box:hover::before {
-  background: #1A2530;
-  top: 0;
-  border-radius: 0px;
-}
-
-.featured-services .title {
-  font-weight: 700;
-  margin-bottom: 15px;
-  font-size: 18px;
-  font-family: "Times New Roman", serif;
-  color: #0b1116
-}
-
-.featured-services .title a {
-  color: #0b1116;
-}
-
-.featured-services .description {
-  font-size: 15px;
-  line-height: 28px;
-  margin-bottom: 0;
-  font-family: "Times New Roman", serif; 
-  color: #0b1116;
-}
-
-.featured-services .icon-box:hover .title a,
-.featured-services .icon-box:hover .description {
-  color: #D1DCE1;
-}
-
-/*--------------------------------------------------------------
 # Recent Blog Posts Section
 --------------------------------------------------------------*/
 
@@ -1297,14 +1282,16 @@ marquee {
   background-color: rgba(255, 255, 255, 0.6);
 }
 
-.team h2{
+.team h2 {
   color: #0b1116;
 }
 
 .team .container {
   border-radius: 50px;
 }
+
 .team .member {
+  position: relative;
   border-radius: 10px;
   width: 182px;
   height: 276.5px;
@@ -1312,16 +1299,22 @@ marquee {
   box-shadow: 0px 2px 25px rgba(11, 1, 1, 0.5);
   box-sizing: border-box;
   background-size: cover;
+  margin: 0 10px; /* Added margin for spacing */
 }
 
 .team .member .description {
   position: absolute;
-  bottom: 0; 
-  width: 90%; 
-  padding: 10px; 
+  bottom: 0;
+  width: 100%; /* Changed to 100% to fit the width of the member */
+  padding: 10px;
   background-color: rgba(255, 255, 255, 0.5);
-  border-bottom-left-radius: 10px; 
-  border-bottom-right-radius: 10px; 
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: none; /* Initially hidden */
+}
+
+.team .member:hover .description {
+  display: block; /* Show on hover */
 }
 
 .team .member .description h3,
@@ -1346,7 +1339,6 @@ marquee {
   animation: scroll 15s linear infinite;
 }
 
-
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -1357,7 +1349,7 @@ marquee {
 }
 
 .team-wrapper:hover .team-row {
-  animation-play-state: paused; 
+  animation-play-state: paused;
 }
 
 /*--------------------------------------------------------------

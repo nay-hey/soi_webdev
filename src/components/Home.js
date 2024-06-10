@@ -1,31 +1,146 @@
 import React, { useEffect, useRef, useState }  from 'react';
 
 import './vendor/bootstrap/css/bootstrap.min.css';
-import './vendor/aos/aos.css';
 import './vendor/swiper/swiper-bundle.min.css';
-import './vendor/glightbox/css/glightbox.min.css';
 import './style.css';
 import Swiper from 'swiper/bundle';
 import Head from './Head';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-
+import booksData from './books.json';
 
 const Home = () => {
-  const [searchType, setSearchType] = useState('Everything');
-  const [searchQuery, setSearchQuery] = useState('');
+  useEffect(() => {
+    const mobileNavToogleButton = document.querySelector('.mobile-nav-toggle');
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // Implement your search logic here
-    console.log(`Searching for ${searchQuery} in ${searchType}`);
+    if (mobileNavToogleButton) {
+      mobileNavToogleButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        mobileNavToogle();
+      });
+    }
+    
+    const mobileNavToogle = () => {
+      document.querySelector('body').classList.toggle('mobile-nav-active');
+      mobileNavToogleButton.classList.toggle('bi-list');
+      mobileNavToogleButton.classList.toggle('bi-x');
+    };
+
+    document.querySelectorAll('#navbar a').forEach((navbarlink) => {
+      if (!navbarlink.hash) return;
+
+      const section = document.querySelector(navbarlink.hash);
+      if (!section) return;
+
+      navbarlink.addEventListener('click', () => {
+        if (document.querySelector('.mobile-nav-active')) {
+          mobileNavToogle();
+        }
+      });
+    });
+
+    const navDropdowns = document.querySelectorAll('.navbar .dropdown > a');
+
+    navDropdowns.forEach((el) => {
+      el.addEventListener('click', function (event) {
+        if (document.querySelector('.mobile-nav-active')) {
+          event.preventDefault();
+          this.classList.toggle('active');
+          this.nextElementSibling.classList.toggle('dropdown-active');
+
+          const dropDownIndicator = this.querySelector('.dropdown-indicator');
+          dropDownIndicator.classList.toggle('bi-chevron-up');
+          dropDownIndicator.classList.toggle('bi-chevron-down');
+        }
+      });
+    });
+
+    return () => {
+      if (mobileNavToogleButton) {
+        mobileNavToogleButton.removeEventListener('click', (event) => {
+          event.preventDefault();
+          mobileNavToogle();
+        });
+      }
+
+      document.querySelectorAll('#navbar a').forEach((navbarlink) => {
+        if (!navbarlink.hash) return;
+
+        const section = document.querySelector(navbarlink.hash);
+        if (!section) return;
+
+        navbarlink.removeEventListener('click', () => {
+          if (document.querySelector('.mobile-nav-active')) {
+            mobileNavToogle();
+          }
+        });
+      });
+
+      navDropdowns.forEach((el) => {
+        el.removeEventListener('click', function (event) {
+          if (document.querySelector('.mobile-nav-active')) {
+            event.preventDefault();
+            this.classList.toggle('active');
+            this.nextElementSibling.classList.toggle('dropdown-active');
+
+            const dropDownIndicator = this.querySelector('.dropdown-indicator');
+            dropDownIndicator.classList.toggle('bi-chevron-up');
+            dropDownIndicator.classList.toggle('bi-chevron-down');
+          }
+        });
+      });
+    };
+  }, []);
+
+  const [activeTab, setActiveTab] = useState('everything');
+  const [books, setBooks] = useState([]);
+  const [searchCategory, setSearchCategory] = useState('title');
+  const [keyword, setKeyword] = useState('');
+  const [filters, setFilters] = useState({
+    openAccess: false,
+    owned: false,
+    peerReviewed: false
+  });
+  const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    setBooks(booksData); // Set the books data
+  }, []);
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
   };
+
+  const handleSearch = () => {
+    let filteredBooks = books.filter(book => {
+      return book[searchCategory]?.toLowerCase().includes(keyword.toLowerCase());
+    });
+
+    if (filters.openAccess) {
+      filteredBooks = filteredBooks.filter(book => book.openAccess);
+    }
+    if (filters.owned) {
+      filteredBooks = filteredBooks.filter(book => book.owned);
+    }
+    if (filters.peerReviewed) {
+      filteredBooks = filteredBooks.filter(book => book.peerReviewed);
+    }
+
+    setResults(filteredBooks);
+  };
+
+  const handleFilterChange = (filter) => {
+    setFilters({
+      ...filters,
+      [filter]: !filters[filter]
+    });
+  };
+
   useEffect(() => {
     const initializePureCounter = () => {
       if (window.PureCounter) {
         new window.PureCounter();
       } else {
-        // Retry after a short delay if PureCounter is not loaded yet
         setTimeout(initializePureCounter, 100);
       }
     };
@@ -116,51 +231,6 @@ useEffect(() => {
     };
   }, []);
 
-  useEffect(() => {
-    // Mobile nav toggle
-    const mobileNavShow = document.querySelector('.mobile-nav-show');
-    const mobileNavHide = document.querySelector('.mobile-nav-hide');
-    const mobileNavToggleElements = document.querySelectorAll('.mobile-nav-toggle');
-
-    const mobileNavToggle = () => {
-      document.body.classList.toggle('mobile-nav-active');
-      if (mobileNavShow) mobileNavShow.classList.toggle('d-none');
-      if (mobileNavHide) mobileNavHide.classList.toggle('d-none');
-    };
-
-    mobileNavToggleElements.forEach(el => {
-      el.addEventListener('click', event => {
-        event.preventDefault();
-        mobileNavToggle();
-      });
-    });
-
-    // Hide mobile nav on same-page/hash links
-    document.querySelectorAll('#navbar a').forEach(navbarlink => {
-      if (!navbarlink.hash) return;
-
-      const section = document.querySelector(navbarlink.hash);
-      if (!section) return;
-
-      navbarlink.addEventListener('click', () => {
-        if (document.querySelector('.mobile-nav-active')) {
-          mobileNavToggle();
-        }
-      });
-    });
-
-    // Cleanup event listeners
-    return () => {
-      mobileNavToggleElements.forEach(el => {
-        el.removeEventListener('click', mobileNavToggle);
-      });
-      document.querySelectorAll('#navbar a').forEach(navbarlink => {
-        if (!navbarlink.hash) return;
-        navbarlink.removeEventListener('click', mobileNavToggle);
-      });
-    };
-  }, []);
-
   const containerRef = useRef(null);
   const announcementsRef = useRef(null);
   const images = [
@@ -175,9 +245,9 @@ useEffect(() => {
     // Image slider
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 8000); // Change image every 8 seconds
+    }, 6000); 
 
-    return () => clearInterval(interval); // Cleanup interval on component unmount
+    return () => clearInterval(interval); 
   }, [images.length]);
 
   useEffect(() => {
@@ -202,11 +272,6 @@ useEffect(() => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const [activeTab, setActiveTab] = useState('everything');
-
-  const handleTabClick = (tabName) => {
-    setActiveTab(tabName);
-  };
   return (
     <div>
       <Head />
@@ -226,10 +291,11 @@ useEffect(() => {
               </ul>
             </nav>
             <button className="login-button">Login</button>
-            <i className="mobile-nav-toggle bi bi-list"></i>
+            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+            <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
           </div>
         </header>
-        <button className="scroll-top">Top</button>
+        <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
           <section id="hero" className="d-flex align-items-center">
             <div className="container position-relative">
@@ -249,7 +315,7 @@ useEffect(() => {
                   <div className="icon-box">
                     <div className="icon"><i className="ri-stack-line"></i></div>
                     <h4 className="title"><a href="">About Us</a></h4>
-                    <p className="description">College info</p>
+                    <p className="description">College info. sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb</p>
                   </div>
                 </div>
 
@@ -257,7 +323,7 @@ useEffect(() => {
                   <div className="icon-box">
                     <div className="icon"><i className="ri-palette-line"></i></div>
                     <h4 className="title"><a href="">General Rules</a></h4>
-                    <p className="description">general rules of library</p>
+                    <p className="description">general rules of library. sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb</p>
                   </div>
                 </div>
 
@@ -265,7 +331,7 @@ useEffect(() => {
                   <div className="icon-box">
                     <div className="icon"><i className="ri-command-line"></i></div>
                     <h4 className="title"><a href="">Collections</a></h4>
-                    <p className="description">collections of books and papers</p>
+                    <p className="description">collections of books and papers. sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb</p>
                   </div>
                 </div>
 
@@ -273,7 +339,7 @@ useEffect(() => {
                   <div className="icon-box">
                     <div className="icon"><i className="ri-fingerprint-line"></i></div>
                     <h4 className="title"><a href="">Library Commitee</a></h4>
-                    <p className="description">members of library commitee</p>
+                    <p className="description">members of library commitee. sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb</p>
                   </div>
                 </div>
 
@@ -290,7 +356,8 @@ useEffect(() => {
                       <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib1.jpg')" }}>
                           <div className="img-bg-inner">
                             <h2>News one of importance</h2>
-                            <p>ola</p>
+                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
+                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
                           </div>
                         </a>
                       </div>
@@ -299,7 +366,8 @@ useEffect(() => {
                       <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib2.jpeg')" }}>
                           <div className="img-bg-inner">
                             <h2>News two of importance</h2>
-                            <p>hole</p>
+                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
+                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
                           </div>
                         </a>
                       </div>
@@ -308,7 +376,8 @@ useEffect(() => {
                       <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib3.jpeg')" }}>
                           <div className="img-bg-inner">
                             <h2>News three of importance</h2>
-                            <p>shola</p>
+                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
+                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
                           </div>
                         </a>
                       </div>
@@ -317,7 +386,8 @@ useEffect(() => {
                       <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib4.jpeg')" }}>
                           <div className="img-bg-inner">
                             <h2>News four of importance</h2>
-                            <p>rola</p>
+                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
+                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
                           </div>
                         </a>
                       </div>
@@ -378,7 +448,7 @@ useEffect(() => {
                           <li>
                             <a href="single-post.html">
                               <span className="number">5</span>
-                              <h3>Life Insurance</h3>
+                              <h3>News Editions</h3>
                             </a>
                           </li>
                         </ul>
@@ -394,35 +464,6 @@ useEffect(() => {
                       <div className="announcement">4: For New Book(s) Recommendation, kindly fill the form and submit the hard copy to Library.</div>
                       {/* Add more announcements as needed */}
                   </div>
-                    </div>
-                    <div className="search-box-container">
-                      <div className="tabs">
-                        <button className={`tablinks ${activeTab === 'everything' ? 'active' : ''}`} onClick={() => handleTabClick('everything')}>Everything</button>
-                        <button className={`tablinks ${activeTab === 'journal-articles' ? 'active' : ''}`} onClick={() => handleTabClick('journal-articles')}>Journal Articles</button>
-                        <button className={`tablinks ${activeTab === 'books-ebooks' ? 'active' : ''}`} onClick={() => handleTabClick('books-ebooks')}>Books/Ebooks</button>
-                        <button className={`tablinks ${activeTab === 'library-catalogue' ? 'active' : ''}`} onClick={() => handleTabClick('library-catalogue')}>Library Catalogue</button>
-                      </div>
-
-                      {['everything', 'journal-articles', 'books-ebooks', 'library-catalogue'].map(tab => (
-                        <div id={tab} className="tabcontent" style={{ display: activeTab === tab ? 'block' : 'none' }} key={tab}>
-                          <div className="search-box">
-                            <select id="search-category-title" style={{ borderRight: '1px solid #654321' }}>
-                              <option value="title">Title</option>
-                              <option value="author">Author</option>
-                              <option value="callnumber">Call Number</option>
-                              <option value="publisher">Publisher</option>
-                            </select>
-                            <input type="text" id="keyword-input" placeholder="Enter Keyword..." />
-                            <button id="search-button">Search</button>
-                          </div>
-                        </div>
-                      ))}
-
-                      <div className="search-filters">
-                        <label><input type="checkbox" id="open-access-only" /> Open Access Only</label>
-                        <label><input type="checkbox" id="owned-resources" /> Owned Resources</label>
-                        <label><input type="checkbox" id="scholarly-peer-reviewed" /> Scholarly & Peer Reviewed</label>
-                      </div>
                     </div>
                 </div>
                 <div className="col-lg-3  border-start border-end custom-border">
@@ -452,6 +493,53 @@ useEffect(() => {
                       </div>
                     </div>
                   </div>
+                  <div className="search-box-container">
+                      <div className="tabs">
+                        <button className={`tablinks ${activeTab === 'everything' ? 'active' : ''}`} onClick={() => handleTabClick('everything')}>Everything</button>
+                        <button className={`tablinks ${activeTab === 'journal-articles' ? 'active' : ''}`} onClick={() => handleTabClick('journal-articles')}>Journal Articles</button>
+                        <button className={`tablinks ${activeTab === 'books-ebooks' ? 'active' : ''}`} onClick={() => handleTabClick('books-ebooks')}>Books/Ebooks</button>
+                        <button className={`tablinks ${activeTab === 'library-catalogue' ? 'active' : ''}`} onClick={() => handleTabClick('library-catalogue')}>Library Catalogue</button>
+                      </div>
+
+                      {['everything', 'journal-articles', 'books-ebooks', 'library-catalogue'].map(tab => (
+                        <div id={tab} className="tabcontent" style={{ display: activeTab === tab ? 'block' : 'none' }} key={tab}>
+                          <div className="search-box">
+                            <select id="search-category-title" style={{ borderRight: '1px solid #654321' }} onChange={(e) => setSearchCategory(e.target.value)}>
+                              <option value="title">Title</option>
+                              <option value="description">Description</option>
+                              <option value="author">Author</option>
+                              <option value="genre">Genre</option>
+                              <option value="department">Department</option>
+                              <option value="vendor">Vendor</option>
+                              <option value="publisher">Publisher</option>
+                            </select>
+                            <input type="text" id="keyword-input" placeholder="Enter Keyword..." onChange={(e) => setKeyword(e.target.value)} />
+                            <button id="search-button" onClick={handleSearch}>Search</button>
+                          </div>
+                        </div>
+                      ))}
+
+                      <div className="search-filters">
+                        <label><input type="checkbox" id="open-access-only" checked={filters.openAccess} onChange={() => handleFilterChange('openAccess')} /> Open Access Only</label>
+                        <label><input type="checkbox" id="owned-resources" checked={filters.owned} onChange={() => handleFilterChange('owned')} /> Owned Resources</label>
+                        <label><input type="checkbox" id="scholarly-peer-reviewed" checked={filters.peerReviewed} onChange={() => handleFilterChange('peerReviewed')} /> Scholarly & Peer Reviewed</label>
+                      </div>
+                      <div className="search-results">
+                        {results.map((book, index) => (
+                          <div key={index} className="book-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '20px' }}>
+                          <img src={book.imageUrl} alt={book.title} style={{ width: '100px', height: '150px' }} />
+                          <h3>{book.title}</h3>
+                          <p>Description: {book.description}</p>
+                          <p>Author: {book.author}</p>
+                          <p>Genre: {book.genre}</p>
+                          <p>Department: {book.department}</p>
+                          <p>Count: {book.count}</p>
+                          <p>Vendor: {book.vendor}</p>
+                          <p>Publisher: {book.publisher}</p>
+                        </div>
+                      ))}
+                      </div>
+                    </div>
                 </div>
           </section> 
           <section id="counts" className="counts">
@@ -514,42 +602,6 @@ useEffect(() => {
                 </div>
               </div>
             </section>
-          <section id="featured-services" className="featured-services">
-            <div className="container">
-
-              <div className="row">
-                <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                  <div className="icon-box" >
-                    <h4 className="title"><a href="">ONE THING</a></h4>
-                    <p className="description">HAF HKNAD </p>
-                  </div>
-                </div>
-
-                <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                  <div className="icon-box" >
-                    <h4 className="title"><a href="">TWO THING</a></h4>
-                    <p className="description">AB NAKJN B</p>
-                  </div>
-                </div>
-
-                <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                  <div className="icon-box" >
-                    <h4 className="title"><a href="">THREE THING</a></h4>
-                    <p className="description">HBIN AHBIKVOAIN</p>
-                  </div>
-                </div>
-
-                <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                  <div className="icon-box" >
-                    <h4 className="title"><a href="">FOUR THING</a></h4>
-                    <p className="description">AIJNHBDAIN KJN BLAKMEs</p>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-          </section>
             <section id="recent-posts" className="recent-posts sections-bg">
               <div className="container">
 
@@ -650,54 +702,60 @@ useEffect(() => {
                 </div>
                 <div className="team-wrapper">
                   <div className="team-row">
-                    <div className="member"  style={{ backgroundImage: "url('static/book1.jpg')" }}>
-                    <div class="description">
-                      <h3>Book 1</h3>
-                      <p>Description of Book 1</p>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Principles of Chemical Engineering Processes.png')" }}>
+                    <div className="description">
+                      <h3>Principles of Chemical</h3>
+                      <h3>Engineering Processes</h3>
+                      <p>Comprehensive guide to material and energy balance calculations in chemical processes.</p>
                     </div>
                     </div>
-                    <div className="member"  style={{ backgroundImage: "url('static/book2.jpg')" }}>
-                    <div class="description">
-                      <h3>Book 2</h3>
-                      <p>Description of Book 2</p>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Introduction to Engineering Experimentation.png')" }}>
+                    <div className="description">
+                      <h3>Introduction to Engineering </h3>
+                      <h3>Experimentation</h3>
+                      <p>Guide to the principles and practices of engineering experimentation.</p>
                     </div>
                     </div>
-                    <div className="member" style={{ backgroundImage: "url('static/book3.jpg')" }}>
-                    <div class="description">
-                      <h3>Book 3</h3>
-                      <p>Description of Book 3</p>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Electromagnetics for Engineers.png')" }}>
+                    <div className="description">
+                      <h3>Electromagnetics for Engineers</h3>
+                      <p>Introduction to the principles and applications of electromagnetics for engineers.</p>
                     </div>
                     </div>
-                    <div className="member" style={{ backgroundImage: "url('static/book4.jpg')" }}>
-                    <div class="description">
-                      <h3>Book 4</h3>
-                      <p>Description of Book 4</p>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Construction Planning, Equipment, and Methods.png')" }}>
+                    <div className="description">
+                      <h3>Construction Planning,</h3>
+                      <h3> Equipment, and Methods</h3>
+                      <p>Guide to the planning and methods of construction projects.</p>
                     </div>
                     </div>
                   </div>
                   <div className="team-row">
-                    <div className="member" style={{ backgroundImage: "url('static/book5.jpg')" }}>
-                    <div class="description">
-                      <h3>Book 5</h3>
-                      <p>Description of Book 5</p>
+                     <div className="member"  style={{ backgroundImage: "url('static/book_img/Operating System Concepts.png')" }}>
+                    <div className="description">
+                      <h3>Operating System Concepts</h3>
+                      <p>In-depth look at the design and implementation of operating systems.</p>
                     </div>
                     </div>
-                    <div className="member" style={{ backgroundImage: "url('static/book6.jpg')" }}>
-                    <div class="description">
-                      <h3>Book 6</h3>
-                      <p>Description of Book 6</p>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Electrical Engineering.png')" }}>
+                    <div className="description">
+                      <h3>Electrical Engineering: </h3>
+                      <h3>Principles and Applications</h3>
+                      <p>Comprehensive guide to fundamental principles and applications of electrical engineering.</p>
                     </div>
                     </div>
-                    <div className="member" style={{ backgroundImage: "url('static/book7.jpg')" }}>
-                    <div class="description">
-                      <h3>Book 7</h3>
-                      <p>Description of Book 7</p>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Transportation Engineering and Planning.png')" }}>
+                    <div className="description">
+                      <h3>Transportation Engineering</h3>
+                      <h3>and Planning</h3>
+                      <p>Fundamentals of transportation engineering and planning concepts.</p>
                     </div>
                     </div>
-                    <div className="member" style={{ backgroundImage: "url('static/book8.jpg')" }}>
-                    <div class="description">
-                      <h3>Book 8</h3>
-                      <p>Description of Book 8</p>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Masonry Structures.png')" }}>
+                    <div className="description">
+                      <h3>Masonry Structures:</h3>
+                      <h3>Behavior and Design</h3>
+                      <p>Comprehensive guide to the behavior and design of masonry structures.</p>
                     </div>
                     </div>
                   </div>
