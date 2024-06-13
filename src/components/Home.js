@@ -1,15 +1,23 @@
 import React, { useEffect, useRef, useState }  from 'react';
 
-import './vendor/bootstrap/css/bootstrap.min.css';
-import './vendor/swiper/swiper-bundle.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
 import './style.css';
 import Swiper from 'swiper/bundle';
-import Head from './Head';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import booksData from './books.json';
-
 const Home = () => {
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    // Logic to load the profile.js script or redirect to the profile page
+    window.location.href = 'admin/index.html'; // Change this to the correct path if necessary
+};
   useEffect(() => {
     const mobileNavToogleButton = document.querySelector('.mobile-nav-toggle');
 
@@ -274,7 +282,6 @@ useEffect(() => {
 
   return (
     <div>
-      <Head />
       <header id="header" className="header d-flex align-items-center fixed-top">
           <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
@@ -290,9 +297,9 @@ useEffect(() => {
                 <li><a href="contact.html">Contact</a></li>
               </ul>
             </nav>
-            <button className="login-button">Login</button>
-            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-            <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+            <button className="login-button" onClick={handleLoginClick}>Login</button>
+            <i className="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+            <i className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
           </div>
         </header>
         <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -467,11 +474,11 @@ useEffect(() => {
                     </div>
                 </div>
                 <div className="col-lg-3  border-start border-end custom-border">
-                  <h1 className='text-center'>Calendar</h1>
+                  <h1 className='text-center' style={{ color: "#0b1116" }}>Calendar</h1>
                     <div className='calendar-container'>
                       <Calendar onChange={setDate} value={date} />
                     </div>
-                    <p className='text-center'>
+                    <p className='text-center' style={{ color: "#0b1116" }}>
                       <span className='bold'>Selected Date:</span>{' '}
                       {date.toDateString()}
                     </p>
