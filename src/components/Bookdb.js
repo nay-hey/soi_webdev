@@ -495,8 +495,8 @@ const Bookdb = () => {
             <h1>Data Tables</h1>
             <nav>
                 <ol className="breadcrumb">
-                <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                <li className="breadcrumb-item active">Book Database</li>
+                <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }}  to="/">Home</Link></li>
+                <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Book Database</li>
                 </ol>
             </nav>
             </div>
@@ -893,7 +893,7 @@ const Bookdb = () => {
                                 <div className="row mb-3">
                                     <label htmlFor="profileImage" className="col-md-4 col-lg-3 col-form-label">Book Image</label>
                                     <div className="col-md-8 col-lg-9">
-                                        <img src="assets/img/profile-img.jpg" alt="Book" />
+                                        <img src={profile.imageUrl} alt="Book" style={{ width: "100px", height: "150px" }}/>
                                         <div className="pt-2">
                                         <a href="#" className="btn btn-primary btn-sm" title="Upload new book image"><i className="bi bi-upload"></i></a>
                                         <a href="#" className="btn btn-danger btn-sm" title="Remove my book image"><i className="bi bi-trash"></i></a>
@@ -903,32 +903,32 @@ const Bookdb = () => {
                                 <div className="row mb-3">
                                                 <label for="inputEmail3" className="col-sm-2 col-form-label">Title</label>
                                                 <div className="col-sm-10">
-                                                    <input type="text" className="form-control" id="inputText" />
+                                                    <input type="text" className="form-control" id="inputText" defaultValue={profile.title}/>
                                                 </div>
                                             </div>
                                             <div className="row mb-3">
                                     <label for="inputPassword" className="col-sm-2 col-form-label">Description</label>
                                     <div className="col-sm-10">
-                                        <textarea className="form-control"></textarea>
+                                        <textarea className="form-control" defaultValue={profile.description}></textarea>
                                     </div>
                                 </div>
                                 <div className="row mb-3">
                                     <label for="inputText" className="col-sm-2 col-form-label">Authors</label>
                                     <div className="col-sm-10">
-                                        <input type="text" className="form-control" />
+                                        <input type="text" className="form-control" defaultValue={profile.author}/>
                                     </div>
                                     </div>
                                 
                                 
                                                 <label for="inputEmail3" className="col-sm-2 col-form-label">Genre</label>
                                                 <div className="col-sm-10">
-                                                    <input type="text" className="form-control" id="inputText" />
+                                                    <input type="text" className="form-control" id="inputText" defaultValue={profile.genre}/>
                                                 </div>
                                             </div>
                                             <div className="row mb-3">
                                                 <label className="col-sm-2 col-form-label">Select Department</label>
                                                 <div className="col-sm-10">
-                                                <select className="form-select" aria-label="Default select example" defaultValue={"Computer Science"}>
+                                                <select className="form-select" aria-label="Default select example" defaultValue={profile.department}>
                                                     <option value="1">Computer Science</option>
                                                     <option value="2">Mechanical Engineering</option>
                                                     <option value="3">Electrical Engineering</option>
@@ -941,91 +941,39 @@ const Bookdb = () => {
                                             <div className="row mb-3">
                                                 <label for="inputNumber" className="col-sm-2 col-form-label">Count</label>
                                                 <div className="col-sm-10">
-                                                    <input type="number" className="form-control" />
+                                                    <input type="number" className="form-control" defaultValue={profile.count}/>
                                                 </div>
                                                 </div>
                                                 <div className="row mb-3">
                                                 <label for="inputEmail3" className="col-sm-2 col-form-label">Vendor</label>
                                                 <div className="col-sm-10">
-                                                    <input type="text" className="form-control" id="inputText" />
+                                                    <input type="text" className="form-control" id="inputText" defaultValue={profile.vendor}/>
                                                 </div>
                                             </div>
                                             <div className="row mb-3">
                                                 <label for="inputEmail3" className="col-sm-2 col-form-label">Vendor Id</label>
                                                 <div className="col-sm-10">
-                                                    <input type="number" className="form-control" id="inputText" />
+                                                    <input type="number" className="form-control" id="inputText" defaultValue={profile.vendor_id}/>
                                                 </div>
                                             </div>
                                             <div className="row mb-3">
                                                 <label for="inputEmail3" className="col-sm-2 col-form-label">Publisher</label>
                                                 <div className="col-sm-10">
-                                                    <input type="text" className="form-control" id="inputText" />
+                                                    <input type="text" className="form-control" id="inputText" defaultValue={profile.publisher}/>
                                                 </div>
                                             </div>
                                             <div className="row mb-3">
                                                 <label for="inputEmail3" className="col-sm-2 col-form-label">Publisher Id</label>
                                                 <div className="col-sm-10">
-                                                    <input type="number" className="form-control" id="inputText" />
+                                                    <input type="number" className="form-control" id="inputText" defaultValue={profile.publisher_id}/>
                                                 </div>
                                             </div>
                                             
-                                <button type="button" className="btn btn-primary" onClick={handleAddBook}>Add Book</button>
+                                <button type="button" className="btn btn-primary" onClick={handleAddBook}>Edit Details</button>
                                 </form>
                                 </div>
-                                <div className="tab-pane fade pt-3" id="profile-settings">
-                                <form>
-                                    <div className="row mb-3">
-                                    <label htmlFor="fullName" className="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                                    <div className="col-md-8 col-lg-9">
-                                        <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" id="changesMade" checked />
-                                        <label className="form-check-label" htmlFor="changesMade">Changes made to your account</label>
-                                        </div>
-                                        <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" id="newProducts" checked />
-                                        <label className="form-check-label" htmlFor="newProducts">Information on new products and services</label>
-                                        </div>
-                                        <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" id="proOffers" />
-                                        <label className="form-check-label" htmlFor="proOffers">Marketing and promo offers</label>
-                                        </div>
-                                        <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" id="securityNotify" checked disabled />
-                                        <label className="form-check-label" htmlFor="securityNotify">Security alerts</label>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div className="text-center">
-                                    <button type="submit" className="btn btn-primary">Save Changes</button>
-                                    </div>
-                                </form>
-                                </div>
-                                <div className="tab-pane fade pt-3" id="profile-change-password">
-                                <form>
-                                    <div className="row mb-3">
-                                    <label htmlFor="currentPassword" className="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                                    <div className="col-md-8 col-lg-9">
-                                        <input name="password" type="password" className="form-control" id="currentPassword" />
-                                    </div>
-                                    </div>
-                                    <div className="row mb-3">
-                                    <label htmlFor="newPassword" className="col-md-4 col-lg-3 col-form-label">New Password</label>
-                                    <div className="col-md-8 col-lg-9">
-                                        <input name="newpassword" type="password" className="form-control" id="newPassword" />
-                                    </div>
-                                    </div>
-                                    <div className="row mb-3">
-                                    <label htmlFor="renewPassword" className="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                                    <div className="col-md-8 col-lg-9">
-                                        <input name="renewpassword" type="password" className="form-control" id="renewPassword" />
-                                    </div>
-                                    </div>
-                                    <div className="text-center">
-                                    <button type="submit" className="btn btn-primary">Change Password</button>
-                                    </div>
-                                </form>
-                                </div>
-                            </div>
+                                
+                            </div>  
                             </div>
                         </div>
                         </div>
@@ -1048,7 +996,7 @@ const Bookdb = () => {
         <footer id="footer" className="footer">
 
             <div className="container">
-            <div className="row gy-4">
+            <div className="row gy-3">
                 <div className="col-lg-3 col-md-12 footer-info">
                 <div className="logos">
                 <img src="static/logo.svg.png" alt="Logo" className="logo" />

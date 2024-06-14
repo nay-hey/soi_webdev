@@ -288,17 +288,17 @@ const AdminPage = () => {
         </ul>
 
         </aside>
-        <main id="main" className="main">
+        <main id="main" className="main" >
 
         <div className="pagetitle">
         <h1>Home</h1>
         <nav>
             <ol className="breadcrumb">
-            <li className="breadcrumb-item active">Home</li>
+            <li className="breadcrumb-item active" style={{ color: "#ccc" }}>Home</li>
             </ol>
         </nav>
         </div>
-        <section id="hero" className="hero section">
+        <section id="hero" className="hero section" >
 
             <div className="container">
                 <div className="row gy-4 justify-content-center justify-content-lg-between">
@@ -307,9 +307,6 @@ const AdminPage = () => {
                     <p>Indian Institute of Technology, Dharwad</p>
                     <div className="d-flex">
                     </div>
-                </div>
-                <div className="col-lg-5 order-1 order-lg-2 hero-img">
-                    <img src="static/adminpage/homebar.png" className="img-fluid" alt="" />
                 </div>
                 </div>
             </div>
@@ -321,7 +318,7 @@ const AdminPage = () => {
         <footer id="footer" className="footer">
 
             <div className="container">
-            <div className="row gy-4">
+            <div className="row gy-3">
                 <div className="col-lg-3 col-md-12 footer-info">
                 <div className="logos">
                 <img src="static/logo.svg.png" alt="Logo" className="logo" />

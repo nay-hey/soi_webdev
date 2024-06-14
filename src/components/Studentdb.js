@@ -348,8 +348,8 @@ const Studentdb = () => {
             <h1>Student Data</h1>
             <nav>
                 <ol className="breadcrumb">
-                <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                <li className="breadcrumb-item active">Student Database</li>
+                <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/">Home</Link></li>
+                <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Student Database</li>
                 </ol>
             </nav>
             </div>
@@ -634,7 +634,7 @@ const Studentdb = () => {
         <footer id="footer" className="footer">
 
             <div className="container">
-            <div className="row gy-4">
+            <div className="row gy-3">
                 <div className="col-lg-3 col-md-12 footer-info">
                 <div className="logos">
                 <img src="static/logo.svg.png" alt="Logo" className="logo" />
