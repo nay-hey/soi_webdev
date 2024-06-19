@@ -1,0 +1,19 @@
+/* src/styles/ImageSlider.css */
+.slider-container {
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.slider-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.slick-slide img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 8px;
+}
