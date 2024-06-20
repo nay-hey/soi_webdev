@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
 
 import './AdminPage.css';
 import 'simple-datatables/dist/style.css';
@@ -11,35 +12,68 @@ import { Link } from 'react-router-dom';
 import booksData from './books.json';
 
 const CirculationManagement = () => {
-  const [formData, setFormData] = useState({
+  const [issueFormData, setIssueFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    rollno: '',
+    bookTitle: '',
+    issueDate: '',
+    returnDate: '',
+    terms: false,
+  });
+
+  const [returnFormData, setReturnFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     rollno: '',
     bookTitle: '',
     returnDate: '',
-    issueDate: '',
-    terms: false
+    terms: false,
   });
-  const [bookDetails, setBookDetails] = useState(null);
-  const [formErrors, setFormErrors] = useState({});
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
+  const [formErrors, setFormErrors] = useState({});
+  const [bookDetails, setBookDetails] = useState(null);
+
+  const handleChange = (e, formType) => {
+    const { name, value, type, checked } = e.target;
+    const formData = formType === 'issue' ? issueFormData : returnFormData;
+    const updatedFormData = {
       ...formData,
-      [name]: value,
-    });
-    // Reset book details when the title is changed
-    setBookDetails(null);
-    setFormErrors({
-      ...formErrors,
-      bookTitle: '',
-    });
+      [name]: type === 'checkbox' ? checked : value,
+    };
+
+    formType === 'issue' ? setIssueFormData(updatedFormData) : setReturnFormData(updatedFormData);
+    const errors = validateForm(updatedFormData);
+    setFormErrors(errors);
+    if (formType === 'issue' && name === 'issueDate') {
+      const returnDate = new Date(value);
+      returnDate.setDate(returnDate.getDate() + 7);
+      updatedFormData.returnDate = returnDate.toISOString().split('T')[0];
+      setIssueFormData(updatedFormData);
+    }
+
+  };
+
+  const handleSubmit = (e, formType) => {
+    e.preventDefault();
+    
+    fetchBookDetails();
+    // Form submission logic here
+    const formData = formType === 'issue' ? issueFormData : returnFormData;
+    const errors = validateForm(formData);
+
+    if (Object.keys(errors).length === 0) {
+      fetchBookDetails();
+      console.log(formData);
+    } else {
+      setFormErrors(errors);
+    }
   };
 
   const fetchBookDetails = () => {
-    const foundBook = booksData.find((book) => book.title.toLowerCase() === formData.bookTitle.toLowerCase());
+    const foundBook = booksData.find((book) => book.title.toLowerCase() === issueFormData.bookTitle.toLowerCase());
     if (foundBook) {
       setBookDetails(foundBook);
     } else {
@@ -51,21 +85,16 @@ const CirculationManagement = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetchBookDetails();
-  };
-
-
   const validateForm = (data) => {
     const errors = {};
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@iitdh\.ac\.in$/;
 
     if (!data.firstName) errors.firstName = 'First name is required';
     if (!data.lastName) errors.lastName = 'Last name is required';
-    if (!data.email) errors.username = 'Email is required';
-    if (!data.rollno) errors.city = 'Roll Number is required';
-    if (!data.returnDate) errors.state = 'Return Date is required';
-    if (!data.issueDate) errors.zip = 'Issue Date code is required';
+    if (!data.email || !emailPattern.test(data.email)) errors.email = 'Email must be a valid @iitdh.ac.in address';
+    if (!data.rollno) errors.rollno = 'Roll Number is required';
+    if (!data.returnDate) errors.returnDate = 'Return Date is required';
+    if (!data.issueDate) errors.issueDate = 'Issue Date is required';
     if (!data.terms) errors.terms = 'You must agree to terms and conditions';
 
     return errors;
@@ -130,197 +159,186 @@ const CirculationManagement = () => {
             </div>
 
         </div>
-        
-
         <nav className="header-nav ms-auto">
-        <ul className="d-flex align-items-center">
-
-            <li className="nav-item dropdown">
-
-            <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+      <ul className="d-flex align-items-center list-unstyled m-0">
+        <li className="nav-item dropdown me-3">
+          <DropdownButton
+            menuAlign="right"
+            title={
+              <span className="nav-link nav-icon">
                 <i className="bi bi-bell"></i>
-                <span className="badge bg-primary badge-number">4</span>
-            </a>
+                <Badge bg="primary" className="badge-number">
+                  4
+                </Badge>
+              </span>
+            }
+            id="dropdown-notifications"
+          >
+            <Dropdown.Header>You have 4 new notifications</Dropdown.Header>
+            <Dropdown.Divider />
+            <Dropdown.Item className="notification-item">
+              <i className="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="notification-item">
+              <i className="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="notification-item">
+              <i className="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="notification-item">
+              <i className="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="dropdown-footer">
+              <Link to="#">Show all notifications</Link>
+            </Dropdown.Item>
+          </DropdownButton>
+        </li>
 
-            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                <li className="dropdown-header">
-                You have 4 new notifications
-                <a href="#"><span className="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                </li>
-                <li>
-                <hr className="dropdown-divider" />
-                </li>
-
-                <li className="notification-item">
-                <i className="bi bi-exclamation-circle text-warning"></i>
-                <div>
-                    <h4>Lorem Ipsum</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>30 min. ago</p>
-                </div>
-                </li>
-
-                <li>
-                <hr className="dropdown-divider" />
-                </li>
-
-                <li className="notification-item">
-                <i className="bi bi-x-circle text-danger"></i>
-                <div>
-                    <h4>Atque rerum nesciunt</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>1 hr. ago</p>
-                </div>
-                </li>
-
-                <li>
-                <hr className="dropdown-divider" />
-                </li>
-
-                <li className="notification-item">
-                <i className="bi bi-check-circle text-success"></i>
-                <div>
-                    <h4>Sit rerum fuga</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>2 hrs. ago</p>
-                </div>
-                </li>
-
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li className="notification-item">
-                <i className="bi bi-info-circle text-primary"></i>
-                <div>
-                    <h4>Dicta reprehenderit</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>4 hrs. ago</p>
-                </div>
-                </li>
-
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-                <li className="dropdown-footer">
-                <a href="#">Show all notifications</a>
-                </li>
-
-            </ul>
-            </li>
-            <li className="nav-item dropdown">
-
-            <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+        <li className="nav-item dropdown me-3">
+          <DropdownButton
+            menuAlign="right"
+            title={
+              <span className="nav-link nav-icon">
                 <i className="bi bi-chat-left-text"></i>
-                <span className="badge bg-success badge-number">3</span>
-            </a>
+                <Badge bg="success" className="badge-number">
+                  3
+                </Badge>
+              </span>
+            }
+            id="dropdown-messages"
+          >
+            <Dropdown.Header>You have 3 new messages</Dropdown.Header>
+            <Dropdown.Divider />
+            <Dropdown.Item className="message-item">
+              <Link to="#">
+                <Image
+                  src="assets/img/messages-1.jpg"
+                  alt=""
+                  className="rounded-circle me-3"
+                />
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>
+                    Velit asperiores et ducimus soluta repudiandae labore
+                    officia est ut...
+                  </p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="message-item">
+              <Link to="#">
+                <Image
+                  src="assets/img/messages-2.jpg"
+                  alt=""
+                  className="rounded-circle me-3"
+                />
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>
+                    Velit asperiores et ducimus soluta repudiandae labore
+                    officia est ut...
+                  </p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="message-item">
+              <Link to="#">
+                <Image
+                  src="assets/img/messages-3.jpg"
+                  alt=""
+                  className="rounded-circle me-3"
+                />
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>
+                    Velit asperiores et ducimus soluta repudiandae labore
+                    officia est ut...
+                  </p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="dropdown-footer">
+              <Link to="#">Show all messages</Link>
+            </Dropdown.Item>
+          </DropdownButton>
+        </li>
 
-            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                <li className="dropdown-header">
-                You have 3 new messages
-                <a href="#"><span className="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li className="message-item">
-                <a href="#">
-                    <img src="assets/img/messages-1.jpg" alt="" className="rounded-circle" />
-                    <div>
-                    <h4>Maria Hudson</h4>
-                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                    <p>4 hrs. ago</p>
-                    </div>
-                </a>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li className="message-item">
-                <a href="#">
-                    <img src="assets/img/messages-2.jpg" alt="" className="rounded-circle" />
-                    <div>
-                    <h4>Anna Nelson</h4>
-                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                    <p>6 hrs. ago</p>
-                    </div>
-                </a>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li className="message-item">
-                <a href="#">
-                    <img src="assets/img/messages-3.jpg" alt="" className="rounded-circle" />
-                    <div>
-                    <h4>David Muldon</h4>
-                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                    <p>8 hrs. ago</p>
-                    </div>
-                </a>
-                </li>
-                <li>
-                <hr className="dropdown-divider" />
-                </li>
-
-                <li className="dropdown-footer">
-                <a href="#">Show all messages</a>
-                </li>
-
-            </ul>
-
-            </li>
-
-            <li className="nav-item dropdown pe-3">
-
-            <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                <img src="static/adminpage/profile.png" alt="Profile" className="rounded-circle" />
-                <span className="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-            </a>
-
-            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                <li className="dropdown-header">
-                <h6>Kevin Anderson</h6>
-                <span>Admin</span>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li>
-                <Link className="dropdown-item d-flex align-items-center" to="/profile">
-                    <i className="bi bi-person"></i>
-                    <span>My Profile</span>
-                </Link>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li>
-                <Link className="dropdown-item d-flex align-items-center" to="/profile">
-                    <i className="bi bi-gear"></i>
-                    <span>Account Settings</span>
-                </Link>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li>
-                <a className="dropdown-item d-flex align-items-center" href="#">
-                    <i className="bi bi-box-arrow-right"></i>
-                    <span>Sign Out</span>
-                </a>
-                </li>
-
-            </ul>
-            </li>
-        </ul>
-        </nav>
+        <li className="nav-item dropdown">
+          <DropdownButton
+            menuAlign="right"
+            title={
+              <span className="nav-link nav-profile d-flex align-items-center pe-0">
+                <Image
+                  src="static/adminpage/profile.png"
+                  alt="Profile"
+                  className="rounded-circle me-2"
+                />
+                <span className="d-none d-md-block">
+                  K. Anderson
+                </span>
+              </span>
+            }
+            id="dropdown-profile"
+          >
+            <Dropdown.Header>
+              <h6>Kevin Anderson</h6>
+              <span>Admin</span>
+            </Dropdown.Header>
+            <Dropdown.Divider />
+            <Dropdown.Item>
+              <Link className="dropdown-item d-flex align-items-center" to="/profile">
+                <i className="bi bi-person"></i>
+                <span>My Profile</span>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item>
+              <Link className="dropdown-item d-flex align-items-center" to="/profile">
+                <i className="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item>
+              <Link className="dropdown-item d-flex align-items-center" to="#">
+                <i className="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </Link>
+            </Dropdown.Item>
+          </DropdownButton>
+        </li>
+      </ul>
+    </nav>
            <i className="bi bi-list toggle-sidebar-btn"></i>
         </header>
         <aside id="sidebar" className="sidebar">
@@ -328,7 +346,7 @@ const CirculationManagement = () => {
             <ul className="sidebar-nav" id="sidebar-nav">
 
             <li className="nav-item">
-                <Link className="nav-link " to="/">
+                <Link className="nav-link collapsed" to="/">
                 <i className="bi bi-grid"></i>
                 <span>Home</span>
                 </Link>
@@ -344,7 +362,7 @@ const CirculationManagement = () => {
                 </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/circulationmanagement">
+                <Link className="nav-link " to="/circulationmanagement">
                 <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
                 </Link>
             </li>
@@ -359,6 +377,12 @@ const CirculationManagement = () => {
               <span>Profile Edit</span>
               </Link>
           </li>
+          <li className="nav-item">
+                <Link className="nav-link collapsed" to="/contact">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+                </Link>
+            </li>
             </ul>
 
             </aside>
@@ -379,11 +403,11 @@ const CirculationManagement = () => {
     <div className="row">
       <div className="col-lg-6">
 
-        <div className="card">
-          <div className="card-body">
+      <div className="card">
+        <div className="card-body">
           <h5 className="card-title">Book Issue Form</h5>
           <p>Fill out the form below to issue a book.</p>
-          <form className="row g-3" onSubmit={handleSubmit} noValidate>
+          <form className="row g-3" onSubmit={(e) => handleSubmit(e, 'issue')} noValidate>
             <div className="col-md-4">
               <label htmlFor="firstName" className="form-label">First Name</label>
               <input
@@ -391,11 +415,15 @@ const CirculationManagement = () => {
                 className={`form-control ${formErrors.firstName ? 'is-invalid' : ''}`}
                 id="firstName"
                 name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
+                value={issueFormData.firstName}
+                onChange={(e) => handleChange(e, 'issue')}
                 required
               />
-              <div className="invalid-feedback">{formErrors.firstName}</div>
+              {formErrors.firstName && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.firstName}
+                          </div>
+                        )}
             </div>
             <div className="col-md-4">
               <label htmlFor="lastName" className="form-label">Last Name</label>
@@ -404,27 +432,52 @@ const CirculationManagement = () => {
                 className={`form-control ${formErrors.lastName ? 'is-invalid' : ''}`}
                 id="lastName"
                 name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
+                value={issueFormData.lastName}
+                onChange={(e) => handleChange(e, 'issue')}
                 required
               />
-              <div className="invalid-feedback">{formErrors.lastName}</div>
+              {formErrors.lastName && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.lastName}
+                          </div>
+                        )}
             </div>
             <div className="row mb-3">
-            <label for="inputEmail" className="col-sm-2 col-form-label">Email</label>
-                <div className="input-group mb-3">
-                <input type="text" className="form-control" placeholder="Recipient's roll number" aria-label="Recipient's roll number" aria-describedby="basic-addon2" />
-             <span className="input-group-text" id="basic-addon2">@iitdh.ac.in</span>
-                  </div>
-                  <div className="invalid-feedback">{formErrors.email}</div>
-                 </div>
-             <div className="row mb-3">
-             <label for="inputNumber" className="col-sm-2 col-form-label">Roll Number</label>
-                   <div className="col-sm-10">
-                  <input type="number" className="form-control" />
-                 </div>
-                 <div className="invalid-feedback">{formErrors.rollno}</div>
-             </div>
+              <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className={`form-control ${formErrors.email ? 'is-invalid' : ''}`}
+                  name="email"
+                  value={issueFormData.email}
+                  onChange={(e) => handleChange(e, 'issue')}
+                  required
+                />
+                </div>
+              {formErrors.email && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.email}
+                          </div>
+                        )}
+            </div>
+            <div className="row mb-3">
+              <label htmlFor="inputNumber" className="col-sm-2 col-form-label">Roll Number</label>
+              <div className="col-sm-10">
+              <input
+                  type="number"
+                  className={`form-control ${formErrors.rollno ? 'is-invalid' : ''}`}
+                  name="rollno"
+                  value={issueFormData.rollno}
+                  onChange={(e) => handleChange(e, 'issue')}
+                  required
+                />
+              </div>
+              {formErrors.rollno && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.rollno}
+                          </div>
+                        )}
+            </div>
             <div className="col-md-6">
               <label htmlFor="bookTitle" className="form-label">Book Title</label>
               <input
@@ -432,11 +485,15 @@ const CirculationManagement = () => {
                 className={`form-control ${formErrors.bookTitle ? 'is-invalid' : ''}`}
                 id="bookTitle"
                 name="bookTitle"
-                value={formData.bookTitle}
-                onChange={handleChange}
+                value={issueFormData.bookTitle}
+                onChange={(e) => handleChange(e, 'issue')}
                 required
               />
-              <div className="invalid-feedback">{formErrors.bookTitle}</div>
+              {formErrors.bookTitle && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.bookTitle}
+                          </div>
+                        )}
             </div>
             <div className="col-md-3">
               <label htmlFor="issueDate" className="form-label">Issue Date</label>
@@ -445,11 +502,15 @@ const CirculationManagement = () => {
                 className={`form-control ${formErrors.issueDate ? 'is-invalid' : ''}`}
                 id="issueDate"
                 name="issueDate"
-                value={formData.issueDate}
-                onChange={handleChange}
+                value={issueFormData.issueDate}
+                onChange={(e) => handleChange(e, 'issue')}
                 required
               />
-              <div className="invalid-feedback">{formErrors.issueDate}</div>
+              {formErrors.issueDate && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.issueDate}
+                          </div>
+                        )}
             </div>
             <div className="col-md-3">
               <label htmlFor="returnDate" className="form-label">Return Date</label>
@@ -458,57 +519,25 @@ const CirculationManagement = () => {
                 className={`form-control ${formErrors.returnDate ? 'is-invalid' : ''}`}
                 id="returnDate"
                 name="returnDate"
-                value={formData.returnDate}
-                onChange={handleChange}
+                value={issueFormData.returnDate}
+                onChange={(e) => handleChange(e, 'issue')}
                 required
               />
-              <div className="invalid-feedback">{formErrors.returnDate}</div>
             </div>
             <div className="col-12">
-              <div className="form-check">
-                <input
-                  className={`form-check-input ${formErrors.terms ? 'is-invalid' : ''}`}
-                  type="checkbox"
-                  id="terms"
-                  name="terms"
-                  checked={formData.terms}
-                  onChange={handleChange}
-                  required
-                />
-                <label className="form-check-label" htmlFor="terms">
-                  Agree to terms and conditions
-                </label>
-                <div className="invalid-feedback">{formErrors.terms}</div>
-              </div>
-            </div>
-            <div className="col-12">
-              <button className="btn btn-primary" type="submit">Submit form</button>
+              <button className="btn btn-primary" type="submit">Issue Book</button>
             </div>
           </form>
-          </div>
         </div>
-        {bookDetails && (
-        <div className="row mt-4">
-          <div className="col-md-6">
-            <h3>Book Details</h3>
-            <p>Book: {bookDetails.imageUrl}</p>
-            <p>Title: {bookDetails.title}</p>
-            <p>Description: {bookDetails.description}</p>
-            <p>Author: {bookDetails.author}</p>
-            <p>Genre: {bookDetails.genre}</p>
-            <p>Department: {bookDetails.department}</p>
-            <p>Count: {bookDetails.count}</p>
-          </div>
         </div>
-      )}
           </div>
           <div className="col-lg-6">
 
-        <div className="card">
-          <div className="card-body">
+          <div className="card">
+        <div className="card-body">
           <h5 className="card-title">Book Return Form</h5>
           <p>Fill out the form below to return a book.</p>
-          <form className="row g-3" onSubmit={handleSubmit} noValidate>
+          <form className="row g-3" onSubmit={(e) => handleSubmit(e, 'return')} noValidate>
             <div className="col-md-4">
               <label htmlFor="firstName" className="form-label">First Name</label>
               <input
@@ -516,40 +545,71 @@ const CirculationManagement = () => {
                 className={`form-control ${formErrors.firstName ? 'is-invalid' : ''}`}
                 id="firstName"
                 name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
+                value={returnFormData.firstName}
+                onChange={(e) => handleChange(e, 'return')}
                 required
-              />
-              <div className="invalid-feedback">{formErrors.firstName}</div>
+                />
+                {formErrors.firstName && (
+                  <div className="alert alert-danger" role="alert">
+                    {formErrors.firstName}
+                  </div>
+                )}
+
             </div>
             <div className="col-md-4">
-              <label htmlFor="lastName" className="form-label">Last Name</label>
+              <label htmlFor="lastName2" className="form-label">Last Name</label>
               <input
                 type="text"
                 className={`form-control ${formErrors.lastName ? 'is-invalid' : ''}`}
                 id="lastName"
                 name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
+                value={returnFormData.lastName}
+                onChange={(e) => handleChange(e, 'return')}
                 required
               />
-              <div className="invalid-feedback">{formErrors.lastName}</div>
+               {formErrors.lastName && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.lastName}
+                          </div>
+                        )}
             </div>
             <div className="row mb-3">
-            <label for="inputEmail" className="col-sm-2 col-form-label">Email</label>
-                <div className="input-group mb-3">
-                <input type="text" className="form-control" placeholder="Recipient's roll number" aria-label="Recipient's roll number" aria-describedby="basic-addon2" />
-             <span className="input-group-text" id="basic-addon2">@iitdh.ac.in</span>
-                  </div>
-                  <div className="invalid-feedback">{formErrors.email}</div>
-                 </div>
-             <div className="row mb-3">
-             <label for="inputNumber" className="col-sm-2 col-form-label">Roll Number</label>
-                   <div className="col-sm-10">
-                  <input type="number" className="form-control" />
-                 </div>
-                 <div className="invalid-feedback">{formErrors.rollno}</div>
-             </div>
+              <label htmlFor="inputEmail" className="col-sm-2 col-form-label">Email</label>
+              <div className="input-group mb-3">
+              <input
+                  type="text"
+                  className={`form-control ${formErrors.email ? 'is-invalid' : ''}`}
+                  name="email"
+                  value={returnFormData.email}
+                  onChange={(e) => handleChange(e, 'return')}
+                  required
+                />
+                <span className="input-group-text" id="basic-addon2">@iitdh.ac.in</span>
+              </div>
+              {formErrors.email && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.email}
+                          </div>
+                        )}
+            </div>
+            <div className="row mb-3">
+              <label htmlFor="inputNumber" className="col-sm-2 col-form-label">Roll Number</label>
+              <div className="col-sm-10">
+              <input
+                  type="number"
+                  className={`form-control ${formErrors.rollno ? 'is-invalid' : ''}`}
+                  name="rollno"
+                  value={returnFormData.rollno}
+                  onChange={(e) => handleChange(e, 'return')}
+                  required
+                />
+              </div>
+              {formErrors.rollno && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.rollno}
+                          </div>
+                        )}
+            </div>
             <div className="col-md-6">
               <label htmlFor="bookTitle" className="form-label">Book Title</label>
               <input
@@ -557,11 +617,15 @@ const CirculationManagement = () => {
                 className={`form-control ${formErrors.bookTitle ? 'is-invalid' : ''}`}
                 id="bookTitle"
                 name="bookTitle"
-                value={formData.bookTitle}
-                onChange={handleChange}
+                value={returnFormData.bookTitle}
+                onChange={(e) => handleChange(e, 'return')}
                 required
               />
-              <div className="invalid-feedback">{formErrors.bookTitle}</div>
+              {formErrors.bookTitle && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.bookTitle}
+                          </div>
+                        )}
             </div>
             <div className="col-md-3">
               <label htmlFor="returnDate" className="form-label">Return Date</label>
@@ -570,52 +634,40 @@ const CirculationManagement = () => {
                 className={`form-control ${formErrors.returnDate ? 'is-invalid' : ''}`}
                 id="returnDate"
                 name="returnDate"
-                value={formData.returnDate}
-                onChange={handleChange}
+                value={returnFormData.returnDate}
+                onChange={(e) => handleChange(e, 'return')}
                 required
               />
-              <div className="invalid-feedback">{formErrors.returnDate}</div>
+             {formErrors.returnDate && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.returnDate}
+                          </div>
+                        )}
             </div>
+            
             <div className="col-12">
-              <div className="form-check">
-                <input
-                  className={`form-check-input ${formErrors.terms ? 'is-invalid' : ''}`}
-                  type="checkbox"
-                  id="terms"
-                  name="terms"
-                  checked={formData.terms}
-                  onChange={handleChange}
-                  required
-                />
-                <label className="form-check-label" htmlFor="terms">
-                  Agree to terms and conditions
-                </label>
-                <div className="invalid-feedback">{formErrors.terms}</div>
-              </div>
-            </div>
-            <div className="col-12">
-              <button className="btn btn-primary" type="submit">Submit form</button>
+              <button className="btn btn-primary" type="submit">Return Book</button>
             </div>
           </form>
-          </div>
         </div>
-        {bookDetails && (
-        <div className="row mt-4">
-          <div className="col-md-6">
+      </div>
+          </div> 
+        </div> 
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+        <div className='card' style={{ width: '500px', textAlign: 'center', alignContent: 'center',  marginTop: '20px' }}>{bookDetails && (
+        <div className="row">
             <h3>Book Details</h3>
-            <p>Book: {bookDetails.imageUrl}</p>
+            <p><img src={bookDetails.imageUrl} style={{ width: '100px', height: '150px' }}></img></p>
             <p>Title: {bookDetails.title}</p>
             <p>Description: {bookDetails.description}</p>
             <p>Author: {bookDetails.author}</p>
             <p>Genre: {bookDetails.genre}</p>
             <p>Department: {bookDetails.department}</p>
             <p>Count: {bookDetails.count}</p>
-          </div>
         </div>
       )}
-          </div>
-          
-        </div>
+      </div>
+      </div>
   </section>
 
 </main>

@@ -7,8 +7,8 @@ import StudentProfile from './components/StudentProfile';
 import Studentdb from './components/Studentdb';
 import Bookdb from './components/Bookdb';
 import Reminder from './components/Reminder';
+import Contact from './components/Contact';
 import CirculationManagement from './components/CirculationManagement';
-
 function App() {
   return (
     <Router>
@@ -19,6 +19,7 @@ function App() {
         <Route path="/studentdb" element={<Studentdb />} />
         <Route path="/bookdb" element={<Bookdb />} />
         <Route path="/reminder" element={<Reminder />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/circulationmanagement" element={<CirculationManagement />} />
       </Routes>
     </Router>

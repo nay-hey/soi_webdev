@@ -6,7 +6,7 @@ import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
 import './AdminPage.css';
 import { Link } from 'react-router-dom';
 
-const AdminPage = () => {
+const Contact = () => {
 
   const [isSidebarToggled, setIsSidebarToggled] = useState(false);
 
@@ -243,7 +243,7 @@ const AdminPage = () => {
         <ul className="sidebar-nav" id="sidebar-nav">
 
         <li className="nav-item">
-            <Link className="nav-link " to="/">
+            <Link className="nav-link collapsed" to="/">
             <i className="bi bi-grid"></i>
             <span>Home</span>
             </Link>
@@ -275,38 +275,103 @@ const AdminPage = () => {
             </Link>
         </li>
         <li className="nav-item">
-                <Link className="nav-link collapsed" to="/contact">
-                <i class="bi bi-envelope"></i>
-                <span>Contact</span>
-                </Link>
-            </li>
+          <Link className="nav-link " to="/contact">
+          <i className="bi bi-envelope"></i>
+          <span>Contact</span>
+          </Link>
+      </li>
         </ul>
 
         </aside>
         <main id="main" className="main" >
 
-        <div className="pagetitle">
-        <h1>Home</h1>
-        <nav>
+          <div className="pagetitle">
+            <h1>Contact</h1>
+            <nav>
             <ol className="breadcrumb">
-            <li className="breadcrumb-item active" style={{ color: "#ccc" }}>Home</li>
-            </ol>
-        </nav>
-        </div>
-        <section id="hero" className="hero section" >
-
-            <div className="container">
-                <div className="row gy-4 justify-content-center justify-content-lg-between">
-                <div className="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                    <h1>Welcome to<br />Admin Page</h1>
-                    <p>Indian Institute of Technology, Dharwad</p>
-                    <div className="d-flex">
+                        <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/">Home</Link></li>
+                        <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Contact</li>
+                    </ol>
+            </nav>
+          </div>
+      
+          <section className="section contact">
+      
+            <div className="row gy-4">
+      
+              <div className="col-xl-6">
+      
+                <div className="row">
+                  <div className="col-lg-6" style={{ marginTop: '50px' }}>
+                    <div className="info-box card">
+                      <i className="bi bi-geo-alt"></i>
+                      <h3>Address</h3>
+                      <p>A108 Adam Street,<br/>New York, NY 535022</p>
                     </div>
+                  </div>
+                  <div className="col-lg-6" style={{ marginTop: '50px' }}>
+                    <div className="info-box card">
+                      <i className="bi bi-telephone"></i>
+                      <h3>Call Us</h3>
+                      <p>+1 5589 55488 55<br />+1 6678 254445 41</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6" style={{ marginTop: '50px' }}>
+                    <div className="info-box card">
+                      <i className="bi bi-envelope"></i>
+                      <h3>Email Us</h3>
+                      <p>info@example.com<br />contact@example.com</p>
+                    </div>
+                  </div>
+                  <div className="col-lg-6" style={{ marginTop: '50px' }}>
+                    <div className="info-box card">
+                      <i className="bi bi-clock"></i>
+                      <h3>Open Hours</h3>
+                      <p>Monday - Friday<br />9:00AM - 05:00PM</p>
+                    </div>
+                  </div>
                 </div>
+      
+              </div>
+      
+              <div className="col-xl-5">
+                <div className="card p-4">
+                  <form action="forms/contact.php" method="post" className="php-email-form">
+                    <div className="row gy-4">
+      
+                      <div className="col-md-12">
+                        <input type="text" name="name" className="form-control" placeholder="Your Name" required />
+                      </div>
+      
+                      <div className="col-md-12 ">
+                        <input type="email" className="form-control" name="email" placeholder="Your Email" required />
+                      </div>
+      
+                      <div className="col-md-12">
+                        <input type="text" className="form-control" name="subject" placeholder="Subject" required />
+                      </div>
+      
+                      <div className="col-md-12">
+                        <textarea className="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                      </div>
+      
+                      <div className="col-md-12 text-center">
+                        <div className="loading">Loading</div>
+                        <div className="error-message"></div>
+                        <div className="sent-message">Your message has been sent. Thank you!</div>
+      
+                        <button type="submit">Send Message</button>
+                      </div>
+      
+                    </div>
+                  </form>
                 </div>
+      
+              </div>
+      
             </div>
-
-            </section>
+      
+          </section>
         </main>
 
       
@@ -416,4 +481,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default Contact;
