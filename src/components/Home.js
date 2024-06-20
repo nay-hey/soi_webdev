@@ -414,7 +414,6 @@ useEffect(() => {
               </div>
             </div>
           </section>
-          <div id="main">
           <section id="posts" className="posts">
           <div className="news-ticker">
                         <div className="ticker-container">
@@ -611,6 +610,7 @@ useEffect(() => {
                 </div>
               </div>
             </section>
+            
             <section id="recent-posts" className="recent-posts sections-bg">
               <div className="container">
 
@@ -673,7 +673,7 @@ useEffect(() => {
                     </article>
                   </div>
 
-                  <div className="col-xl-4 col-md-6">
+                  <div className="col-xl-3 col-md-6">
                     <article>
 
                       <div className="post-img">
@@ -703,7 +703,7 @@ useEffect(() => {
 
               </div>
             </section>
-            </div>
+            
             <section id="team" className="team">
               <div className="container">
                 <div className="section-header">
@@ -776,7 +776,7 @@ useEffect(() => {
 
           <div className="container">
             <div className="row gy-4">
-              <div className="col-lg-4 col-md-12 footer-info">
+              <div className="col-lg-3 col-md-12 footer-info">
               <div className="logos">
                 <img src="static/logo.svg.png" alt="Logo" className="logo" />
                 </div>
@@ -787,7 +787,7 @@ useEffect(() => {
                 <p>Email: <a href="mailto:pro@iitdh.ac.in">pro@iitdh.ac.in</a></p>
               </div>
 
-              <div className="col-lg-2 col-6 footer-links">
+              <div className="col-lg-2 col-5 footer-links">
                 <h4>Academics</h4>
                   <ul>
                       <li><a href="#">Admissions</a></li>
@@ -797,7 +797,7 @@ useEffect(() => {
                   </ul>
               </div>
 
-              <div className="col-lg-2 col-6 footer-links">
+              <div className="col-lg-2 col-5 footer-links">
                 <h4>Research</h4>
                   <ul>
                       <li><a href="#">Consultancy Projects</a></li>
@@ -808,7 +808,7 @@ useEffect(() => {
                   </ul>
               </div>
 
-              <div className="col-lg-2 col-6 footer-links">
+              <div className="col-lg-2 col-5 footer-links">
                 <h4>People</h4>
                   <ul>
                       <li><a href="#">Administration</a></li>
@@ -818,7 +818,7 @@ useEffect(() => {
                   </ul>
               </div>
 
-              <div className="col-lg-2 col-6 footer-links">
+              <div className="col-lg-2 col-5 footer-links">
               <h4>Quick Access</h4>
                     <ul>
                     <li><a href="#">About Dharwad</a></li>
