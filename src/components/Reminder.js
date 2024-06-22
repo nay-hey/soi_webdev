@@ -2,11 +2,10 @@ import React, { useEffect, useRef, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
+import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import axios from 'axios';
 import './AdminPage.css';
-import 'simple-datatables/dist/style.css';
 import { Tooltip } from 'bootstrap';
-import { DataTable } from 'simple-datatables'; // Import DataTable from simple-datatables
 import { Link } from 'react-router-dom';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
@@ -14,7 +13,7 @@ import 'quill/dist/quill.snow.css';
 const Reminder = () => {
      const editorRef = useRef(null); // Create a ref for the Quill editor element
     const isEditorInitialized = useRef(false); // Flag to track if the editor has been initialized
-  
+    const [message, setMailmsg] = useState('');
     useEffect(() => {
       // Check if the Quill editor element exists and if it hasn't been initialized yet
       if (editorRef.current && !isEditorInitialized.current) {
@@ -30,13 +29,16 @@ const Reminder = () => {
             <p>Please ensure that you return the books on time to avoid any overdue fines.</p>
             <p>Thank you.</p>
           `;
+          quill.on('text-change', () => {
+            setMailmsg(quill.root.innerHTML); // Update message state with the HTML content
+          });
+    
         // Set the flag to true to indicate that the editor has been initialized
         isEditorInitialized.current = true;
           }
         }, []);
-      
         const [selectedDate, setSelectedDate] = useState('');
-        const [message, setMessage] = useState('');
+        const [messages, setMessage] = useState('');
         const [selectedEmails, setSelectedEmails] = useState([]);
        
         const handleDateChange = (e) => {
@@ -51,85 +53,60 @@ const Reminder = () => {
           );
         };
       
-        const Reminder = () => {
-          // Add your reminder sending logic here
-          setMessage('Reminders sent successfully!');
+        const sendReminders = async () => {
+          if (selectedEmails.length === 0 || !selectedDate || !message) {
+            alert('Please select at least one email, choose a date, and provide a message.');
+            return;
+          }
+          
+          try {
+            const response = await axios.post('http://localhost:5000/api/send-reminder', {
+              selectedEmails: selectedEmails,
+              selectedDate: selectedDate, // Include selectedDate if needed
+              message: message
+            });
+            setMessage('Reminders sent successfully!');
+            console.log(response.data); // Log the response from the server
+          } catch (error) {
+            console.error('Error sending reminders:', error);
+            alert('Failed to send reminders. Please try again.');
+          }
+        
         };
       
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    username: '',
-    city: '',
-    state: '',
-    zip: '',
-    terms: false
-  });
-  const [formErrors, setFormErrors] = useState({});
-  const [formValid, setFormValid] = useState(false);
+        const [items, setItem] = useState([]);
+        useEffect(() => {
+          fetchItem();
+        }, []);
+        const [searchTerm, setSearchTerm] = useState('');
+        const [currentPage, setCurrentPage] = useState(1);
+        const [entriesPerPage, setEntriesPerPage] = useState(5);
+        const fetchItem = async () => {
+          try {
+            const response = await axios.get('http://localhost:5000/api/issues');
+            setItem(response.data);
+          } catch (error) {
+            console.error('Error fetching item:', error);
+          }
+        };
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const errors = validateForm(formData);
-    setFormErrors(errors);
-
-    const isValid = Object.keys(errors).length === 0;
-    setFormValid(isValid);
-
-    if (isValid) {
-      // handle form submission
-      console.log('Form is valid and ready for submission:', formData);
-    }
-  };
-
-  const validateForm = (data) => {
-    const errors = {};
-
-    if (!data.firstName) errors.firstName = 'First name is required';
-    if (!data.lastName) errors.lastName = 'Last name is required';
-    if (!data.username) errors.username = 'Username is required';
-    if (!data.city) errors.city = 'City is required';
-    if (!data.state) errors.state = 'State is required';
-    if (!data.zip) errors.zip = 'Zip code is required';
-    if (!data.terms) errors.terms = 'You must agree to terms and conditions';
-
-    return errors;
-  };
-
-    useEffect(() => {    
-        // Initialize Datatables
-        const datatables = document.querySelectorAll('.datatable');
-        datatables.forEach(datatable => {
-          new DataTable(datatable, {
-            perPageSelect: [5, 10, 15, ["All", -1]],
-            columns: [
-              {
-                select: 2,
-                sortSequence: ["desc", "asc"]
-              },
-              {
-                select: 3,
-                sortSequence: ["desc"]
-              },
-              {
-                select: 4,
-                cellClass: "green",
-                headerClass: "red"
-              }
-            ]
+       const filteredBooks = items.filter(item => {
+            return Object.values(item).some(value =>
+              String(value).toLowerCase().includes(searchTerm.toLowerCase())
+            );
           });
-        });
-      }, []);
-    
+          const indexOfLastEntry = currentPage * entriesPerPage;
+          const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+          const currentEntries = filteredBooks.slice(indexOfFirstEntry, indexOfLastEntry);
+        
+          // Change page
+          const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+        const handleSearchChange = e => {
+          setSearchTerm(e.target.value);
+        };
+
+   
     useEffect(() => {
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -181,7 +158,7 @@ const Reminder = () => {
 
   return (
     <div>
-        
+            <section id="admin">
       <header id="header" className="header fixed-top d-flex align-items-center">
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
@@ -190,197 +167,186 @@ const Reminder = () => {
             </div>
 
         </div>
-        
-
         <nav className="header-nav ms-auto">
-        <ul className="d-flex align-items-center">
-
-            <li className="nav-item dropdown">
-
-            <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+      <ul className="d-flex align-items-center list-unstyled m-0">
+        <li className="nav-item dropdown me-3">
+          <DropdownButton
+            menuAlign="right"
+            title={
+              <span className="nav-link nav-icon">
                 <i className="bi bi-bell"></i>
-                <span className="badge bg-primary badge-number">4</span>
-            </a>
+                <Badge bg="primary" className="badge-number">
+                  4
+                </Badge>
+              </span>
+            }
+            id="dropdown-notifications"
+          >
+            <Dropdown.Header>You have 4 new notifications</Dropdown.Header>
+            <Dropdown.Divider />
+            <Dropdown.Item className="notification-item">
+              <i className="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="notification-item">
+              <i className="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="notification-item">
+              <i className="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="notification-item">
+              <i className="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="dropdown-footer">
+              <Link to="#">Show all notifications</Link>
+            </Dropdown.Item>
+          </DropdownButton>
+        </li>
 
-            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                <li className="dropdown-header">
-                You have 4 new notifications
-                <a href="#"><span className="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                </li>
-                <li>
-                <hr className="dropdown-divider" />
-                </li>
-
-                <li className="notification-item">
-                <i className="bi bi-exclamation-circle text-warning"></i>
-                <div>
-                    <h4>Lorem Ipsum</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>30 min. ago</p>
-                </div>
-                </li>
-
-                <li>
-                <hr className="dropdown-divider" />
-                </li>
-
-                <li className="notification-item">
-                <i className="bi bi-x-circle text-danger"></i>
-                <div>
-                    <h4>Atque rerum nesciunt</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>1 hr. ago</p>
-                </div>
-                </li>
-
-                <li>
-                <hr className="dropdown-divider" />
-                </li>
-
-                <li className="notification-item">
-                <i className="bi bi-check-circle text-success"></i>
-                <div>
-                    <h4>Sit rerum fuga</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>2 hrs. ago</p>
-                </div>
-                </li>
-
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li className="notification-item">
-                <i className="bi bi-info-circle text-primary"></i>
-                <div>
-                    <h4>Dicta reprehenderit</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>4 hrs. ago</p>
-                </div>
-                </li>
-
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-                <li className="dropdown-footer">
-                <a href="#">Show all notifications</a>
-                </li>
-
-            </ul>
-            </li>
-            <li className="nav-item dropdown">
-
-            <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+        <li className="nav-item dropdown me-3">
+          <DropdownButton
+            menuAlign="right"
+            title={
+              <span className="nav-link nav-icon">
                 <i className="bi bi-chat-left-text"></i>
-                <span className="badge bg-success badge-number">3</span>
-            </a>
+                <Badge bg="success" className="badge-number">
+                  3
+                </Badge>
+              </span>
+            }
+            id="dropdown-messages"
+          >
+            <Dropdown.Header>You have 3 new messages</Dropdown.Header>
+            <Dropdown.Divider />
+            <Dropdown.Item className="message-item">
+              <Link to="#">
+                <Image
+                  src="assets/img/messages-1.jpg"
+                  alt=""
+                  className="rounded-circle me-3"
+                />
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>
+                    Velit asperiores et ducimus soluta repudiandae labore
+                    officia est ut...
+                  </p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="message-item">
+              <Link to="#">
+                <Image
+                  src="assets/img/messages-2.jpg"
+                  alt=""
+                  className="rounded-circle me-3"
+                />
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>
+                    Velit asperiores et ducimus soluta repudiandae labore
+                    officia est ut...
+                  </p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="message-item">
+              <Link to="#">
+                <Image
+                  src="assets/img/messages-3.jpg"
+                  alt=""
+                  className="rounded-circle me-3"
+                />
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>
+                    Velit asperiores et ducimus soluta repudiandae labore
+                    officia est ut...
+                  </p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="dropdown-footer">
+              <Link to="#">Show all messages</Link>
+            </Dropdown.Item>
+          </DropdownButton>
+        </li>
 
-            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                <li className="dropdown-header">
-                You have 3 new messages
-                <a href="#"><span className="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li className="message-item">
-                <a href="#">
-                    <img src="assets/img/messages-1.jpg" alt="" className="rounded-circle" />
-                    <div>
-                    <h4>Maria Hudson</h4>
-                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                    <p>4 hrs. ago</p>
-                    </div>
-                </a>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li className="message-item">
-                <a href="#">
-                    <img src="assets/img/messages-2.jpg" alt="" className="rounded-circle" />
-                    <div>
-                    <h4>Anna Nelson</h4>
-                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                    <p>6 hrs. ago</p>
-                    </div>
-                </a>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li className="message-item">
-                <a href="#">
-                    <img src="assets/img/messages-3.jpg" alt="" className="rounded-circle" />
-                    <div>
-                    <h4>David Muldon</h4>
-                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                    <p>8 hrs. ago</p>
-                    </div>
-                </a>
-                </li>
-                <li>
-                <hr className="dropdown-divider" />
-                </li>
-
-                <li className="dropdown-footer">
-                <a href="#">Show all messages</a>
-                </li>
-
-            </ul>
-
-            </li>
-
-            <li className="nav-item dropdown pe-3">
-
-            <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                <img src="static/adminpage/profile.png" alt="Profile" className="rounded-circle" />
-                <span className="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-            </a>
-
-            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                <li className="dropdown-header">
-                <h6>Kevin Anderson</h6>
-                <span>Admin</span>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li>
-                <Link className="dropdown-item d-flex align-items-center" to="/profile">
-                    <i className="bi bi-person"></i>
-                    <span>My Profile</span>
-                </Link>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li>
-                <Link className="dropdown-item d-flex align-items-center" to="/profile">
-                    <i className="bi bi-gear"></i>
-                    <span>Account Settings</span>
-                </Link>
-                </li>
-                <li>
-                <hr className="dropdown-divider"/>
-                </li>
-
-                <li>
-                <a className="dropdown-item d-flex align-items-center" href="#">
-                    <i className="bi bi-box-arrow-right"></i>
-                    <span>Sign Out</span>
-                </a>
-                </li>
-
-            </ul>
-            </li>
-        </ul>
-        </nav>
+        <li className="nav-item dropdown">
+          <DropdownButton
+            menuAlign="right"
+            title={
+              <span className="nav-link nav-profile d-flex align-items-center pe-0">
+                <Image
+                  src="static/adminpage/profile.png"
+                  alt="Profile"
+                  className="rounded-circle me-2"
+                />
+                <span className="d-none d-md-block">
+                  K. Anderson
+                </span>
+              </span>
+            }
+            id="dropdown-profile"
+          >
+            <Dropdown.Header>
+              <h6>Kevin Anderson</h6>
+              <span>Admin</span>
+            </Dropdown.Header>
+            <Dropdown.Divider />
+            <Dropdown.Item>
+              <Link className="dropdown-item d-flex align-items-center" to="/profile">
+                <i className="bi bi-person"></i>
+                <span>My Profile</span>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item>
+              <Link className="dropdown-item d-flex align-items-center" to="/profile">
+                <i className="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item>
+              <Link className="dropdown-item d-flex align-items-center" to="#">
+                <i className="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </Link>
+            </Dropdown.Item>
+          </DropdownButton>
+        </li>
+      </ul>
+    </nav>
            <i className="bi bi-list toggle-sidebar-btn"></i>
         </header>
         <aside id="sidebar" className="sidebar">
@@ -388,7 +354,7 @@ const Reminder = () => {
             <ul className="sidebar-nav" id="sidebar-nav">
 
             <li className="nav-item">
-                <Link className="nav-link " to="/">
+                <Link className="nav-link collapsed" to="/AdminPage">
                 <i className="bi bi-grid"></i>
                 <span>Home</span>
                 </Link>
@@ -409,7 +375,7 @@ const Reminder = () => {
                 </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link collapsed" to="/reminder">
+              <Link className="nav-link " to="/reminder">
               <i className="bi bi-alarm-fill"></i><span>Reminder</span>
               </Link>
           </li>
@@ -419,6 +385,12 @@ const Reminder = () => {
             <span>Profile Edit</span>
             </Link>
         </li>
+        <li className="nav-item">
+                <Link className="nav-link collapsed" to="/contact">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+                </Link>
+            </li>
             </ul>
 
             </aside>
@@ -429,7 +401,7 @@ const Reminder = () => {
             <h1>General Tables</h1>
             <nav>
                 <ol className="breadcrumb">
-                <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/">Home</Link></li>
+                <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/AdminPage">Home</Link></li>
                 <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Reminders</li>
                 </ol>
             </nav>
@@ -437,7 +409,7 @@ const Reminder = () => {
 
             <section className="section">
             <div className="row">
-                <div className="col-lg-6">
+                <div className="col-lg-4">
                 <div className="card">
                 <div className="card-body">
                 <h5 className="card-title">Send Email Reminders</h5>
@@ -456,8 +428,15 @@ const Reminder = () => {
                     </div>
                     <div className="quill-editor-default"  ref={editorRef}>
                 </div>
-                  <button className="btn btn-primary mt-3" onClick={Reminder}>Send Reminders</button>
-                    {message && <p className="mt-3">{message}</p>}
+                {selectedEmails.length === 0 || !selectedDate || !message.trim() ? (
+                  <p>Please select at least one email, choose a date, and provide a message</p>
+                ) : (
+                  <button className="btn btn-primary mt-3" onClick={sendReminders}>
+                    Send Reminders
+                  </button>
+                )}
+
+                    {messages && <p className="mt-3">{messages}</p>}
                     {selectedEmails.length > 0 && (
                       <div className="mt-3">
                         <h6>Selected Email IDs:</h6>
@@ -473,48 +452,71 @@ const Reminder = () => {
                 
                 </div>
 
-                <div className="col-lg-6">
+                <div className="col-lg-8">
 
                 <div className="card">
                     <div className="card-body">
                     <h5 className="card-title">Books Issued by members</h5>
-                    <table className="table table-striped datatable">
-                  <thead>
+                    <div className="search-container">
+                  <input
+                    type="text"
+                    placeholder="Search by title ..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                  />
+                  <select
+                    className="form-control"
+                    value={entriesPerPage}
+                    onChange={(e) => setEntriesPerPage(parseInt(e.target.value))}
+                  >
+                    <option value="5">5 entries per page</option>
+                    <option value="10">10 entries per page</option>
+                    <option value={filteredBooks.length}>All entries</option>
+                  </select>
+                </div>
+                    <table className="table table-bordered table-hover">
+                  <thead className="thead-dark">
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Select</th>
                       <th scope="col">Name</th>
+                      <th scope="col">Email Id</th>
                       <th scope="col">Book Title</th>
                       <th scope="col">Issued Date</th>
                       <th scope="col">Due Date</th>
-                      <th scope="col">Email Id</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {[
-                      { id: 2, name: 'Brandon Jacob', bookTitle: 'Introduction to Algorithms', issuedDate: '2016-05-25', dueDate: '2016-05-29', emailId: '220010034' },
-                      { id: 3, name: 'Neha Gaonkar', bookTitle: 'Introduction to Algorithms', issuedDate: '2016-05-25', dueDate: '2016-05-29', emailId: '220010016' },
-                      { id: 4, name: 'Aditi Soukar', bookTitle: 'Introduction to Algorithms', issuedDate: '2016-05-25', dueDate: '2016-05-29', emailId: '220010003' },
-                      { id: 5, name: 'Prakriti Tripathi', bookTitle: 'Introduction to Algorithms', issuedDate: '2016-05-25', dueDate: '2016-05-29', emailId: '220010067' },
-                      { id: 6, name: 'Tanvi Nayak', bookTitle: 'Introduction to Algorithms', issuedDate: '2016-05-25', dueDate: '2016-05-29', emailId: '220010024' },
-                    ].map(item => (
-                      <tr key={item.id}>
-                        <th scope="row">{item.id}</th>
+                    {currentEntries.map((item, index) => (
+                      <tr key={item.index}>
+                        
+                        <td>{index + 1}</td>
                         <td>
                           <input
                             type="checkbox"
-                            onChange={() => handleCheckboxChange(item.emailId)}
+                            onChange={() => handleCheckboxChange(item.email)}
                           />
                         </td>
-                        <td>{item.name}</td>
-                        <td>{item.bookTitle}</td>
-                        <td>{item.issuedDate}</td>
-                        <td>{item.dueDate}</td>
-                        <td>{item.emailId}</td>
+                        <td>{item.fname} {item.lname}</td>
+                        <td>{item.email}</td>
+                        <td>{item.bookId}</td>
+                        <td>{item.issueDate}</td>
+                        <td>{item.returnDate}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
+                <div>
+                  <nav aria-label="Page navigation example">
+                    <ul className="pagination">
+                      {Array.from({ length: Math.ceil(filteredBooks.length / entriesPerPage) }, (_, index) => (
+                        <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                          <button className="page-link" onClick={() => paginate(index + 1)}>{index + 1}</button>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                </div>
                </div>
                 </div>
 
@@ -624,7 +626,7 @@ const Reminder = () => {
             </div>
             </div>
             </footer>
-
+            </section>
     </div>
   );
 };
