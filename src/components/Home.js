@@ -673,7 +673,7 @@ useEffect(() => {
                     </article>
                   </div>
 
-                  <div className="col-xl-3 col-md-6">
+                  <div className="col-xl-4 col-md-6">
                     <article>
 
                       <div className="post-img">
@@ -776,7 +776,7 @@ useEffect(() => {
 
           <div className="container">
             <div className="row gy-4">
-              <div className="col-lg-3 col-md-12 footer-info">
+              <div className="col-lg-4 col-md-12 footer-info">
               <div className="logos">
                 <img src="static/logo.svg.png" alt="Logo" className="logo" />
                 </div>
