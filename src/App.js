@@ -2,12 +2,10 @@ import React, { useEffect } from 'react';
 import Home from './components/Home';
 import PureCounter from "@srexi/purecounterjs";
 import Login from './components/Login';
-
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AboutUs from './components/AboutUs';
 import TeamPage from './components/TeamPage';
 import VisionPage from './components/VisionPage';
-import './styles/App.css';
 import AdminPage from './components/AdminPage';
 import Profile from './components/Profile';
 import StudentProfile from './components/StudentProfile';
