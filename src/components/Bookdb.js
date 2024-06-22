@@ -64,9 +64,12 @@ const Bookdb = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   // Filter books based on search term
-  const filteredBooks = books.filter(book =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredBooks = books.filter(book => {
+  return Object.values(book).some(value =>
+    String(value).toLowerCase().includes(searchTerm.toLowerCase())
   );
+});
+
 
   // Function to handle search term change
   const handleSearchChange = e => {
@@ -542,7 +545,7 @@ const Bookdb = () => {
                 <h6>Books Data</h6>
                 <input
                   type="text"
-                  placeholder="Search by ..."
+                  placeholder="Search by title ..."
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />

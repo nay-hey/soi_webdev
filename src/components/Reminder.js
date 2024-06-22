@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
-
+import axios from 'axios';
 import './AdminPage.css';
 import 'simple-datatables/dist/style.css';
 import { Tooltip } from 'bootstrap';
@@ -57,54 +57,31 @@ const Reminder = () => {
           setMessage('Reminders sent successfully!');
         };
       
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    username: '',
-    city: '',
-    state: '',
-    zip: '',
-    terms: false
-  });
-  const [formErrors, setFormErrors] = useState({});
-  const [formValid, setFormValid] = useState(false);
+        const [items, setItem] = useState([]);
+        useEffect(() => {
+          fetchItem();
+        }, []);
+        const [searchTerm, setSearchTerm] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value
-    });
-  };
+        const fetchItem = async () => {
+          try {
+            const response = await axios.get('http://localhost:5000/api/issues');
+            setItem(response.data);
+          } catch (error) {
+            console.error('Error fetching item:', error);
+          }
+        };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+       const filteredBooks = items.filter(item => {
+            return Object.values(item).some(value =>
+              String(value).toLowerCase().includes(searchTerm.toLowerCase())
+            );
+          });
 
-    const errors = validateForm(formData);
-    setFormErrors(errors);
 
-    const isValid = Object.keys(errors).length === 0;
-    setFormValid(isValid);
-
-    if (isValid) {
-      // handle form submission
-      console.log('Form is valid and ready for submission:', formData);
-    }
-  };
-
-  const validateForm = (data) => {
-    const errors = {};
-
-    if (!data.firstName) errors.firstName = 'First name is required';
-    if (!data.lastName) errors.lastName = 'Last name is required';
-    if (!data.username) errors.username = 'Username is required';
-    if (!data.city) errors.city = 'City is required';
-    if (!data.state) errors.state = 'State is required';
-    if (!data.zip) errors.zip = 'Zip code is required';
-    if (!data.terms) errors.terms = 'You must agree to terms and conditions';
-
-    return errors;
-  };
+        const handleSearchChange = e => {
+          setSearchTerm(e.target.value);
+        };
 
     useEffect(() => {    
         // Initialize Datatables
@@ -433,7 +410,7 @@ const Reminder = () => {
 
             <section className="section">
             <div className="row">
-                <div className="col-lg-6">
+                <div className="col-lg-4">
                 <div className="card">
                 <div className="card-body">
                 <h5 className="card-title">Send Email Reminders</h5>
@@ -469,44 +446,45 @@ const Reminder = () => {
                 
                 </div>
 
-                <div className="col-lg-6">
+                <div className="col-lg-8">
 
                 <div className="card">
                     <div className="card-body">
                     <h5 className="card-title">Books Issued by members</h5>
-                    <table className="table table-striped datatable">
-                  <thead>
+                    <input
+                  type="text"
+                  placeholder="Search by ..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+                    <table className="table table-bordered table-hover">
+                  <thead className="thead-dark">
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Select</th>
                       <th scope="col">Name</th>
+                      <th scope="col">Email Id</th>
                       <th scope="col">Book Title</th>
                       <th scope="col">Issued Date</th>
                       <th scope="col">Due Date</th>
-                      <th scope="col">Email Id</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {[
-                      { id: 2, name: 'Brandon Jacob', bookTitle: 'Introduction to Algorithms', issuedDate: '2016-05-25', dueDate: '2016-05-29', emailId: '220010034' },
-                      { id: 3, name: 'Neha Gaonkar', bookTitle: 'Introduction to Algorithms', issuedDate: '2016-05-25', dueDate: '2016-05-29', emailId: '220010016' },
-                      { id: 4, name: 'Aditi Soukar', bookTitle: 'Introduction to Algorithms', issuedDate: '2016-05-25', dueDate: '2016-05-29', emailId: '220010003' },
-                      { id: 5, name: 'Prakriti Tripathi', bookTitle: 'Introduction to Algorithms', issuedDate: '2016-05-25', dueDate: '2016-05-29', emailId: '220010067' },
-                      { id: 6, name: 'Tanvi Nayak', bookTitle: 'Introduction to Algorithms', issuedDate: '2016-05-25', dueDate: '2016-05-29', emailId: '220010024' },
-                    ].map(item => (
-                      <tr key={item.id}>
-                        <th scope="row">{item.id}</th>
+                    {filteredBooks.map((item, index) => (
+                      <tr key={item.index}>
+                        
+                        <td>{index + 1}</td>
                         <td>
                           <input
                             type="checkbox"
-                            onChange={() => handleCheckboxChange(item.emailId)}
+                            onChange={() => handleCheckboxChange(item.email)}
                           />
                         </td>
-                        <td>{item.name}</td>
-                        <td>{item.bookTitle}</td>
-                        <td>{item.issuedDate}</td>
-                        <td>{item.dueDate}</td>
-                        <td>{item.emailId}</td>
+                        <td>{item.fname} {item.lname}</td>
+                        <td>{item.email}</td>
+                        <td>{item.bookId}</td>
+                        <td>{item.issueDate}</td>
+                        <td>{item.returnDate}</td>
                       </tr>
                     ))}
                   </tbody>

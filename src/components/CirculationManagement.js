@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import axios from 'axios';
 
 import './AdminPage.css';
 import 'simple-datatables/dist/style.css';
@@ -13,75 +14,209 @@ import booksData from './books.json';
 
 const CirculationManagement = () => {
   const [issueFormData, setIssueFormData] = useState({
-    firstName: '',
-    lastName: '',
+    fname: '',
+    lname: '',
     email: '',
-    rollno: '',
-    bookTitle: '',
+    rollno: 0,
+    bookId: '',
     issueDate: '',
     returnDate: '',
-    terms: false,
   });
 
   const [returnFormData, setReturnFormData] = useState({
-    firstName: '',
-    lastName: '',
+    fname: '',
+    lname: '',
     email: '',
-    rollno: '',
-    bookTitle: '',
+    rollno: 0,
+    bookId: '',
     returnDate: '',
-    terms: false,
   });
 
   const [formErrors, setFormErrors] = useState({});
   const [bookDetails, setBookDetails] = useState(null);
 
-  const handleChange = (e, formType) => {
+
+  const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const formData = formType === 'issue' ? issueFormData : returnFormData;
-    const updatedFormData = {
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value,
-    };
+    setIssueFormData({...issueFormData, [name]: type === 'checkbox' ? checked : value,});
 
-    formType === 'issue' ? setIssueFormData(updatedFormData) : setReturnFormData(updatedFormData);
-    const errors = validateForm(updatedFormData);
-    setFormErrors(errors);
-    if (formType === 'issue' && name === 'issueDate') {
-      const returnDate = new Date(value);
-      returnDate.setDate(returnDate.getDate() + 7);
-      updatedFormData.returnDate = returnDate.toISOString().split('T')[0];
-      setIssueFormData(updatedFormData);
+    if (name === 'bookId') {
+      const formDataCopy = { ...issueFormData, [name]: value };
+      handleBookAction(formDataCopy); 
     }
 
   };
 
-  const handleSubmit = (e, formType) => {
+  const handleChange2 = (e) => {
+    const { name, value, type, checked } = e.target;
+    setReturnFormData({...returnFormData, [name]: type === 'checkbox' ? checked : value,});
+
+    if (name === 'bookId') {
+      const formDataCopy = { ...returnFormData, [name]: value };
+      handleBookAction(formDataCopy); 
+    }
+  };
+
+  const handleBookAction = async (formData) => {
+    try {
+      console.log(formData)
+      const response = await axios.get(`http://localhost:5000/api/books/search?category=title&keyword=${formData.bookId}`);
+      console.log(response.data);
+      setBookDetails(response.data);
+    } catch (error) {
+      console.error('Error searching for book:', error);
+    } finally {
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    fetchBookDetails();
-    // Form submission logic here
-    const formData = formType === 'issue' ? issueFormData : returnFormData;
-    const errors = validateForm(formData);
-
-    if (Object.keys(errors).length === 0) {
-      fetchBookDetails();
-      console.log(formData);
-    } else {
-      setFormErrors(errors);
+  
+    // Validate form fields
+    const errors = validateForm(issueFormData);
+    setFormErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      // If there are errors, do not proceed with further actions
+      console.error('Validation errors:', errors);
+      return; // Exit the function early
     }
-  };
+    try {  
 
-  const fetchBookDetails = () => {
-    const foundBook = booksData.find((book) => book.title.toLowerCase() === issueFormData.bookTitle.toLowerCase());
-    if (foundBook) {
-      setBookDetails(foundBook);
-    } else {
+      // Fetch all issues to count occurrences of the email
+      const allIssuesResponse = await axios.get('http://localhost:5000/api/issues');
+      const allIssues = allIssuesResponse.data;
+
+      // Count the number of times the email has occurred in the issues
+      const emailOccurrences = allIssues.filter(issue => issue.email === issueFormData.email).length;
+
+      if (emailOccurrences >= 3) {
+        throw new Error(`Failed to issue book. This user has already issued ${emailOccurrences} books.`);
+      }
+      
+      // Step 2: Fetch the bookId based on the provided book title or identifier
+      const bookTitle = issueFormData; // Assuming bookTitle is available in issueFormData
+  
+      // Fetch bookId based on the bookTitle from your backend or local storage
+      const bookResponse = await axios.get(`http://localhost:5000/api/books/search?category=title&keyword=${encodeURIComponent(bookTitle.bookId)}`);
+
+      if (!bookResponse.data || bookResponse.data.length === 0) {
+        throw new Error('Book not found');
+      }
+  
+      const bookId = bookResponse.data[0]._id; // Assuming the first book found is the correct one
+      const count_val = bookResponse.data[0].count;
+      // Step 3: Update book count via PUT request using the obtained bookId
+      if (count_val < 2) {
+        throw new Error('Failed to issue book. Only 1 copy available.');
+      }
+      
+      // Step 1: Save issue details to your backend API
+      const response = await axios.post('http://localhost:5000/api/issues', issueFormData);
+      console.log('Saved issue details successfully:', response.data);
+
+      const response2 = await fetch(`http://localhost:5000/api/books/${bookId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ count: count_val-1 }), // Send email and bookId in request body
+      });
+  
+      if (!response2.ok) {
+        throw new Error('Failed to issue book');
+      }
+  
+      console.log('Book issued successfully');
+  
       setBookDetails(null);
+      // Reset form fields after successful issuance
+      setIssueFormData({
+        fname: '',
+        lname: '',
+        email: '',
+        rollno: 0,
+        bookId: '', // Assuming bookTitle is cleared after issuance
+        issueDate: '',
+        returnDate: '',
+      });
+  
+      // Optionally, you can handle additional state updates or success messages here
+    } catch (error) {
+      console.error('Error performing action:', error);
       setFormErrors({
         ...formErrors,
-        bookTitle: 'Book not found',
+        bookTitle: 'Book not found or action failed', // Update specific field error
       });
+      alert(error.message);
+    }
+  };
+  
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    const errors = validateForm(returnFormData);
+    setFormErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      // If there are errors, do not proceed with further actions
+      console.error('Validation errors:', errors);
+      return; // Exit the function early
+    }
+    try {
+      const { email, bookId, returnDate } = returnFormData;
+
+    // Fetch the issue details to get the original return date
+    const issueResponse = await axios.get(`http://localhost:5000/api/issues/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`);
+    if (!issueResponse.data || issueResponse.data.length === 0) {
+      throw new Error('Issue not found');
+    }
+
+    const issue = issueResponse.data; // Assuming the first issue found is the correct one
+    const originalReturnDate = new Date(issue.returnDate);
+    const providedReturnDate = new Date(returnDate);
+
+    if (originalReturnDate < providedReturnDate) {
+      throw new Error('Failed to return book. Fine of Rs. 200 is required for late return.');
+    }
+      const url = `http://localhost:5000/api/issues/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`;
+      await axios.delete(url);
+      console.log('Book deleted');
+     
+      const bookTitle = returnFormData;
+      const bookResponse = await axios.get(`http://localhost:5000/api/books/search?category=title&keyword=${encodeURIComponent(bookTitle.bookId)}`);
+      if (!bookResponse.data || bookResponse.data.length === 0) {
+        throw new Error('Book not found');
+      }
+
+      const bookId2 = bookResponse.data[0]._id; // Assuming the first book found is the correct one
+      const count_val = bookResponse.data[0].count;
+
+      const response2 = await fetch(`http://localhost:5000/api/books/${bookId2}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ count: count_val+1 }), // Send email and bookId in request body
+      });
+  
+      if (!response2.ok) {
+        throw new Error('Failed to issue book');
+      }
+      console.log('Book returned successfully');
+      setReturnFormData({
+        fname: '',
+        lname: '',
+        email: '',
+        rollno: '',
+        bookId: '',
+        returnDate: '',
+      });
+    } catch (error) {
+      console.error('Error deleting book:', error);
+      setFormErrors({
+        ...formErrors,
+        bookId: 'Book not found or action failed', // Update specific field error
+      });
+      alert(error.message);
     }
   };
 
@@ -89,16 +224,16 @@ const CirculationManagement = () => {
     const errors = {};
     const emailPattern = /^[a-zA-Z0-9._%+-]+@iitdh\.ac\.in$/;
 
-    if (!data.firstName) errors.firstName = 'First name is required';
-    if (!data.lastName) errors.lastName = 'Last name is required';
+    if (!data.fname) errors.fname = 'First name is required';
+    if (!data.lname) errors.lname = 'Last name is required';
     if (!data.email || !emailPattern.test(data.email)) errors.email = 'Email must be a valid @iitdh.ac.in address';
+    if (!data.bookId) errors.bookId = 'Book name is required';
     if (!data.rollno) errors.rollno = 'Roll Number is required';
     if (!data.returnDate) errors.returnDate = 'Return Date is required';
-    if (!data.issueDate) errors.issueDate = 'Issue Date is required';
-    if (!data.terms) errors.terms = 'You must agree to terms and conditions';
 
     return errors;
   };
+  
     useEffect(() => {
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -407,38 +542,38 @@ const CirculationManagement = () => {
         <div className="card-body">
           <h5 className="card-title">Book Issue Form</h5>
           <p>Fill out the form below to issue a book.</p>
-          <form className="row g-3" onSubmit={(e) => handleSubmit(e, 'issue')} noValidate>
+          <form className="row g-3" onSubmit={(e) => handleSubmit(e)} noValidate>
             <div className="col-md-4">
-              <label htmlFor="firstName" className="form-label">First Name</label>
+              <label htmlFor="fname" className="form-label">First Name</label>
               <input
                 type="text"
-                className={`form-control ${formErrors.firstName ? 'is-invalid' : ''}`}
-                id="firstName"
-                name="firstName"
-                value={issueFormData.firstName}
-                onChange={(e) => handleChange(e, 'issue')}
+                className={`form-control ${formErrors.fname ? 'is-invalid' : ''}`}
+                id="fname"
+                name="fname"
+                value={issueFormData.fname}
+                onChange={(e) => handleChange(e)}
                 required
               />
-              {formErrors.firstName && (
+              {formErrors.fname && (
                           <div className="alert alert-danger" role="alert">
-                            {formErrors.firstName}
+                            {formErrors.fname}
                           </div>
                         )}
             </div>
             <div className="col-md-4">
-              <label htmlFor="lastName" className="form-label">Last Name</label>
+              <label htmlFor="lname" className="form-label">Last Name</label>
               <input
                 type="text"
-                className={`form-control ${formErrors.lastName ? 'is-invalid' : ''}`}
-                id="lastName"
-                name="lastName"
-                value={issueFormData.lastName}
-                onChange={(e) => handleChange(e, 'issue')}
+                className={`form-control ${formErrors.lname ? 'is-invalid' : ''}`}
+                id="lname"
+                name="lname"
+                value={issueFormData.lname}
+                onChange={(e) => handleChange(e)}
                 required
               />
-              {formErrors.lastName && (
+              {formErrors.lname && (
                           <div className="alert alert-danger" role="alert">
-                            {formErrors.lastName}
+                            {formErrors.lname}
                           </div>
                         )}
             </div>
@@ -450,7 +585,7 @@ const CirculationManagement = () => {
                   className={`form-control ${formErrors.email ? 'is-invalid' : ''}`}
                   name="email"
                   value={issueFormData.email}
-                  onChange={(e) => handleChange(e, 'issue')}
+                  onChange={(e) => handleChange(e)}
                   required
                 />
                 </div>
@@ -468,7 +603,7 @@ const CirculationManagement = () => {
                   className={`form-control ${formErrors.rollno ? 'is-invalid' : ''}`}
                   name="rollno"
                   value={issueFormData.rollno}
-                  onChange={(e) => handleChange(e, 'issue')}
+                  onChange={(e) => handleChange(e)}
                   required
                 />
               </div>
@@ -479,19 +614,19 @@ const CirculationManagement = () => {
                         )}
             </div>
             <div className="col-md-6">
-              <label htmlFor="bookTitle" className="form-label">Book Title</label>
+              <label htmlFor="bookId" className="form-label">Book Title</label>
               <input
                 type="text"
-                className={`form-control ${formErrors.bookTitle ? 'is-invalid' : ''}`}
-                id="bookTitle"
-                name="bookTitle"
-                value={issueFormData.bookTitle}
-                onChange={(e) => handleChange(e, 'issue')}
+                className={`form-control ${formErrors.bookId ? 'is-invalid' : ''}`}
+                id="bookId"
+                name="bookId"
+                value={issueFormData.bookId}
+                onChange={(e) => handleChange(e)}
                 required
               />
-              {formErrors.bookTitle && (
+              {formErrors.bookId && (
                           <div className="alert alert-danger" role="alert">
-                            {formErrors.bookTitle}
+                            {formErrors.bookId}
                           </div>
                         )}
             </div>
@@ -503,7 +638,7 @@ const CirculationManagement = () => {
                 id="issueDate"
                 name="issueDate"
                 value={issueFormData.issueDate}
-                onChange={(e) => handleChange(e, 'issue')}
+                onChange={(e) => handleChange(e)}
                 required
               />
               {formErrors.issueDate && (
@@ -520,9 +655,14 @@ const CirculationManagement = () => {
                 id="returnDate"
                 name="returnDate"
                 value={issueFormData.returnDate}
-                onChange={(e) => handleChange(e, 'issue')}
+                onChange={(e) => handleChange(e)}
                 required
               />
+              {formErrors.returnDate && (
+                          <div className="alert alert-danger" role="alert">
+                            {formErrors.returnDate}
+                          </div>
+                        )}
             </div>
             <div className="col-12">
               <button className="btn btn-primary" type="submit">Issue Book</button>
@@ -537,55 +677,54 @@ const CirculationManagement = () => {
         <div className="card-body">
           <h5 className="card-title">Book Return Form</h5>
           <p>Fill out the form below to return a book.</p>
-          <form className="row g-3" onSubmit={(e) => handleSubmit(e, 'return')} noValidate>
+          <form className="row g-3"  onSubmit={(e) => handleDelete(e)} noValidate>
             <div className="col-md-4">
-              <label htmlFor="firstName" className="form-label">First Name</label>
+              <label htmlFor="fname" className="form-label">First Name</label>
               <input
                 type="text"
-                className={`form-control ${formErrors.firstName ? 'is-invalid' : ''}`}
-                id="firstName"
-                name="firstName"
-                value={returnFormData.firstName}
-                onChange={(e) => handleChange(e, 'return')}
+                className={`form-control ${formErrors.fname ? 'is-invalid' : ''}`}
+                id="fname"
+                name="fname"
+                value={returnFormData.fname}
+                onChange={(e) => handleChange2(e)}
                 required
                 />
-                {formErrors.firstName && (
+                {formErrors.fname && (
                   <div className="alert alert-danger" role="alert">
-                    {formErrors.firstName}
+                    {formErrors.fname}
                   </div>
                 )}
 
             </div>
             <div className="col-md-4">
-              <label htmlFor="lastName2" className="form-label">Last Name</label>
+              <label htmlFor="lname" className="form-label">Last Name</label>
               <input
                 type="text"
-                className={`form-control ${formErrors.lastName ? 'is-invalid' : ''}`}
-                id="lastName"
-                name="lastName"
-                value={returnFormData.lastName}
-                onChange={(e) => handleChange(e, 'return')}
+                className={`form-control ${formErrors.lname ? 'is-invalid' : ''}`}
+                id="lname"
+                name="lname"
+                value={returnFormData.lname}
+                onChange={(e) => handleChange2(e)}
                 required
               />
-               {formErrors.lastName && (
+               {formErrors.lname && (
                           <div className="alert alert-danger" role="alert">
-                            {formErrors.lastName}
+                            {formErrors.lname}
                           </div>
                         )}
             </div>
             <div className="row mb-3">
-              <label htmlFor="inputEmail" className="col-sm-2 col-form-label">Email</label>
+              <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
               <div className="input-group mb-3">
-              <input
+                <input
                   type="text"
                   className={`form-control ${formErrors.email ? 'is-invalid' : ''}`}
                   name="email"
                   value={returnFormData.email}
-                  onChange={(e) => handleChange(e, 'return')}
+                  onChange={(e) => handleChange2(e)}
                   required
                 />
-                <span className="input-group-text" id="basic-addon2">@iitdh.ac.in</span>
-              </div>
+                </div>
               {formErrors.email && (
                           <div className="alert alert-danger" role="alert">
                             {formErrors.email}
@@ -600,7 +739,7 @@ const CirculationManagement = () => {
                   className={`form-control ${formErrors.rollno ? 'is-invalid' : ''}`}
                   name="rollno"
                   value={returnFormData.rollno}
-                  onChange={(e) => handleChange(e, 'return')}
+                  onChange={(e) => handleChange2(e)}
                   required
                 />
               </div>
@@ -611,19 +750,19 @@ const CirculationManagement = () => {
                         )}
             </div>
             <div className="col-md-6">
-              <label htmlFor="bookTitle" className="form-label">Book Title</label>
+              <label htmlFor="bookId" className="form-label">Book Title</label>
               <input
                 type="text"
-                className={`form-control ${formErrors.bookTitle ? 'is-invalid' : ''}`}
-                id="bookTitle"
-                name="bookTitle"
-                value={returnFormData.bookTitle}
-                onChange={(e) => handleChange(e, 'return')}
+                className={`form-control ${formErrors.bookId ? 'is-invalid' : ''}`}
+                id="bookId"
+                name="bookId"
+                value={returnFormData.bookId}
+                onChange={(e) => handleChange2(e)}
                 required
               />
-              {formErrors.bookTitle && (
+              {formErrors.bookId && (
                           <div className="alert alert-danger" role="alert">
-                            {formErrors.bookTitle}
+                            {formErrors.bookId}
                           </div>
                         )}
             </div>
@@ -635,7 +774,7 @@ const CirculationManagement = () => {
                 id="returnDate"
                 name="returnDate"
                 value={returnFormData.returnDate}
-                onChange={(e) => handleChange(e, 'return')}
+                onChange={(e) => handleChange2(e)}
                 required
               />
              {formErrors.returnDate && (
@@ -657,13 +796,13 @@ const CirculationManagement = () => {
         <div className='card' style={{ width: '500px', textAlign: 'center', alignContent: 'center',  marginTop: '20px' }}>{bookDetails && (
         <div className="row">
             <h3>Book Details</h3>
-            <p><img src={bookDetails.imageUrl} style={{ width: '100px', height: '150px' }}></img></p>
-            <p>Title: {bookDetails.title}</p>
-            <p>Description: {bookDetails.description}</p>
-            <p>Author: {bookDetails.author}</p>
-            <p>Genre: {bookDetails.genre}</p>
-            <p>Department: {bookDetails.department}</p>
-            <p>Count: {bookDetails.count}</p>
+            <p><img src={bookDetails[0].imageUrl} style={{ width: '100px', height: '150px' }}></img></p>
+            <p>Title: {bookDetails[0].title}</p>
+            <p>Description: {bookDetails[0].description}</p>
+            <p>Author: {bookDetails[0].author}</p>
+            <p>Genre: {bookDetails[0].genre}</p>
+            <p>Department: {bookDetails[0].department}</p>
+            <p>Count: {bookDetails[0].count}</p>
         </div>
       )}
       </div>
