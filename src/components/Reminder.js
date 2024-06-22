@@ -5,9 +5,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
 import axios from 'axios';
 import './AdminPage.css';
-import 'simple-datatables/dist/style.css';
 import { Tooltip } from 'bootstrap';
-import { DataTable } from 'simple-datatables'; // Import DataTable from simple-datatables
 import { Link } from 'react-router-dom';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
@@ -15,7 +13,7 @@ import 'quill/dist/quill.snow.css';
 const Reminder = () => {
      const editorRef = useRef(null); // Create a ref for the Quill editor element
     const isEditorInitialized = useRef(false); // Flag to track if the editor has been initialized
-  
+    const [message, setMailmsg] = useState('');
     useEffect(() => {
       // Check if the Quill editor element exists and if it hasn't been initialized yet
       if (editorRef.current && !isEditorInitialized.current) {
@@ -31,13 +29,16 @@ const Reminder = () => {
             <p>Please ensure that you return the books on time to avoid any overdue fines.</p>
             <p>Thank you.</p>
           `;
+          quill.on('text-change', () => {
+            setMailmsg(quill.root.innerHTML); // Update message state with the HTML content
+          });
+    
         // Set the flag to true to indicate that the editor has been initialized
         isEditorInitialized.current = true;
           }
         }, []);
-      
         const [selectedDate, setSelectedDate] = useState('');
-        const [message, setMessage] = useState('');
+        const [messages, setMessage] = useState('');
         const [selectedEmails, setSelectedEmails] = useState([]);
        
         const handleDateChange = (e) => {
@@ -52,9 +53,25 @@ const Reminder = () => {
           );
         };
       
-        const Reminder = () => {
-          // Add your reminder sending logic here
-          setMessage('Reminders sent successfully!');
+        const sendReminders = async () => {
+          if (selectedEmails.length === 0 || !selectedDate || !message) {
+            alert('Please select at least one email, choose a date, and provide a message.');
+            return;
+          }
+          
+          try {
+            const response = await axios.post('http://localhost:5000/api/send-reminder', {
+              selectedEmails: selectedEmails,
+              selectedDate: selectedDate, // Include selectedDate if needed
+              message: message
+            });
+            setMessage('Reminders sent successfully!');
+            console.log(response.data); // Log the response from the server
+          } catch (error) {
+            console.error('Error sending reminders:', error);
+            alert('Failed to send reminders. Please try again.');
+          }
+        
         };
       
         const [items, setItem] = useState([]);
@@ -62,7 +79,8 @@ const Reminder = () => {
           fetchItem();
         }, []);
         const [searchTerm, setSearchTerm] = useState('');
-
+        const [currentPage, setCurrentPage] = useState(1);
+        const [entriesPerPage, setEntriesPerPage] = useState(5);
         const fetchItem = async () => {
           try {
             const response = await axios.get('http://localhost:5000/api/issues');
@@ -77,37 +95,18 @@ const Reminder = () => {
               String(value).toLowerCase().includes(searchTerm.toLowerCase())
             );
           });
-
+          const indexOfLastEntry = currentPage * entriesPerPage;
+          const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+          const currentEntries = filteredBooks.slice(indexOfFirstEntry, indexOfLastEntry);
+        
+          // Change page
+          const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
         const handleSearchChange = e => {
           setSearchTerm(e.target.value);
         };
 
-    useEffect(() => {    
-        // Initialize Datatables
-        const datatables = document.querySelectorAll('.datatable');
-        datatables.forEach(datatable => {
-          new DataTable(datatable, {
-            perPageSelect: [5, 10, 15, ["All", -1]],
-            columns: [
-              {
-                select: 2,
-                sortSequence: ["desc", "asc"]
-              },
-              {
-                select: 3,
-                sortSequence: ["desc"]
-              },
-              {
-                select: 4,
-                cellClass: "green",
-                headerClass: "red"
-              }
-            ]
-          });
-        });
-      }, []);
-    
+   
     useEffect(() => {
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -429,8 +428,15 @@ const Reminder = () => {
                     </div>
                     <div className="quill-editor-default"  ref={editorRef}>
                 </div>
-                  <button className="btn btn-primary mt-3" onClick={Reminder}>Send Reminders</button>
-                    {message && <p className="mt-3">{message}</p>}
+                {selectedEmails.length === 0 || !selectedDate || !message.trim() ? (
+                  <p>Please select at least one email, choose a date, and provide a message</p>
+                ) : (
+                  <button className="btn btn-primary mt-3" onClick={sendReminders}>
+                    Send Reminders
+                  </button>
+                )}
+
+                    {messages && <p className="mt-3">{messages}</p>}
                     {selectedEmails.length > 0 && (
                       <div className="mt-3">
                         <h6>Selected Email IDs:</h6>
@@ -451,12 +457,23 @@ const Reminder = () => {
                 <div className="card">
                     <div className="card-body">
                     <h5 className="card-title">Books Issued by members</h5>
-                    <input
-                  type="text"
-                  placeholder="Search by ..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
+                    <div className="search-container">
+                  <input
+                    type="text"
+                    placeholder="Search by title ..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                  />
+                  <select
+                    className="form-control"
+                    value={entriesPerPage}
+                    onChange={(e) => setEntriesPerPage(parseInt(e.target.value))}
+                  >
+                    <option value="5">5 entries per page</option>
+                    <option value="10">10 entries per page</option>
+                    <option value={filteredBooks.length}>All entries</option>
+                  </select>
+                </div>
                     <table className="table table-bordered table-hover">
                   <thead className="thead-dark">
                     <tr>
@@ -470,7 +487,7 @@ const Reminder = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredBooks.map((item, index) => (
+                    {currentEntries.map((item, index) => (
                       <tr key={item.index}>
                         
                         <td>{index + 1}</td>
@@ -489,6 +506,17 @@ const Reminder = () => {
                     ))}
                   </tbody>
                 </table>
+                <div>
+                  <nav aria-label="Page navigation example">
+                    <ul className="pagination">
+                      {Array.from({ length: Math.ceil(filteredBooks.length / entriesPerPage) }, (_, index) => (
+                        <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                          <button className="page-link" onClick={() => paginate(index + 1)}>{index + 1}</button>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                </div>
                </div>
                 </div>
 

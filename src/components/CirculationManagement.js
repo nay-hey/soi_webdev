@@ -6,9 +6,7 @@ import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
 import axios from 'axios';
 
 import './AdminPage.css';
-import 'simple-datatables/dist/style.css';
 import { Tooltip } from 'bootstrap';
-import { DataTable } from 'simple-datatables'; // Import DataTable from simple-datatables
 import { Link } from 'react-router-dom';
 import booksData from './books.json';
 
@@ -34,17 +32,38 @@ const CirculationManagement = () => {
 
   const [formErrors, setFormErrors] = useState({});
   const [bookDetails, setBookDetails] = useState(null);
-
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    const returnDate = new Date();
+    returnDate.setDate(returnDate.getDate() + 15);
+    setIssueFormData({
+      ...issueFormData,
+      issueDate: today,
+      returnDate: returnDate.toISOString().split('T')[0],
+    });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setIssueFormData({...issueFormData, [name]: type === 'checkbox' ? checked : value,});
-
-    if (name === 'bookId') {
-      const formDataCopy = { ...issueFormData, [name]: value };
-      handleBookAction(formDataCopy); 
-    }
-
+    setIssueFormData((prevFormData) => {
+      const updatedFormData = {
+        ...prevFormData,
+        [name]: type === 'checkbox' ? checked : value,
+      };
+  
+      if (name === 'issueDate') {
+        const newIssueDate = new Date(value);
+        const newReturnDate = new Date(newIssueDate);
+        newReturnDate.setDate(newReturnDate.getDate() + 15);
+        updatedFormData.returnDate = newReturnDate.toISOString().split('T')[0];
+      }
+  
+      if (name === 'bookId') {
+        handleBookAction(updatedFormData);
+      }
+  
+      return updatedFormData;
+    });
   };
 
   const handleChange2 = (e) => {

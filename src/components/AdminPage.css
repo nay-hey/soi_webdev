@@ -743,6 +743,85 @@
     max-width: 120px;
   }
 
+  .profile-overview {
+    padding: 20px;
+  }
+  
+   h6 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+   .search-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+   .search-container input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 10px; /* Add margin between input and select */
+  }
+  
+   .search-container select {
+    width: 180px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+   th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-size: 14px;
+  }
+  
+  tbody tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .pagination {
+    margin: 0;
+  }
+  
+.pagination .page-item {
+    cursor: pointer;
+  }
+  
+ .pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+  }
+  
+ .pagination .page-link {
+    color: #007bff;
+    border: 1px solid #007bff;
+  }
+  
+.pagination .page-link:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+  }
   
 /*--------------------------------------------------------------
 # Hero Section
