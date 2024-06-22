@@ -6,6 +6,8 @@ import '../styles/TeamPage.css';
 
 const TeamPage = () => {
     return (
+        
+        <section id="aboutuspage">
         <div className="team-page">
             <header className="header">
                 <h1>Our Team</h1>
@@ -72,6 +74,7 @@ const TeamPage = () => {
             </section>
             <Footer />
         </div>
+    </section>
     );
 };
 
