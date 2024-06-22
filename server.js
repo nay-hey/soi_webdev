@@ -20,9 +20,11 @@ connectDB();
 // Routes setup
 const bookRoutes = require('./routes/bookRoutes');
 const issueRoutes = require('./routes/issueRoutes'); // Import issue routes
+const sendReminderRoutes = require('./routes/sendReminderRoutes'); 
 
 app.use('/api/books', bookRoutes);
 app.use('/api/issues', issueRoutes); // Mount issue routes
+app.use('/api', sendReminderRoutes);
 
 // Start server
 app.listen(port, () => {
