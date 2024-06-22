@@ -1,5 +1,5 @@
 /* src/styles/Card.css */
-.card {
+#aboutuspage .card {
     display: grid;
     grid-template-rows: 65% 35%; /* 65% for image, 35% for text */
     background-color: #ffffff;
@@ -13,31 +13,31 @@
     transition: transform 0.2s; /* Smooth transformation */
 }
 
-.card:hover {
+#aboutuspage .card:hover {
     transform: scale(1.05); /* Slightly enlarge card on hover */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
 
-.card-image {
+#aboutuspage .card-image {
     overflow: hidden; /* Hide any overflow */
 }
 
-.card-image img {
+#aboutuspage .card-image img {
     width: 100%; /* Make the image fill its container */
     height: auto; /* Maintain aspect ratio */
     border-radius: 8px 8px 0 0; /* Round only top corners */
 }
 
-.card-text {
+#aboutuspage .card-text {
     padding: 16px;
     text-align: center; /* Center the text */
 }
 
-.card-text p {
+#aboutuspage .card-text p {
     color: #555;
 }
 
-.cards-section {
+#aboutuspage .cards-section {
     display: flex;
     justify-content: space-around; /* Evenly space out the cards */
     gap: 20px;
