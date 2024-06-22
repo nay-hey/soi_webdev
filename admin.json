@@ -1,0 +1,32 @@
+[
+  {
+    "admin name": "michael",
+    "admin id": "adm001",
+    "email": "michael@iitdh.ac.in",
+    "department": "administration"
+  },
+  {
+    "admin name": "sarah",
+    "admin id": "adm002",
+    "email": "sarah@iitdh.ac.in",
+    "department": "finance"
+  },
+  {
+    "admin name": "james",
+    "admin id": "adm003",
+    "email": "james@iitdh.ac.in",
+    "department": "human resources"
+  },
+  {
+    "admin name": "linda",
+    "admin id": "adm004",
+    "email": "linda@iitdh.ac.in",
+    "department": "it"
+  },
+  {
+    "admin name": "robert",
+    "admin id": "adm005",
+    "email": "robert@iitdh.ac.in",
+    "department": "operations"
+  }
+]

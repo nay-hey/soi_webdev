@@ -1,0 +1,23 @@
+/* src/styles/SimpleCard.css */
+#aboutuspage .simple-card {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(100% - 40px);/* Adjust width to fit nicely on the page */
+    max-width: 800px; /* Limit the maximum width */
+    margin: 10px auto;
+    padding: 1px;
+}
+
+#aboutuspage .simple-card-text {
+    text-align: center; /* Center the text */
+}
+
+#aboutuspage .simple-card-text h3 {
+    margin-bottom: 16px;
+}
+
+#aboutuspage .simple-card-text p {
+    color: #555;
+}

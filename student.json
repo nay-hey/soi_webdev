@@ -1,0 +1,62 @@
+[
+  {
+    "student name": "anna",
+    "roll": "220010034",
+    "email": "220010034@iitdh.ac.in",
+    "branch": "cs"
+  },
+  {
+    "student name": "bob",
+    "roll": "220030001",
+    "email": "220030001@iitdh.ac.in",
+    "branch": "me"
+  },
+  {
+    "student name": "charlie",
+    "roll": "220120026",
+    "email": "220120026@iitdh.ac.in",
+    "branch": "mc"
+  },
+  {
+    "student name": "david",
+    "roll": "ep23bt012",
+    "email": "ep23bt012@iitdh.ac.in",
+    "branch": "ep"
+  },
+  {
+    "student name": "eva",
+    "roll": "ce23dp113",
+    "email": "ce23dp113@iitdh.ac.in",
+    "branch": "ce"
+  },
+  {
+    "student name": "fiona",
+    "roll": "ee23mt014",
+    "email": "ee23mt014@iitdh.ac.in",
+    "branch": "ee"
+  },
+  {
+    "student name": "george",
+    "roll": "is22bm015",
+    "email": "is22bm015@iitdh.ac.in",
+    "branch": "is"
+  },
+  {
+    "student name": "hannah",
+    "roll": "250110001",
+    "email": "250110001@iitdh.ac.in",
+    "branch": "cs"
+  },
+  {
+    "student name": "ian",
+    "roll": "160310034",
+    "email": "160310034@iitdh.ac.in",
+    "branch": "me"
+  },
+  {
+    "student name": "julia",
+    "roll": "180030034",
+    "email": "180030034@iitdh.ac.in",
+    "branch": "cs"
+  }
+]

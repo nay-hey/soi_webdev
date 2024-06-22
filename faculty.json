@@ -1,0 +1,32 @@
+[
+  {
+    "faculty name": "dr. smith",
+    "faculty id": "fac001",
+    "email": "smith@iitdh.ac.in",
+    "department": "computer science"
+  },
+  {
+    "faculty name": "dr. johnson",
+    "faculty id": "fac002",
+    "email": "johnson@iitdh.ac.in",
+    "department": "mathematics"
+  },
+  {
+    "faculty name": "dr. brown",
+    "faculty id": "fac003",
+    "email": "brown@iitdh.ac.in",
+    "department": "physics"
+  },
+  {
+    "faculty name": "dr. taylor",
+    "faculty id": "fac004",
+    "email": "taylor@iitdh.ac.in",
+    "department": "chemistry"
+  },
+  {
+    "faculty name": "dr. anderson",
+    "faculty id": "fac005",
+    "email": "anderson@iitdh.ac.in",
+    "department": "biology"
+  }
+]

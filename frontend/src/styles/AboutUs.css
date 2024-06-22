@@ -1,0 +1,100 @@
+/* src/styles/AboutUs.css */
+#aboutuspage * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#aboutuspage .about-us {
+    background-color: #fbf8f6;
+    margin: 0;
+    padding: 0;
+}
+
+#aboutuspage .header {
+    text-align: center;
+    padding: 30px;
+    position: sticky;
+  top: 0;
+  z-index: 999;
+  
+    
+    background-color: rgb(95, 9, 9);
+
+}
+
+#aboutuspage .header h1 {
+    color: white; /* Set the text color to white */
+}
+
+#aboutuspage .intro-section {
+    text-align: center;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+#aboutuspage .vision-section,
+#aboutuspage .conclusion-section {
+    text-align: center;
+    padding: 0;
+    margin-top: 20px;
+}
+
+#aboutuspage .intro-container,
+#aboutuspage .vision-container,
+#aboutuspage .conclusion-container {
+    background-color: #ffffff;
+    border: 1px solid;
+    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    margin: 0 ;
+    display: flex; /* Use flexbox to align items horizontally */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between;
+}
+
+#aboutuspage .intro-image {
+    max-width: 50%; /* Set the maximum width of the image */
+    height: auto;
+    margin-right: 20px; /* Add some space between the image and the text */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#aboutuspage .intro-image2 {
+    max-width: 55%; /* Set the maximum width of the image */
+    height: auto;
+    margin-right: 20px; /* Add some space between the image and the text */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#aboutuspage .intro-text {
+    max-width: 45%; /* Set the maximum width of the text container */
+}
+
+#aboutuspage .intro-text2 {
+    max-width: 45%; /* Set the maximum width of the text container */
+}
+
+#aboutuspage .intro-container h2,
+#aboutuspage .vision-container h2,
+#aboutuspage .conclusion-container h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+#aboutuspage .intro-container p,
+#aboutuspage .vision-container p,
+#aboutuspage .conclusion-container p {
+    color: #555;
+}
+
+#aboutuspage .map-container {
+   
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
