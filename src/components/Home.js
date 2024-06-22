@@ -284,6 +284,7 @@ useEffect(() => {
 
   return (
     <div>
+      <section id="home">
       <header id="header" className="header d-flex align-items-center fixed-top">
           <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
@@ -305,7 +306,6 @@ useEffect(() => {
           </div>
         </header>
         <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
           <section id="hero" className="d-flex align-items-center">
             <div className="container position-relative">
               <div className='hero-title'>
@@ -883,7 +883,7 @@ useEffect(() => {
             {stage === "institute-name" && <h1 className="institute-name">Indian Institute of Technology, Dharwad</h1>}
           </div>
         </div>
-
+        </section>
      </div>
   );
 };
