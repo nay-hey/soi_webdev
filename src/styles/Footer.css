@@ -1,5 +1,5 @@
 /* src/styles/Footer.css 
-.footer {
+#aboutuspage .footer {
     background-color: #180f03;
     color: #fff;
     padding: 30px 0;
@@ -10,7 +10,7 @@
    
 }
 
-.footer-content {
+#aboutuspage .footer-content {
     display: flex;
     justify-content: space-around;
   
@@ -18,27 +18,27 @@
     margin: 0 auto;
     padding: 0 5px;
 }
-.footer-logo {
+#aboutuspage .footer-logo {
     flex: 1;
     display: flex;
     justify-content: start;
 }
 
-.footer-logo img {
+#aboutuspage .footer-logo img {
     max-width: 200px;
     height: auto;
     
 }
 
-.footer-info p {
+#aboutuspage .footer-info p {
     margin: 10px 0;
 }
-.footer-info p {
+#aboutuspage .footer-info p {
     margin: 5px 0;
 }*/
 
 /*f1*/
-.footer {
+#aboutuspage .footer {
     font-size: 14px;
     font-weight: 600;
     background-color: #1A2530;
@@ -46,11 +46,11 @@
     color: #D1DCE1;
   }
   
-  .footer .logos {
+  #aboutuspage .footer .logos {
     padding-left: 30%;
   }
   
-  .footer .footer-info .logo {
+  #aboutuspage .footer .footer-info .logo {
     line-height: 0;
     margin-bottom: 25px;
     width: 190px;
@@ -58,32 +58,32 @@
     margin-left: -50px;
   }
   
-  .footer .footer-info p {
+ #aboutuspage  .footer .footer-info p {
     font-size: 15px;
     font-family: var(--font-primary);
   }
   
   
-  .footer h4 {
+#aboutuspage   .footer h4 {
     font-size: 16px;
     font-weight: bold;
     position: relative;
     padding-bottom: 12px;
   }
   
-  .footer .footer-links {
+ #aboutuspage  .footer .footer-links {
     margin-bottom: 30px;
     text-decoration: none;
   }
   
-  .footer .footer-links ul {
+ #aboutuspage  .footer .footer-links ul {
     text-decoration: none;
     list-style: none;
     padding: 0;
     margin: 0;
   }
   
-  .footer .footer-links ul i {
+#aboutuspage   .footer .footer-links ul i {
     padding-right: 2px;
     color: rgba(149, 165, 166, 0.8); 
     text-decoration: none;
@@ -91,18 +91,18 @@
     line-height: 0;
   }
   
-  .footer .footer-links ul li {
+#aboutuspage   .footer .footer-links ul li {
     padding: 10px 0;
     text-decoration: none;
     display: flex;
     align-items: center;
   }
   
-  .footer .footer-links ul li:first-child {
+ #aboutuspage  .footer .footer-links ul li:first-child {
     padding-top: 0;
   }
   
-  .footer .footer-links ul a {
+ #aboutuspage  .footer .footer-links ul a {
     color: rgba(255, 255, 255, 0.6);
     transition: 0.3s;
     text-decoration: none;
@@ -110,33 +110,33 @@
     line-height: 1;
   }
   
-  .footer .footer-links ul a:hover {
+#aboutuspage   .footer .footer-links ul a:hover {
     color: #fff;
     font-size: 110%;
     text-decoration: none;
   }
   
-  .footer .copyright {
+#aboutuspage   .footer .copyright {
     text-align: center;
   }
   
-  .footer .credits {
+#aboutuspage   .footer .credits {
     padding-top: 6px;
     text-align: center;
     font-size: 13px;
   }
   
-  .footer .copyright strong {
+ #aboutuspage  .footer .copyright strong {
     font-weight: 400;
   }
   
-  .footer .footer-legal {
+ #aboutuspage  .footer .footer-legal {
     background: #0b1116;
     padding: 40px 0;
     margin-bottom: -50px;
   }
   
-  .footer .footer-legal .social-links a {
+ #aboutuspage  .footer .footer-legal .social-links a {
     text-align: center;
     display: flex;
     width: 40px;
@@ -153,13 +153,13 @@
   
   }
   
-  .footer .footer-legal .social-links a:hover {
+#aboutuspage   .footer .footer-legal .social-links a:hover {
     color: rgba(149, 165, 166, 0.5);
     background-color: #0b1116; 
     border: 1px solid rgba(149, 165, 166, 0.5);
   }
   
-  .footer .social-links {
+#aboutuspage   .footer .social-links {
     margin-top: 15px;
     margin-bottom: 10px;
     display: flex;
@@ -167,7 +167,7 @@
     justify-content: center; 
   }
   
-  .footer .social-links i {
+#aboutuspage   .footer .social-links i {
     font-size: 18px;
     margin: 9px; 
   }
