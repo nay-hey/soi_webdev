@@ -23,6 +23,7 @@ const ImageSlider = () => {
     ];
 
     return (
+        <section id="aboutuspage">
         <div className="slider-container">
             <h2>Gallery</h2>
             <Slider {...settings}>
@@ -33,6 +34,7 @@ const ImageSlider = () => {
                 ))}
             </Slider>
         </div>
+    </section>
     );
 };
 
