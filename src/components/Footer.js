@@ -8,6 +8,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const Footer = () => {
     return (
+            <section id="aboutuspage">
         <footer id="footer" className="footer">
 
           <div className="container">
@@ -109,6 +110,7 @@ const Footer = () => {
             </div>
           </div>
           </footer>
+    </section>
     );
 };
 
