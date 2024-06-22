@@ -1,13 +1,10 @@
 // routes/bookRoutes.js
 
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
-const multer = require('multer');
-const path = require('path');
 const { body, validationResult } = require('express-validator');
-const Book = require('../models/book'); // Assuming Book model is defined correctly
-
-
+const Book = require('../models/Book'); // Assuming Book model is defined correctly
 
 // GET all books
 router.get('/', async (req, res) => {
