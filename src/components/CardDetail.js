@@ -15,10 +15,12 @@ const CardDetail = () => {
     const content = cardDetails[cardId] || "Content not found";
 
     return (
+        <section id="aboutuspage">
         <div className="card-detail">
             <h2>More about {cardId}</h2>
             <p>{content}</p>
         </div>
+        </section>
     );
 };
 
