@@ -1,0 +1,46 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.header, .footer {
+  background-color: #0288d1;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #e0f7fa;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #0288d1;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}

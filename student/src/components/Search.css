@@ -1,0 +1,16 @@
+/* Use similar styles for each of these CSS files, modifying as necessary */
+.container {
+    background-color: #e0f7fa;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    color: #0288d1;
+  }
+  
+  p {
+    color: #4fc3f7;
+  }
+  
