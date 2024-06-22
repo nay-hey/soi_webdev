@@ -1,5 +1,5 @@
 /* src/styles/VisionPage.css */
-.vision-page {
+#aboutuspage .vision-page {
     
     color: rgb(18, 1, 1);
     padding: 50px;
@@ -9,22 +9,22 @@
     align-items: center;
 }
 
-.header {
+#aboutuspage .header {
     text-align: center;
     margin-bottom: 30px;
 }
 
-.vision-content {
+#aboutuspage .vision-content {
     max-width: 800px;
     text-align: justify;
     line-height: 1.5;
 }
 
-.back-to-home {
+#aboutuspage .back-to-home {
     margin-top: 50px;
 }
 
-.back-button {
+#aboutuspage .back-button {
     color: white;
     background-color: #007bff;
     padding: 10px 20px;
@@ -32,6 +32,6 @@
     text-decoration: none;
 }
 
-.back-button:hover {
+#aboutuspage .back-button:hover {
     background-color: #0056b3;
 }
