@@ -4,6 +4,8 @@ import '../styles/VisionPage.css';
 
 const VisionPage = () => {
     return (
+        
+        <section id="aboutuspage">
         <div className="vision-page">
             <header className="header">
                 <h1>Our Framework</h1>
@@ -20,6 +22,7 @@ const VisionPage = () => {
                 <Link to="/" className="back-button">Back to Home</Link>
             </div>
         </div>
+        </section>
     );
 };
 
