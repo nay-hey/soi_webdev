@@ -7,6 +7,8 @@ import '../styles/AboutUs.css';
 class AboutUs extends Component {
     render() {
         return (
+            
+        <section id="aboutuspage">
             <div className="about-us">
                 <header className="header">
                     <h1>About Us</h1>
@@ -80,6 +82,8 @@ class AboutUs extends Component {
                 </section>
                 <Footer />
             </div>
+            
+        </section>
         );
     }
 }
