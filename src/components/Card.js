@@ -4,6 +4,7 @@ import '../styles/Card.css';
 
 const Card = ({ title, image, text, link }) => {
     return (
+        <section id="aboutuspage">
         <Link to={link} className="card">
             <div className="card-image">
                 <img src={image} alt={title} />
@@ -12,6 +13,7 @@ const Card = ({ title, image, text, link }) => {
                 <p><strong>{title}</strong> - {text}</p>
             </div>
         </Link>
+        </section>
     );
 };
 
