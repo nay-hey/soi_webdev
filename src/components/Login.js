@@ -24,6 +24,7 @@ const Login = () => {
   };
 
   return (
+      <section id="loginpage">
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-6">
@@ -115,6 +116,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+     </section>
   );
 };
 
