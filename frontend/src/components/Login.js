@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -25,12 +27,26 @@ const Login = () => {
 
   return (
       <section id="loginpage">
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card mt-5">
+    <div className="container-fluid" style={{
+      background: "linear-gradient(rgba(14, 29, 52, 0.8), rgba(14, 29, 52, 0.6)), url('static/lib5.jpeg') center center",
+      backgroundSize: 'cover',
+      minHeight: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <div className='container'>
+      <div className="col-xl-9 col-lg-12 login-container">
+      <div className="row">
+          <div className="col-lg-7 img-box">
+            <img src="static/adminpage/homebar.png" alt="" />
+          </div>
+          <div className="col-lg-5 no-padding">
+          <a href="/"className="text-light d-flex align-items-center justify-content-end" style={{ textDecoration: 'none', position: 'absolute', top: '20px', right: '40px', fontFamily: 'Roboto, sans-serif'}}>
+            <i class="bi bi-box-arrow-in-left">Back to Home</i></a>
+              
             <div className="card-body">
-              <h3 className="card-title text-center">Login</h3>
+            <h1 className="card-title text-center">Login</h1>
               <ul className="nav nav-tabs" id="loginTab" role="tablist">
                 <li className="nav-item">
                   <a
@@ -54,7 +70,7 @@ const Login = () => {
               <div className="tab-content">
                 <div className={`tab-pane ${userType === 'student' ? 'active' : ''}`} role="tabpanel">
                   <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                    <div className="form-group row no-margin">
                       <label htmlFor="studentEmail">Email address</label>
                       <input
                         type="email"
@@ -65,7 +81,7 @@ const Login = () => {
                         required
                       />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group row no-margin">
                       <label htmlFor="studentPassword">Password</label>
                       <input
                         type="password"
@@ -76,14 +92,14 @@ const Login = () => {
                         required
                       />
                     </div>
-                    <button type="submit" className="btn btn-primary btn-block">
+                    <button type="submit" className="btn btn-primary btn-block" style={{ marginTop: '20px' }}>
                       Login as Student
                     </button>
                   </form>
                 </div>
                 <div className={`tab-pane ${userType === 'admin' ? 'active' : ''}`} role="tabpanel">
                   <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                    <div className="form-group row no-margin">
                       <label htmlFor="adminEmail">Email address</label>
                       <input
                         type="email"
@@ -94,7 +110,7 @@ const Login = () => {
                         required
                       />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group row no-margin">
                       <label htmlFor="adminPassword">Password</label>
                       <input
                         type="password"
@@ -105,14 +121,16 @@ const Login = () => {
                         required
                       />
                     </div>
-                    <button onClick={handleLoginClick} type="submit" className="btn btn-primary btn-block">
+                    <button onClick={handleLoginClick} type="submit" className="btn btn-primary btn-block" style={{ marginTop: '20px' }}>
                       Login as Admin
                     </button>
                   </form>
                 </div>
               </div>
+              
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

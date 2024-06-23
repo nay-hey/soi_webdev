@@ -283,6 +283,277 @@
     color: white;
   }
   
+/*--------------------------------------------------------------
+# Desktop Navigation 
+--------------------------------------------------------------*/
+@media (min-width: 1280px) {
+  #admin .navbar {
+    padding: 0;
+  }
+
+  #admin .navbar ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+  }
+
+  #admin .navbar li {
+    position: relative;
+  }
+
+  #admin .navbar a,
+  #admin .navbar a:focus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 10px 30px;
+    font-family: var(--font-default);
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  #admin .navbar a i,
+  #admin  .navbar a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+  }
+
+  #admin .navbar a:hover,
+  #admin .navbar .active,
+  #admin .navbar .active:focus,
+  #admin .navbar li:hover>a {
+    color: var(--color-primary);
+    text-decoration: dashed;
+  }
+
+  #admin .navbar .getstarted,
+  #admin  .navbar .getstarted:focus {
+    padding: 8px 20px;
+    margin-left: 30px;
+    border-radius: 4px;
+    color: white;
+  }
+
+  #admin .navbar .getstarted:hover,
+  #admin .navbar .getstarted:focus:hover {
+    color: white;
+    background: rgba(black, 0.8);
+  }
+
+  #admin .navbar .dropdown ul {
+    display: block;
+    position: absolute;
+    left: 14px;
+    top: calc(100% + 30px);
+    margin: 0;
+    padding: 10px 0;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    background: white;
+    box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+    transition: 0.3s;
+    border-radius: 4px;
+  }
+
+  #admin .login-button {
+    background-color: #0b1116;
+    color: white;
+    border: none;
+    padding: 10px 50px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-left: -120px;
+    transition: background-color 0.3s ease;
+  }
+  
+  #admin .login-button:hover {
+    background-color: #2C3E50;
+  }
+  #admin .navbar .dropdown ul li {
+    min-width: 200px;
+  }
+
+  #admin .navbar .dropdown ul a {
+    padding: 10px 20px;
+    font-size: 15px;
+    text-transform: none;
+    font-weight: 400;
+    color: #2C3E50;
+  }
+
+  #admin .navbar .dropdown ul a i {
+    font-size: 12px;
+  }
+
+  #admin  .navbar .dropdown ul a:hover,
+  #admin .navbar .dropdown ul .active:hover,
+  #admin .navbar .dropdown ul li:hover>a {
+    color: #2C3E50;
+  }
+
+  #admin  .navbar .dropdown:hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+
+  #admin .navbar .dropdown .dropdown ul {
+    top: 0;
+    left: calc(100% - 30px);
+    visibility: hidden;
+  }
+
+  #admin .navbar .dropdown .dropdown:hover>ul {
+    opacity: 1;
+    top: 0;
+    left: 100%;
+    visibility: visible;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1366px) {
+  #admin  .navbar .dropdown .dropdown ul {
+    left: -90%;
+  }
+
+  #admin .navbar .dropdown .dropdown:hover>ul {
+    left: -100%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Mobile Navigation
+--------------------------------------------------------------*/
+@media (max-width: 1279px) {
+  #admin .navbar {
+    padding: 0;
+    z-index: 9997;
+  }
+
+
+  #admin  .navbar ul {
+    display: none;
+    position: absolute;
+    inset: 50px 15px 15px 400px;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
+    background-color: #0b1116;
+    overflow-y: auto;
+    transition: 0.3s;
+    z-index: 9998;
+  }
+
+  #admin .navbar a,
+  #admin .navbar a:focus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-family: var(--font-primary);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  #admin .navbar a i,
+  #admin  .navbar a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+  }
+
+  #admin .navbar a:hover,
+  #admin  .navbar .active,
+  #admin  .navbar .active:focus,
+  #admin  .navbar li:hover>a {
+    color: var(--color-primary);
+  }
+
+  #admin .login-button {
+    background-color: #0b1116;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  #admin .login-button:hover {
+    background-color: #6f6f6f;
+    color: #0b1116;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  #admin .navbar .dropdown ul,
+  #admin .navbar .dropdown .dropdown ul {
+    position: static;
+    display: none;
+    z-index: 99;
+    padding: 10px 0;
+    margin: 10px 20px;
+    background: white;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 0px 0px 30px rgba(black, 0.1);
+  }
+
+  #admin .navbar .dropdown>.dropdown-active,
+  #admin .navbar .dropdown .dropdown>.dropdown-active {
+    display: block;
+  }
+
+  #admin .mobile-nav-toggle {
+    display: inline-block;
+    color: var(--color-secondary);
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 0;
+    transition: 0.5s;
+  }
+
+  #admin .mobile-nav-toggle.bi-x {
+    color: black;
+  }
+
+  #admin .mobile-nav-active {
+    overflow: hidden;
+  }
+
+  #admin .mobile-nav-active .mobile-nav-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 9999;
+    color: white;
+  }
+
+  #admin .mobile-nav-active .navbar {
+    position: fixed;
+    overflow: hidden;
+    inset: 0;
+    background: rgba(black, 0.6);
+    transition: 0.3s;
+  }
+
+  #admin .mobile-nav-active .navbar>ul {
+    display: block;
+  }
+}
   /*--------------------------------------------------------------
   # Header Nav
   --------------------------------------------------------------*/
