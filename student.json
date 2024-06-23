@@ -16,47 +16,5 @@
     "roll": "220120026",
     "email": "220120026@iitdh.ac.in",
     "branch": "Mathematics and Computing"
-  },
-  {
-    "student name": "david",
-    "roll": "ep23bt012",
-    "email": "ep23bt012@iitdh.ac.in",
-    "branch": "Engineering Physics"
-  },
-  {
-    "student name": "eva",
-    "roll": "ce23dp113",
-    "email": "ce23dp113@iitdh.ac.in",
-    "branch": "Civil Engineering"
-  },
-  {
-    "student name": "fiona",
-    "roll": "ee23mt014",
-    "email": "ee23mt014@iitdh.ac.in",
-    "branch": "Electrical Engineering"
-  },
-  {
-    "student name": "george",
-    "roll": "is22bm015",
-    "email": "is22bm015@iitdh.ac.in",
-    "branch": "Chemical Engineering"
-  },
-  {
-    "student name": "hannah",
-    "roll": "250110001",
-    "email": "250110001@iitdh.ac.in",
-    "branch": "Computer Science"
-  },
-  {
-    "student name": "ian",
-    "roll": "160310034",
-    "email": "160310034@iitdh.ac.in",
-    "branch": "Mechanical Engineering"
-  },
-  {
-    "student name": "julia",
-    "roll": "180030034",
-    "email": "180030034@iitdh.ac.in",
-    "branch": "Computer Science"
   }
 ]

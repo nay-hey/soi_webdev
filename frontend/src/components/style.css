@@ -695,7 +695,7 @@
 #home #hero .icon-box::before {
   content: "";
   position: absolute;
-  background: #050f2b;
+  background: #0b1116;
   right: 0;
   left: 0;
   bottom: 0;
@@ -705,7 +705,7 @@
 }
 
 #home #hero .icon-box:hover::before {
-  background: #050f2b;
+  background: #0b1116;
   top: 0;
   border-radius: 0px;
 }
@@ -713,7 +713,7 @@
 
 #home #hero .icon-box:hover {
   transform: scale(1.08);
-  background: #050f2b;
+  background: #0b1116;
 }
 
 #home #hero .icon-box:hover .title a {
@@ -1103,14 +1103,15 @@
   border-radius: 6px;
  }
  #home .react-calendar__tile--now {
-  background: peach;
+  background: #D1DCE1;
   border-radius: 6px;
+  border: solid 1px #0b1116;
   font-weight: bold;
   color: #0b1116;
  }
  #home .react-calendar__tile--now:enabled:hover,
  #home .react-calendar__tile--now:enabled:focus {
-  background: peach;
+  background: #D1DCE1;
   border-radius: 6px;
   font-weight: bold;
   color: #0b1116;

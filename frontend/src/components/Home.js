@@ -10,8 +10,8 @@ import 'swiper/css/autoplay';
 import './style.css';
 import Swiper from 'swiper/bundle';
 import Calendar from 'react-calendar';
+import axios from 'axios';
 import 'react-calendar/dist/Calendar.css';
-import booksData from './books.json';
 const Home = () => {
   const navigate = useNavigate();
   const handleLoginClick = (e) => {
@@ -103,40 +103,45 @@ const Home = () => {
   }, []);
 
   const [activeTab, setActiveTab] = useState('everything');
-  const [books, setBooks] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
   const [searchCategory, setSearchCategory] = useState('title');
-  const [keyword, setKeyword] = useState('');
   const [filters, setFilters] = useState({
     openAccess: false,
     owned: false,
     peerReviewed: false
   });
-  const [results, setResults] = useState([]);
-
-  useEffect(() => {
-    setBooks(booksData); // Set the books data
-  }, []);
+  const [results, setResults] = useState({
+    _id: '',
+    title: '',
+    description: '',
+    author: '',
+    genre: '',
+    department: '',
+    count: 0,
+    vendor: '',
+    vendor_id: 0,
+    publisher: '',
+    publisher_id: 0,
+    imageUrl: ''
+  });
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
-  const handleSearch = () => {
-    let filteredBooks = books.filter(book => {
-      return book[searchCategory]?.toLowerCase().includes(keyword.toLowerCase());
-    });
-
-    if (filters.openAccess) {
-      filteredBooks = filteredBooks.filter(book => book.openAccess);
-    }
-    if (filters.owned) {
-      filteredBooks = filteredBooks.filter(book => book.owned);
-    }
-    if (filters.peerReviewed) {
-      filteredBooks = filteredBooks.filter(book => book.peerReviewed);
+  const handleSearch = async () => {
+    console.log('Book search');
+    try {
+      const response = await axios.get(`http://localhost:5000/api/books/search?category=${searchCategory}&keyword=${searchInput}`);
+      console.log(response.data);
+      
+      setResults(response.data);
+    } catch (error) {
+      console.error('Error searching for book:', error);
+    } finally {
     }
 
-    setResults(filteredBooks);
+    
   };
 
   const handleFilterChange = (filter) => {
@@ -513,8 +518,14 @@ useEffect(() => {
                               <option value="vendor">Vendor</option>
                               <option value="publisher">Publisher</option>
                             </select>
-                            <input type="text" id="keyword-input" placeholder="Enter Keyword..." onChange={(e) => setKeyword(e.target.value)} />
-                            <button id="search-button" onClick={handleSearch}>Search</button>
+                              <input
+                                type="text"
+                                id="keyword-input"
+                                placeholder="Enter Keyword..."
+                                value={searchInput}
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                />
+                              <button id="search-button" onClick={handleSearch}>Search</button>
                           </div>
                         </div>
                       ))}
@@ -524,6 +535,7 @@ useEffect(() => {
                         <label><input type="checkbox" id="owned-resources" checked={filters.owned} onChange={() => handleFilterChange('owned')} /> Owned Resources</label>
                         <label><input type="checkbox" id="scholarly-peer-reviewed" checked={filters.peerReviewed} onChange={() => handleFilterChange('peerReviewed')} /> Scholarly & Peer Reviewed</label>
                       </div>
+                      {results.length > 0 ? (
                       <div className="search-results">
                         {results.map((book, index) => (
                           <div key={index} className="book-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '20px' }}>
@@ -539,6 +551,9 @@ useEffect(() => {
                         </div>
                       ))}
                       </div>
+                       ) : (
+                        <p style={{ textAlign: 'center' }}>Not Found</p>
+                      )}
                     </div>
                 </div>
           </section> 

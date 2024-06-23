@@ -418,14 +418,14 @@ const Bookdb = () => {
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/profile">
+              <Link className="dropdown-item d-flex align-items-center" to="/studentprofile">
                 <i className="bi bi-gear"></i>
                 <span>Account Settings</span>
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="#">
+              <Link className="dropdown-item d-flex align-items-center" to="/Login">
                 <i className="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </Link>
@@ -473,9 +473,9 @@ const Bookdb = () => {
                 </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/contact">
+                <Link className="nav-link collapsed" to="/notification">
                 <i className="bi bi-envelope"></i>
-                <span>Contact</span>
+                <span>Notification</span>
                 </Link>
             </li>
             </ul>
@@ -1077,7 +1077,7 @@ const Bookdb = () => {
       ))}
     </div>
   ) : (
-    <p>No profile found</p>
+    <p>No book found</p>
   )}
 </div>
 

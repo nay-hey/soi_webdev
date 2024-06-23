@@ -12,6 +12,7 @@ import StudentProfile from './components/StudentProfile';
 import Studentdb from './components/Studentdb';
 import Bookdb from './components/Bookdb';
 import Reminder from './components/Reminder';
+import Notification from './components/Notification';
 import CirculationManagement from './components/CirculationManagement';
 const App = () => {
     useEffect(() => {
@@ -32,6 +33,7 @@ const App = () => {
                     <Route path="/studentdb" element={<Studentdb />} />
                     <Route path="/bookdb" element={<Bookdb />} />
                     <Route path="/reminder" element={<Reminder />} />
+                    <Route path="/notification" element={<Notification />} />
                     <Route path="/circulationmanagement" element={<CirculationManagement />} />
                 </Routes>
             </div>

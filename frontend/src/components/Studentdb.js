@@ -285,14 +285,14 @@ const Studentdb = () => {
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/profile">
+              <Link className="dropdown-item d-flex align-items-center" to="/studentprofile">
                 <i className="bi bi-gear"></i>
                 <span>Account Settings</span>
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="#">
+              <Link className="dropdown-item d-flex align-items-center" to="/Login">
                 <i className="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </Link>
@@ -339,9 +339,9 @@ const Studentdb = () => {
                 </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/contact">
+                <Link className="nav-link collapsed" to="/notification">
                 <i class="bi bi-envelope"></i>
-                <span>Contact</span>
+                <span>Notification</span>
                 </Link>
             </li>
             </ul>

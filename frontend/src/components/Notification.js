@@ -3,32 +3,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
-
-import { Link } from 'react-router-dom';
 import './AdminPage.css';
-import { Tooltip } from 'bootstrap';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-const Profile = () => {
-    const [profile, setProfile] = useState({
-        id: 1,
-        img: 'static/lib1.jpg',
-        name: 'Kevin Anderson',
-        position: 'Admin',
-        email: '220010034@iitdh.ac.in',
-        rollno: '220010034',
-        branch: 'Computer Science and Engineering',
-        joindate: '27/1/04',
-      });
-    useEffect(() => {
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
-          return new Tooltip(tooltipTriggerEl);
-        });
-      }, []);
-  // State to manage sidebar toggle
+
+const Notification = () => {
+    const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    fetchNotification();
+  }, []);
+
+  const fetchNotification = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/notification');
+      setNotifications(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+    }
+  };
   const [isSidebarToggled, setIsSidebarToggled] = useState(false);
 
-  // Effect to add event listener for the toggle button
   useEffect(() => {
     const toggleSidebar = () => {
       setIsSidebarToggled(prevState => !prevState);
@@ -39,7 +36,6 @@ const Profile = () => {
       toggleButton.addEventListener('click', toggleSidebar);
     }
 
-    // Cleanup function to remove the event listener
     return () => {
       if (toggleButton) {
         toggleButton.removeEventListener('click', toggleSidebar);
@@ -47,7 +43,6 @@ const Profile = () => {
     };
   }, []);
 
-  // Effect to add or remove 'toggle-sidebar' class on the body element
   useEffect(() => {
     if (isSidebarToggled) {
       document.body.classList.add('toggle-sidebar');
@@ -56,32 +51,27 @@ const Profile = () => {
     }
   }, [isSidebarToggled]);
   useEffect(() => {
-    // Sticky header on scroll
     const selectHeader = document.querySelector('#header');
+
     const handleScroll = () => {
       if (selectHeader) {
         window.scrollY > 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked');
       }
-      
     };
-
     document.addEventListener('scroll', handleScroll);
 
-  
   }, []);
 
   return (
     <div>
-            <section id="admin">
+      <section id="admin">
       <header id="header" className="header fixed-top d-flex align-items-center">
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
               <img src="static/logo.svg.png" alt="IIT Dharwad Logo" />
               <h1>IIT Dharwad</h1>
             </div>
-
-        </div>
-        <nav id="navbar" className="navbar">
+            <nav id="navbar" className="navbar">
               <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="libcom.html">Library Committee</a></li>
@@ -90,6 +80,7 @@ const Profile = () => {
                 <li><a href="contact.html">Contact</a></li>
               </ul>
             </nav>
+        </div>
         <nav className="header-nav ms-auto">
       <ul className="d-flex align-items-center list-unstyled m-0">
         <li className="nav-item dropdown me-3">
@@ -274,112 +265,98 @@ const Profile = () => {
         </header>
         <aside id="sidebar" className="sidebar">
 
-            <ul className="sidebar-nav" id="sidebar-nav">
+        <ul className="sidebar-nav" id="sidebar-nav">
 
-            <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage">
-                <i className="bi bi-grid"></i>
-                <span>Home</span>
-                </Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link collapsed" to="/studentdb">
-                <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
-                </Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link collapsed" to="/bookdb">
-                <i className="bi bi-book"></i><span>Book Database</span>
-                </Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link collapsed" to="/circulationmanagement">
-                <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
-                </Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link collapsed" to="/reminder">
-                <i className="bi bi-alarm-fill"></i><span>Reminder</span>
-                </Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link " to="/studentprofile">
-                <i className="bi bi-person"></i>
-                <span>Profile Edit</span>
-                </Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link collapsed" to="/notification">
+        <li className="nav-item">
+            <Link className="nav-link collapsed" to="/AdminPage">
+            <i className="bi bi-grid"></i>
+            <span>Home</span>
+            </Link>
+        </li>
+        <li className="nav-item">
+            <Link className="nav-link collapsed" to="/studentdb">
+            <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
+            </Link>
+        </li>
+        <li className="nav-item">
+            <Link className="nav-link collapsed" to="/bookdb">
+            <i className="bi bi-book"></i><span>Book Database</span>
+            </Link>
+        </li>
+        <li className="nav-item">
+            <Link className="nav-link collapsed" to="/circulationmanagement">
+            <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
+            </Link>
+        </li>
+        <li className="nav-item">
+            <Link className="nav-link collapsed" to="/reminder">
+            <i className="bi bi-alarm-fill"></i><span>Reminder</span>
+            </Link>
+        </li>
+        <li className="nav-item">
+            <Link className="nav-link collapsed" to="/studentprofile">
+            <i className="bi bi-person"></i>
+            <span>Profile Edit</span>
+            </Link>
+        </li>
+        <li className="nav-item">
+                <Link className="nav-link " to="/notification">
                 <i class="bi bi-envelope"></i>
                 <span>Notification</span>
                 </Link>
             </li>
-            </ul>
+        </ul>
 
-            </aside>
-        <main id="main" className="main">
+        </aside>
+        <main id="main" className="main" >
 
         <div className="pagetitle">
-        <h1>Profile</h1>
+        <h1>Home</h1>
         <nav>
             <ol className="breadcrumb">
             <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/AdminPage">Home</Link></li>
-            <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>My Profile</li>
+            <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Notification</li>
             </ol>
         </nav>
         </div>
-        <section className="section profile">
-        <div className="row">
-            <div className="col-xl-4">
-
-            <div className="card">
-                            <div className="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src={profile.img} alt="Profile" className="rounded-circle" />
-                            <h2>{profile.name}</h2>
-                            <h3>{profile.position}</h3>
-                            </div>
-                        </div>
-                </div>            
-
-            <div className="col-xl-8">
-
-            <div className="card">
-                <div className="card-body pt-3">
-
-                <div className="profile-overview">
-                <h5 className="card-title">Profile Details</h5>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Full Name</div>
-                                    <div className="col-lg-9 col-md-8">{profile.name}</div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Position</div>
-                                    <div className="col-lg-9 col-md-8">{profile.position}</div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Email</div>
-                                    <div className="col-lg-9 col-md-8">{profile.email}</div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Roll Number</div>
-                                    <div className="col-lg-9 col-md-8">{profile.rollno}</div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Branch</div>
-                                    <div className="col-lg-9 col-md-8">{profile.branch}</div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Join Date</div>
-                                    <div className="col-lg-9 col-md-8">{profile.joindate}</div>
-                                </div>
+        <section className="section">
+      <div className="card">
+        <div className="card-body">
+          <h5 className="card-title">Default Accordion</h5>
+          <div className="accordion" id="accordionExample">
+            {notifications.map((notification, index) => (
+              <div className="accordion-item" key={index}>
+                <h2 className="accordion-header" id={`heading${index}`}>
+                  <button
+                    className={`accordion-button ${index !== 0 ? 'collapsed' : ''}`}
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#collapse${index}`}
+                    aria-expanded={index === 0}
+                    aria-controls={`collapse${index}`}
+                  >
+                    {notification.subject} - {notification.email}
+                  </button>
+                </h2>
+                <div
+                  id={`collapse${index}`}
+                  className={`accordion-collapse collapse ${index === 0 ? 'show' : ''}`}
+                  aria-labelledby={`heading${index}`}
+                  data-bs-parent="#accordionExample"
+                >
+                  <div className="accordion-body">
+                    <strong>{notification.name}</strong> <br />{notification.message}
+                  </div>
                 </div>
-            </div>
-            </div>
-            </div>
+              </div>
+            ))}
+          </div>
         </div>
-        </section>
-
+      </div>
+    </section>
         </main>
+
+      
         <footer id="footer" className="footer">
 
             <div className="container">
@@ -486,4 +463,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Notification;
