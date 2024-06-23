@@ -189,28 +189,21 @@ useEffect(() => {
 
   useEffect(() => {
     const handleLoad = () => {
-      setTimeout(() => {
-        setStage('name'); // Change to 'name' stage after 1 second
-      }, 1000);
-
-      setTimeout(() => {
-        setStage('loaded'); // Change to 'loaded' stage after another 1 second
-      }, 2000);
-
-      setTimeout(() => {
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
-          preloader.remove(); // Remove preloader from DOM
-        }
-      }, 3000);
+        setTimeout(() => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.remove(); // Remove preloader from DOM after 1000ms (1 second)
+            }
+        }, 1000); // Adjust this timeout as needed
     };
 
     window.addEventListener('load', handleLoad);
 
     return () => {
-      window.removeEventListener('load', handleLoad);
+        window.removeEventListener('load', handleLoad);
     };
-  }, []);
+}, []);
+
   useEffect(() => {
     // Sticky header on scroll
     const selectHeader = document.querySelector('#header');
@@ -293,7 +286,7 @@ useEffect(() => {
             </div>
             <nav id="navbar" className="navbar">
               <ul>
-                <li><a href="people.html">People</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="libcom.html">Library Committee</a></li>
                 <li><a href="asklib.html">Ask a Librarian</a></li>
                 <li><a href="/AboutUs">About</a></li>

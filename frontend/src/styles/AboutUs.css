@@ -1,42 +1,63 @@
 /* src/styles/AboutUs.css */
 #aboutuspage * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 #aboutuspage .about-us {
-    background-color: #fbf8f6;
-    margin: 0;
-    padding: 0;
+  background-color: #fbf8f6;
+  margin: 0;
+  padding: 0;
 }
-
 
 #aboutuspage .intro-section {
-    text-align: center;
-    padding: 0;
-    margin-bottom: 20px;
+  text-align: center;
+  padding: 20px 0;
+  margin-bottom: 20px;
 }
 
-#aboutuspage .vision-section{
-    text-align: center;
-    padding: 0;
-    margin-top: 20px;
+#aboutuspage .vision-section {
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 20px;
 }
 
 #aboutuspage .intro-container,
-#aboutuspage .vision-container {
-    background-color: #ffffff;
-    border: 1px solid;
-    
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
-    margin: 0 ;
-    display: flex; /* Use flexbox to align items horizontally */
-    align-items: center; /* Center items vertically */
-    justify-content: space-between;
+#aboutuspage .vision-container,
+#aboutuspage .conclusion-container {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1200px;
 }
 
+#aboutuspage .intro-image img,
+#aboutuspage .intro-image2 img {
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+#aboutuspage .intro-text {
+  text-align: left;
+  padding: 0 20px;
+}
+#aboutuspage .intro-text2 {
+  text-align: right;
+  padding: 0 20px;
+}
+
+#aboutuspage .conclusion-section .conclusion-container {
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 20px;
+}
 
 
 /*--------------------------------------------------------------
@@ -97,4 +118,276 @@ top: 0;
 #aboutuspage .vision-container p,
 #aboutuspage .conclusion-container p {
     color: #555;
+}
+
+/*--------------------------------------------------------------
+# Desktop Navigation 
+--------------------------------------------------------------*/
+@media (min-width: 1280px) {
+  #aboutuspage .navbar {
+    padding: 0;
+  }
+
+  #aboutuspage .navbar ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+  }
+
+  #aboutuspage .navbar li {
+    position: relative;
+  }
+
+  #aboutuspage .navbar a,
+  #aboutuspage .navbar a:focus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 10px 30px;
+    font-family: var(--font-default);
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  #aboutuspage .navbar a i,
+  #aboutuspage  .navbar a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+  }
+
+  #aboutuspage .navbar a:hover,
+  #aboutuspage .navbar .active,
+  #aboutuspage .navbar .active:focus,
+  #aboutuspage .navbar li:hover>a {
+    color: var(--color-primary);
+    text-decoration: dashed;
+  }
+
+  #aboutuspage .navbar .getstarted,
+  #aboutuspage  .navbar .getstarted:focus {
+    padding: 8px 20px;
+    margin-left: 30px;
+    border-radius: 4px;
+    color: white;
+  }
+
+  #aboutuspage .navbar .getstarted:hover,
+  #aboutuspage .navbar .getstarted:focus:hover {
+    color: white;
+    background: rgba(black, 0.8);
+  }
+
+  #aboutuspage .navbar .dropdown ul {
+    display: block;
+    position: absolute;
+    left: 14px;
+    top: calc(100% + 30px);
+    margin: 0;
+    padding: 10px 0;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    background: white;
+    box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+    transition: 0.3s;
+    border-radius: 4px;
+  }
+
+  #aboutuspage .login-button {
+    background-color: #0b1116;
+    color: white;
+    border: none;
+    padding: 10px 50px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-left: -120px;
+    transition: background-color 0.3s ease;
+  }
+  
+  #aboutuspage .login-button:hover {
+    background-color: #2C3E50;
+  }
+  #aboutuspage .navbar .dropdown ul li {
+    min-width: 200px;
+  }
+
+  #aboutuspage .navbar .dropdown ul a {
+    padding: 10px 20px;
+    font-size: 15px;
+    text-transform: none;
+    font-weight: 400;
+    color: #2C3E50;
+  }
+
+  #aboutuspage .navbar .dropdown ul a i {
+    font-size: 12px;
+  }
+
+  #aboutuspage  .navbar .dropdown ul a:hover,
+  #aboutuspage .navbar .dropdown ul .active:hover,
+  #aboutuspage .navbar .dropdown ul li:hover>a {
+    color: #2C3E50;
+  }
+
+  #aboutuspage  .navbar .dropdown:hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+
+  #aboutuspage .navbar .dropdown .dropdown ul {
+    top: 0;
+    left: calc(100% - 30px);
+    visibility: hidden;
+  }
+
+  #aboutuspage .navbar .dropdown .dropdown:hover>ul {
+    opacity: 1;
+    top: 0;
+    left: 100%;
+    visibility: visible;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1366px) {
+  #aboutuspage  .navbar .dropdown .dropdown ul {
+    left: -90%;
+  }
+
+  #aboutuspage .navbar .dropdown .dropdown:hover>ul {
+    left: -100%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Mobile Navigation
+--------------------------------------------------------------*/
+@media (max-width: 1279px) {
+  #aboutuspage .navbar {
+    padding: 0;
+    z-index: 9997;
+  }
+
+
+  #aboutuspage  .navbar ul {
+    display: none;
+    position: absolute;
+    inset: 50px 15px 15px 400px;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
+    background-color: #0b1116;
+    overflow-y: auto;
+    transition: 0.3s;
+    z-index: 9998;
+  }
+
+  #aboutuspage .navbar a,
+  #aboutuspage .navbar a:focus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-family: var(--font-primary);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  #aboutuspage .navbar a i,
+  #aboutuspage  .navbar a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+  }
+
+  #aboutuspage .navbar a:hover,
+  #aboutuspage  .navbar .active,
+  #aboutuspage  .navbar .active:focus,
+  #aboutuspage  .navbar li:hover>a {
+    color: var(--color-primary);
+  }
+
+  #aboutuspage .login-button {
+    background-color: #0b1116;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  #aboutuspage .login-button:hover {
+    background-color: #6f6f6f;
+    color: #0b1116;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  #aboutuspage .navbar .dropdown ul,
+  #aboutuspage .navbar .dropdown .dropdown ul {
+    position: static;
+    display: none;
+    z-index: 99;
+    padding: 10px 0;
+    margin: 10px 20px;
+    background: white;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 0px 0px 30px rgba(black, 0.1);
+  }
+
+  #aboutuspage .navbar .dropdown>.dropdown-active,
+  #aboutuspage .navbar .dropdown .dropdown>.dropdown-active {
+    display: block;
+  }
+
+  #aboutuspage .mobile-nav-toggle {
+    display: inline-block;
+    color: var(--color-secondary);
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 0;
+    transition: 0.5s;
+  }
+
+  #aboutuspage .mobile-nav-toggle.bi-x {
+    color: black;
+  }
+
+  #aboutuspage .mobile-nav-active {
+    overflow: hidden;
+  }
+
+  #aboutuspage .mobile-nav-active .mobile-nav-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 9999;
+    color: white;
+  }
+
+  #aboutuspage .mobile-nav-active .navbar {
+    position: fixed;
+    overflow: hidden;
+    inset: 0;
+    background: rgba(black, 0.6);
+    transition: 0.3s;
+  }
+
+  #aboutuspage .mobile-nav-active .navbar>ul {
+    display: block;
+  }
 }

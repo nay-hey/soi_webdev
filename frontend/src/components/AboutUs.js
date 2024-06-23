@@ -3,9 +3,41 @@ import Card from './Card';
 import Footer from './Footer';
 import ImageSlider from './ImageSlider';
 import '../styles/AboutUs.css';
+import { Link } from 'react-router-dom';
 
 class AboutUs extends Component {
-    render() {
+    componentDidMount() {
+        // Sticky header on scroll
+        const selectHeader = document.querySelector('#header');
+        const scrollTop = document.querySelector('.scroll-top');
+    
+        this.handleScroll = () => {
+          if (selectHeader) {
+            window.scrollY > 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked');
+          }
+          if (scrollTop) {
+            window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
+          }
+        };
+    
+        document.addEventListener('scroll', this.handleScroll);
+    
+        if (scrollTop) {
+          scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+      }
+    
+      componentWillUnmount() {
+        document.removeEventListener('scroll', this.handleScroll);
+        const scrollTop = document.querySelector('.scroll-top');
+        if (scrollTop) {
+          scrollTop.removeEventListener('click', this.handleScroll);
+        }
+      }
+    
+      render() {
         return (
             
         <section id="aboutuspage">
@@ -16,6 +48,16 @@ class AboutUs extends Component {
               <img src="static/logo.svg.png" alt="IIT Dharwad Logo" />
               <h1>IIT Dharwad</h1>
             </div>
+            <nav id="navbar" className="navbar">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="libcom.html">Library Committee</a></li>
+                <li><a href="asklib.html">Ask a Librarian</a></li>
+                <li><a href="/AboutUs">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+            </nav>
+             
           </div>
         </header>
                 <section className="intro-section">
@@ -29,7 +71,7 @@ class AboutUs extends Component {
                         </div>
                     </div>
                 </section>
-                <section className="cards-section">
+                <section className="cards-section" style={{  background: 'linear-gradient(to bottom, #fbf8f6 15%, #0b1116 15%, #0b1116 85%, #fbf8f6 85%)' }}>
                 <div className="container">
                 <div className="row gy-4">
                     <Card
@@ -71,7 +113,7 @@ class AboutUs extends Component {
                     </div>
                 </section>
                 <ImageSlider />
-                <section className="conclusion-section">
+                <section className="conclusion-section" style={{ backgroundColor: 'rgba(255, 255, 255, 0.6)' }}>
                     <div className="row conclusion-container">
                         <div className='col-3'>
                         <p>Address in words.</p>
