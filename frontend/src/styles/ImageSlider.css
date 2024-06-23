@@ -2,17 +2,20 @@
 #aboutuspage .slider-container {
     margin: 20px auto;
     max-width: 800px;
+    max-height: 650px;
     text-align: center;
 }
 
 #aboutuspage .slider-container h2 {
     font-size: 24px;
     margin-bottom: 20px;
+    color: #D1DCE1;
 }
 
 #aboutuspage .slick-slide img {
-    display: block;
-    max-width: 100%;
+    display: flex;
+    max-width: fit-content;
+    max-height: 550px;
     height: auto;
     margin: 0 auto;
     border-radius: 8px;

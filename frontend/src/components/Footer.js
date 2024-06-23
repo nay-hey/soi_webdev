@@ -10,8 +10,7 @@ const Footer = () => {
     return (
             <section id="aboutuspage">
         <footer id="footer" className="footer">
-
-          <div className="container">
+        <div className="container">
             <div className="row gy-4">
               <div className="col-lg-4 col-md-12 footer-info">
               <div className="logos">
@@ -24,7 +23,7 @@ const Footer = () => {
                 <p>Email: <a href="mailto:pro@iitdh.ac.in">pro@iitdh.ac.in</a></p>
               </div>
 
-              <div className="col-lg-2 col-6 footer-links">
+              <div className="col-lg-2 col-5 footer-links">
                 <h4>Academics</h4>
                   <ul>
                       <li><a href="#">Admissions</a></li>
@@ -34,7 +33,7 @@ const Footer = () => {
                   </ul>
               </div>
 
-              <div className="col-lg-2 col-6 footer-links">
+              <div className="col-lg-2 col-5 footer-links">
                 <h4>Research</h4>
                   <ul>
                       <li><a href="#">Consultancy Projects</a></li>
@@ -45,7 +44,7 @@ const Footer = () => {
                   </ul>
               </div>
 
-              <div className="col-lg-2 col-6 footer-links">
+              <div className="col-lg-2 col-5 footer-links">
                 <h4>People</h4>
                   <ul>
                       <li><a href="#">Administration</a></li>
@@ -55,7 +54,7 @@ const Footer = () => {
                   </ul>
               </div>
 
-              <div className="col-lg-2 col-6 footer-links">
+              <div className="col-lg-2 col-5 footer-links">
               <h4>Quick Access</h4>
                     <ul>
                     <li><a href="#">About Dharwad</a></li>

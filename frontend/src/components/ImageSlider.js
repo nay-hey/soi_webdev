@@ -23,7 +23,7 @@ const ImageSlider = () => {
     ];
 
     return (
-        <section id="aboutuspage">
+        <section id="aboutuspage" style={{ backgroundColor: '#0b1116' }}>
         <div className="slider-container">
             <h2>Gallery</h2>
             <Slider {...settings}>

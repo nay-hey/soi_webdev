@@ -301,8 +301,7 @@ useEffect(() => {
               </ul>
             </nav>
             <button className="login-button" onClick={handleLoginClick}>Login</button>
-            <i className="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-            <i className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+            
           </div>
         </header>
         <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

@@ -4,14 +4,6 @@
     
 }
 
-#aboutuspage .header {
-    text-align: center;
-   
-    color: white;
-    background-color: #333;
-    padding: 10px 0;
-}
-
 #aboutuspage .team-section {
     max-width: 1200px;
     margin: 0 auto;

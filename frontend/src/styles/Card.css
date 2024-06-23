@@ -1,40 +1,43 @@
 /* src/styles/Card.css */
 #aboutuspage .card {
-    display: grid;
-    grid-template-rows: 65% 35%; /* 65% for image, 35% for text */
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer; /* Change cursor to pointer on hover */
-    width: 20%; /* Adjust width to fit four cards in a row */
-    min-width: 200px; /* Ensure cards are not too small */
-    margin: 10px;
-    transition: transform 0.2s; /* Smooth transformation */
-}
-
-#aboutuspage .card:hover {
-    transform: scale(1.05); /* Slightly enlarge card on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  box-shadow: 0px 0 30px color-mix(in srgb, var(--default-color), transparent 92%);
+  overflow: hidden;
+  text-align: center;
+  border-radius: 5px;
+  transition: 0.3s;
+  max-height: 410px;
 }
 
 #aboutuspage .card-image {
-    overflow: hidden; /* Hide any overflow */
+    position: relative;
+    overflow: hidden;
 }
 
-#aboutuspage .card-image img {
-    width: 100%; /* Make the image fill its container */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 8px 8px 0 0; /* Round only top corners */
+#aboutuspage .card-image:after {
+    position: absolute;
+    content: "";
+    left: -1px;
+    right: -1px;
+    bottom: 0;
+    height: 100%;
+    background-size: contain;
+    z-index: 1;
 }
 
 #aboutuspage .card-text {
-    padding: 16px;
-    text-align: center; /* Center the text */
+  background-color: #D1DCE1;
+  
+  text-decoration: none;
+    padding: 10px 15px 20px 15px;
 }
 
 #aboutuspage .card-text p {
-    color: #555;
+    font-style: italic;
+  font-size: 14px;
+  text-decoration: none;
+  padding-top: 15px;
+  line-height: 26px;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
 }
 
 #aboutuspage .cards-section {
@@ -42,3 +45,7 @@
     justify-content: space-around; /* Evenly space out the cards */
     gap: 20px;
 }
+#aboutuspage .card:hover {
+    transform: scale(1.08);
+    box-shadow: 0px 0 30px color-mix(in srgb, var(--default-color), transparent 85%);
+  }
