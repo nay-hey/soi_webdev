@@ -1,0 +1,20 @@
+[
+  {
+    "student name": "anna",
+    "roll": "220010034",
+    "email": "220010034@iitdh.ac.in",
+    "branch": "Computer Science"
+  },
+  {
+    "student name": "bob",
+    "roll": "220030001",
+    "email": "220030001@iitdh.ac.in",
+    "branch": "Mechanical Engineering"
+  },
+  {
+    "student name": "charlie",
+    "roll": "220120026",
+    "email": "220120026@iitdh.ac.in",
+    "branch": "Mathematics and Computing"
+  }
+]

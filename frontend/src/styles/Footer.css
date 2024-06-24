@@ -1,0 +1,158 @@
+
+#aboutuspage .footer {
+    font-size: 14px;
+  font-weight: 600;
+  background-color: #1A2530;
+  padding: 50px 0;
+  color: #D1DCE1;
+  width: 100%;
+   
+}
+
+#aboutuspage .footer .container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+#aboutuspage .footer .row {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#aboutuspage .footer .col-lg-4,
+#aboutuspage .footer .col-lg-2 {
+  padding: 0;
+  margin: 0;
+}
+
+  
+  #aboutuspage .footer .logos {
+    padding-left: 30%;
+  }
+  
+  #aboutuspage .footer .footer-info .logo {
+    line-height: 0;
+    margin-bottom: 25px;
+    width: 190px;
+    height: 170px;
+    margin-left: -50px;
+  }
+  
+ #aboutuspage  .footer .footer-info p {
+    font-size: 15px;
+    font-family: var(--font-primary);
+  }
+  
+  
+#aboutuspage   .footer h4 {
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 12px;
+  }
+  
+ #aboutuspage  .footer .footer-links {
+    margin-bottom: 30px;
+    text-decoration: none;
+  }
+  
+ #aboutuspage  .footer .footer-links ul {
+    text-decoration: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+#aboutuspage   .footer .footer-links ul i {
+    padding-right: 2px;
+    color: rgba(149, 165, 166, 0.8); 
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 0;
+  }
+  
+#aboutuspage   .footer .footer-links ul li {
+    padding: 10px 0;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  
+ #aboutuspage  .footer .footer-links ul li:first-child {
+    padding-top: 0;
+  }
+  
+ #aboutuspage  .footer .footer-links ul a {
+    color: rgba(255, 255, 255, 0.6);
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1;
+  }
+  
+#aboutuspage   .footer .footer-links ul a:hover {
+    color: #fff;
+    font-size: 110%;
+    text-decoration: none;
+  }
+  
+#aboutuspage   .footer .copyright {
+    text-align: center;
+  }
+  
+#aboutuspage   .footer .credits {
+    padding-top: 6px;
+    text-align: center;
+    font-size: 13px;
+  }
+  
+ #aboutuspage  .footer .copyright strong {
+    font-weight: 400;
+  }
+  
+ #aboutuspage  .footer .footer-legal {
+    background: #0b1116;
+    padding: 40px 0;
+    margin-bottom: -50px;
+  }
+  
+ #aboutuspage  .footer .footer-legal .social-links a {
+    text-align: center;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(149, 165, 166, 0.5);
+    border-radius: 50%;
+    color: #0b1116; 
+    line-height: 40px;
+    transition: 0.3s;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #0b1116; 
+    margin: 0 5px; 
+  
+  }
+  
+#aboutuspage   .footer .footer-legal .social-links a:hover {
+    color: rgba(149, 165, 166, 0.5);
+    background-color: #0b1116; 
+    border: 1px solid rgba(149, 165, 166, 0.5);
+  }
+  
+#aboutuspage   .footer .social-links {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+  }
+  
+#aboutuspage   .footer .social-links i {
+    font-size: 18px;
+    margin: 9px; 
+  }
+  

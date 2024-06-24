@@ -1,0 +1,14 @@
+[
+  {
+    "faculty name": "dr. smith",
+    "faculty id": "fac001",
+    "email": "smith@iitdh.ac.in",
+    "department": "computer science"
+  },
+  {
+    "faculty name": "dr. johnson",
+    "faculty id": "fac002",
+    "email": "johnson@iitdh.ac.in",
+    "department": "mathematics"
+  }
+]

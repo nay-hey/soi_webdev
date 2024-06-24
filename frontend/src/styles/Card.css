@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+/* src/styles/Card.css */
+#aboutuspage .card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer; /* Change cursor to pointer on hover */
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: transform 0.2s;
+  margin: 10px;
+  display: grid;
+  grid-template-rows: 65% 35%; /* 65% for image, 35% for text */
+  background-color: #ffffff;
+  max-height: 410px;
+  
+}
+
+#aboutuspage .card-image {
+    position: relative;
+    overflow: hidden;
+}
+
+#aboutuspage .card-image img {
+  width: 100%; /* Make the image fill its container */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px 8px 0 0; /* Round only top corners */
+}
+
+#aboutuspage .card-image:after {
+    position: absolute;
+    content: "";
+    left: -1px;
+    right: -1px;
+    bottom: 0;
+    height: 100%;
+    background-size: contain;
+    z-index: 1;
+}
+
+#aboutuspage .card-text {
+  text-align: center; 
+  text-decoration: none;
+  padding: 16px;
+}
+
+#aboutuspage .card-text p {
+  color: #555;
+  font-family: "Montserrat", sans-serif;
+}
+
+#aboutuspage .cards-section {
+    display: flex;
+    justify-content: space-around; /* Evenly space out the cards */
+    gap: 20px;
+}
+#aboutuspage .card:hover {
+    transform: scale(1.05); /* Slightly enlarge card on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
