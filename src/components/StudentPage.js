@@ -3,10 +3,71 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
-import './AdminPage.css';
+import './StudentPage.css';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-const AdminPage = () => {
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: rgba(240, 244, 248, 0.8);
+`;
+
+const MainContent = styled.main`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+`;
+
+const Title = styled.h1`
+  color: #004085;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+`;
+
+const Subtitle = styled.h2`
+  color: #0056b3;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+`;
+
+const Description = styled.p`
+  color: #6c757d;
+  font-size: 1.25rem;
+  max-width: 800px;
+`;
+
+const CardContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+`;
+
+const Card = styled.div`
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 300px;
+  text-align: left;
+`;
+
+const CardTitle = styled.h3`
+  color: #0056b3;
+  margin-bottom: 1rem;
+`;
+
+const CardContent = styled.p`
+  color: #6c757d;
+`;
+const StudentPage = () => {
 
   const [isSidebarToggled, setIsSidebarToggled] = useState(false);
 
@@ -48,13 +109,22 @@ const AdminPage = () => {
 
   return (
     <div>
+      <section id="student">
       <header id="header" className="header fixed-top d-flex align-items-center">
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
               <img src="static/logo.svg.png" alt="IIT Dharwad Logo" />
               <h1>IIT Dharwad</h1>
             </div>
-
+            <nav id="navbar" className="navbar">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="libcom.html">Library Committee</a></li>
+                <li><a href="asklib.html">Ask a Librarian</a></li>
+                <li><a href="/AboutUs">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+            </nav>
         </div>
         <nav className="header-nav ms-auto">
       <ul className="d-flex align-items-center list-unstyled m-0">
@@ -219,15 +289,9 @@ const AdminPage = () => {
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
+            
             <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/profile">
-                <i className="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="#">
+              <Link className="dropdown-item d-flex align-items-center" to="/Login">
                 <i className="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </Link>
@@ -249,8 +313,8 @@ const AdminPage = () => {
             </Link>
         </li>
         <li className="nav-item">
-            <Link className="nav-link collapsed" to="/studentdb">
-            <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
+            <Link className="nav-link collapsed" to="/activity">
+            <i className="bi bi-layout-text-window-reverse"></i><span>Your Activity</span>
             </Link>
         </li>
         <li className="nav-item">
@@ -259,19 +323,9 @@ const AdminPage = () => {
             </Link>
         </li>
         <li className="nav-item">
-            <Link className="nav-link collapsed" to="/circulationmanagement">
-            <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
-            </Link>
-        </li>
-        <li className="nav-item">
-            <Link className="nav-link collapsed" to="/reminder">
-            <i className="bi bi-alarm-fill"></i><span>Reminder</span>
-            </Link>
-        </li>
-        <li className="nav-item">
-            <Link className="nav-link collapsed" to="/studentprofile">
+            <Link className="nav-link collapsed" to="/profile">
             <i className="bi bi-person"></i>
-            <span>Profile Edit</span>
+            <span>Your Profile</span>
             </Link>
         </li>
         <li className="nav-item">
@@ -293,20 +347,38 @@ const AdminPage = () => {
             </ol>
         </nav>
         </div>
-        <section id="hero" className="hero section" >
-
-            <div className="container">
-                <div className="row gy-4 justify-content-center justify-content-lg-between">
-                <div className="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                    <h1>Welcome to<br />Admin Page</h1>
-                    <p>Indian Institute of Technology, Dharwad</p>
-                    <div className="d-flex">
-                    </div>
-                </div>
-                </div>
-            </div>
-
-            </section>
+        <Container>
+    <MainContent>
+      <Title>Welcome to the College Library Management System</Title>
+      <Subtitle>Your Gateway to Knowledge</Subtitle>
+      <Description>
+        Explore a vast collection of books, journals, and digital resources.
+        Manage your loans, track your borrowing history, and stay updated with
+        the latest library events. Our system provides easy access to all the
+        resources you need for your academic success.
+      </Description>
+      <CardContainer>
+        <Card>
+          <CardTitle>Extensive Resources</CardTitle>
+          <CardContent>
+            Access a wide range of books, journals, and digital materials to support your studies.
+          </CardContent>
+        </Card>
+        <Card>
+          <CardTitle>User-Friendly Interface</CardTitle>
+          <CardContent>
+            Our system is designed to be intuitive and easy to use, making it simple to find what you need.
+          </CardContent>
+        </Card>
+        <Card>
+          <CardTitle>24/7 Support</CardTitle>
+          <CardContent>
+            Get help whenever you need it with our round-the-clock support services.
+          </CardContent>
+        </Card>
+      </CardContainer>
+    </MainContent>
+  </Container>
         </main>
 
       
@@ -411,9 +483,9 @@ const AdminPage = () => {
             </div>
             </div>
             </footer>
-
+            </section>
     </div>
   );
 };
 
-export default AdminPage;
+export default StudentPage;

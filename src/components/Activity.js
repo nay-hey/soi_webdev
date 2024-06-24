@@ -4,31 +4,29 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
 
-import { Link } from 'react-router-dom';
 import './StudentPage.css';
+import styled from 'styled-components';
+import 'simple-datatables/dist/style.css';
 import { Tooltip } from 'bootstrap';
+import { DataTable } from 'simple-datatables';
+import { Link } from 'react-router-dom';
 
-const Profile = () => {
-  const [profile, setProfile] = useState({
-      id: 1,
-      img: 'static/lib1.jpg',
-      name: 'Kevin Anderson',
-      position: 'Admin',
-      email: '220010034@iitdh.ac.in',
-      rollno: '220010034',
-      branch: 'Computer Science and Engineering',
-      joindate: '27/1/04',
-    });
+
+const DashboardContainer = styled.div`
+  background-color: white;
+  padding: 2rem;
+`;
+
+const Studentdb = () => {
+  
   useEffect(() => {
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
       const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
         return new Tooltip(tooltipTriggerEl);
       });
     }, []);
-// State to manage sidebar toggle
 const [isSidebarToggled, setIsSidebarToggled] = useState(false);
 
-// Effect to add event listener for the toggle button
 useEffect(() => {
   const toggleSidebar = () => {
     setIsSidebarToggled(prevState => !prevState);
@@ -39,7 +37,6 @@ useEffect(() => {
     toggleButton.addEventListener('click', toggleSidebar);
   }
 
-  // Cleanup function to remove the event listener
   return () => {
     if (toggleButton) {
       toggleButton.removeEventListener('click', toggleSidebar);
@@ -47,7 +44,6 @@ useEffect(() => {
   };
 }, []);
 
-// Effect to add or remove 'toggle-sidebar' class on the body element
 useEffect(() => {
   if (isSidebarToggled) {
     document.body.classList.add('toggle-sidebar');
@@ -56,17 +52,14 @@ useEffect(() => {
   }
 }, [isSidebarToggled]);
 useEffect(() => {
-  // Sticky header on scroll
   const selectHeader = document.querySelector('#header');
   const handleScroll = () => {
     if (selectHeader) {
       window.scrollY > 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked');
     }
-    
   };
 
   document.addEventListener('scroll', handleScroll);
-
 
 }, []);
 
@@ -269,98 +262,68 @@ return (
       <aside id="sidebar" className="sidebar">
 
           <ul className="sidebar-nav" id="sidebar-nav">
-       <li className="nav-item">
-            <Link className="nav-link collapsed" to="/">
-            <i className="bi bi-grid"></i>
-            <span>Home</span>
-            </Link>
-        </li>
-        <li className="nav-item">
-            <Link className="nav-link collapsed" to="/activity">
-            <i className="bi bi-layout-text-window-reverse"></i><span>Your Activity</span>
-            </Link>
-        </li>
-        <li className="nav-item">
-            <Link className="nav-link collapsed" to="/bookdb">
-            <i className="bi bi-book"></i><span>Book Database</span>
-            </Link>
-        </li>
-        <li className="nav-item">
-            <Link className="nav-link " to="/profile">
-            <i className="bi bi-person"></i>
-            <span>Your Profile</span>
-            </Link>
-        </li>
-        <li className="nav-item">
-                <Link className="nav-link collapsed" to="/contact">
-                <i class="bi bi-envelope"></i>
-                <span>Contact</span>
-                </Link>
-            </li>
+
+          <li className="nav-item">
+              <Link className="nav-link collapsed" to="/">
+              <i className="bi bi-grid"></i>
+              <span>Home</span>
+              </Link>
+          </li>
+          <li className="nav-item">
+              <Link className="nav-link " to="/activity">
+              <i className="bi bi-layout-text-window-reverse"></i><span>Your Activity</span>
+              </Link>
+          </li>
+          <li className="nav-item">
+              <Link className="nav-link collapsed" to="/bookdb">
+              <i className="bi bi-book"></i><span>Book Database</span>
+              </Link>
+          </li>
+          <li className="nav-item">
+              <Link className="nav-link collapsed" to="/profile">
+              <i className="bi bi-person"></i>
+              <span>Your Profile</span>
+              </Link>
+          </li>
+          <li className="nav-item">
+              <Link className="nav-link collapsed" to="/contact">
+              <i class="bi bi-envelope"></i>
+              <span>Contact</span>
+              </Link>
+          </li>
           </ul>
 
           </aside>
       <main id="main" className="main">
 
-      <div className="pagetitle">
-      <h1>Profile</h1>
-      <nav>
-          <ol className="breadcrumb">
-          <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/AdminPage">Home</Link></li>
-          <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>My Profile</li>
-          </ol>
-      </nav>
-      </div>
-      <section className="section profile">
-      <div className="row">
-          <div className="col-xl-4">
-
-          <div className="card">
-                          <div className="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                          <img src={profile.img} alt="Profile" className="rounded-circle" />
-                          <h2>{profile.name}</h2>
-                          <h3>{profile.position}</h3>
-                          </div>
-                      </div>
-              </div>            
-
-          <div className="col-xl-8">
-
-          <div className="card">
-              <div className="card-body pt-3">
-
-              <div className="profile-overview">
-              <h5 className="card-title">Profile Details</h5>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Full Name</div>
-                                  <div className="col-lg-9 col-md-8">{profile.name}</div>
-                              </div>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Position</div>
-                                  <div className="col-lg-9 col-md-8">{profile.position}</div>
-                              </div>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Email</div>
-                                  <div className="col-lg-9 col-md-8">{profile.email}</div>
-                              </div>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Roll Number</div>
-                                  <div className="col-lg-9 col-md-8">{profile.rollno}</div>
-                              </div>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Branch</div>
-                                  <div className="col-lg-9 col-md-8">{profile.branch}</div>
-                              </div>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Join Date</div>
-                                  <div className="col-lg-9 col-md-8">{profile.joindate}</div>
-                              </div>
-              </div>
+          <div className="pagetitle">
+          <h1>Student Data</h1>
+          <nav>
+              <ol className="breadcrumb">
+              <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/AdminPage">Home</Link></li>
+              <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Student Database</li>
+              </ol>
+          </nav>
           </div>
-          </div>
-          </div>
-      </div>
-      </section>
+
+          <DashboardContainer>
+           <h2>Dashboard</h2>
+          <p>Welcome to your library dashboard. Here you can find an overview of your library activity.</p>
+          <h3>Current Loans</h3>
+          <ul>
+            <li>Book Title 1 - Due Date: 2024-07-01</li>
+            <li>Book Title 2 - Due Date: 2024-07-05</li>
+          </ul>
+          <h3>Reserved Books</h3>
+          <ul>
+            <li>Book Title 3 - Reservation Status: Pending</li>
+          </ul>
+          <h3>Notifications</h3>
+          <ul>
+            <li>You have a book due soon: Book Title 1</li>
+            <li>Fine alert: $5 overdue fine for Book Title 2</li>
+          </ul>
+        </DashboardContainer>
 
       </main>
       <footer id="footer" className="footer">
@@ -469,4 +432,4 @@ return (
 );
 };
 
-export default Profile;
+export default Studentdb;

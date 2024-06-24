@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
-import './AdminPage.css';
+import './StudentPage.css';
 import { Link } from 'react-router-dom';
 
 const Contact = () => {
@@ -48,6 +48,8 @@ const Contact = () => {
 
   return (
     <div>
+      
+      <section id="student">
       <header id="header" className="header fixed-top d-flex align-items-center">
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
@@ -56,6 +58,15 @@ const Contact = () => {
             </div>
 
         </div>
+        <nav id="navbar" className="navbar">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="libcom.html">Library Committee</a></li>
+                <li><a href="asklib.html">Ask a Librarian</a></li>
+                <li><a href="/AboutUs">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+            </nav>
         <nav className="header-nav ms-auto">
       <ul className="d-flex align-items-center list-unstyled m-0">
         <li className="nav-item dropdown me-3">
@@ -219,13 +230,7 @@ const Contact = () => {
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/profile">
-                <i className="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
+            
             <Dropdown.Item>
               <Link className="dropdown-item d-flex align-items-center" to="#">
                 <i className="bi bi-box-arrow-right"></i>
@@ -258,20 +263,11 @@ const Contact = () => {
             <i className="bi bi-book"></i><span>Book Database</span>
             </Link>
         </li>
+        
         <li className="nav-item">
-            <Link className="nav-link collapsed" to="/circulationmanagement">
-            <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
-            </Link>
-        </li>
-        <li className="nav-item">
-            <Link className="nav-link collapsed" to="/reminder">
-            <i className="bi bi-alarm-fill"></i><span>Reminder</span>
-            </Link>
-        </li>
-        <li className="nav-item">
-            <Link className="nav-link collapsed" to="/studentprofile">
+            <Link className="nav-link collapsed" to="/profile">
             <i className="bi bi-person"></i>
-            <span>Profile Edit</span>
+            <span>Your Profile</span>
             </Link>
         </li>
         <li className="nav-item">
@@ -476,7 +472,7 @@ const Contact = () => {
             </div>
             </div>
             </footer>
-
+            </section>
     </div>
   );
 };

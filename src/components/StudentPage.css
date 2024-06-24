@@ -1,7 +1,7 @@
   /*--------------------------------------------------------------
   # Main
   --------------------------------------------------------------*/
-  #main {
+  #student #main {
     margin-top: 60px;
     padding: 20px 30px;
     transition: all 0.3s;
@@ -12,7 +12,7 @@
   }
 
   @media (max-width: 1199px) {
-    #main {
+    #student #main {
       padding: 20px;
     }
   }
@@ -20,11 +20,11 @@
   /*--------------------------------------------------------------
   # Page Title
   --------------------------------------------------------------*/
-  .pagetitle {
+   #student .pagetitle {
     margin-top: 50px;
   }
   
-  .pagetitle h1 {
+  #student .pagetitle h1 {
     font-size: 24px;
     margin-bottom: 0;
     font-weight: 600;
@@ -36,7 +36,7 @@
 # Override some default Bootstrap stylings
 --------------------------------------------------------------*/
 /* Dropdown menus */
-.dropdown-menu {
+#student .dropdown-menu {
   border-radius: 4px;
   padding: 10px 0;
   animation-name: dropdown-animate;
@@ -47,36 +47,36 @@
   box-shadow: 0 5px 30px 0 rgba(82, 63, 105, 0.2);
 }
 
-.message-item p{
+#student .message-item p{
   text-decoration: none;
 }
 
-.dropdown-menu .dropdown-header,
-.dropdown-menu .dropdown-footer {
+#student .dropdown-menu .dropdown-header,
+#student .dropdown-menu .dropdown-footer {
   text-align: center;
   font-size: 15px;
   padding: 0px 100px;
   max-height: 500px;
 }
-.dropdown-button{
+#student .dropdown-button{
   background-color: white;
 }
 
-.dropdown-menu .dropdown-footer a {
+#student .dropdown-menu .dropdown-footer a {
   color: #444444;
   text-decoration: underline;
 }
 
-.dropdown-menu .dropdown-footer a:hover {
+#student .dropdown-menu .dropdown-footer a:hover {
   text-decoration: none;
 }
 
-.dropdown-menu .dropdown-divider {
+#student .dropdown-menu .dropdown-divider {
   color: #a5c5fe;
   margin: 8px;
 }
 
-#dropdown-notifications{
+#student #dropdown-notifications{
   background-color: transparent;
   border: none;
   width: 80px;
@@ -84,7 +84,7 @@
   display: flex;
 }
 
-#dropdown-messages{
+#student #dropdown-messages{
   background-color: transparent;
   border: none;
   margin-left: -40px;
@@ -93,7 +93,7 @@
   display: flex;
 }
 
-#dropdown-profile{
+#student #dropdown-profile{
   background-color: transparent;
   border: none;
   margin-left: -40px;
@@ -103,24 +103,24 @@
   display: flex;
 }
 
-.dropdown-menu .dropdown-item {
+#student .dropdown-menu .dropdown-item {
   font-size: 14px;
   padding: 0px 15px;
   transition: 0.3s;
 }
 
-.dropdown-menu .dropdown-item i {
+#student .dropdown-menu .dropdown-item i {
   margin-right: 10px;
   font-size: 18px;
   line-height: 0;
 }
 
-.dropdown-menu .dropdown-item:hover {
+#student .dropdown-menu .dropdown-item:hover {
   background-color: #f6f9ff;
 }
 
 @media (min-width: 768px) {
-  .dropdown-menu-arrow::before {
+  #student .dropdown-menu-arrow::before {
     content: "";
     width: 13px;
     height: 13px;
@@ -151,22 +151,22 @@
 
 
   /* Bordered Tabs */
-  .nav-tabs-bordered {
+  #student .nav-tabs-bordered {
     border-bottom: 2px solid #ebeef4;
   }
   
-  .nav-tabs-bordered .nav-link {
+  #student  .nav-tabs-bordered .nav-link {
     margin-bottom: -2px;
     border: none;
     color: #2c384e;
   }
   
-  .nav-tabs-bordered .nav-link:hover,
-  .nav-tabs-bordered .nav-link:focus {
+  #student  .nav-tabs-bordered .nav-link:hover,
+  #student .nav-tabs-bordered .nav-link:focus {
     color: #2c384e;
   }
   
-  .nav-tabs-bordered .nav-link.active {
+  #student  .nav-tabs-bordered .nav-link.active {
     background-color: #fff;
     border:2px solid #ebeef4;
     color: black;
@@ -176,24 +176,24 @@
   /*--------------------------------------------------------------
   # Header
   --------------------------------------------------------------*/
-  .header {
+  #student  .header {
     height: 120px;
     transition: all 0.5s;
     z-index: 997;
     background-color: #1A2530;
   }
   
-  .header.sticked {
+  #student .header.sticked {
     height: 70px;
   }
   
-  .header .logo img {
+  #student .header .logo img {
     margin-top: 5px;
     max-height: 80px;
     margin-right: 30px;
   }
   
-  .header .logo h1 {
+  #student .header .logo h1 {
     text-decoration: none;
     margin-top: 6px;
     font-size: 50px;
@@ -201,13 +201,13 @@
     color: #D1DCE1;
     font-family: var(--font-primary);
   }
-  .header.sticked .logo img {
+  #student .header.sticked .logo img {
     margin-top: -5px;
     max-height: 50px;
     margin-right: 6px;
   }
   
-  .header.sticked .logo h1 {
+  #student .header.sticked .logo h1 {
     margin-top: -1px;
     font-size: 30px;
     font-weight: 700;
@@ -216,20 +216,20 @@
     font-family: var(--font-primary);
   }
   
-  .header .toggle-sidebar-btn {
+  #student .header .toggle-sidebar-btn {
     font-size: 32px;
     padding-left: 10px;
     cursor: pointer;
     color: white;
   }
   
-  .header .search-bar {
+  #student .header .search-bar {
     min-width: 360px;
     padding: 0 20px;
   }
   
   @media (max-width: 1199px) {
-    .header .search-bar {
+    #student .header .search-bar {
       position: fixed;
       top: 50px;
       left: 0;
@@ -243,18 +243,18 @@
       opacity: 0;
     }
   
-    .header .search-bar-show {
+    #student  .header .search-bar-show {
       top: 60px;
       visibility: visible;
       opacity: 1;
     }
   }
   
-  .header .search-form {
+  #student .header .search-form {
     width: 100%;
   }
   
-  .header .search-form input {
+  #student  .header .search-form input {
     border: 0;
     font-size: 14px;
     color: white;
@@ -265,65 +265,336 @@
     width: 100%;
   }
   
-  .header .search-form input:focus,
-  .header .search-form input:hover {
+  #student .header .search-form input:focus,
+  #student  .header .search-form input:hover {
     outline: none;
     box-shadow: 0 0 10px 0 rgba(1, 41, 112, 0.15);
     border: 1px solid rgba(1, 41, 112, 0.3);
   }
   
-  .header .search-form button {
+  #student  .header .search-form button {
     border: 0;
     padding: 0;
     margin-left: -30px;
     background: none;
   }
   
-  .header .search-form button i {
+  #student  .header .search-form button i {
     color: white;
   }
   
+/*--------------------------------------------------------------
+# Desktop Navigation 
+--------------------------------------------------------------*/
+@media (min-width: 1280px) {
+  #student .navbar {
+    padding: 0;
+  }
+
+  #student .navbar ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+  }
+
+  #student .navbar li {
+    position: relative;
+  }
+
+  #student .navbar a,
+  #student .navbar a:focus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 10px 30px;
+    font-family: var(--font-default);
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  #student .navbar a i,
+  #student  .navbar a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+  }
+
+  #student .navbar a:hover,
+  #student .navbar .active,
+  #student .navbar .active:focus,
+  #student .navbar li:hover>a {
+    color: var(--color-primary);
+    text-decoration: dashed;
+  }
+
+  #student .navbar .getstarted,
+  #student  .navbar .getstarted:focus {
+    padding: 8px 20px;
+    margin-left: 30px;
+    border-radius: 4px;
+    color: white;
+  }
+
+  #student .navbar .getstarted:hover,
+  #student .navbar .getstarted:focus:hover {
+    color: white;
+    background: rgba(black, 0.8);
+  }
+
+  #student .navbar .dropdown ul {
+    display: block;
+    position: absolute;
+    left: 14px;
+    top: calc(100% + 30px);
+    margin: 0;
+    padding: 10px 0;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    background: white;
+    box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+    transition: 0.3s;
+    border-radius: 4px;
+  }
+
+  #student .login-button {
+    background-color: #0b1116;
+    color: white;
+    border: none;
+    padding: 10px 50px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-left: -120px;
+    transition: background-color 0.3s ease;
+  }
+  
+  #student .login-button:hover {
+    background-color: #2C3E50;
+  }
+  #student .navbar .dropdown ul li {
+    min-width: 200px;
+  }
+
+  #student .navbar .dropdown ul a {
+    padding: 10px 20px;
+    font-size: 15px;
+    text-transform: none;
+    font-weight: 400;
+    color: #2C3E50;
+  }
+
+  #student .navbar .dropdown ul a i {
+    font-size: 12px;
+  }
+
+  #student  .navbar .dropdown ul a:hover,
+  #student .navbar .dropdown ul .active:hover,
+  #student .navbar .dropdown ul li:hover>a {
+    color: #2C3E50;
+  }
+
+  #student  .navbar .dropdown:hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+
+  #student .navbar .dropdown .dropdown ul {
+    top: 0;
+    left: calc(100% - 30px);
+    visibility: hidden;
+  }
+
+  #student .navbar .dropdown .dropdown:hover>ul {
+    opacity: 1;
+    top: 0;
+    left: 100%;
+    visibility: visible;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1366px) {
+  #student  .navbar .dropdown .dropdown ul {
+    left: -90%;
+  }
+
+  #student .navbar .dropdown .dropdown:hover>ul {
+    left: -100%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Mobile Navigation
+--------------------------------------------------------------*/
+@media (max-width: 1279px) {
+  #student .navbar {
+    padding: 0;
+    z-index: 9997;
+  }
+
+
+  #student  .navbar ul {
+    display: none;
+    position: absolute;
+    inset: 50px 15px 15px 400px;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
+    background-color: #0b1116;
+    overflow-y: auto;
+    transition: 0.3s;
+    z-index: 9998;
+  }
+
+  #student .navbar a,
+  #student .navbar a:focus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-family: var(--font-primary);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  #student .navbar a i,
+  #student  .navbar a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+  }
+
+  #student .navbar a:hover,
+  #student  .navbar .active,
+  #student  .navbar .active:focus,
+  #student  .navbar li:hover>a {
+    color: var(--color-primary);
+  }
+
+  #student .login-button {
+    background-color: #0b1116;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  #student .login-button:hover {
+    background-color: #6f6f6f;
+    color: #0b1116;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  #student .navbar .dropdown ul,
+  #student .navbar .dropdown .dropdown ul {
+    position: static;
+    display: none;
+    z-index: 99;
+    padding: 10px 0;
+    margin: 10px 20px;
+    background: white;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 0px 0px 30px rgba(black, 0.1);
+  }
+
+  #student .navbar .dropdown>.dropdown-active,
+  #student .navbar .dropdown .dropdown>.dropdown-active {
+    display: block;
+  }
+
+  #student .mobile-nav-toggle {
+    display: inline-block;
+    color: var(--color-secondary);
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 0;
+    transition: 0.5s;
+  }
+
+  #student .mobile-nav-toggle.bi-x {
+    color: black;
+  }
+
+  #student .mobile-nav-active {
+    overflow: hidden;
+  }
+
+  #student .mobile-nav-active .mobile-nav-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 9999;
+    color: white;
+  }
+
+  #student .mobile-nav-active .navbar {
+    position: fixed;
+    overflow: hidden;
+    inset: 0;
+    background: rgba(black, 0.6);
+    transition: 0.3s;
+  }
+
+  #student .mobile-nav-active .navbar>ul {
+    display: block;
+  }
+}
   /*--------------------------------------------------------------
   # Header Nav
   --------------------------------------------------------------*/
 
 
-  .header-nav ul {
+  #student  .header-nav ul {
     list-style: none;
     margin: -50px;
   }
   
-  .header-nav>ul {
+  #student  .header-nav>ul {
     padding: 0;
   }
   
-  .header-nav .nav-icon {
+  #student  .header-nav .nav-icon {
     font-size: 22px;
     color: #D1DCE1;
     position: relative;
   }
-  .header-nav .nav-icon:hover {
+  #student .header-nav .nav-icon:hover {
     font-size: 22px;
     color: #D1DCE1;
     position: relative;
   }
   
-  .header-nav .nav-profile {
+  #student .header-nav .nav-profile {
     color: #D1DCE1;
   }
-  .header-nav .nav-profile:hover {
+  #student .header-nav .nav-profile:hover {
     color: #18d26e;
   }
-  .header-nav .nav-profile img {
+  #student  .header-nav .nav-profile img {
     max-height: 36px;
   }
   
-  .header-nav .nav-profile span {
+  #student  .header-nav .nav-profile span {
     font-size: 14px;
     font-weight: 600;
   }
   
-  .header-nav .badge-number {
+  #student  .header-nav .badge-number {
     position: absolute;
     inset: -2px -5px auto auto;
     font-weight: normal;
@@ -331,43 +602,43 @@
     padding: 3px 6px;
   }
   
-  .header-nav .notifications {
+  #student .header-nav .notifications {
     inset: 8px -15px auto auto !important;
   }
   
-  .header-nav .notifications .notification-item {
+  #student .header-nav .notifications .notification-item {
     display: flex;
     align-items: center;
     padding: 15px 10px;
     transition: 0.3s;
   }
   
-  .header-nav .notifications .notification-item i {
+  #student .header-nav .notifications .notification-item i {
     margin: 0 20px 0 10px;
     font-size: 24px;
   }
   
-  .header-nav .notifications .notification-item h4 {
+  #student  .header-nav .notifications .notification-item h4 {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 5px;
   }
   
-  .header-nav .notifications .notification-item p {
+  #student  .header-nav .notifications .notification-item p {
     font-size: 13px;
     margin-bottom: 3px;
     color: #919191;
   }
   
-  .header-nav .notifications .notification-item:hover {
+  #student  .header-nav .notifications .notification-item:hover {
     background-color: #f6f9ff;
   }
   
-  .header-nav .messages {
+  #student  .header-nav .messages {
     inset: 8px -15px auto auto !important;
   }
   
-  .message-item {
+  #student .message-item {
     padding: 15px 10px;
     margin-top: -10px;
     transition: 0.3s;
@@ -375,68 +646,68 @@
     box-sizing: border-box;
   }
   
-  .header-nav .messages .message-item a {
+  #student .header-nav .messages .message-item a {
     display: flex;
   }
   
-  .header-nav .messages .message-item img {
+  #student  .header-nav .messages .message-item img {
     margin: 0 20px 0 10px;
     max-height: 40px;
   }
   
-  .message-item h4 {
+  #student  .message-item h4 {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 5px;
     color: black;
   }
   
-  .message-item p {
+  #student  .message-item p {
     font-size: 15px;
     margin-bottom: 3px;
     color: gray;
  } 
-  .header-nav .messages .message-item:hover {
+ #student .header-nav .messages .message-item:hover {
     background-color: #f6f9ff;
   }
   
-  .header-nav .profile {
+  #student  .header-nav .profile {
     min-width: 240px;
     padding-bottom: 0;
     top: 8px !important;
   }
   
-  .header-nav .profile .dropdown-header h6 {
+  #student  .header-nav .profile .dropdown-header h6 {
     font-size: 18px;
     margin-bottom: 0;
     font-weight: 600;
     color: #444444;
   }
   
-  .header-nav .profile .dropdown-header span {
+  #student   .header-nav .profile .dropdown-header span {
     font-size: 14px;
   }
   
-  .header-nav .profile .dropdown-item {
+  #student .header-nav .profile .dropdown-item {
     font-size: 14px;
     padding: 10px 15px;
     transition: 0.3s;
   }
   
-  .header-nav .profile .dropdown-item i {
+  #student .header-nav .profile .dropdown-item i {
     margin-right: 10px;
     font-size: 18px;
     line-height: 0;
   }
   
-  .header-nav .profile .dropdown-item:hover {
+  #student  .header-nav .profile .dropdown-item:hover {
     background-color: #f6f9ff;
   }
   
   /*--------------------------------------------------------------
   # Sidebar
   --------------------------------------------------------------*/
-  .sidebar {
+   .sidebar {
     position: fixed;
     top: 60px;
     right: 0;
@@ -455,31 +726,31 @@
     margin-top: 50px;
   }
   @media (max-width: 1199px) {
-    .sidebar {
+     .sidebar {
       right: -300px;
     }
   }
   
-  .sidebar::-webkit-scrollbar {
+   .sidebar::-webkit-scrollbar {
     width: 5px;
     height: 8px;
     background-color: #fff;
   }
   
-  .sidebar::-webkit-scrollbar-thumb {
+   .sidebar::-webkit-scrollbar-thumb {
     background-color: #aab7cf;
   }
   
   @media (min-width: 1200px) {
   
-    #main,
-    #footer {
+     #main,
+     #footer {
       margin-right: 300px;
     }
   }
   
   @media (max-width: 1199px) {
-    .toggle-sidebar .sidebar {
+     .toggle-sidebar .sidebar {
       right: 0;
     }
   }
@@ -487,8 +758,8 @@
   @media (min-width: 1200px) {
   
     .toggle-sidebar #main,
-    .toggle-sidebar #footer {
-      margin-right: 0;
+     .toggle-sidebar #footer {
+     margin-right: 0;
     }
   
     .toggle-sidebar .sidebar {
@@ -496,7 +767,7 @@
     }
   }
   
-  .sidebar-nav {
+   .sidebar-nav {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -512,7 +783,7 @@
     margin-bottom: 5px;
   }
   
-  .sidebar-nav .nav-heading {
+   .sidebar-nav .nav-heading {
     font-size: 11px;
     text-transform: uppercase;
     color: #899bbd;
@@ -520,7 +791,7 @@
     margin: 10px 0 5px 15px;
   }
   
-  .sidebar-nav .nav-link {
+    .sidebar-nav .nav-link {
     display: flex;
     align-items: center;
     font-size: 15px;
@@ -543,35 +814,35 @@
     background: #fff;
   }
   
-  .sidebar-nav .nav-link.collapsed i {
+   .sidebar-nav .nav-link.collapsed i {
     color: #899bbd;
   }
   
-  .sidebar-nav .nav-link:hover {
+   .sidebar-nav .nav-link:hover {
     color: #4154f1;
     background: #f6f9ff;
   }
   
-  .sidebar-nav .nav-link:hover i {
-    color: #4154f1;
+   .sidebar-nav .nav-link:hover i {
+   color: #4154f1;
   }
   
-  .sidebar-nav .nav-link .bi-chevron-down {
+   .sidebar-nav .nav-link .bi-chevron-down {
     margin-right: 0;
     transition: transform 0.2s ease-in-out;
   }
   
-  .sidebar-nav .nav-link:not(.collapsed) .bi-chevron-down {
+   .sidebar-nav .nav-link:not(.collapsed) .bi-chevron-down {
     transform: rotate(180deg);
   }
   
-  .sidebar-nav .nav-content {
+   .sidebar-nav .nav-content {
     padding: 5px 0 0 0;
     margin: 0;
     list-style: none;
   }
   
-  .sidebar-nav .nav-content a {
+   .sidebar-nav .nav-content a {
     display: flex;
     align-items: center;
     font-size: 14px;
@@ -582,19 +853,19 @@
     transition: 0.3s;
   }
   
-  .sidebar-nav .nav-content a i {
+    .sidebar-nav .nav-content a i {
     font-size: 6px;
     margin-right: 8px;
     line-height: 0;
     border-radius: 50%;
   }
   
-  .sidebar-nav .nav-content a:hover,
-  .sidebar-nav .nav-content a.active {
+   .sidebar-nav .nav-content a:hover,
+    .sidebar-nav .nav-content a.active {
     color: #4154f1;
   }
   
-  .sidebar-nav .nav-content a.active i {
+   .sidebar-nav .nav-content a.active i {
     background-color: #4154f1;
   }
   
@@ -602,19 +873,19 @@
   # Profie Page
   --------------------------------------------------------------*/
   /* General section styling */
-.section .profile {
+  #student .section .profile {
   padding: 40px 0;
   margin-top: 20px;
   background-color: #f8f9fa;
 }
-.search-box {
+#student .search-box {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   margin-bottom: 10px;
 }
 
-.search-box select, .search-box input {
+#student .search-box select, .search-box input {
   padding: 10px;
   margin-bottom: 5px;
   border: 1px solid #D1DCE1;
@@ -623,7 +894,7 @@
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
 
-.search-box button {
+#student .search-box button {
   background-color: #D1DCE1;
   color: #0b1116;
   border: none; /* Remove default border */
@@ -634,25 +905,25 @@
   transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
-.search-box button:hover {
+#student .search-box button:hover {
   background-color: #b0bec5; /* Slightly darker shade for hover effect */
 }
 
 /* Container styling */
-.container {
+#student .container {
   max-width: 1140px;
   margin: 0 auto;
 }
 
 /* Row styling */
-.row.gy-4 {
+#student .row.gy-4 {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 }
 
 /* Column styling */
-.col-lg-5 {
+#student .col-lg-5 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -660,7 +931,7 @@
 }
 
 /* Profile search styling */
-.profile-search {
+#student .profile-search {
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -668,7 +939,7 @@
   flex-direction: column;
 }
 
-.profile-search input[type="text"] {
+#student .profile-search input[type="text"] {
   width:700px;
   max-width: 400px;
   padding: 10px;
@@ -678,7 +949,7 @@
   margin-bottom: 10px;
 }
 
-.profile-search button {
+#student .profile-search button {
   padding: 10px 20px;
   font-size: 16px;
   border: none;
@@ -688,26 +959,26 @@
   cursor: pointer;
 }
 
-.profile-search button:hover {
+#student .profile-search button:hover {
   background-color: #0056b3;
 }
- .profile-card img {
+#student .profile-card img {
     width: 100px;
     height: 150px;
   }
   
-  .profile-card h2 {
+  #student  .profile-card h2 {
     font-size: 24px;
     font-weight: 700;
     color: #2c384e;
     margin: 10px 0 0 0;
   }
   
- .profile-card h3 {
+  #student .profile-card h3 {
     font-size: 18px;
   }
   
-.profile-card .social-links a {
+  #student .profile-card .social-links a {
     font-size: 20px;
     display: inline-block;
     color: rgba(1, 41, 112, 0.5);
@@ -716,50 +987,50 @@
     transition: 0.3s;
   }
   
-  .profile .profile-card .social-links a:hover {
+  #student .profile .profile-card .social-links a:hover {
     color: #012970;
   }
   
-  .profile .profile-overview .row {
+  #student .profile .profile-overview .row {
     margin-bottom: 20px;
     font-size: 15px;
   }
   
-  .profile .profile-overview .card-title {
+  #student .profile .profile-overview .card-title {
     color: #012970;
   }
   
-  .profile .profile-overview .label {
+  #student .profile .profile-overview .label {
     font-weight: 600;
     color: rgba(1, 41, 112, 0.6);
   }
   
-  .profile .profile-edit label {
+  #student .profile .profile-edit label {
     font-weight: 600;
     color: rgba(1, 41, 112, 0.6);
   }
   
-  .profile .profile-edit img {
+  #student .profile .profile-edit img {
     max-width: 120px;
   }
 
-  .profile-overview {
+  #student  .profile-overview {
     padding: 20px;
   }
   
-   h6 {
+  #student  h6 {
     font-size: 1.2rem;
     margin-bottom: 10px;
   }
   
-   .search-container {
+  #student  .search-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
   }
   
-   .search-container input[type="text"] {
+  #student   .search-container input[type="text"] {
     flex: 1;
     padding: 8px;
     border: 1px solid #ccc;
@@ -768,7 +1039,7 @@
     margin-right: 10px; /* Add margin between input and select */
   }
   
-   .search-container select {
+  #student   .search-container select {
     width: 180px;
     padding: 8px;
     border: 1px solid #ccc;
@@ -776,25 +1047,25 @@
     font-size: 14px;
   }
   
-  table {
+  #student  table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
   }
   
-   th,
-  td {
+  #student  th,
+  #student td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
   }
   
-  th {
+  #student  th {
     background-color: #f2f2f2;
     font-size: 14px;
   }
   
-  tbody tr:hover {
+  #student  tbody tr:hover {
     background-color: #f2f2f2;
   }
   
@@ -802,22 +1073,22 @@
     margin: 0;
   }
   
-.pagination .page-item {
+  #student .pagination .page-item {
     cursor: pointer;
   }
   
- .pagination .page-item.active .page-link {
+  #student .pagination .page-item.active .page-link {
     background-color: #007bff;
     border-color: #007bff;
     color: #fff;
   }
   
- .pagination .page-link {
+  #student .pagination .page-link {
     color: #007bff;
     border: 1px solid #007bff;
   }
   
-.pagination .page-link:hover {
+  #student .pagination .page-link:hover {
     background-color: #007bff;
     border-color: #007bff;
     color: #fff;
@@ -826,7 +1097,7 @@
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
-.hero {
+#student .hero {
   --background-color: color-mix(in srgb, var(--default-color), transparent 94%);
   width: 100%;
   min-height: 60vh;
@@ -836,14 +1107,14 @@
   align-items: center;
 }
 
-.hero h1 {
+#student .hero h1 {
   margin: 0;
   font-size: 64px;
   color: white;
   font-weight: 700;
 }
 
-.hero p {
+#student .hero p {
   color: color-mix(in srgb, var(--default-color), transparent 30%);
   margin: 5px 0 30px 0;
   font-size: 20px;
@@ -851,7 +1122,7 @@
   font-weight: 400;
 }
 
-.hero .btn-get-started {
+#student .hero .btn-get-started {
   color: var(--contrast-color);
   background: var(--accent-color);
   font-weight: 400;
@@ -864,13 +1135,13 @@
   box-shadow: 0 8px 28px color-mix(in srgb, var(--accent-color), transparent 80%);
 }
 
-.hero .btn-get-started:hover {
+#student .hero .btn-get-started:hover {
   color: var(--contrast-color);
   background: color-mix(in srgb, var(--accent-color), transparent 15%);
   box-shadow: 0 8px 28px color-mix(in srgb, var(--accent-color), transparent 55%);
 }
 
-.hero .btn-watch-video {
+#student .hero .btn-watch-video {
   font-size: 16px;
   transition: 0.5s;
   margin-left: 25px;
@@ -878,7 +1149,7 @@
   font-weight: 500;
 }
 
-.hero .btn-watch-video i {
+#student .hero .btn-watch-video i {
   color: var(--accent-color);
   font-size: 32px;
   transition: 0.3s;
@@ -886,32 +1157,32 @@
   margin-right: 8px;
 }
 
-.hero .btn-watch-video:hover {
+#student .hero .btn-watch-video:hover {
   color: var(--accent-color);
 }
 
-.hero .btn-watch-video:hover i {
+#student .hero .btn-watch-video:hover i {
   color: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
 
-.hero .animated {
+#student .hero .animated {
   animation: up-down 2s ease-in-out infinite alternate-reverse both;
 }
 
 @media (max-width: 640px) {
-  .hero h1 {
+  #student .hero h1 {
     font-size: 28px;
     line-height: 36px;
   }
 
-  .hero p {
+  #student .hero p {
     font-size: 18px;
     line-height: 24px;
     margin-bottom: 30px;
   }
 
-  .hero .btn-get-started,
-  .hero .btn-watch-video {
+  #student .hero .btn-get-started,
+  #student .hero .btn-watch-video {
     font-size: 13px;
   }
 }
@@ -927,33 +1198,109 @@
 }
 
 /*--------------------------------------------------------------
+# Notification
+--------------------------------------------------------------*/
+
+/* Accordion */
+#student .accordion-item {
+  border: 1px solid #ebeef4;
+}
+
+#student .accordion-button:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+#student .accordion-button:not(.collapsed) {
+  color: #012970;
+  background-color: #f6f9ff;
+}
+
+#student .accordion-flush .accordion-button {
+  padding: 15px 0;
+  background: none;
+  border: 0;
+}
+
+#student .accordion-flush .accordion-button:not(.collapsed) {
+  box-shadow: none;
+  color: #4154f1;
+}
+
+#student .accordion-flush .accordion-body {
+  padding: 0 0 15px 0;
+  color: #3e4f6f;
+  font-size: 15px;
+}
+
+
+/*--------------------------------------------------------------
+# Error 404
+--------------------------------------------------------------*/
+#student .error-404 {
+  padding: 30px;
+}
+
+#student .error-404 h1 {
+  font-size: 180px;
+  font-weight: 700;
+  color: #4154f1;
+  margin-bottom: 0;
+  line-height: 150px;
+}
+
+#student .error-404 h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #012970;
+  margin-bottom: 30px;
+}
+
+#student .error-404 .btn {
+  background: #51678f;
+  color: #fff;
+  padding: 8px 30px;
+}
+
+#student .error-404 .btn:hover {
+  background: #3e4f6f;
+}
+
+@media (min-width: 992px) {
+  #student .error-404 img {
+    max-width: 50%;
+  }
+}
+
+
+/*--------------------------------------------------------------
 # Contact
 --------------------------------------------------------------*/
-.contact .info-box {
+#student .contact .info-box {
   padding: 28px 30px;
 }
 
-.contact .info-box i {
+#student .contact .info-box i {
   font-size: 38px;
   line-height: 0;
   color: #4154f1;
 }
 
-.contact .info-box h3 {
+#student .contact .info-box h3 {
   font-size: 20px;
   color: #012970;
   font-weight: 700;
   margin: 20px 0 10px 0;
 }
 
-.contact .info-box p {
+#student .contact .info-box p {
   padding: 0;
   line-height: 24px;
   font-size: 14px;
   margin-bottom: 0;
 }
 
-.contact .php-email-form .error-message {
+#student .contact .php-email-form .error-message {
   display: none;
   color: #fff;
   background: #ed3c0d;
@@ -963,7 +1310,7 @@
   font-weight: 600;
 }
 
-.contact .php-email-form .sent-message {
+#student .contact .php-email-form .sent-message {
   display: none;
   color: #fff;
   background: #18d26e;
@@ -973,7 +1320,7 @@
   font-weight: 600;
 }
 
-.contact .php-email-form .loading {
+#student .contact .php-email-form .loading {
   display: none;
   background: #fff;
   text-align: center;
@@ -981,7 +1328,7 @@
   margin-bottom: 24px;
 }
 
-.contact .php-email-form .loading:before {
+#student .contact .php-email-form .loading:before {
   content: "";
   display: inline-block;
   border-radius: 50%;
@@ -993,28 +1340,28 @@
   animation: animate-loading 1s linear infinite;
 }
 
-.contact .php-email-form input,
-.contact .php-email-form textarea {
+#student .contact .php-email-form input,
+#student .contact .php-email-form textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
   border-radius: 0;
 }
 
-.contact .php-email-form input:focus,
-.contact .php-email-form textarea:focus {
+#student .contact .php-email-form input:focus,
+#student .contact .php-email-form textarea:focus {
   border-color: #4154f1;
 }
 
-.contact .php-email-form input {
+#student .contact .php-email-form input {
   padding: 10px 15px;
 }
 
-.contact .php-email-form textarea {
+#student .contact .php-email-form textarea {
   padding: 12px 15px;
 }
 
-.contact .php-email-form button[type=submit] {
+#student .contact .php-email-form button[type=submit] {
   background: #4154f1;
   border: 0;
   padding: 10px 30px;
@@ -1023,7 +1370,7 @@
   border-radius: 4px;
 }
 
-.contact .php-email-form button[type=submit]:hover {
+#student .contact .php-email-form button[type=submit]:hover {
   background: #5969f3;
 }
 
@@ -1037,48 +1384,11 @@
   }
 }
 
-/*--------------------------------------------------------------
-# Error 404
---------------------------------------------------------------*/
-.error-404 {
-  padding: 30px;
-}
-
-.error-404 h1 {
-  font-size: 180px;
-  font-weight: 700;
-  color: #4154f1;
-  margin-bottom: 0;
-  line-height: 150px;
-}
-
-.error-404 h2 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #012970;
-  margin-bottom: 30px;
-}
-
-.error-404 .btn {
-  background: #51678f;
-  color: #fff;
-  padding: 8px 30px;
-}
-
-.error-404 .btn:hover {
-  background: #3e4f6f;
-}
-
-@media (min-width: 992px) {
-  .error-404 img {
-    max-width: 50%;
-  }
-}
 
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
-.footer {
+#student .footer {
   font-size: 14px;
   font-weight: 600;
   background-color: #1A2530;
@@ -1086,11 +1396,11 @@
   color: #D1DCE1;
 }
 
-.footer .logos {
+#student .footer .logos {
   padding-left: 30%;
 }
 
-.footer .footer-info .logo {
+#student .footer .footer-info .logo {
   line-height: 0;
   margin-bottom: 25px;
   width: 190px;
@@ -1098,32 +1408,32 @@
   margin-left: -50px;
 }
 
-.footer .footer-info p {
+#student .footer .footer-info p {
   font-size: 15px;
   font-family: var(--font-primary);
 }
 
 
-.footer h4 {
+#student .footer h4 {
   font-size: 16px;
   font-weight: bold;
   position: relative;
   padding-bottom: 12px;
 }
 
-.footer .footer-links {
+#student .footer .footer-links {
   margin-bottom: 30px;
   text-decoration: none;
 }
 
-.footer .footer-links ul {
+#student .footer .footer-links ul {
   text-decoration: none;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.footer .footer-links ul i {
+#student .footer .footer-links ul i {
   padding-right: 2px;
   color: rgba(149, 165, 166, 0.8); 
   text-decoration: none;
@@ -1131,18 +1441,18 @@
   line-height: 0;
 }
 
-.footer .footer-links ul li {
+#student .footer .footer-links ul li {
   padding: 10px 0;
   text-decoration: none;
   display: flex;
   align-items: center;
 }
 
-.footer .footer-links ul li:first-child {
+#student .footer .footer-links ul li:first-child {
   padding-top: 0;
 }
 
-.footer .footer-links ul a {
+#student .footer .footer-links ul a {
   color: rgba(255, 255, 255, 0.6);
   transition: 0.3s;
   text-decoration: none;
@@ -1150,33 +1460,33 @@
   line-height: 1;
 }
 
-.footer .footer-links ul a:hover {
+#student .footer .footer-links ul a:hover {
   color: #fff;
   font-size: 110%;
   text-decoration: none;
 }
 
-.footer .copyright {
+#student .footer .copyright {
   text-align: center;
 }
 
-.footer .credits {
+#student .footer .credits {
   padding-top: 6px;
   text-align: center;
   font-size: 13px;
 }
 
-.footer .copyright strong {
+#student .footer .copyright strong {
   font-weight: 400;
 }
 
-.footer .footer-legal {
+#student .footer .footer-legal {
   background: #0b1116;
   padding: 40px 0;
   margin-bottom: -50px;
 }
 
-.footer .footer-legal .social-links a {
+#student .footer .footer-legal .social-links a {
   text-align: center;
   display: flex;
   width: 40px;
@@ -1193,13 +1503,13 @@
 
 }
 
-.footer .footer-legal .social-links a:hover {
+#student .footer .footer-legal .social-links a:hover {
   color: rgba(149, 165, 166, 0.5);
   background-color: #0b1116; 
   border: 1px solid rgba(149, 165, 166, 0.5);
 }
 
-.footer .social-links {
+#student .footer .social-links {
   margin-top: 15px;
   margin-bottom: 10px;
   display: flex;
@@ -1207,7 +1517,7 @@
   justify-content: center; 
 }
 
-.footer .social-links i {
+#student .footer .social-links i {
   font-size: 18px;
   margin: 9px; 
 }
