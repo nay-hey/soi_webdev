@@ -132,6 +132,18 @@
     font-family: var(--font-primary);
   }
 
+  #aboutuspage .header1 {
+    text-align: center;
+    padding: 30px;
+    position: sticky;
+    top: 0px;
+    height: 120px;
+    transition: all 0.5s;
+    z-index: 997;
+    background-color: #0b1116;
+    color: #D1DCE1;
+    }
+    
 #aboutuspage .intro-container h1,
 #aboutuspage .vision-container h1,
 #aboutuspage .conclusion-container h2 {
@@ -195,8 +207,9 @@
   #aboutuspage .navbar .active,
   #aboutuspage .navbar .active:focus,
   #aboutuspage .navbar li:hover>a {
-    color: var(--color-primary);
-    text-decoration: dashed;
+    color: #D1DCE1;
+    font-size: 18px;
+    text-decoration: solid white;
   }
 
   #aboutuspage .navbar .getstarted,

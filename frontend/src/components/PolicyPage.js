@@ -7,17 +7,41 @@ import FAQ from './FAQ';
 
 const PolicyPage = () => {
     return (
+        <section id="aboutuspage">
         <div className="policy-page">
-            <header className="header">
-                Library Policies
-            </header>
-            <nav className="policy-nav">
+              <header id="header" className="header d-flex align-items-center fixed-top">
+          <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
+            <div className="logo d-flex align-items-center">
+              <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
+              <h1>IIT Dharwad</h1>
+            </div>
+            <nav id="navbar" className="navbar">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/AboutUs/team">Library Committee</a></li>
+                <li><a href="asklib.html">Ask a Librarian</a></li>
+                <li><a href="/AboutUs">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+            </nav>
+             
+          </div>
+        </header>
+        <div className="header1">
+            <div className="container-fluid container-xl d-flex align-items-right justify-content-right">
+                <h1>Library Policies</h1>
+             <nav className="navbar" >
                 <a href="#conduct">Campus Community Conduct</a>
                 <a href="#borrowing">Borrowing and Access Policies</a>
                 <a href="#privacy">Privacy and Confidentiality</a>
             </nav>
+            </div>
+            </div>
             <div className="policy-content">
                 <section id="conduct">
+                    
+                <div style={{ padding: '50px' }}></div>
+                <div  className='conduct'>
                     <h2>Campus Community Conduct</h2>
                     <p>At IIT Dharwad Library, we are committed to providing an environment that fosters academic excellence, research, and intellectual growth. To maintain a conducive atmosphere for learning and collaboration, we expect all members of the campus community to adhere to the following code of conduct:</p>
                     <ul>
@@ -29,8 +53,11 @@ const PolicyPage = () => {
                         <li><strong>Computer and Internet Use:</strong> Library computers and internet access are provided for academic purposes. Respect copyright laws and refrain from accessing inappropriate or non-academic content.</li>
                         <li><strong>Group Study Rooms:</strong> Reserve group study rooms for collaborative work. Respect the booking schedule and keep noise levels conducive to other library users.</li>
                     </ul>
+                    </div>
                 </section>
                 <section id="borrowing">
+                <div style={{ padding: '50px' }}></div>
+                <div  className='borrowing'>
                     <h2>Borrowing and Access Policies</h2>
                     <ul>
                         <li><strong>Library Access:</strong> Access to library resources and borrowing privileges are available to currently enrolled students, faculty, and staff with a valid IIT Dharwad ID card.</li>
@@ -39,8 +66,11 @@ const PolicyPage = () => {
                         <li><strong>Overdue Fines:</strong> Overdue fines are incurred for materials returned after the due date. Please refer to our fee schedule for details on fines and fees.</li>
                         <li><strong>Lost or Damaged Materials:</strong> Patrons are responsible for the replacement cost of lost or damaged materials. Promptly report any issues to library staff.</li>
                     </ul>
+                    </div>
                 </section>
                 <section id="privacy">
+                <div style={{ padding: '50px' }}></div>
+                <div  className='privacy'>
                     <h2>Privacy and Confidentiality</h2>
                     <ul>
                         <li><strong>Information Collection:</strong> We collect only essential personal information required for library services, such as your name, IIT Dharwad ID number, and contact details.</li>
@@ -49,7 +79,10 @@ const PolicyPage = () => {
                         <li><strong>Data Retention:</strong> We retain your personal information for as long as necessary to fulfill the purposes outlined in our privacy policy or as required by law.</li>
                         <li><strong>Access and Control:</strong> You have the right to access, update, or delete your personal information held by the library. Please contact us if you wish to exercise these rights.</li>
                     </ul>
+                    </div>
                 </section>
+                
+                <div style={{ padding: '50px' }}></div>
                 <FAQ />
                 <Link to="/AboutUs" className="back-link">
                     <button className="back-button">Back to About Us</button>
@@ -57,6 +90,7 @@ const PolicyPage = () => {
             </div>
             <Footer />
         </div>
+        </section>
     );
 };
 

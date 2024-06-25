@@ -329,8 +329,9 @@
   #student .navbar .active,
   #student .navbar .active:focus,
   #student .navbar li:hover>a {
-    color: var(--color-primary);
-    text-decoration: dashed;
+    color: #D1DCE1;
+    font-size: 18px;
+    text-decoration: solid white;
   }
 
   #student .navbar .getstarted,

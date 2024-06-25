@@ -9,9 +9,27 @@ const TeamPage = () => {
         
         <section id="aboutuspage">
         <div className="team-page">
-            <header className="header">
+        <header id="header" className="header d-flex align-items-center fixed-top">
+          <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
+            <div className="logo d-flex align-items-center">
+              <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
+              <h1>IIT Dharwad</h1>
+            </div>
+            <nav id="navbar" className="navbar">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/AboutUs/team">Library Committee</a></li>
+                <li><a href="asklib.html">Ask a Librarian</a></li>
+                <li><a href="/AboutUs">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+            </nav>
+             
+          </div>
+        </header>
+        <div className="header1">
                 <h1>Our Team</h1>
-            </header>
+            </div>
             <section className="team-section">
                 <div className="team-intro">
                     <p></p>

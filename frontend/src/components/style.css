@@ -354,8 +354,9 @@
   #home .navbar .active,
   #home .navbar .active:focus,
   #home .navbar li:hover>a {
-    color: var(--color-primary);
-    text-decoration: dashed;
+    color: #D1DCE1;
+    font-size: 18px;
+    text-decoration: solid white;
   }
 
   #home .navbar .getstarted,

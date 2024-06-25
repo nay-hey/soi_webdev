@@ -69,7 +69,7 @@ return (
     <header id="header" className="header fixed-top d-flex align-items-center">
       <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
           <div className="logo d-flex align-items-center">
-            <img src="static/logo.svg.png" alt="IIT Dharwad Logo" />
+            <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
             <h1>IIT Dharwad</h1>
           </div>
 
@@ -77,7 +77,7 @@ return (
       <nav id="navbar" className="navbar">
             <ul>
               <li><a href="/">Home</a></li>
-              <li><a href="libcom.html">Library Committee</a></li>
+              <li><a href="/AboutUs/team">Library Committee</a></li>
               <li><a href="asklib.html">Ask a Librarian</a></li>
               <li><a href="/AboutUs">About</a></li>
               <li><a href="contact.html">Contact</a></li>
@@ -332,7 +332,7 @@ return (
           <div className="row gy-3">
               <div className="col-lg-3 col-md-12 footer-info">
               <div className="logos">
-              <img src="static/logo.svg.png" alt="Logo" className="logo" />
+              <img src="/static/logo.svg.png" alt="Logo" className="logo" />
               </div>
               <h3>Indian Institute of Technology Dharwad</h3>
               <p>Permanent Campus</p>

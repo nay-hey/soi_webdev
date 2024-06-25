@@ -14,7 +14,7 @@ const Footer = () => {
             <div className="row gy-4">
               <div className="col-lg-4 col-md-12 footer-info">
               <div className="logos">
-                <img src="static/logo.svg.png" alt="Logo" className="logo" />
+                <img src="/static/logo.svg.png" alt="Logo" className="logo" />
                 </div>
               <h3>Indian Institute of Technology Dharwad</h3>
                 <p>Permanent Campus</p>

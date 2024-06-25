@@ -47,7 +47,7 @@ const Login = () => {
       <div className="col-xl-9 col-lg-12 login-container">
       <div className="row">
           <div className="col-lg-7 img-box">
-            <img src="static/adminpage/homebar.png" alt="" />
+            <img src="/static/adminpage/homebar.png" alt="" />
           </div>
           <div className="col-lg-5 no-padding">
           <a href="/"className="text-light d-flex align-items-center justify-content-end" style={{ textDecoration: 'none', position: 'absolute', top: '20px', right: '40px', fontFamily: 'Roboto, sans-serif'}}>

@@ -17,7 +17,7 @@ const StudentProfile = () => {
       const profiles = [
         {
           id: 1,
-          img: 'static/lib1.jpg',
+          img: '/static/lib1.jpg',
           name: 'Kevin Anderson',
           position: 'Admin',
           email: '220010034@iitdh.ac.in',
@@ -27,7 +27,7 @@ const StudentProfile = () => {
         },
         {
           id: 2,
-          img: 'static/lib2.jpeg',
+          img: '/static/lib2.jpeg',
           name: 'Sarah Johnson',
           position: 'Student',
           email: '220010050@iitdh.ac.in',
@@ -37,7 +37,7 @@ const StudentProfile = () => {
         },
         {
           id: 3,
-          img: 'static/lib3.jpeg',
+          img: '/static/lib3.jpeg',
           name: 'Michael Smith',
           job: 'Faculty',
           email: '220010014@iitdh.ac.in',
@@ -107,7 +107,7 @@ const StudentProfile = () => {
       <header id="header" className="header fixed-top d-flex align-items-center">
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
-              <img src="static/logo.svg.png" alt="IIT Dharwad Logo" />
+              <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
               <h1>IIT Dharwad</h1>
             </div>
 
@@ -115,7 +115,7 @@ const StudentProfile = () => {
         <nav id="navbar" className="navbar">
               <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="libcom.html">Library Committee</a></li>
+                <li><a href="/AboutUs/team">Library Committee</a></li>
                 <li><a href="asklib.html">Ask a Librarian</a></li>
                 <li><a href="/AboutUs">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -377,7 +377,7 @@ const StudentProfile = () => {
                             </div>
                         </div>
                         <div className="col-lg-5 order-1 order-lg-2 hero-img">
-                            <img src="static/adminpage/profilebar.png" className="img-fluid" alt="" />
+                            <img src="/static/adminpage/profilebar.png" className="img-fluid" alt="" />
                         </div>
                         </div>
                     </div>
@@ -563,7 +563,7 @@ const StudentProfile = () => {
             <div className="row gy-3">
                 <div className="col-lg-3 col-md-12 footer-info">
                 <div className="logos">
-                <img src="static/logo.svg.png" alt="Logo" className="logo" />
+                <img src="/static/logo.svg.png" alt="Logo" className="logo" />
                 </div>
                 <h3>Indian Institute of Technology Dharwad</h3>
                 <p>Permanent Campus</p>

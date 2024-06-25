@@ -3,7 +3,6 @@ import Card from './Card';
 import Footer from './Footer';
 import ImageSlider from './ImageSlider';
 import '../styles/AboutUs.css';
-import { Link } from 'react-router-dom';
 
 class AboutUs extends Component {
     componentDidMount() {
@@ -51,7 +50,7 @@ class AboutUs extends Component {
             <nav id="navbar" className="navbar">
               <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="libcom.html">Library Committee</a></li>
+                <li><a href="/AboutUs/team">Library Committee</a></li>
                 <li><a href="asklib.html">Ask a Librarian</a></li>
                 <li><a href="/AboutUs">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -60,6 +59,9 @@ class AboutUs extends Component {
              
           </div>
         </header>
+        <div className="header1">
+                <h1>About Us</h1>
+            </div>
                 <section className="intro-section">
                     <div className="row intro-container">
                         <div className="col-lg-6 order-2 order-lg-1 intro-image">
