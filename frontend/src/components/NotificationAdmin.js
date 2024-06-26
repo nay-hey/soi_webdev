@@ -190,7 +190,7 @@ const Notification = () => {
         <section className="section">
       <div className="card">
         <div className="card-body">
-          <h5 className="card-title">Default Accordion</h5>
+          <h5 className="card-title">Your Messages</h5>
           <div className="accordion" id="accordionExample">
             {notifications.map((notification, index) => (
               <div className="accordion-item" key={index}>
@@ -213,7 +213,7 @@ const Notification = () => {
                   data-bs-parent="#accordionExample"
                 >
                   <div className="accordion-body">
-                    <strong>{notification.name}</strong> <br />{notification.message}
+                    {notification.message} <br /><strong>{notification.name}</strong>
                   </div>
                 </div>
               </div>
