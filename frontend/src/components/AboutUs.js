@@ -44,7 +44,7 @@ class AboutUs extends Component {
             <header id="header" className="header d-flex align-items-center fixed-top">
           <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
-              <img src="static/logo.svg.png" alt="IIT Dharwad Logo" />
+              <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
               <h1>IIT Dharwad</h1>
             </div>
             <nav id="navbar" className="navbar">

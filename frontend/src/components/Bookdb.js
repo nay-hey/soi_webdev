@@ -113,137 +113,6 @@ const Bookdb = () => {
             </nav>
         <nav className="header-nav ms-auto">
       <ul className="d-flex align-items-center list-unstyled m-0">
-        <li className="nav-item dropdown me-3">
-          <DropdownButton
-            menuAlign="right"
-            title={
-              <span className="nav-link nav-icon">
-                <i className="bi bi-bell"></i>
-                <Badge bg="primary" className="badge-number">
-                  4
-                </Badge>
-              </span>
-            }
-            id="dropdown-notifications"
-          >
-            <Dropdown.Header>You have 4 new notifications</Dropdown.Header>
-            <Dropdown.Divider />
-            <Dropdown.Item className="notification-item">
-              <i className="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item className="notification-item">
-              <i className="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item className="notification-item">
-              <i className="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item className="notification-item">
-              <i className="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item className="dropdown-footer">
-              <Link to="#">Show all notifications</Link>
-            </Dropdown.Item>
-          </DropdownButton>
-        </li>
-
-        <li className="nav-item dropdown me-3">
-          <DropdownButton
-            menuAlign="right"
-            title={
-              <span className="nav-link nav-icon">
-                <i className="bi bi-chat-left-text"></i>
-                <Badge bg="success" className="badge-number">
-                  3
-                </Badge>
-              </span>
-            }
-            id="dropdown-messages"
-          >
-            <Dropdown.Header>You have 3 new messages</Dropdown.Header>
-            <Dropdown.Divider />
-            <Dropdown.Item className="message-item">
-              <Link to="#">
-                <Image
-                  src="assets/img/messages-1.jpg"
-                  alt=""
-                  className="rounded-circle me-3"
-                />
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>
-                    Velit asperiores et ducimus soluta repudiandae labore
-                    officia est ut...
-                  </p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item className="message-item">
-              <Link to="#">
-                <Image
-                  src="assets/img/messages-2.jpg"
-                  alt=""
-                  className="rounded-circle me-3"
-                />
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>
-                    Velit asperiores et ducimus soluta repudiandae labore
-                    officia est ut...
-                  </p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item className="message-item">
-              <Link to="#">
-                <Image
-                  src="assets/img/messages-3.jpg"
-                  alt=""
-                  className="rounded-circle me-3"
-                />
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>
-                    Velit asperiores et ducimus soluta repudiandae labore
-                    officia est ut...
-                  </p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item className="dropdown-footer">
-              <Link to="#">Show all messages</Link>
-            </Dropdown.Item>
-          </DropdownButton>
-        </li>
 
         <li className="nav-item dropdown">
           <DropdownButton
@@ -251,7 +120,7 @@ const Bookdb = () => {
             title={
               <span className="nav-link nav-profile d-flex align-items-center pe-0">
                 <Image
-                  src="static/adminpage/profile.png"
+                  src="/static/adminpage/profile.png"
                   alt="Profile"
                   className="rounded-circle me-2"
                 />
@@ -303,7 +172,7 @@ const Bookdb = () => {
             </li>
             <li className="nav-item">
                 <Link className="nav-link " to="/StudentPage/bookdb">
-                <i className="bi bi-book"></i><span>Book Database</span>
+                <i className="bi bi-book"></i><span>Book Search</span>
                 </Link>
             </li>
             <li className="nav-item">
@@ -328,12 +197,11 @@ const Bookdb = () => {
                 <nav>
                     <ol className="breadcrumb">
                     <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }}  to="/StudentPage">Home</Link></li>
-                    <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Book Database</li>
+                    <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Book Search</li>
                     </ol>
                 </nav>
                 </div>
                 <section id="profile-search">
-            <h6>Book Details</h6>
             <div className="container">
               <div className="row gy-4 justify-content-center justify-content-lg-between">
                 <div className="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
