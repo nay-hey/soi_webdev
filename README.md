@@ -7,7 +7,6 @@ A web application for managing the library system of our institute. This project
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
 
@@ -16,8 +15,8 @@ This web application provides a user-friendly interface for both librarians and 
 
 ## Features
 - User authentication and authorization
-- Book catalog management (CRUD operations)
-- Member management (CRUD operations)
+- Book catalog management 
+- Member management 
 - Borrowing and returning books
 - Search functionality
 - Responsive design
@@ -98,8 +97,8 @@ This web application provides a user-friendly interface for both librarians and 
 - **Home page:** This is the landing page from where you can access all other pages. 
 - **About Us:** This page provides some information about the library and contains links to four sub-pages.
 - **Login page:** This can be accessed by clicking the login button in the header. It validates user credentials and has two seperate sections for admin and student.
-- **Admin Dashboard:** Log in with librarian credentials to manage books and members.
-- **Student Dashboard:** Log in with member credentials to search for books and view borrowing history.
+- **Admin Dashboard:** Log in with librarian credentials to manage books and members and access other special features.
+- **Student Dashboard:** Log in with member credentials to access several features like searching for books and viewing borrowing history.
 
 ### Screenshots
 ![Home Page](/home.png)
@@ -108,14 +107,6 @@ This web application provides a user-friendly interface for both librarians and 
 ![Login Page](/login.png)
 ![Student Page](/student.png)
 ![Admin Page](/admin.png)
-
-## Contributing
-We welcome contributions from the community. Please follow these steps:
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature-name`).
-3. Make your changes and commit them (`git commit -m 'Add some feature'`).
-4. Push to the branch (`git push origin feature/your-feature-name`).
-5. Open a pull request.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
