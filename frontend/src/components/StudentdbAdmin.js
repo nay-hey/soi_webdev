@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
-import { DataTable } from 'simple-datatables';
+import { Tooltip } from 'bootstrap';
 import { Link } from 'react-router-dom';
-import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap'; 
+import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './StudentPage.css';
-import 'simple-datatables/dist/style.css';
-import { Tooltip } from 'bootstrap';
+import './AdminPage.css';
+
 const Studentdb = () => {
   const [students, setStudents] = useState([]);
 
 
   const [newStudent, setNewStudent] = useState({ student_name: '', roll: '', email: '', branch: '' });
 
-  const [dataTableInstance, setDataTableInstance] = useState(null);
 
   useEffect(() => {
     fetchStudents();
   }, []);
 
-  useEffect(() => {
-    if (students.length > 0) {
-      initializeDataTables();
-    }
-  }, [students]);
 
   const fetchStudents = async () => {
     try {
@@ -68,9 +61,6 @@ const Studentdb = () => {
       const response = await axios.post('http://localhost:5000/api/students', newStudent);
       setStudents([...students, response.data]);
       setNewStudent({ student_name: '', roll: '', email: '', branch: '' });
-      if (dataTableInstance) {
-        dataTableInstance.destroy();
-      }
       fetchStudents(); // Refresh the list after adding
     } catch (error) {
       console.error('Error adding student:', error);
@@ -81,9 +71,6 @@ const Studentdb = () => {
     try {
       await axios.delete(`http://localhost:5000/api/students/${id}`);
       setStudents(students.filter(student => student._id !== id));
-      if (dataTableInstance) {
-        dataTableInstance.destroy();
-      }
       fetchStudents(); // Refresh the list after deletion
     } catch (error) {
       console.error('Error deleting student:', error);
@@ -95,20 +82,27 @@ const Studentdb = () => {
     setNewStudent({ ...newStudent, [name]: value });
   };
 
-  const initializeDataTables = () => {
-    const tables = document.querySelectorAll('.datatable');
-    tables.forEach(table => {
-      const instance = new DataTable(table, {
-        perPageSelect: [5, 10, 15, ["All", -1]],
-        columns: [
-          { select: 2, sortSequence: ["desc", "asc"] },
-          { select: 3, sortSequence: ["desc"] },
-          { select: 4, cellClass: "green", headerClass: "red" }
-        ]
-      });
-      setDataTableInstance(instance);
-    });
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [entriesPerPage, setEntriesPerPage] = useState(5);
+  const filteredStudents = students.filter(student => {
+    return Object.values(student).some(value =>
+      String(value).toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+  const indexOfLastEntry = currentPage * entriesPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  const currentEntries = filteredStudents.slice(indexOfFirstEntry, indexOfLastEntry);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Function to handle search term change
+  const handleSearchChange = e => {
+    setSearchTerm(e.target.value);
   };
+
   useEffect(() => {
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -159,29 +153,18 @@ document.addEventListener('scroll', handleScroll);
 }, []);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <div>
-          <section id="admin">
-          <header id="header" className="header fixed-top d-flex align-items-center">
+              <section id="admin">
+      <header id="header" className="header fixed-top d-flex align-items-center">
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
               <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
               <h1>IIT Dharwad</h1>
             </div>
-            <nav id="navbar" className="navbar">
+
+        </div>
+        <nav id="navbar" className="navbar">
               <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/AboutUs/team">Library Committee</a></li>
@@ -190,7 +173,6 @@ document.addEventListener('scroll', handleScroll);
                 <li><a href="contact.html">Contact</a></li>
               </ul>
             </nav>
-        </div>
         <nav className="header-nav ms-auto">
       <ul className="d-flex align-items-center list-unstyled m-0">
         <li className="nav-item dropdown">
@@ -241,60 +223,50 @@ document.addEventListener('scroll', handleScroll);
     </nav>
            <i className="bi bi-list toggle-sidebar-btn"></i>
         </header>
-
-
         <aside id="sidebar" className="sidebar">
 
-<ul className="sidebar-nav" id="sidebar-nav">
+            <ul className="sidebar-nav" id="sidebar-nav">
 
-<li className="nav-item">
-    <Link className="nav-link collapsed" to="/AdminPage">
-    <i className="bi bi-grid"></i>
-    <span>Home</span>
-    </Link>
-</li>
-<li className="nav-item">
-    <Link className="nav-link collapsed" to="/AdminPage/studentdb">
-    <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
-    </Link>
-</li>
-<li className="nav-item">
-    <Link className="nav-link collapsed" to="/AdminPage/bookdb">
-    <i className="bi bi-book"></i><span>Book Database</span>
-    </Link>
-</li>
-<li className="nav-item">
-    <Link className="nav-link collapsed" to="/AdminPage/circulationmanagement">
-    <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
-    </Link>
-</li>
-<li className="nav-item">
-    <Link className="nav-link collapsed" to="/AdminPage/reminder">
-    <i className="bi bi-alarm-fill"></i><span>Reminder</span>
-    </Link>
-</li>
-<li className="nav-item">
-    <Link className="nav-link collapsed" to="/AdminPage/studentprofile">
-    <i className="bi bi-person"></i>
-    <span>Profile Edit</span>
-    </Link>
-</li>
-<li className="nav-item">
-        <Link className="nav-link " to="/AdminPage/notification">
-        <i class="bi bi-envelope"></i>
-        <span>Notification</span>
-        </Link>
-    </li>
-</ul>
+            <li className="nav-item">
+                <Link className="nav-link collapsed" to="/AdminPage">
+                <i className="bi bi-grid"></i>
+                <span>Home</span>
+                </Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link " to="/studentdb">
+                <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
+                </Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link collapsed" to="/AdminPage/bookdb">
+                <i className="bi bi-book"></i><span>Book Database</span>
+                </Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link collapsed" to="/AdminPage/circulationmanagement">
+                <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
+                </Link>
+            </li> <li className="nav-item">
+                <Link className="nav-link collapsed" to="/AdminPage/reminder">
+                <i className="bi bi-alarm-fill"></i><span>Reminder</span>
+                </Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link collapsed" to="/AdminPage/studentprofile">
+                <i className="bi bi-person"></i>
+                <span>Profile Edit</span>
+                </Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link collapsed" to="/AdminPage/notification">
+                <i class="bi bi-envelope"></i>
+                <span>Notification</span>
+                </Link>
+            </li>
+            </ul>
 
-</aside>
-
-
-
-
-
-
-        
+            </aside>
 
         <main id="main" className="main">
           <div className="pagetitle">
@@ -327,7 +299,24 @@ document.addEventListener('scroll', handleScroll);
                     </ul>
                     <div className="tab-content pt-2">
                       <div className="tab-pane fade show active profile-overview" id="profile-overview">
-                        <table className="table datatable">
+                      <div className="search-container">
+                  <input
+                    type="text"
+                    placeholder="Search by title ..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                  />
+                  <select
+                    className="form-control"
+                    value={entriesPerPage}
+                    onChange={(e) => setEntriesPerPage(parseInt(e.target.value))}
+                  >
+                    <option value="5">5 entries per page</option>
+                    <option value="10">10 entries per page</option>
+                    <option value={filteredStudents.length}>All entries</option>
+                  </select>
+                </div>
+                      <table className="table table-bordered table-hover">
                           <thead>
                             <tr>
                               <th>Name</th>
@@ -338,7 +327,7 @@ document.addEventListener('scroll', handleScroll);
                             </tr>
                           </thead>
                           <tbody>
-                            {students.map(student => (
+                            {currentEntries.map(student => (
                               <tr key={student._id}>
                                 <td>{student.student_name}</td>
                                 <td>{student.roll}</td>
@@ -349,6 +338,17 @@ document.addEventListener('scroll', handleScroll);
                             ))}
                           </tbody>
                         </table>
+                        <div>
+                        <nav aria-label="Page navigation example">
+                          <ul className="pagination">
+                            {Array.from({ length: Math.ceil(filteredStudents.length / entriesPerPage) }, (_, index) => (
+                              <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                                <button className="page-link" onClick={() => paginate(index + 1)}>{index + 1}</button>
+                              </li>
+                            ))}
+                          </ul>
+                        </nav>
+                      </div>
                       </div>
 
                       <div className="tab-pane fade profile-edit pt-3" id="profile-edit">
@@ -371,7 +371,19 @@ document.addEventListener('scroll', handleScroll);
                                 </div>
                                 <div className="mb-3">
                                   <label htmlFor="branch" className="form-label">Branch</label>
-                                  <input type="text" className="form-control" id="branch" name="branch" value={newStudent.branch} onChange={handleChange} />
+                                  <select className="form-control" id="branch" name="branch" value={newStudent.branch} onChange={handleChange}>
+                                    <option value="">Select Branch</option>
+                                    <option value="Computer Science">Computer Science</option>
+                                    <option value="Electrical Engineering">Electrical Engineering</option>
+                                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                    <option value="Mathematics and Computing">Mathematics and Computing</option>
+                                    <option value="Engineering Physics">Engineering Physics</option>
+                                    <option value="Chemical Engineering">Chemical Engineering</option>
+                                    <option value="Civil Engineering">Civil Engineering</option>
+                                    <option value="BSMS">BSMS</option>
+                                    {/* Add more options as needed */}
+                                  </select>
+
                                 </div>
                                
                                 <button type="submit" className="btn btn-primary">Submit</button>
@@ -383,7 +395,24 @@ document.addEventListener('scroll', handleScroll);
 
                       <div className="tab-pane fade pt-3" id="profile-settings">
                         <h6>Delete Member</h6>
-                        <table className="table datatable">
+                        <div className="search-container">
+                      <input
+                        type="text"
+                        placeholder="Search by title ..."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                      />
+                      <select
+                        className="form-control"
+                        value={entriesPerPage}
+                        onChange={(e) => setEntriesPerPage(parseInt(e.target.value))}
+                      >
+                        <option value="5">5 entries per page</option>
+                        <option value="10">10 entries per page</option>
+                        <option value={filteredStudents.length}>All entries</option>
+                      </select>
+                    </div>
+                        <table className="table table-bordered table-hover">
                           <thead>
                             <tr>
                               <th>Name</th>
@@ -395,7 +424,7 @@ document.addEventListener('scroll', handleScroll);
                             </tr>
                           </thead>
                           <tbody>
-                            {students.map(student => (
+                            {currentEntries.map(student => (
                               <tr key={student._id}>
                                 <td>{student.student_name}</td>
                                 <td>{student.roll}</td>
@@ -409,6 +438,17 @@ document.addEventListener('scroll', handleScroll);
                             ))}
                           </tbody>
                         </table>
+                        <div>
+                  <nav aria-label="Page navigation example">
+                    <ul className="pagination">
+                      {Array.from({ length: Math.ceil(filteredStudents.length / entriesPerPage) }, (_, index) => (
+                        <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                          <button className="page-link" onClick={() => paginate(index + 1)}>{index + 1}</button>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                </div>
                       </div>
 
                     </div>
@@ -421,108 +461,108 @@ document.addEventListener('scroll', handleScroll);
 
         <footer id="footer" className="footer">
 
-<div className="container">
-<div className="row gy-3">
-    <div className="col-lg-3 col-md-12 footer-info">
-    <div className="logos">
-    <img src="/static/logo.svg.png" alt="Logo" className="logo" />
+            <div className="container">
+            <div className="row gy-3">
+                <div className="col-lg-3 col-md-12 footer-info">
+                <div className="logos">
+                <img src="/static/logo.svg.png" alt="Logo" className="logo" />
+                </div>
+                <h3>Indian Institute of Technology Dharwad</h3>
+                <p>Permanent Campus</p>
+                <p>Chikkamalligawad Village</p>
+                <p>Dharwad, Karnataka, India - 580007</p>
+                <p>Email: <a href="mailto:pro@iitdh.ac.in">pro@iitdh.ac.in</a></p>
+                </div>
+
+                <div className="col-lg-2 col-6 footer-links">
+                <h4>Academics</h4>
+                    <ul>
+                        <li><a href="#">Admissions</a></li>
+                        <li><a href="#">Announcements</a></li>
+                        <li><a href="#">Departments</a></li>
+                        <li><a href="#">Programs</a></li>
+                    </ul>
+                </div>
+
+                <div className="col-lg-2 col-6 footer-links">
+                <h4>Research</h4>
+                    <ul>
+                        <li><a href="#">Consultancy Projects</a></li>
+                        <li><a href="#">IRINS</a></li>
+                        <li><a href="#">Project Vacancies</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Sponsored Projects</a></li>
+                    </ul>
+                </div>
+
+                <div className="col-lg-2 col-6 footer-links">
+                <h4>People</h4>
+                    <ul>
+                        <li><a href="#">Administration</a></li>
+                        <li><a href="#">Faculty</a></li>
+                        <li><a href="#">Staff</a></li>
+                        <li><a href="#">Students</a></li>
+                    </ul>
+                </div>
+
+                <div className="col-lg-2 col-6 footer-links">
+                <h4>Quick Access</h4>
+                    <ul>
+                    <li><a href="#">About Dharwad</a></li>
+                        <li><a href="#">Bus Schedule</a></li>
+                        <li><a href="#">Chief Vigilance Officer</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Counselling Center</a></li>
+                        <li><a href="#">CSR</a></li>
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">Grievance Redressal</a></li>
+                        <li><a href="#">ICC</a></li>
+                        <li><a href="#">Intranet</a></li>
+                        <li><a href="#">Old Website</a></li>
+                        <li><a href="#">RTI</a></li>
+                        <li><a href="#">SC-ST-OBC Liaison Cell</a></li>
+                        <li><a href="#">Tenders</a></li>
+                        <li><a href="#">Videos</a></li>
+                        <li><a href="#">VPN Access</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            </div>
+            
+            <div className="footer-legal">
+            <div className="container">
+
+                <div className="row justify-content-between">
+                <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <div className="copyright">
+                    © Copyright <strong><span>IIT Dharwad</span></strong>. All Rights Reserved
+                    </div>
+
+                    <div className="credits">
+                    Designed by Pandas🐼
+                    </div>
+
+                </div>
+
+                <div className="col-md-6">
+                    <div className="social-links mb-3 mb-lg-0 text-center text-md-end">
+                    <a href="#" className="twitter"><i className="bi bi-twitter"></i></a>
+                    <a href="#" className="facebook"><i className="bi bi-facebook"></i></a>
+                    <a href="#" className="instagram"><i className="bi bi-instagram"></i></a>
+                    <a href="#" className="linkedin"><i className="bi bi-linkedin"></i></a>
+                    </div>
+
+                </div>
+
+                </div>
+
+            </div>
+            </div>
+            </footer>
+      </section>
     </div>
-    <h3>Indian Institute of Technology Dharwad</h3>
-    <p>Permanent Campus</p>
-    <p>Chikkamalligawad Village</p>
-    <p>Dharwad, Karnataka, India - 580007</p>
-    <p>Email: <a href="mailto:pro@iitdh.ac.in">pro@iitdh.ac.in</a></p>
-    </div>
-
-    <div className="col-lg-2 col-6 footer-links">
-    <h4>Academics</h4>
-        <ul>
-            <li><a href="#">Admissions</a></li>
-            <li><a href="#">Announcements</a></li>
-            <li><a href="#">Departments</a></li>
-            <li><a href="#">Programs</a></li>
-        </ul>
-    </div>
-
-    <div className="col-lg-2 col-6 footer-links">
-    <h4>Research</h4>
-        <ul>
-            <li><a href="#">Consultancy Projects</a></li>
-            <li><a href="#">IRINS</a></li>
-            <li><a href="#">Project Vacancies</a></li>
-            <li><a href="#">Publications</a></li>
-            <li><a href="#">Sponsored Projects</a></li>
-        </ul>
-    </div>
-
-    <div className="col-lg-2 col-6 footer-links">
-    <h4>People</h4>
-        <ul>
-            <li><a href="#">Administration</a></li>
-            <li><a href="#">Faculty</a></li>
-            <li><a href="#">Staff</a></li>
-            <li><a href="#">Students</a></li>
-        </ul>
-    </div>
-
-    <div className="col-lg-2 col-6 footer-links">
-    <h4>Quick Access</h4>
-        <ul>
-        <li><a href="#">About Dharwad</a></li>
-            <li><a href="#">Bus Schedule</a></li>
-            <li><a href="#">Chief Vigilance Officer</a></li>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Counselling Center</a></li>
-            <li><a href="#">CSR</a></li>
-            <li><a href="#">Events</a></li>
-            <li><a href="#">Grievance Redressal</a></li>
-            <li><a href="#">ICC</a></li>
-            <li><a href="#">Intranet</a></li>
-            <li><a href="#">Old Website</a></li>
-            <li><a href="#">RTI</a></li>
-            <li><a href="#">SC-ST-OBC Liaison Cell</a></li>
-            <li><a href="#">Tenders</a></li>
-            <li><a href="#">Videos</a></li>
-            <li><a href="#">VPN Access</a></li>
-        </ul>
-    </div>
-
-</div>
-</div>
-
-<div className="footer-legal">
-<div className="container">
-
-    <div className="row justify-content-between">
-    <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
-        <div className="copyright">
-        © Copyright <strong><span>IIT Dharwad</span></strong>. All Rights Reserved
-        </div>
-
-        <div className="credits">
-        Designed by Pandas🐼
-        </div>
-
-    </div>
-
-    <div className="col-md-6">
-        <div className="social-links mb-3 mb-lg-0 text-center text-md-end">
-        <a href="#" className="twitter"><i className="bi bi-twitter"></i></a>
-        <a href="#" className="facebook"><i className="bi bi-facebook"></i></a>
-        <a href="#" className="instagram"><i className="bi bi-instagram"></i></a>
-        <a href="#" className="linkedin"><i className="bi bi-linkedin"></i></a>
-        </div>
-
-    </div>
-
-    </div>
-
-</div>
-</div>
-</footer>
-</section>
-</div>
-);
+  );
 };
 
 export default Studentdb;
