@@ -11,7 +11,7 @@ A web application for managing the library system of our institute. This project
 - [Contact](#contact)
 
 ## Project Description
-This web application provides a user-friendly interface for both librarians and members of the institute. Librarians can add, update, and delete book records, manage member information, and oversee borrowing and returning activities. Members can browse the catalog, search for books, and view their borrowing history.
+This web application provides a user-friendly interface for both librarians and members of the institute. Librarians can add, update, and delete book records, manage member information, and oversee borrowing and returning activities. Members can browse the catalog, search for books, view their borrowing history, receive reminders for returning books, get personalised book recommendations and message the admin. 
 
 ## Features
 - User authentication and authorization
@@ -20,7 +20,11 @@ This web application provides a user-friendly interface for both librarians and 
 - Borrowing and returning books
 - Search functionality
 - Responsive design
-
+- Know about the library's:
+    - Vision
+    - Policies
+    - Team
+      
 ## Installation
 
 ### Prerequisites
