@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
-
+import axios from 'axios';
 import './StudentPage.css';
 import styled from 'styled-components';
 import 'simple-datatables/dist/style.css';
@@ -12,12 +12,53 @@ import { DataTable } from 'simple-datatables';
 import { Link } from 'react-router-dom';
 
 
-const DashboardContainer = styled.div`
-  background-color: white;
-  padding: 2rem;
-`;
-
 const Studentdb = () => {
+
+  const [items, setItem] = useState([]);
+  useEffect(() => {
+    fetchItem();
+  }, []);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [entriesPerPage, setEntriesPerPage] = useState(5);
+  const fetchItem = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/issues');
+      setItem(response.data);
+    } catch (error) {
+      console.error('Error fetching item:', error);
+    }
+  };
+
+ const filteredBooks = items.filter(item => {
+      return Object.values(item).some(value =>
+        String(value).toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+    const indexOfLastEntry = currentPage * entriesPerPage;
+    const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+    const currentEntries = filteredBooks.slice(indexOfFirstEntry, indexOfLastEntry);
+  
+    // Change page
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const handleSearchChange = e => {
+    setSearchTerm(e.target.value);
+  };
+  const getDueDateColor = (dueDate) => {
+    const today = new Date();
+    const due = new Date(dueDate);
+    const timeDiff = due - today;
+    const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+    if (daysDiff < 0) {
+      return 'black';
+    } else if (daysDiff <= 3) {
+      return 'red';
+    } else {
+      return 'green';
+    }
+  };
   
   useEffect(() => {
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -174,24 +215,155 @@ return (
           </nav>
           </div>
 
-          <DashboardContainer>
-           <h2>Dashboard</h2>
-          <p>Welcome to your library dashboard. Here you can find an overview of your library activity.</p>
-          <h3>Current Loans</h3>
-          <ul>
-            <li>Book Title 1 - Due Date: 2024-07-01</li>
-            <li>Book Title 2 - Due Date: 2024-07-05</li>
-          </ul>
-          <h3>Reserved Books</h3>
-          <ul>
-            <li>Book Title 3 - Reservation Status: Pending</li>
-          </ul>
-          <h3>Notifications</h3>
-          <ul>
-            <li>You have a book due soon: Book Title 1</li>
-            <li>Fine alert: $5 overdue fine for Book Title 2</li>
-          </ul>
-        </DashboardContainer>
+          <section className="section">
+            <div className="row">
+                <div className="card">
+                  <div className="card-body pt-3">
+                    <ul className="nav nav-tabs nav-tabs-bordered">
+                      <li className="nav-item">
+                      <button className="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Notifications</button>
+                      </li> 
+                      <li className="nav-item">
+                      <button className="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">History</button>
+                      </li>
+                    </ul>
+                    <div className="tab-content pt-2">
+                      <div className="tab-pane fade show active profile-overview" id="profile-overview">
+                      <section id="team" className="team">
+                        <div className="container">
+                          <div className="section-header">
+                            <h2>Based on your history...</h2>
+                          </div>
+                          <div className="team-wrapper">
+                            <div className="team-row">
+                              <div className="member"  style={{ backgroundImage: "url('/static/book_img/Principles of Chemical Engineering Processes.png')" }}>
+                              <div className="description">
+                                <h3>Principles of Chemical</h3>
+                                <h3>Engineering Processes</h3>
+                                <p>Comprehensive guide to material and energy balance calculations in chemical processes.</p>
+                              </div>
+                              </div>
+                              <div className="member"  style={{ backgroundImage: "url('/static/book_img/Introduction to Engineering Experimentation.png')" }}>
+                              <div className="description">
+                                <h3>Introduction to Engineering </h3>
+                                <h3>Experimentation</h3>
+                                <p>Guide to the principles and practices of engineering experimentation.</p>
+                              </div>
+                              </div>
+                              <div className="member"  style={{ backgroundImage: "url('/static/book_img/Electromagnetics for Engineers.png')" }}>
+                              <div className="description">
+                                <h3>Electromagnetics for Engineers</h3>
+                                <p>Introduction to the principles and applications of electromagnetics for engineers.</p>
+                              </div>
+                              </div>
+                              <div className="member"  style={{ backgroundImage: "url('/static/book_img/Construction Planning, Equipment, and Methods.png')" }}>
+                              <div className="description">
+                                <h3>Construction Planning,</h3>
+                                <h3> Equipment, and Methods</h3>
+                                <p>Guide to the planning and methods of construction projects.</p>
+                              </div>
+                              </div>
+                            </div>
+                            <div className="team-row">
+                              <div className="member"  style={{ backgroundImage: "url('/static/book_img/Operating System Concepts.png')" }}>
+                              <div className="description">
+                                <h3>Operating System Concepts</h3>
+                                <p>In-depth look at the design and implementation of operating systems.</p>
+                              </div>
+                              </div>
+                              <div className="member"  style={{ backgroundImage: "url('/static/book_img/Electrical Engineering.png')" }}>
+                              <div className="description">
+                                <h3>Electrical Engineering: </h3>
+                                <h3>Principles and Applications</h3>
+                                <p>Comprehensive guide to fundamental principles and applications of electrical engineering.</p>
+                              </div>
+                              </div>
+                              <div className="member"  style={{ backgroundImage: "url('/static/book_img/Transportation Engineering and Planning.png')" }}>
+                              <div className="description">
+                                <h3>Transportation Engineering</h3>
+                                <h3>and Planning</h3>
+                                <p>Fundamentals of transportation engineering and planning concepts.</p>
+                              </div>
+                              </div>
+                              <div className="member"  style={{ backgroundImage: "url('/static/book_img/Masonry Structures.png')" }}>
+                              <div className="description">
+                                <h3>Masonry Structures:</h3>
+                                <h3>Behavior and Design</h3>
+                                <p>Comprehensive guide to the behavior and design of masonry structures.</p>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                      </div>
+                      <div className="tab-pane fade profile-edit pt-3" id="profile-edit">
+                      <div className="row">
+                          <div className="card">
+                              <div className="card-body">
+                              <h5 className="card-title">Books Issued by members</h5>
+                              <div className="search-container">
+                            <input
+                              type="text"
+                              placeholder="Search by title ..."
+                              value={searchTerm}
+                              onChange={handleSearchChange}
+                            />
+                            <select
+                              className="form-control"
+                              value={entriesPerPage}
+                              onChange={(e) => setEntriesPerPage(parseInt(e.target.value))}
+                            >
+                              <option value="5">5 entries per page</option>
+                              <option value="10">10 entries per page</option>
+                              <option value={filteredBooks.length}>All entries</option>
+                            </select>
+                          </div>
+                              <table className="table table-bordered table-hover">
+                            <thead className="thead-dark">
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email Id</th>
+                                <th scope="col">Book Title</th>
+                                <th scope="col">Issued Date</th>
+                                <th scope="col">Due Date</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {currentEntries.map((item, index) => (
+                                <tr key={item.index}>
+                                  
+                                  <td>{index + 1}</td>
+                                  <td>{item.fname} {item.lname}</td>
+                                  <td>{item.email}</td>
+                                  <td>{item.bookId}</td>
+                                  <td>{item.issueDate}</td>
+                                  <td style={{ color: getDueDateColor(item.returnDate) }}>{item.returnDate}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                          <div>
+                            <nav aria-label="Page navigation example">
+                              <ul className="pagination">
+                                {Array.from({ length: Math.ceil(filteredBooks.length / entriesPerPage) }, (_, index) => (
+                                  <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                                    <button className="page-link" onClick={() => paginate(index + 1)}>{index + 1}</button>
+                                  </li>
+                                ))}
+                              </ul>
+                            </nav>
+                          </div>
+                        </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
       </main>
       <footer id="footer" className="footer">
