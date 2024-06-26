@@ -121,5 +121,5 @@ We welcome contributions from the community. Please follow these steps:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
-If you have any questions or feedback, please contact us at [email@institute.com](mailto:email@institute.com).
+If you have any questions or feedback, please contact us.
 
