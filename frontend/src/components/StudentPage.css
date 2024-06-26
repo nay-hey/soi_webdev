@@ -1275,6 +1275,82 @@
 
 
 /*--------------------------------------------------------------
+# Book Section
+--------------------------------------------------------------*/
+#student .team {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+#student .team h2 {
+  color: #0b1116;
+}
+
+#student .team .container {
+  border-radius: 50px;
+}
+
+#student .team .member {
+  position: relative;
+  border-radius: 10px;
+  width: 182px;
+  height: 276.5px;
+  overflow: hidden;
+  box-shadow: 0px 2px 25px rgba(11, 1, 1, 0.5);
+  box-sizing: border-box;
+  background-size: cover;
+  margin: 0 10px; /* Added margin for spacing */
+}
+
+#student .team .member .description {
+  position: absolute;
+  bottom: 0;
+  width: 100%; /* Changed to 100% to fit the width of the member */
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: none; /* Initially hidden */
+}
+
+#student .team .member:hover .description {
+  display: block; /* Show on hover */
+}
+
+#student .team .member .description h3,
+#student .team .member .description p {
+  margin: 0;
+  font-weight: 700;
+  font-size: 16px;
+  color: #0b1116;
+}
+
+#student .team-wrapper {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+}
+
+#student .team-row {
+  display: flex;
+  width: 200%;
+  animation: scroll 15s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+#student .team-wrapper:hover .team-row {
+  animation-play-state: paused;
+}
+/*--------------------------------------------------------------
 # Contact
 --------------------------------------------------------------*/
 #student .contact .info-box {
