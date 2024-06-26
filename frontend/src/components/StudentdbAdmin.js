@@ -9,7 +9,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './AdminPage.css';
 import 'simple-datatables/dist/style.css';
-
+import { Tooltip } from 'bootstrap';
 const Studentdb = () => {
   const [students, setStudents] = useState([]);
 
