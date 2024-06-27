@@ -9,11 +9,15 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './AdminPage.css';
 
+import { useNavigate } from 'react-router-dom';
+
 const Studentdb = () => {
+  const navigate = useNavigate();
+
   const [students, setStudents] = useState([]);
 
 
-  const [newStudent, setNewStudent] = useState({ name: '', roll: '', email: '', branch: '' });
+  const [newStudent, setNewStudent] = useState({ name: '', roll: '', email: '', branch: '',  password: '', position: ''});
 
 
   useEffect(() => {
@@ -39,6 +43,10 @@ const Studentdb = () => {
     // Function to handle form submission (adding a new book)
     const handleSubmit = async (e) => {
       e.preventDefault();
+      if (!newStudent.name || !newStudent.roll || !newStudent.email || !newStudent.branch || !newStudent.password || !newStudent.position) {
+        alert('Please fill in all fields.');
+        return;
+      }
       try {
         console.log('New student data:', newStudent);
         
@@ -52,20 +60,27 @@ const Studentdb = () => {
          name: '',
           roll: '', 
           email: '',
-           branch: ''
+          branch: '',
+          password: '',
+          position: ''
         });
       
-        fetchStudents(); 
+        fetchStudents();
+        window.location.reload(); 
       }
       else {        
         throw new Error("Roll Number exists in the database.")
       }
-      } catch (error) {
-        console.error('Error adding students:', error);
-        alert(error.message);
+    } catch (error) {
+      console.error('Error adding students:', error);
+      if (error.response && error.response.data) {
+        // Display backend error message if available
+        alert(`Error: ${error.response.data.message}`);
+      } else {
+        alert('Error adding student.');
       }
-    };
-
+    }
+  };
   const handleDeleteStudent = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/api/students/${id}`);
@@ -313,6 +328,7 @@ document.addEventListener('scroll', handleScroll);
                       <table className="table table-bordered table-hover">
                           <thead>
                             <tr>
+                              <th>Position</th>
                               <th>Name</th>
                               <th>Roll Number</th>
                               <th>Email</th>
@@ -323,6 +339,7 @@ document.addEventListener('scroll', handleScroll);
                           <tbody>
                             {currentEntries.map(student => (
                               <tr key={student._id}>
+                                <td>{student.position}</td>
                                 <td>{student.name}</td>
                                 <td>{student.roll}</td>
                                 <td>{student.email}</td>
@@ -379,7 +396,21 @@ document.addEventListener('scroll', handleScroll);
                                   </select>
 
                                 </div>
-                               
+                                <div className="mb-3">
+                                  <label htmlFor="position" className="form-label">Position</label>
+                                  <select className="form-control" id="position" name="position" value={newStudent.position} onChange={handleChange}>
+                                    <option value="">Select Position</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Faculty">Faculty</option>
+                                    <option value="Admin">Admin</option>
+                                    {/* Add more options as needed */}
+                                  </select>
+
+                                </div>
+                                <div className="mb-3">
+                                  <label htmlFor="password" className="form-label">Password</label>
+                                  <input type="password" className="form-control" id="password" name="password" value={newStudent.password} onChange={handleChange} />
+                                </div>
                                 <button type="submit" className="btn btn-primary">Submit</button>
                               </form>
                             </div>
@@ -409,6 +440,7 @@ document.addEventListener('scroll', handleScroll);
                         <table className="table table-bordered table-hover">
                           <thead>
                             <tr>
+                              <th>Position</th>
                               <th>Name</th>
                               <th>Roll Number</th>
                               <th>Email</th>
@@ -420,6 +452,7 @@ document.addEventListener('scroll', handleScroll);
                           <tbody>
                             {currentEntries.map(student => (
                               <tr key={student._id}>
+                                <td>{student.position}</td>
                                 <td>{student.name}</td>
                                 <td>{student.roll}</td>
                                 <td>{student.email}</td>

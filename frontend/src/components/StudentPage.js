@@ -186,12 +186,12 @@ const StudentPage = () => {
             </Link>
         </li>
         <li className="nav-item">
-            <Link className="nav-link collapsed" to="//StudentPage/bookdb">
+            <Link className="nav-link collapsed" to="/StudentPage/bookdb">
             <i className="bi bi-book"></i><span>Book Search</span>
             </Link>
         </li>
         <li className="nav-item">
-            <Link className="nav-link collapsed" to="//StudentPage/profile">
+            <Link className="nav-link collapsed" to="/StudentPage/profile">
             <i className="bi bi-person"></i>
             <span>Your Profile</span>
             </Link>

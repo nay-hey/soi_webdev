@@ -3,6 +3,8 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const Student = require('../models/Student'); // Assuming you have a Student model defined
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 // GET all students
 router.get('/', async (req, res) => {
     try {
@@ -15,27 +17,33 @@ router.get('/', async (req, res) => {
 
 // POST a new student
 router.post('/', [
-    body('name').notEmpty().trim().escape(),
-    body('roll').notEmpty().trim().escape(),
-    body('email').notEmpty().trim().escape(),
-    body('branch').notEmpty().trim().escape()
-   ], async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+  body('name').notEmpty().trim().escape().withMessage('Name is required'),
+  body('roll').notEmpty().trim().escape().withMessage('Roll number is required'),
+  body('email').notEmpty().isEmail().withMessage('Valid email is required').normalizeEmail(),
+  body('branch').notEmpty().trim().escape().withMessage('Branch is required'),
+  body('password').notEmpty().trim().escape().withMessage('Password is required'),
+  body('position').notEmpty().trim().escape().withMessage('Position is required')
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      console.error('Validation errors:', errors.array());
+      return res.status(400).json({ errors: errors.array() });
+  }
 
-    const { name, roll, email, branch, joindate } = req.body;
+  const { name, roll, email, branch, password, position } = req.body;
+  const hashedPassword = bcrypt.hashSync(password, 8);
 
-    
-        const newStudent = new Student({
-            name,
-            roll,
-            email,
-            branch,
-            joindate,
-        });
-       try {
+  const newStudent = new Student({
+      name,
+      roll,
+      email,
+      branch,
+      password: hashedPassword,
+      position,
+  });
+
+  try {
+
         const savedStudent = await newStudent.save();
         res.status(201).json(savedStudent);
     } catch (err) {
@@ -77,4 +85,39 @@ router.get('/search', async (req, res) => {
     }
   });
 
+router.put('/:id', async (req, res) => {
+    const studentId = req.params.id;
+    const updatedStudent = req.body;
+  
+    try {
+      const updated = await Student.findByIdAndUpdate(studentId, updatedStudent, { new: true });
+      if (!updated) {
+        return res.status(404).json({ message: 'Profile not found' });
+      }
+      res.json({ message: 'Profile updated successfully', profile: updated });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+  
+  router.post('/login', async (req, res) => {
+    const { roll, password } = req.body;
+    try {
+      const user = await Student.findOne({ roll });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      const passwordIsValid = bcrypt.compareSync(password, user.password);
+      if (!passwordIsValid) {
+        return res.status(401).json({ message: 'Invalid password' });
+      }
+  
+      const token = jwt.sign({ id: user._id, roll: user.roll }, 'secretkey', { expiresIn: '1d' });
+      res.status(200).json({ message: 'Login successful!', token, auth: true });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+  
 module.exports = router;

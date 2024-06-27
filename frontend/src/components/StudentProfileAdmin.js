@@ -3,54 +3,71 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import axios from 'axios';
 
 import { Link } from 'react-router-dom';
 import './AdminPage.css';
 import { Tooltip } from 'bootstrap';
 
 const StudentProfile = () => {
-    const [searchInput, setSearchInput] = useState('');
-    const [profile, setProfile] = useState(null);
-  
-    const handleSearch = () => {
-      // Assuming you have a list of profiles
-      const profiles = [
-        {
-          id: 1,
-          img: '/static/lib1.jpg',
-          name: 'Kevin Anderson',
-          position: 'Admin',
-          email: '220010034@iitdh.ac.in',
-          rollno: '220010034',
-          branch: 'Computer Science and Engineering',
-          joindate: '27/1/04',
+  const [searchInput, setSearchInput] = useState('');
+  const [searchCategory, setSearchCategory] = useState('name');
+  const [profile, setProfile] = useState({
+    _id: '',
+    name: '',
+    roll: '',
+    email: '',
+    branch: '',
+  });
+  // Function to handle searching books based on category and input
+  const handleSearch = async () => {
+    console.log('Book search');
+    try {
+      const response = await axios.get(`http://localhost:5000/api/students/search?category=name&keyword=${searchInput}`);
+      setProfile(response.data);
+    } catch (error) {
+      console.error('Error searching for book:', error);
+    } finally {
+    }
+  };
+  const [profileItem, setProfileItem] = useState(profile);
+  const handleEditBookDetails = async (e) => {
+    e.preventDefault();
+    try {
+      const updatedProfileItem = {
+        ...profileItem,
+        name: e.target.elements.name.value,
+        roll: e.target.elements.roll.value,
+        email: e.target.elements.email.value,
+        branch: e.target.elements.branch.value,
+        _id: profile[0]._id
+        // Add other fields similarly
+      };
+      // Example fetch request to update book details
+      const response = await fetch(`http://localhost:5000/api/students/${updatedProfileItem._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        {
-          id: 2,
-          img: '/static/lib2.jpeg',
-          name: 'Sarah Johnson',
-          position: 'Student',
-          email: '220010050@iitdh.ac.in',
-          rollno: '220010050',
-          branch: 'Computer Science and Engineering',
-          joindate: '1/1/09',
-        },
-        {
-          id: 3,
-          img: '/static/lib3.jpeg',
-          name: 'Michael Smith',
-          job: 'Faculty',
-          email: '220010014@iitdh.ac.in',
-          rollno: '220010014',
-          branch: 'Computer Science and Engineering',
-          joindate: '27/6/01',
-       }
-      ];
+        body: JSON.stringify(updatedProfileItem),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update book details');
+      }
+
+      console.log('Book details updated successfully');
+
+      // Update state with updatedProfileItem
+
+      setProfile(updatedProfileItem);
       
+    } catch (error) {
+      console.error('Error updating book details:', error);
+      // Optionally handle error, e.g., show an error message to the user
+    }
+  };
   
-      const foundProfile = profiles.find(p => p.name.toLowerCase().includes(searchInput.toLowerCase()));
-      setProfile(foundProfile);
-    };
     useEffect(() => {
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -235,11 +252,12 @@ const StudentProfile = () => {
                             <div className="col-xl-4 profile-search">
                                 <input
                                 type="text"
+                                id="keyword-input"
                                 placeholder="Search for a profile..."
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
                                 />
-                                <button onClick={handleSearch}>Search</button>
+                                <button id="search-button" onClick={handleSearch}>Search</button>
                             </div>
                             <div className="d-flex">
                             </div>
@@ -249,17 +267,19 @@ const StudentProfile = () => {
                         </div>
                         </div>
                     </div>
-                    {profile && (
+                    {profile.length > 0 ? (
                     <div className="row">
-                        <div className="col-xl-4">
-                        <div className="card">
-                            <div className="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src={profile.img} alt="Profile" className="rounded-circle" />
-                            <h2>{profile.name}</h2>
-                            <h3>{profile.position}</h3>
+                    {profile.map((profileItem, index) => (
+                        <React.Fragment key={profileItem._id}>
+                          <div className="col-xl-4">
+                            <div className="card">
+                              <div className="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                                <img src={profileItem.imageUrl} alt="Profile" />
+                                <h2>{profileItem.title}</h2>
+                                <h3>{profileItem.description}</h3>
+                              </div>
                             </div>
-                        </div>
-                        </div>
+                          </div>
                         <div className="col-xl-8">
                         <div className="card">
                             <div className="card-body pt-3">
@@ -270,160 +290,118 @@ const StudentProfile = () => {
                                 <li className="nav-item">
                                 <button className="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
                                 </li>
-                                <li className="nav-item">
-                                <button className="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-                                </li>
                             </ul>
                             <div className="tab-content pt-2">
                                 <div className="tab-pane fade show active profile-overview" id="profile-overview">
                                 <h5 className="card-title">Profile Details</h5>
                                 <div className="row">
                                     <div className="col-lg-3 col-md-4 label">Full Name</div>
-                                    <div className="col-lg-9 col-md-8">{profile.name}</div>
+                                    <div className="col-lg-9 col-md-8">{profileItem.name}</div>
                                 </div>
                                 <div className="row">
                                     <div className="col-lg-3 col-md-4 label">Position</div>
-                                    <div className="col-lg-9 col-md-8">{profile.position}</div>
+                                    <div className="col-lg-9 col-md-8">{profileItem.position}</div>
                                 </div>
                                 <div className="row">
                                     <div className="col-lg-3 col-md-4 label">Email</div>
-                                    <div className="col-lg-9 col-md-8">{profile.email}</div>
+                                    <div className="col-lg-9 col-md-8">{profileItem.email}</div>
                                 </div>
                                 <div className="row">
                                     <div className="col-lg-3 col-md-4 label">Roll Number</div>
-                                    <div className="col-lg-9 col-md-8">{profile.rollno}</div>
+                                    <div className="col-lg-9 col-md-8">{profileItem.roll}</div>
                                 </div>
                                 <div className="row">
                                     <div className="col-lg-3 col-md-4 label">Branch</div>
-                                    <div className="col-lg-9 col-md-8">{profile.branch}</div>
+                                    <div className="col-lg-9 col-md-8">{profileItem.branch}</div>
                                 </div>
                                 <div className="row">
                                     <div className="col-lg-3 col-md-4 label">Join Date</div>
-                                    <div className="col-lg-9 col-md-8">{profile.joindate}</div>
+                                    <div className="col-lg-9 col-md-8">{profileItem.joindate}</div>
                                 </div>
                                 </div>
                                 <div className="tab-pane fade profile-edit pt-3" id="profile-edit">
-                                <form>
-                                    <div className="row mb-3">
-                                    <label htmlFor="profileImage" className="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                                    <div className="col-md-8 col-lg-9">
-                                        <img src={profile.img} alt="Profile" />
-                                        <div className="pt-2">
-                                        <input type="file" id="formFile">Upload<i className="bi bi-upload"></i></input>
-                                      
-                                        <a href="#" className="btn btn-danger btn-sm" title="Remove my profile image"><i className="bi bi-trash"></i></a>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div className="row mb-3">
-                                    <label for="inputEmail3" className="col-sm-2 col-form-label">Your Name</label>
-                                    <div className="col-sm-10">
-                                        <input type="text" className="form-control" id="inputText" value={profile.name}/>
-                                    </div>
-                                </div>
-                                <div className="row mb-3">
-                                    <label for="inputEmail" className="col-sm-2 col-form-label">Email</label>
-                                    <div className="input-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Recipient's roll number" aria-label="Recipient's roll number" aria-describedby="basic-addon2" value={profile.rollno}/>
-                                        <span className="input-group-text" id="basic-addon2">@iitdh.ac.in</span>
-                                    </div>
-                                </div>
-                                <div className="row mb-3">
-                                    <label for="inputNumber" className="col-sm-2 col-form-label">Roll Number</label>
-                                    <div className="col-sm-10">
-                                    <input type="number" className="form-control" value={profile.rollno} />
-                                    </div>
-                                </div>
+                                <form onSubmit={handleEditBookDetails}>
                                 
                                 <div className="row mb-3">
-                                    <label for="inputDate" className="col-sm-2 col-form-label">Join Date</label>
-                                    <div className="col-sm-10">
-                                    <input type="date" className="form-control" value={profile.joindate}/>
-                                    </div>
+                                  <label htmlFor="inputText" className="col-sm-2 col-form-label">
+                                    Name
+                                  </label>
+                                  <div className="col-sm-10">
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      id="name"
+                                      name="name"
+                                      defaultValue={profileItem.name}
+                                    />
+                                  </div>
                                 </div>
-
                                 <div className="row mb-3">
-                                    <label className="col-sm-2 col-form-label">Select position</label>
-                                    <div className="col-sm-10">
-                                    <select className="form-select" aria-label="Default select example" defaultValue={"Student"}>
-                                        <option value="1">Student</option>
-                                        <option value="2">Admin</option>
-                                        <option value="3">Faculty</option>
+                                  <label htmlFor="inputText" className="col-sm-2 col-form-label">
+                                    Department
+                                  </label>
+                                  <div className="col-sm-10">
+                                    <select
+                                      className="form-select"
+                                      id="branch"
+                                      name="branch"
+                                      defaultValue={profileItem.branch}
+                                    >
+                                      <option value="Computer Science">Computer Science</option>
+                                      <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                      <option value="Electrical Engineering">Electrical Engineering</option>
+                                      <option value="Mathematics and Computing">Mathematics and Computing</option>
+                                      <option value="Civil Engineering">Civil Engineering</option>
+                                      <option value="Chemical Engineering">Chemical Engineering</option>
                                     </select>
-                                    </div>
+                                  </div>
                                 </div>
-
-
                                 <div className="row mb-3">
-                                    <label className="col-sm-2 col-form-label">Submit Button</label>
-                                    <div className="col-sm-10">
-                                    <button type="submit" className="btn btn-primary">Submit Form</button>
-                                    </div>
+                                  <label htmlFor="inputNumber" className="col-sm-2 col-form-label">
+                                    Roll Number
+                                  </label>
+                                  <div className="col-sm-10">
+                                    <input
+                                      type="number"
+                                      className="form-control"
+                                      id="roll"
+                                      name="roll"
+                                      defaultValue={profileItem.roll}
+                                      />
+                                  </div>
                                 </div>
-
-                                </form>
+                          
+                                <div className="row mb-3">
+                                  <label htmlFor="inputText" className="col-sm-2 col-form-label">
+                                    Email Id
+                                  </label>
+                                  <div className="col-sm-10">
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      id="email"
+                                      name="email"
+                                      defaultValue={profileItem.email}
+                                      />
+                                  </div>
                                 </div>
-                                <div className="tab-pane fade pt-3" id="profile-settings">
-                                <form>
-                                    <div className="row mb-3">
-                                    <label htmlFor="fullName" className="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                                    <div className="col-md-8 col-lg-9">
-                                        <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" id="changesMade" checked />
-                                        <label className="form-check-label" htmlFor="changesMade">Changes made to your account</label>
-                                        </div>
-                                        <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" id="newProducts" checked />
-                                        <label className="form-check-label" htmlFor="newProducts">Information on new products and services</label>
-                                        </div>
-                                        <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" id="proOffers" />
-                                        <label className="form-check-label" htmlFor="proOffers">Marketing and promo offers</label>
-                                        </div>
-                                        <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" id="securityNotify" checked disabled />
-                                        <label className="form-check-label" htmlFor="securityNotify">Security alerts</label>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div className="text-center">
-                                    <button type="submit" className="btn btn-primary">Save Changes</button>
-                                    </div>
-                                </form>
-                                </div>
-                                <div className="tab-pane fade pt-3" id="profile-change-password">
-                                <form>
-                                    <div className="row mb-3">
-                                    <label htmlFor="currentPassword" className="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                                    <div className="col-md-8 col-lg-9">
-                                        <input name="password" type="password" className="form-control" id="currentPassword" />
-                                    </div>
-                                    </div>
-                                    <div className="row mb-3">
-                                    <label htmlFor="newPassword" className="col-md-4 col-lg-3 col-form-label">New Password</label>
-                                    <div className="col-md-8 col-lg-9">
-                                        <input name="newpassword" type="password" className="form-control" id="newPassword" />
-                                    </div>
-                                    </div>
-                                    <div className="row mb-3">
-                                    <label htmlFor="renewPassword" className="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                                    <div className="col-md-8 col-lg-9">
-                                        <input name="renewpassword" type="password" className="form-control" id="renewPassword" />
-                                    </div>
-                                    </div>
-                                    <div className="text-center">
-                                    <button type="submit" className="btn btn-primary">Change Password</button>
-                                    </div>
-                                </form>
-                                </div>
-                            </div>
+                                <button type="submit" className="btn btn-primary">
+                                Save Changes
+                              </button>
+                              </form>
+                              </div>
+                              </div>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                    )}
-                    <div className='d flex'></div>
-                </section>
+                      </div>
+                    </React.Fragment>
+                  ))}
+                </div>
+              ) : (
+                <p>No book found</p>
+              )}
+                       
+                        </section>
                 </main>
         <footer id="footer" className="footer">
 
