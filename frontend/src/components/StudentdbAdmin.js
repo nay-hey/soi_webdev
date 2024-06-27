@@ -13,7 +13,7 @@ const Studentdb = () => {
   const [students, setStudents] = useState([]);
 
 
-  const [newStudent, setNewStudent] = useState({ student_name: '', roll: '', email: '', branch: '' });
+  const [newStudent, setNewStudent] = useState({ name: '', roll: '', email: '', branch: '' });
 
 
   useEffect(() => {
@@ -41,31 +41,30 @@ const Studentdb = () => {
       e.preventDefault();
       try {
         console.log('New student data:', newStudent);
+        
+        const response2 = await axios.get(`http://localhost:5000/api/students/search?category=roll&keyword=${newStudent.roll}`);
+        console.log("fge", response2)
+        if (!response2.data || response2.data.length === 0) {
         const response = await axios.post('http://localhost:5000/api/students', newStudent);
        
         console.log('student added:', response.data);
         setNewStudent({
-         student_name: '',
+         name: '',
           roll: '', 
           email: '',
            branch: ''
         });
+      
         fetchStudents(); 
+      }
+      else {        
+        throw new Error("Roll Number exists in the database.")
+      }
       } catch (error) {
         console.error('Error adding students:', error);
+        alert(error.message);
       }
     };
-  const handleAddStudent = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5000/api/students', newStudent);
-      setStudents([...students, response.data]);
-      setNewStudent({ student_name: '', roll: '', email: '', branch: '' });
-      fetchStudents(); // Refresh the list after adding
-    } catch (error) {
-      console.error('Error adding student:', error);
-    }
-  };
 
   const handleDeleteStudent = async (id) => {
     try {
@@ -75,11 +74,6 @@ const Studentdb = () => {
     } catch (error) {
       console.error('Error deleting student:', error);
     }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewStudent({ ...newStudent, [name]: value });
   };
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -329,7 +323,7 @@ document.addEventListener('scroll', handleScroll);
                           <tbody>
                             {currentEntries.map(student => (
                               <tr key={student._id}>
-                                <td>{student.student_name}</td>
+                                <td>{student.name}</td>
                                 <td>{student.roll}</td>
                                 <td>{student.email}</td>
                                 <td>{student.branch}</td>
@@ -358,8 +352,8 @@ document.addEventListener('scroll', handleScroll);
                               <h5 className="card-title">Add Member</h5>
                               <form onSubmit={handleSubmit}>
                                 <div className="mb-3">
-                                  <label htmlFor="student_name" className="form-label">Name</label>
-                                  <input type="text" className="form-control" id="student_name" name="student_name" value={newStudent.student_name} onChange={handleChange} />
+                                  <label htmlFor="name" className="form-label">Name</label>
+                                  <input type="text" className="form-control" id="name" name="name" value={newStudent.name} onChange={handleChange} />
                                 </div>
                                 <div className="mb-3">
                                   <label htmlFor="roll" className="form-label">Roll Number</label>
@@ -426,7 +420,7 @@ document.addEventListener('scroll', handleScroll);
                           <tbody>
                             {currentEntries.map(student => (
                               <tr key={student._id}>
-                                <td>{student.student_name}</td>
+                                <td>{student.name}</td>
                                 <td>{student.roll}</td>
                                 <td>{student.email}</td>
                                 <td>{student.branch}</td>

@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 
 // POST a new student
 router.post('/', [
-    body('student_name').notEmpty().trim().escape(),
+    body('name').notEmpty().trim().escape(),
     body('roll').notEmpty().trim().escape(),
     body('email').notEmpty().trim().escape(),
     body('branch').notEmpty().trim().escape()
@@ -25,11 +25,11 @@ router.post('/', [
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { student_name, roll, email, branch, joindate } = req.body;
+    const { name, roll, email, branch, joindate } = req.body;
 
     
         const newStudent = new Student({
-            student_name,
+            name,
             roll,
             email,
             branch,
@@ -55,5 +55,26 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+
+router.get('/search', async (req, res) => {
+    const { category, keyword } = req.query;
+  
+    // Ensure both category and keyword are provided
+    if (!category || !keyword) {
+      return res.status(400).json({ message: 'Category and keyword are required' });
+    }
+  
+    // Define the filter based on the query parameters
+    const filter = {};
+    filter[category] = { $regex: new RegExp(keyword, 'i') }; // Case-insensitive search
+  
+    try {
+      const students = await Student.find(filter);
+      res.json(students);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
 
 module.exports = router;

@@ -93,7 +93,6 @@ const Bookdb = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/books', newBookData);
-      console.log('Book added:', response.data);
       setNewBookData({
         title: '',
         author: '',
@@ -130,7 +129,6 @@ const Bookdb = () => {
     console.log('Book search');
     try {
       const response = await axios.get(`http://localhost:5000/api/books/search?category=${searchCategory}&keyword=${searchInput}`);
-      console.log(response.data);
       setProfile(response.data);
     } catch (error) {
       console.error('Error searching for book:', error);
@@ -174,8 +172,9 @@ const Bookdb = () => {
 
       // Update state with updatedProfileItem
 
-      setProfileItem(updatedProfileItem);
-      console.log("fcgvj", profileItem);
+      setProfile(updatedProfileItem);
+      
+      fetchBooks(); // Refresh books list after adding
       // Optionally handle success, e.g., show a success message
     } catch (error) {
       console.error('Error updating book details:', error);
