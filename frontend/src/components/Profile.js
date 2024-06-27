@@ -3,22 +3,87 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
-
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './StudentPage.css';
 import { Tooltip } from 'bootstrap';
 
 const Profile = () => {
-  const [profile, setProfile] = useState({
-      id: 1,
-      img: 'static/lib1.jpg',
-      name: 'Kevin Anderson',
-      position: 'Admin',
-      email: '220010034@iitdh.ac.in',
-      rollno: '220010034',
-      branch: 'Computer Science and Engineering',
-      joindate: '27/1/04',
-    });
+  const [profile, setProfile] = useState(null);
+  const [formData, setFormData] = useState({
+    password: '',
+    newpassword: '',
+    renewpassword: ''
+  });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:5000/api/students/profile', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile data');
+        }
+        const profileData = await response.json();
+        setProfile(profileData);
+      } catch (error) {
+        console.error('Error fetching profile:', error.message);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { password, newpassword, renewpassword } = formData;
+    if (newpassword !== renewpassword) {
+      alert('New passwords do not match.');
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:5000/api/students/change-password', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ password, newpassword }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert('Password changed successfully!');
+        // Clear form inputs
+        setFormData({
+          password: '',
+          newpassword: '',
+          renewpassword: ''
+        });
+      } else {
+        alert(result.message || 'Failed to change password. Please try again.');
+      }
+
+    } catch (error) {
+      console.error('Error changing password:', error);
+      alert('Failed to change password. Please try again.');
+    }
+  };
   useEffect(() => {
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
       const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -69,6 +134,9 @@ useEffect(() => {
 
 
 }, []);
+if (!profile) {
+  return <div>Loading...</div>; // Placeholder while data is being fetched
+}
 
 return (
   <div>
@@ -185,9 +253,15 @@ return (
 
           <div className="card">
                           <div className="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                          <img src={profile.img} alt="Profile" className="rounded-circle" />
-                          <h2>{profile.name}</h2>
-                          <h3>{profile.position}</h3>
+                          <Image
+                              src="/static/adminpage/profile.png"
+                              alt="Profile"
+                              className="rounded-circle"
+                              width="100"
+                              height="100"
+                            />
+                            <h2>{profile.name}</h2>
+                            <h3>{profile.position}</h3>
                           </div>
                       </div>
               </div>            
@@ -223,45 +297,61 @@ return (
                               </div>
                               <div className="row">
                                   <div className="col-lg-3 col-md-4 label">Roll Number</div>
-                                  <div className="col-lg-9 col-md-8">{profile.rollno}</div>
+                                  <div className="col-lg-9 col-md-8">{profile.roll}</div>
                               </div>
                               <div className="row">
                                   <div className="col-lg-3 col-md-4 label">Branch</div>
                                   <div className="col-lg-9 col-md-8">{profile.branch}</div>
                               </div>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Join Date</div>
-                                  <div className="col-lg-9 col-md-8">{profile.joindate}</div>
-                              </div>
               </div>
               <div class="tab-pane fade pt-3" id="profile-change-password">
-                  <form>
+              <form onSubmit={handleSubmit}>
+                <div className="row mb-3">
+                  <label htmlFor="currentPassword" className="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                  <div className="col-md-8 col-lg-9">
+                    <input
+                      name="password"
+                      type="password"
+                      className="form-control"
+                      id="currentPassword"
+                      value={formData.password}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
 
-                    <div class="row mb-3">
-                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword" />
-                      </div>
-                    </div>
+                <div className="row mb-3">
+                  <label htmlFor="newPassword" className="col-md-4 col-lg-3 col-form-label">New Password</label>
+                  <div className="col-md-8 col-lg-9">
+                    <input
+                      name="newpassword"
+                      type="password"
+                      className="form-control"
+                      id="newPassword"
+                      value={formData.newpassword}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
 
-                    <div class="row mb-3">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword" />
-                      </div>
-                    </div>
+                <div className="row mb-3">
+                  <label htmlFor="renewPassword" className="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                  <div className="col-md-8 col-lg-9">
+                    <input
+                      name="renewpassword"
+                      type="password"
+                      className="form-control"
+                      id="renewPassword"
+                      value={formData.renewpassword}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
 
-                    <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword" />
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
-                    </div>
-                  </form>
+                <div className="text-center">
+                  <button type="submit" className="btn btn-primary">Change Password</button>
+                </div>
+              </form>
                 </div>
           </div>
           </div>

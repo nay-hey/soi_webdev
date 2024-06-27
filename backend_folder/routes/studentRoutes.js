@@ -4,7 +4,9 @@ const { body, validationResult } = require('express-validator');
 const Student = require('../models/Student'); // Assuming you have a Student model defined
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const authenticateToken = require('../middleware/authenticateToken'); // Import your authentication middleware
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 // GET all students
 router.get('/', async (req, res) => {
     try {
@@ -115,9 +117,63 @@ router.put('/:id', async (req, res) => {
   
       const token = jwt.sign({ id: user._id, roll: user.roll }, 'secretkey', { expiresIn: '1d' });
       res.status(200).json({ message: 'Login successful!', token, auth: true });
+      console.log("Generated Token:", token);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
   });
   
+// Get student profile
+router.get('/profile', authenticateToken, async (req, res) => {
+  try {
+    const student = await Student.findById(req.student.id).select('-password');
+    
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+
+    res.json(student);
+  } catch (err) {
+    console.error('Error fetching student profile:', err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
+const authenticate = (req, res, next) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'No token provided' });
+  }
+  jwt.verify(token, 'secretkey', (err, decoded) => {
+    if (err) {
+      return res.status(500).json({ message: 'Failed to authenticate token' });
+    }
+    req.userId = decoded.id;
+    next();
+  });
+};
+
+// Change password route
+router.put('/change-password', authenticate, async (req, res) => {
+  const { password, newpassword } = req.body;
+  try {
+    const user = await Student.findById(req.userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const passwordIsValid = bcrypt.compareSync(password, user.password);
+    if (!passwordIsValid) {
+      return res.status(401).json({ message: 'Invalid current password' });
+    }
+
+    const hashedNewPassword = bcrypt.hashSync(newpassword, 8);
+    user.password = hashedNewPassword;
+    await user.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 module.exports = router;

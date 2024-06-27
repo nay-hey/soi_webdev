@@ -13,22 +13,50 @@ import { Link } from 'react-router-dom';
 
 
 const Studentdb = () => {
-
-  const [items, setItem] = useState([]);
+  const [profile, setProfile] = useState(null);
   useEffect(() => {
-    fetchItem();
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:5000/api/students/profile', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile data');
+        }
+        const profileData = await response.json();
+        setProfile(profileData);
+      } catch (error) {
+        console.error('Error fetching profile:', error.message);
+      }
+    };
+
+    fetchProfile();
   }, []);
+  
+  const [items, setItem] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage, setEntriesPerPage] = useState(5);
-  const fetchItem = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/issues');
-      setItem(response.data);
-    } catch (error) {
-      console.error('Error fetching item:', error);
-    }
-  };
+  useEffect(() => {
+    const fetchItem = async () => {
+      if (profile) { // Only fetch items if profile is set
+        try {
+          const response = await axios.get('http://localhost:5000/api/issues');
+          const filtered = response.data.filter(issue => issue.rollno == profile.roll);
+          setItem(filtered);
+        } catch (error) {
+          console.error('Error fetching item:', error);
+        }
+      }
+    };
+
+    fetchItem();
+  }, [profile]); 
 
  const filteredBooks = items.filter(item => {
       return Object.values(item).some(value =>

@@ -9,16 +9,31 @@ import './AdminPage.css';
 import { Tooltip } from 'bootstrap';
 
 const Profile = () => {
-    const [profile, setProfile] = useState({
-        id: 1,
-        img: 'static/lib1.jpg',
-        name: 'Kevin Anderson',
-        position: 'Admin',
-        email: '220010034@iitdh.ac.in',
-        rollno: '220010034',
-        branch: 'Computer Science and Engineering',
-        joindate: '27/1/04',
-      });
+  const [profile, setProfile] = useState(null);
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:5000/api/students/profile', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile data');
+        }
+        const profileData = await response.json();
+        setProfile(profileData);
+      } catch (error) {
+        console.error('Error fetching profile:', error.message);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
     useEffect(() => {
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -69,6 +84,9 @@ const Profile = () => {
 
   
   }, []);
+  if (!profile) {
+    return <div>Loading...</div>; // Placeholder while data is being fetched
+  }
 
   return (
     <div>
@@ -202,7 +220,13 @@ const Profile = () => {
 
             <div className="card">
                             <div className="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src={profile.img} alt="Profile" className="rounded-circle" />
+                            <Image
+                              src="/static/adminpage/profile.png"
+                              alt="Profile"
+                              className="rounded-circle"
+                              width="100"
+                              height="100"
+                            />
                             <h2>{profile.name}</h2>
                             <h3>{profile.position}</h3>
                             </div>
@@ -230,16 +254,13 @@ const Profile = () => {
                                 </div>
                                 <div className="row">
                                     <div className="col-lg-3 col-md-4 label">Roll Number</div>
-                                    <div className="col-lg-9 col-md-8">{profile.rollno}</div>
+                                    <div className="col-lg-9 col-md-8">{profile.roll}</div>
                                 </div>
                                 <div className="row">
                                     <div className="col-lg-3 col-md-4 label">Branch</div>
                                     <div className="col-lg-9 col-md-8">{profile.branch}</div>
                                 </div>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Join Date</div>
-                                    <div className="col-lg-9 col-md-8">{profile.joindate}</div>
-                                </div>
+                               
                 </div>
             </div>
             </div>

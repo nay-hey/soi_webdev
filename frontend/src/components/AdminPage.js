@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 
 const AdminPage = () => {
 
+  const token = localStorage.getItem('token');
+  console.log("Token:", token);
   const [isSidebarToggled, setIsSidebarToggled] = useState(false);
 
   useEffect(() => {

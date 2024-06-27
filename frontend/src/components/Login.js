@@ -32,6 +32,7 @@ const Login = () => {
         const response2 = await axios.get(`http://localhost:5000/api/students/search?category=roll&keyword=${formData.roll}`);
         if (response2.data[0].position === 'Admin') {
           alert('Login successful as User');
+          localStorage.setItem('token', response.data.token);
           navigate('/AdminPage');
         } else {
           alert('Unauthorized access');
@@ -53,6 +54,7 @@ const Login = () => {
         const response2 = await axios.get(`http://localhost:5000/api/students/search?category=roll&keyword=${formData.roll}`);
         if (response2.data[0].position === 'Student' || response2.data[0].position === 'Faculty') {
           alert('Login successful as User');
+          localStorage.setItem('token', response.data.token);
           navigate('/StudentPage');
         } else {
           alert('Unauthorized access');
@@ -144,7 +146,7 @@ const Login = () => {
                         <div className="form-group row no-margin">
                           <label htmlFor="roll">Faculty ID</label>
                           <input
-                            type="number"
+                            type="text"
                             className="form-control"
                             id="roll"
                             name="roll"
