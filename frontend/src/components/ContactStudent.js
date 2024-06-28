@@ -87,8 +87,7 @@ const Contact = () => {
             id="dropdown-profile"
           >
             <Dropdown.Header>
-              <h6>Kevin Anderson</h6>
-              <span>Admin</span>
+              <h6>User</h6>
             </Dropdown.Header>
             <Dropdown.Divider />
             <Dropdown.Item>

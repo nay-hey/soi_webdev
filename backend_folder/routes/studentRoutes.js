@@ -101,29 +101,30 @@ router.put('/:id', async (req, res) => {
       res.status(500).json({ message: err.message });
     }
   });
-  
   router.post('/login', async (req, res) => {
     const { roll, password } = req.body;
     try {
       const user = await Student.findOne({ roll });
+  
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
   
       const passwordIsValid = bcrypt.compareSync(password, user.password);
+  
       if (!passwordIsValid) {
         return res.status(401).json({ message: 'Invalid password' });
       }
   
       const token = jwt.sign({ id: user._id, roll: user.roll }, 'secretkey', { expiresIn: '1d' });
-      res.status(200).json({ message: 'Login successful!', token, auth: true });
-      console.log("Generated Token:", token);
+  
+      res.status(200).json({ message: 'Login successful!', studentId: user._id, token, auth: true });
     } catch (err) {
+      console.error('Error during login:', err); // Debugging line
       res.status(500).json({ message: err.message });
     }
   });
-  
-// Get student profile
+// GET student profile
 router.get('/profile', authenticateToken, async (req, res) => {
   try {
     const student = await Student.findById(req.student.id).select('-password');
@@ -139,25 +140,13 @@ router.get('/profile', authenticateToken, async (req, res) => {
   }
 });
 
-const authenticate = (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1];
-  if (!token) {
-    return res.status(401).json({ message: 'No token provided' });
-  }
-  jwt.verify(token, 'secretkey', (err, decoded) => {
-    if (err) {
-      return res.status(500).json({ message: 'Failed to authenticate token' });
-    }
-    req.userId = decoded.id;
-    next();
-  });
-};
-
 // Change password route
-router.put('/change-password', authenticate, async (req, res) => {
+router.put('/:studentId/changepassword', authenticateToken, async (req, res) => {
   const { password, newpassword } = req.body;
+  const studentId = req.params.studentId; // Extract studentId from URL params
+
   try {
-    const user = await Student.findById(req.userId);
+    const user = await Student.findById(studentId);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -171,9 +160,11 @@ router.put('/change-password', authenticate, async (req, res) => {
     user.password = hashedNewPassword;
     await user.save();
 
-    res.status(200).json({ message: 'Password changed successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(200).json({ message: 'Password changed successfully!' });
+  } catch (err) {
+    console.error('Error changing password:', err);
+    res.status(500).json({ message: 'Failed to change password. Please try again.' });
   }
 });
+
 module.exports = router;

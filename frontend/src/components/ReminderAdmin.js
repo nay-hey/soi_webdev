@@ -189,15 +189,14 @@ const Reminder = () => {
                   className="rounded-circle me-2"
                 />
                 <span className="d-none d-md-block">
-                  K. Anderson
+                  User
                 </span>
               </span>
             }
             id="dropdown-profile"
           >
             <Dropdown.Header>
-              <h6>Kevin Anderson</h6>
-              <span>Admin</span>
+              <h6>User</h6>
             </Dropdown.Header>
             <Dropdown.Divider />
             <Dropdown.Item>

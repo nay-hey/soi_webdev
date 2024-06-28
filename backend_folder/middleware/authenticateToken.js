@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const Student = require('../models/Student');
 
 const authenticateToken = (req, res, next) => {
-    console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 

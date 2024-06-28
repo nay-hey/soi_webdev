@@ -7,7 +7,11 @@ const studentSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     branch: { type: String, required: true },
     password: { type: String, required: true },
-    position: { type: String, required: true }
+    position: { type: String, required: true },
+    studentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Student'  // Assuming 'Student' is the model name
+      },
 });
 
 const Student = mongoose.model('Student', studentSchema);

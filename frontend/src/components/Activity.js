@@ -48,6 +48,10 @@ const Studentdb = () => {
         try {
           const response = await axios.get('http://localhost:5000/api/issues');
           const filtered = response.data.filter(issue => issue.rollno == profile.roll);
+          filtered.sort((a, b) => {
+            return new Date(b.returnDate) - new Date(a.returnDate); 
+          });
+  
           setItem(filtered);
         } catch (error) {
           console.error('Error fetching item:', error);
@@ -165,15 +169,14 @@ return (
                 className="rounded-circle me-2"
               />
               <span className="d-none d-md-block">
-                K. Anderson
+                User
               </span>
             </span>
           }
           id="dropdown-profile"
         >
           <Dropdown.Header>
-            <h6>Kevin Anderson</h6>
-            <span>Admin</span>
+            <h6>User</h6>
           </Dropdown.Header>
           <Dropdown.Divider />
           <Dropdown.Item>

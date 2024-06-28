@@ -33,6 +33,7 @@ const Login = () => {
         if (response2.data[0].position === 'Admin') {
           alert('Login successful as User');
           localStorage.setItem('token', response.data.token);
+          localStorage.setItem('studentId', response.data.studentId);
           navigate('/AdminPage');
         } else {
           alert('Unauthorized access');
@@ -55,6 +56,8 @@ const Login = () => {
         if (response2.data[0].position === 'Student' || response2.data[0].position === 'Faculty') {
           alert('Login successful as User');
           localStorage.setItem('token', response.data.token);
+          localStorage.setItem('studentId', response.data.studentId);
+          console.log( response.data.studentId);
           navigate('/StudentPage');
         } else {
           alert('Unauthorized access');

@@ -9,13 +9,13 @@ import './StudentPage.css';
 import { Tooltip } from 'bootstrap';
 
 const Profile = () => {
-  const [profile, setProfile] = useState(null);
   const [formData, setFormData] = useState({
     password: '',
     newpassword: '',
     renewpassword: ''
   });
 
+  const [profile, setProfile] = useState(null);
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -39,6 +39,7 @@ const Profile = () => {
 
     fetchProfile();
   }, []);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,43 +48,54 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const { password, newpassword, renewpassword } = formData;
     if (newpassword !== renewpassword) {
       alert('New passwords do not match.');
       return;
     }
-
+  
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/students/change-password', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ password, newpassword }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
+      const studentId = localStorage.getItem('studentId');
+  
+      if (!studentId) {
+        alert('Student ID not found');
+        return;
+      }
+  
+      console.log('Token:', token); // Debugging line
+      console.log('Student ID:', studentId); // Debugging line
+  
+      const response = await axios.put(
+        `http://localhost:5000/api/students/${studentId}/changepassword`,
+        { password, newpassword },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+  
+      console.log('Response:', response); // Debugging line
+  
+      if (response.status === 200) {
         alert('Password changed successfully!');
-        // Clear form inputs
         setFormData({
           password: '',
           newpassword: '',
           renewpassword: ''
         });
       } else {
-        alert(result.message || 'Failed to change password. Please try again.');
+        alert(response.data.message || 'Failed to change password. Please try again.');
       }
-
     } catch (error) {
       console.error('Error changing password:', error);
       alert('Failed to change password. Please try again.');
     }
   };
+  
   useEffect(() => {
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
       const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -171,19 +183,18 @@ return (
                 className="rounded-circle me-2"
               />
               <span className="d-none d-md-block">
-                K. Anderson
+                User
               </span>
             </span>
           }
           id="dropdown-profile"
         >
           <Dropdown.Header>
-            <h6>Kevin Anderson</h6>
-            <span>Admin</span>
+            <h6>User</h6>
           </Dropdown.Header>
           <Dropdown.Divider />
           <Dropdown.Item>
-            <Link className="dropdown-item d-flex align-items-center" to="/profile">
+            <Link className="dropdown-item d-flex align-items-center" to="/StudentPage/profile">
               <i className="bi bi-person"></i>
               <span>My Profile</span>
             </Link>
@@ -205,7 +216,7 @@ return (
       <aside id="sidebar" className="sidebar">
 
           <ul className="sidebar-nav" id="sidebar-nav">
-       <li className="nav-item">
+          <li className="nav-item">
             <Link className="nav-link collapsed" to="/StudentPage">
             <i className="bi bi-grid"></i>
             <span>Home</span>
@@ -221,6 +232,7 @@ return (
             <i className="bi bi-book"></i><span>Book Search</span>
             </Link>
         </li>
+        
         <li className="nav-item">
             <Link className="nav-link " to="/StudentPage/profile">
             <i className="bi bi-person"></i>
@@ -228,11 +240,11 @@ return (
             </Link>
         </li>
         <li className="nav-item">
-                <Link className="nav-link collapsed" to="/StudentPage/contact">
-                <i class="bi bi-envelope"></i>
-                <span>Contact</span>
-                </Link>
-            </li>
+          <Link className="nav-link collapsed" to="/StudentPage/contact">
+          <i className="bi bi-envelope"></i>
+          <span>Contact</span>
+          </Link>
+      </li>
           </ul>
 
           </aside>
