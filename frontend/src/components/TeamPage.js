@@ -9,6 +9,7 @@ const TeamPage = () => {
         
         <section id="aboutuspage">
         <div className="team-page">
+         {/* Header Section */}
         <header id="header" className="header d-flex align-items-center fixed-top">
           <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
@@ -27,22 +28,32 @@ const TeamPage = () => {
              
           </div>
         </header>
+
+    
+         {/* Page Title Section */}
         <div className="header1">
                 <h1>Our Team</h1>
             </div>
+
+              {/* Main Content Section */}
             <section className="team-section">
+                
+                  {/* Team Introduction */}
                 <div className="team-intro">
                     <p></p>
                     <p>Our library has very competent people working tirelessly to ensure that we provide the best services. Meet our dedicated team members who manage various aspects of our library.</p>
                 </div>
                 <div className="team-hierarchy">
+                  {/* Team Hierarchy */}
                     <div className="team-member head">
+                  {/* Main Head */}
                         <h2>Main Head</h2>
                         <img src="/images/tate.jpeg" alt="Main Head" />
                         <p>Dr. John Doe</p>
                         <p>Chief Librarian</p>
                         <p>Email: john.doe@example.com</p>
                     </div>
+                  {/* Sub heads */}
                     <div className="sub-heads">
                         <div className="team-member sub-head">
                             <h2>Sub Head</h2>
@@ -60,6 +71,7 @@ const TeamPage = () => {
                         </div>
                     </div>
                     <div className="team-members">
+                          {/* other team members */}
                         <div className="team-member">
                             <img src="/images/tate.jpeg" alt="Team Member 1" />
                             <p>Emily Davis</p>
@@ -86,6 +98,7 @@ const TeamPage = () => {
                         </div>
                     </div>
                 </div>
+                          {/* Back to 'About-Us link */}
                 <Link to="/AboutUs" className="back-link">
                     <button className="back-button">Back to About Us</button>
                 </Link>
