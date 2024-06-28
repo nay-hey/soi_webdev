@@ -1,26 +1,23 @@
-import React, { useEffect, useRef, useState}  from 'react';
+//displays profile of user who has logged in
+//can change the password on student page side
+import React, { useEffect, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './StudentPage.css';
 import { Tooltip } from 'bootstrap';
 
 const Profile = () => {
-  const [formData, setFormData] = useState({
-    password: '',
-    newpassword: '',
-    renewpassword: ''
-  });
-
+  //retrieves the user data who has logged in the student page
   const [profile, setProfile] = useState(null);
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/students/profile', {
+        const token = localStorage.getItem('token'); //uses token set on login
+        const response = await fetch('http://localhost:5000/api/students/profile', { //uses studentRoutes.js 
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -40,12 +37,20 @@ const Profile = () => {
     fetchProfile();
   }, []);
   
-
+  //handles change in form input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  //contains form data of resetting password
+  const [formData, setFormData] = useState({
+    password: '',
+    newpassword: '',
+    renewpassword: ''
+  });
+
+//for submission of new password
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -96,6 +101,7 @@ const Profile = () => {
     }
   };
   
+  //manages sidebar toggling 
   useEffect(() => {
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
       const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -152,224 +158,218 @@ if (!profile) {
 
 return (
   <div>
-          <section id="student">
-    <header id="header" className="header fixed-top d-flex align-items-center">
-      <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
+    <section id="student">
+      <header id="header" className="header fixed-top d-flex align-items-center">
+        <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
           <div className="logo d-flex align-items-center">
             <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
             <h1>IIT Dharwad</h1>
           </div>
-
-      </div>
-      <nav id="navbar" className="navbar">
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/AboutUs/team">Library Committee</a></li>
-              <li><a href="asklib.html">Ask a Librarian</a></li>
-              <li><a href="/AboutUs">About</a></li>
-              <li><a href="contact.html">Contact</a></li>
-            </ul>
-          </nav>
-      <nav className="header-nav ms-auto">
-    <ul className="d-flex align-items-center list-unstyled m-0">
-    <li className="nav-item dropdown">
-        <DropdownButton
-          menuAlign="right"
-          title={
-            <span className="nav-link nav-profile d-flex align-items-center pe-0">
-              <Image
-                src="/static/adminpage/profile.png"
-                alt="Profile"
-                className="rounded-circle me-2"
-              />
-              <span className="d-none d-md-block">
-                User
-              </span>
-            </span>
-          }
-          id="dropdown-profile"
-        >
-          <Dropdown.Header>
-            <h6>User</h6>
-          </Dropdown.Header>
-          <Dropdown.Divider />
-          <Dropdown.Item>
-            <Link className="dropdown-item d-flex align-items-center" to="/StudentPage/profile">
-              <i className="bi bi-person"></i>
-              <span>My Profile</span>
-            </Link>
-          </Dropdown.Item>
-          <Dropdown.Divider />
-          
-          <Dropdown.Item>
-            <Link className="dropdown-item d-flex align-items-center" to="/Login">
-              <i className="bi bi-box-arrow-right"></i>
-              <span>Sign Out</span>
-            </Link>
-          </Dropdown.Item>
-        </DropdownButton>
-      </li>
-    </ul>
-  </nav>
-         <i className="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+        <nav id="navbar" className="navbar">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/AboutUs/team">Library Committee</a></li>
+            <li><a href="asklib.html">Ask a Librarian</a></li>
+            <li><a href="/AboutUs">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <nav className="header-nav ms-auto">
+          <ul className="d-flex align-items-center list-unstyled m-0">
+            <li className="nav-item dropdown">
+              <DropdownButton
+                menuAlign="right"
+                title={
+                  <span className="nav-link nav-profile d-flex align-items-center pe-0">
+                    <Image
+                      src="/static/adminpage/profile.png"
+                      alt="Profile"
+                      className="rounded-circle me-2"
+                    />
+                    <span className="d-none d-md-block">
+                      User
+                    </span>
+                  </span>
+                }
+                id="dropdown-profile"
+              >
+                <Dropdown.Header>
+                  <h6>User</h6>
+                </Dropdown.Header>
+                <Dropdown.Divider />
+                <Dropdown.Item>
+                  <Link className="dropdown-item d-flex align-items-center" to="/StudentPage/profile">
+                    <i className="bi bi-person"></i>
+                    <span>My Profile</span>
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                
+                <Dropdown.Item>
+                  <Link className="dropdown-item d-flex align-items-center" to="/Login">
+                    <i className="bi bi-box-arrow-right"></i>
+                    <span>Sign Out</span>
+                  </Link>
+                </Dropdown.Item>
+              </DropdownButton>
+            </li>
+          </ul>
+        </nav>
+        <i className="bi bi-list toggle-sidebar-btn"></i>
       </header>
       <aside id="sidebar" className="sidebar">
-
-          <ul className="sidebar-nav" id="sidebar-nav">
+        <ul className="sidebar-nav" id="sidebar-nav">
           <li className="nav-item">
             <Link className="nav-link collapsed" to="/StudentPage">
             <i className="bi bi-grid"></i>
             <span>Home</span>
             </Link>
-        </li>
-        <li className="nav-item">
+          </li>
+          <li className="nav-item">
             <Link className="nav-link collapsed" to="/StudentPage/activity">
             <i className="bi bi-layout-text-window-reverse"></i><span>Your Activity</span>
             </Link>
-        </li>
-        <li className="nav-item">
+          </li>
+          <li className="nav-item">
             <Link className="nav-link collapsed" to="/StudentPage/bookdb">
             <i className="bi bi-book"></i><span>Book Search</span>
             </Link>
-        </li>
-        
-        <li className="nav-item">
+          </li>
+          <li className="nav-item">
             <Link className="nav-link " to="/StudentPage/profile">
             <i className="bi bi-person"></i>
             <span>Your Profile</span>
             </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link collapsed" to="/StudentPage/contact">
-          <i className="bi bi-envelope"></i>
-          <span>Contact</span>
-          </Link>
-      </li>
-          </ul>
-
-          </aside>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link collapsed" to="/StudentPage/contact">
+            <i className="bi bi-envelope"></i>
+            <span>Contact</span>
+            </Link>
+          </li>
+        </ul>
+      </aside>
+      
       <main id="main" className="main">
 
-      <div className="pagetitle">
-      <h1>Profile</h1>
-      <nav>
-          <ol className="breadcrumb">
-          <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/StudentPage">Home</Link></li>
-          <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>My Profile</li>
-          </ol>
-      </nav>
-      </div>
+        <div className="pagetitle">
+        <h1>Profile</h1>
+        <nav>
+            <ol className="breadcrumb">
+            <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/StudentPage">Home</Link></li>
+            <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>My Profile</li>
+            </ol>
+        </nav>
+        </div>
       <section className="section profile">
-      <div className="row">
+        <div className="row">
           <div className="col-xl-4">
-
-          <div className="card">
-                          <div className="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                          <Image
-                              src="/static/adminpage/profile.png"
-                              alt="Profile"
-                              className="rounded-circle"
-                              width="100"
-                              height="100"
-                            />
-                            <h2>{profile.name}</h2>
-                            <h3>{profile.position}</h3>
-                          </div>
-                      </div>
-              </div>            
+            <div className="card">
+              <div className="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                <Image
+                  src="/static/adminpage/profile.png"
+                  alt="Profile"
+                  className="rounded-circle"
+                  width="100"
+                  height="100"
+                />
+                <h2>{profile.name}</h2>
+                <h3>{profile.position}</h3>
+              </div>
+            </div>
+          </div>            
 
           <div className="col-xl-8">
-
-          <div className="card">
+            <div className="card">
               <div className="card-body pt-3">
-              <ul class="nav nav-tabs nav-tabs-bordered">
-                <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
-                </li>
-
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-                </li>
-
+                <ul class="nav nav-tabs nav-tabs-bordered">
+                  <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                  </li>
+                  <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                  </li>
                 </ul>
+                
                 <div class="tab-content pt-2">
-                <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 className="card-title">Profile Details</h5>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Full Name</div>
-                                  <div className="col-lg-9 col-md-8">{profile.name}</div>
-                              </div>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Position</div>
-                                  <div className="col-lg-9 col-md-8">{profile.position}</div>
-                              </div>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Email</div>
-                                  <div className="col-lg-9 col-md-8">{profile.email}</div>
-                              </div>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Roll Number</div>
-                                  <div className="col-lg-9 col-md-8">{profile.roll}</div>
-                              </div>
-                              <div className="row">
-                                  <div className="col-lg-3 col-md-4 label">Branch</div>
-                                  <div className="col-lg-9 col-md-8">{profile.branch}</div>
-                              </div>
+                  <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                    <h5 className="card-title">Profile Details</h5>
+                    <div className="row">
+                      <div className="col-lg-3 col-md-4 label">Full Name</div>
+                      <div className="col-lg-9 col-md-8">{profile.name}</div>
+                    </div>
+                    <div className="row">
+                      <div className="col-lg-3 col-md-4 label">Position</div>
+                      <div className="col-lg-9 col-md-8">{profile.position}</div>
+                    </div>
+                    <div className="row">
+                      <div className="col-lg-3 col-md-4 label">Email</div>
+                      <div className="col-lg-9 col-md-8">{profile.email}</div>
+                    </div>
+                    <div className="row">
+                      <div className="col-lg-3 col-md-4 label">Roll Number</div>
+                      <div className="col-lg-9 col-md-8">{profile.roll}</div>
+                    </div>
+                    <div className="row">
+                      <div className="col-lg-3 col-md-4 label">Branch</div>
+                      <div className="col-lg-9 col-md-8">{profile.branch}</div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade pt-3" id="profile-change-password">
+                    <form onSubmit={handleSubmit}>
+                      <div className="row mb-3">
+                        <label htmlFor="currentPassword" className="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                        <div className="col-md-8 col-lg-9">
+                          <input
+                            name="password"
+                            type="password"
+                            className="form-control"
+                            id="currentPassword"
+                            value={formData.password}
+                            onChange={handleChange}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="row mb-3">
+                        <label htmlFor="newPassword" className="col-md-4 col-lg-3 col-form-label">New Password</label>
+                        <div className="col-md-8 col-lg-9">
+                          <input
+                            name="newpassword"
+                            type="password"
+                            className="form-control"
+                            id="newPassword"
+                            value={formData.newpassword}
+                            onChange={handleChange}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="row mb-3">
+                        <label htmlFor="renewPassword" className="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                        <div className="col-md-8 col-lg-9">
+                          <input
+                            name="renewpassword"
+                            type="password"
+                            className="form-control"
+                            id="renewPassword"
+                            value={formData.renewpassword}
+                            onChange={handleChange}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="text-center">
+                        <button type="submit" className="btn btn-primary">Change Password</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
               </div>
-              <div class="tab-pane fade pt-3" id="profile-change-password">
-              <form onSubmit={handleSubmit}>
-                <div className="row mb-3">
-                  <label htmlFor="currentPassword" className="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                  <div className="col-md-8 col-lg-9">
-                    <input
-                      name="password"
-                      type="password"
-                      className="form-control"
-                      id="currentPassword"
-                      value={formData.password}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="row mb-3">
-                  <label htmlFor="newPassword" className="col-md-4 col-lg-3 col-form-label">New Password</label>
-                  <div className="col-md-8 col-lg-9">
-                    <input
-                      name="newpassword"
-                      type="password"
-                      className="form-control"
-                      id="newPassword"
-                      value={formData.newpassword}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="row mb-3">
-                  <label htmlFor="renewPassword" className="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                  <div className="col-md-8 col-lg-9">
-                    <input
-                      name="renewpassword"
-                      type="password"
-                      className="form-control"
-                      id="renewPassword"
-                      value={formData.renewpassword}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="text-center">
-                  <button type="submit" className="btn btn-primary">Change Password</button>
-                </div>
-              </form>
-                </div>
+            </div>
           </div>
-          </div>
-          </div>
-          </div>
-      </div>
+        </div>
       </section>
 
       </main>
