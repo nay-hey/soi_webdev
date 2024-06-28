@@ -1,8 +1,10 @@
+//handles reminder form
+//have included sending emails to selected email ids from table displaying current issue data 
 import React, { useEffect, useRef, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Image } from 'react-bootstrap';
 import axios from 'axios';
 import './AdminPage.css';
 import { Tooltip } from 'bootstrap';
@@ -11,6 +13,8 @@ import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
 const Reminder = () => {
+  //sets msg for email
+  const [messages, setMessage] = useState('');
      const editorRef = useRef(null); // Create a ref for the Quill editor element
     const isEditorInitialized = useRef(false); // Flag to track if the editor has been initialized
     const [message, setMailmsg] = useState('');
@@ -37,14 +41,13 @@ const Reminder = () => {
         isEditorInitialized.current = true;
           }
         }, []);
-        const [selectedDate, setSelectedDate] = useState('');
-        const [messages, setMessage] = useState('');
-        const [selectedEmails, setSelectedEmails] = useState([]);
-       
+        //sets date 
+        const [selectedDate, setSelectedDate] = useState('');       
         const handleDateChange = (e) => {
           setSelectedDate(e.target.value);
         };
-      
+        //sets the email ids 
+        const [selectedEmails, setSelectedEmails] = useState([]);
         const handleCheckboxChange = (email) => {
           setSelectedEmails(prevEmails =>
             prevEmails.includes(email)
@@ -52,7 +55,7 @@ const Reminder = () => {
               : [...prevEmails, email]
           );
         };
-      
+      //function for handling mails
         const sendReminders = async () => {
           if (selectedEmails.length === 0 || !selectedDate || !message) {
             alert('Please select at least one email, choose a date, and provide a message.');
@@ -73,14 +76,12 @@ const Reminder = () => {
           }
         
         };
-      
+      //displays table for the issue data of books and the users 
         const [items, setItem] = useState([]);
         useEffect(() => {
           fetchItem();
         }, []);
-        const [searchTerm, setSearchTerm] = useState('');
-        const [currentPage, setCurrentPage] = useState(1);
-        const [entriesPerPage, setEntriesPerPage] = useState(5);
+        
         const fetchItem = async () => {
           try {
             const response = await axios.get('http://localhost:5000/api/issues');
@@ -89,7 +90,10 @@ const Reminder = () => {
             console.error('Error fetching item:', error);
           }
         };
-
+      //displays data of issuing books
+        const [searchTerm, setSearchTerm] = useState('');
+        const [currentPage, setCurrentPage] = useState(1);
+        const [entriesPerPage, setEntriesPerPage] = useState(5);
        const filteredBooks = items.filter(item => {
             return Object.values(item).some(value =>
               String(value).toLowerCase().includes(searchTerm.toLowerCase())
@@ -158,249 +162,239 @@ const Reminder = () => {
 
   return (
     <div>
-            <section id="admin">
-      <header id="header" className="header fixed-top d-flex align-items-center">
-        <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <section id="admin">
+        <header id="header" className="header fixed-top d-flex align-items-center">
+          <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
               <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
               <h1>IIT Dharwad</h1>
             </div>
-
-        </div>
-        <nav id="navbar" className="navbar">
-              <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/AboutUs/team">Library Committee</a></li>
-                <li><a href="asklib.html">Ask a Librarian</a></li>
-                <li><a href="/AboutUs">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </nav>
-        <nav className="header-nav ms-auto">
-        <ul className="d-flex align-items-center list-unstyled m-0">
-        <li className="nav-item dropdown">
-          <DropdownButton
-            menuAlign="right"
-            title={
-              <span className="nav-link nav-profile d-flex align-items-center pe-0">
-                <Image
-                  src="/static/adminpage/profile.png"
-                  alt="Profile"
-                  className="rounded-circle me-2"
-                />
-                <span className="d-none d-md-block">
-                  User
-                </span>
-              </span>
-            }
-            id="dropdown-profile"
-          >
-            <Dropdown.Header>
-              <h6>User</h6>
-            </Dropdown.Header>
-            <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/profile">
-                <i className="bi bi-person"></i>
-                <span>My Profile</span>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/studentprofile">
-                <i className="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/Login">
-                <i className="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </Link>
-            </Dropdown.Item>
-          </DropdownButton>
-        </li>
-      </ul>
-    </nav>
-           <i className="bi bi-list toggle-sidebar-btn"></i>
+          </div>
+          <nav id="navbar" className="navbar">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/AboutUs/team">Library Committee</a></li>
+              <li><a href="asklib.html">Ask a Librarian</a></li>
+              <li><a href="/AboutUs">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </nav>
+          <nav className="header-nav ms-auto">
+            <ul className="d-flex align-items-center list-unstyled m-0">
+              <li className="nav-item dropdown">
+                <DropdownButton
+                  menuAlign="right"
+                  title={
+                    <span className="nav-link nav-profile d-flex align-items-center pe-0">
+                      <Image
+                        src="/static/adminpage/profile.png"
+                        alt="Profile"
+                        className="rounded-circle me-2"
+                      />
+                      <span className="d-none d-md-block">
+                        User
+                      </span>
+                    </span>
+                  }
+                  id="dropdown-profile"
+                >
+                  <Dropdown.Header>
+                    <h6>User</h6>
+                  </Dropdown.Header>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>
+                    <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/profile">
+                      <i className="bi bi-person"></i>
+                      <span>My Profile</span>
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>
+                    <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/studentprofile">
+                      <i className="bi bi-gear"></i>
+                      <span>Account Settings</span>
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>
+                    <Link className="dropdown-item d-flex align-items-center" to="/Login">
+                      <i className="bi bi-box-arrow-right"></i>
+                      <span>Sign Out</span>
+                    </Link>
+                  </Dropdown.Item>
+                </DropdownButton>
+              </li>
+            </ul>
+          </nav>
+          <i className="bi bi-list toggle-sidebar-btn"></i>
         </header>
         <aside id="sidebar" className="sidebar">
-
-            <ul className="sidebar-nav" id="sidebar-nav">
-
+          <ul className="sidebar-nav" id="sidebar-nav">
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage">
-                <i className="bi bi-grid"></i>
-                <span>Home</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage">
+              <i className="bi bi-grid"></i>
+              <span>Home</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/studentdb">
-                <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage/studentdb">
+              <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/bookdb">
-                <i className="bi bi-book"></i><span>Book Database</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage/bookdb">
+              <i className="bi bi-book"></i><span>Book Database</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/circulationmanagement">
-                <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage/circulationmanagement">
+              <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
+              </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link " to="/AdminPage/reminder">
               <i className="bi bi-alarm-fill"></i><span>Reminder</span>
               </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link collapsed" to="/AdminPage/studentprofile">
-            <i className="bi bi-person"></i>
-            <span>Profile Edit</span>
-            </Link>
-        </li>
-        <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/notification">
-                <i class="bi bi-envelope"></i>
-                <span>Notification</span>
-                </Link>
             </li>
-            </ul>
-
-            </aside>
-               
-            <main id="main" className="main">
-
+            <li className="nav-item">
+              <Link className="nav-link collapsed" to="/AdminPage/studentprofile">
+              <i className="bi bi-person"></i>
+              <span>Profile Edit</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link collapsed" to="/AdminPage/notification">
+              <i class="bi bi-envelope"></i>
+              <span>Notification</span>
+              </Link>
+            </li>
+          </ul>
+        </aside>         
+      <main id="main" className="main">
             <div className="pagetitle">
-            <h1>General Tables</h1>
-            <nav>
-                <ol className="breadcrumb">
-                <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/AdminPage">Home</Link></li>
-                <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Reminders</li>
-                </ol>
-            </nav>
+              <h1>General Tables</h1>
+              <nav>
+                  <ol className="breadcrumb">
+                  <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/AdminPage">Home</Link></li>
+                  <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Reminders</li>
+                  </ol>
+              </nav>
             </div>
 
             <section className="section">
-            <div className="row">
+              <div className="row">
                 <div className="col-lg-4">
-                <div className="card">
-                <div className="card-body">
-                <h5 className="card-title">Send Email Reminders</h5>
-                    <p>Select today's date and click the button below to send email reminders to students who haven't returned their books.</p>
-                    <div className="form-group">
-                        <label htmlFor="dateSelector">Select Date:</label>
-                        <input
-                        type="date"
-                        id="dateSelector"
-                        className="form-control"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        />
-                        
-                    <br />
-                    </div>
-                    <div className="quill-editor-default"  ref={editorRef}>
-                </div>
-                {selectedEmails.length === 0 || !selectedDate || !message.trim() ? (
-                  <p>Please select at least one email, choose a date, and provide a message</p>
-                ) : (
-                  <button className="btn btn-primary mt-3" onClick={sendReminders}>
-                    Send Reminders
-                  </button>
-                )}
-
-                    {messages && <p className="mt-3">{messages}</p>}
-                    {selectedEmails.length > 0 && (
-                      <div className="mt-3">
-                        <h6>Selected Email IDs:</h6>
-                        <ul>
-                          {selectedEmails.map(email => (
-                            <li key={email}>{email}</li>
-                          ))}
-                        </ul>
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 className="card-title">Send Email Reminders</h5>
+                      <p>Select today's date and click the button below to send email reminders to students who haven't returned their books.</p>
+                        <div className="form-group">
+                          <label htmlFor="dateSelector">Select Date:</label>
+                          <input
+                          type="date"
+                          id="dateSelector"
+                          className="form-control"
+                          value={selectedDate}
+                          onChange={handleDateChange}
+                          />
+                          <br />
+                        </div>
+                      <div className="quill-editor-default"  ref={editorRef}>
                       </div>
-                    )}
+                      {selectedEmails.length === 0 || !selectedDate || !message.trim() ? (
+                        <p>Please select at least one email, choose a date, and provide a message</p>
+                      ) : (
+                        <button className="btn btn-primary mt-3" onClick={sendReminders}>
+                          Send Reminders
+                        </button>
+                      )}
+
+                        {messages && <p className="mt-3">{messages}</p>}
+                        {selectedEmails.length > 0 && (
+                          <div className="mt-3">
+                            <h6>Selected Email IDs:</h6>
+                            <ul>
+                              {selectedEmails.map(email => (
+                                <li key={email}>{email}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                     </div>
-                    </div>
-                
+                  </div>
                 </div>
 
                 <div className="col-lg-8">
-
-                <div className="card">
+                  <div className="card">
                     <div className="card-body">
-                    <h5 className="card-title">Books Issued by members</h5>
-                    <div className="search-container">
-                  <input
-                    type="text"
-                    placeholder="Search by title ..."
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                  />
-                  <select
-                    className="form-control"
-                    value={entriesPerPage}
-                    onChange={(e) => setEntriesPerPage(parseInt(e.target.value))}
-                  >
-                    <option value="5">5 entries per page</option>
-                    <option value="10">10 entries per page</option>
-                    <option value={filteredBooks.length}>All entries</option>
-                  </select>
+                      <h5 className="card-title">Books Issued by members</h5>
+                      <div className="search-container">
+                        <input
+                          type="text"
+                          placeholder="Search by title ..."
+                          value={searchTerm}
+                          onChange={handleSearchChange}
+                        />
+                        <select
+                          className="form-control"
+                          value={entriesPerPage}
+                          onChange={(e) => setEntriesPerPage(parseInt(e.target.value))}
+                        >
+                          <option value="5">5 entries per page</option>
+                          <option value="10">10 entries per page</option>
+                          <option value={filteredBooks.length}>All entries</option>
+                        </select>
+                      </div>
+                      <table className="table table-bordered table-hover">
+                        <thead className="thead-dark">
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Select</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email Id</th>
+                            <th scope="col">Book Title</th>
+                            <th scope="col">Issued Date</th>
+                            <th scope="col">Due Date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {currentEntries.map((item, index) => (
+                            <tr key={item.index}>
+                              
+                              <td>{index + 1}</td>
+                              <td>
+                                <input
+                                  type="checkbox"
+                                  onChange={() => handleCheckboxChange(item.email)}
+                                />
+                              </td>
+                              <td>{item.fname} {item.lname}</td>
+                              <td>{item.email}</td>
+                              <td>{item.bookId}</td>
+                              <td>{item.issueDate}</td>
+                              <td>{item.returnDate}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      <div>
+                        <nav aria-label="Page navigation example">
+                          <ul className="pagination">
+                            {Array.from({ length: Math.ceil(filteredBooks.length / entriesPerPage) }, (_, index) => (
+                              <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                                <button className="page-link" onClick={() => paginate(index + 1)}>{index + 1}</button>
+                              </li>
+                            ))}
+                          </ul>
+                        </nav>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                    <table className="table table-bordered table-hover">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Select</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email Id</th>
-                      <th scope="col">Book Title</th>
-                      <th scope="col">Issued Date</th>
-                      <th scope="col">Due Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentEntries.map((item, index) => (
-                      <tr key={item.index}>
-                        
-                        <td>{index + 1}</td>
-                        <td>
-                          <input
-                            type="checkbox"
-                            onChange={() => handleCheckboxChange(item.email)}
-                          />
-                        </td>
-                        <td>{item.fname} {item.lname}</td>
-                        <td>{item.email}</td>
-                        <td>{item.bookId}</td>
-                        <td>{item.issueDate}</td>
-                        <td>{item.returnDate}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <div>
-                  <nav aria-label="Page navigation example">
-                    <ul className="pagination">
-                      {Array.from({ length: Math.ceil(filteredBooks.length / entriesPerPage) }, (_, index) => (
-                        <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                          <button className="page-link" onClick={() => paginate(index + 1)}>{index + 1}</button>
-                        </li>
-                      ))}
-                    </ul>
-                  </nav>
-                </div>
-               </div>
-                </div>
-
-                </div>
-            </div>
+              </div>
             </section>
 
-            </main>
+      </main>
         <footer id="footer" className="footer">
 
             <div className="container">
