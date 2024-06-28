@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/VisionPage.css';
+import Footer from './Footer';
 
 const VisionPage = () => {
     return (
@@ -49,6 +50,7 @@ const VisionPage = () => {
                 <Link to="/AboutUs" className="back-button">Back to About Us</Link>
             </div>
         </div>
+    <Footer />
         </section>
     );
 };
