@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState}  from 'react';
+//displays profile data on Admin Page 
+//search for a profie and make edits if required
+import React, { useEffect, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Image } from 'react-bootstrap';
 import axios from 'axios';
 
 import { Link } from 'react-router-dom';
@@ -10,8 +12,9 @@ import './AdminPage.css';
 import { Tooltip } from 'bootstrap';
 
 const StudentProfile = () => {
+  //to take care of search tab
   const [searchInput, setSearchInput] = useState('');
-  const [searchCategory, setSearchCategory] = useState('name');
+  //holds the profile details
   const [profile, setProfile] = useState({
     _id: '',
     name: '',
@@ -19,18 +22,20 @@ const StudentProfile = () => {
     email: '',
     branch: '',
   });
-  // Function to handle searching books based on category and input
+  // Function to handle searching profile based on category and input
   const handleSearch = async () => {
-    console.log('Book search');
+    console.log('Profile search');
     try {
       const response = await axios.get(`http://localhost:5000/api/students/search?category=name&keyword=${searchInput}`);
       setProfile(response.data);
     } catch (error) {
-      console.error('Error searching for book:', error);
+      console.error('Error searching for profile:', error);
     } finally {
     }
   };
+  //to edit profile details
   const [profileItem, setProfileItem] = useState(profile);
+  //function to handle form for editing profile 
   const handleEditBookDetails = async (e) => {
     e.preventDefault();
     try {
@@ -43,7 +48,7 @@ const StudentProfile = () => {
         _id: profile[0]._id
         // Add other fields similarly
       };
-      // Example fetch request to update book details
+      // Example fetch request to update profile details
       const response = await fetch(`http://localhost:5000/api/students/${updatedProfileItem._id}`, {
         method: 'PUT',
         headers: {
@@ -67,7 +72,7 @@ const StudentProfile = () => {
       // Optionally handle error, e.g., show an error message to the user
     }
   };
-  
+  //handles sidebar functionality
     useEffect(() => {
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -120,155 +125,150 @@ const StudentProfile = () => {
 
   return (
     <div>
-            <section id="admin">
-      <header id="header" className="header fixed-top d-flex align-items-center">
-        <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <section id="admin">
+        <header id="header" className="header fixed-top d-flex align-items-center">
+          <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
               <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
               <h1>IIT Dharwad</h1>
             </div>
-
-        </div>
-        <nav id="navbar" className="navbar">
-              <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/AboutUs/team">Library Committee</a></li>
-                <li><a href="asklib.html">Ask a Librarian</a></li>
-                <li><a href="/AboutUs">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </nav>
-        <nav className="header-nav ms-auto">
-      <ul className="d-flex align-items-center list-unstyled m-0">
-        <li className="nav-item dropdown">
-          <DropdownButton
-            menuAlign="right"
-            title={
-              <span className="nav-link nav-profile d-flex align-items-center pe-0">
-                <Image
-                  src="/static/adminpage/profile.png"
-                  alt="Profile"
-                  className="rounded-circle me-2"
-                />
-                <span className="d-none d-md-block">
-                  User
-                </span>
-              </span>
-            }
-            id="dropdown-profile"
-          >
-            <Dropdown.Header>
-              <h6>User</h6>
-            </Dropdown.Header>
-            <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/profile">
-                <i className="bi bi-person"></i>
-                <span>My Profile</span>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/studentprofile">
-                <i className="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/Login">
-                <i className="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </Link>
-            </Dropdown.Item>
-          </DropdownButton>
-        </li>
-      </ul>
-    </nav>
-           <i className="bi bi-list toggle-sidebar-btn"></i>
+          </div>
+          <nav id="navbar" className="navbar">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/AboutUs/team">Library Committee</a></li>
+              <li><a href="asklib.html">Ask a Librarian</a></li>
+              <li><a href="/AboutUs">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </nav>
+          <nav className="header-nav ms-auto">
+            <ul className="d-flex align-items-center list-unstyled m-0">
+              <li className="nav-item dropdown">
+                <DropdownButton
+                  menuAlign="right"
+                  title={
+                    <span className="nav-link nav-profile d-flex align-items-center pe-0">
+                      <Image
+                        src="/static/adminpage/profile.png"
+                        alt="Profile"
+                        className="rounded-circle me-2"
+                      />
+                      <span className="d-none d-md-block">
+                        User
+                      </span>
+                    </span>
+                  }
+                  id="dropdown-profile"
+                >
+                  <Dropdown.Header>
+                    <h6>User</h6>
+                  </Dropdown.Header>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>
+                    <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/profile">
+                      <i className="bi bi-person"></i>
+                      <span>My Profile</span>
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>
+                    <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/studentprofile">
+                      <i className="bi bi-gear"></i>
+                      <span>Account Settings</span>
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>
+                    <Link className="dropdown-item d-flex align-items-center" to="/Login">
+                      <i className="bi bi-box-arrow-right"></i>
+                      <span>Sign Out</span>
+                    </Link>
+                  </Dropdown.Item>
+                </DropdownButton>
+              </li>
+            </ul>
+          </nav>
+          <i className="bi bi-list toggle-sidebar-btn"></i>
         </header>
         <aside id="sidebar" className="sidebar">
-
-            <ul className="sidebar-nav" id="sidebar-nav">
-
+          <ul className="sidebar-nav" id="sidebar-nav">
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage">
-                <i className="bi bi-grid"></i>
-                <span>Home</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage">
+              <i className="bi bi-grid"></i>
+              <span>Home</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/studentdb">
-                <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage/studentdb">
+              <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/bookdb">
-                <i className="bi bi-book"></i><span>Book Database</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage/bookdb">
+              <i className="bi bi-book"></i><span>Book Database</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/circulationmanagement">
-                <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage/circulationmanagement">
+              <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/reminder">
-                <i className="bi bi-alarm-fill"></i><span>Reminder</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage/reminder">
+              <i className="bi bi-alarm-fill"></i><span>Reminder</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link " to="/AdminPage/studentprofile">
-                <i className="bi bi-person"></i>
-                <span>Profile Edit</span>
-                </Link>
+              <Link className="nav-link " to="/AdminPage/studentprofile">
+              <i className="bi bi-person"></i>
+              <span>Profile Edit</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/notification">
-                <i class="bi bi-envelope"></i>
-                <span>Notification</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage/notification">
+              <i class="bi bi-envelope"></i>
+              <span>Notification</span>
+              </Link>
             </li>
-            </ul>
-
-            </aside>
-            <main id="main" className="main">
+          </ul>
+        </aside>
+      <main id="main" className="main">
                 <div className="pagetitle">
-                    <h1>Profile</h1>
-                    <nav>
+                  <h1>Profile</h1>
+                  <nav>
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/AdminPage">Home</Link></li>
-                        <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Profile Edit</li>
+                      <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/AdminPage">Home</Link></li>
+                      <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Profile Edit</li>
                     </ol>
-                    </nav>
+                  </nav>
                 </div>
 
                 <section className="section profile">
-                    <div className="container">
-                        <div className="row gy-4 justify-content-center justify-content-lg-between">
-                        <div className="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                        
-                            <div className="col-xl-4 profile-search">
-                                <input
-                                type="text"
-                                id="keyword-input"
-                                placeholder="Search for a profile..."
-                                value={searchInput}
-                                onChange={(e) => setSearchInput(e.target.value)}
-                                />
-                                <button id="search-button" onClick={handleSearch}>Search</button>
-                            </div>
-                            <div className="d-flex">
-                            </div>
+                  <div className="container">
+                    <div className="row gy-4 justify-content-center justify-content-lg-between">
+                      <div className="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">            
+                        <div className="col-xl-4 profile-search">
+                          <input
+                            type="text"
+                            id="keyword-input"
+                            placeholder="Search for a profile..."
+                            value={searchInput}
+                            onChange={(e) => setSearchInput(e.target.value)}
+                          />
+                          <button id="search-button" onClick={handleSearch}>Search</button>
                         </div>
-                        <div className="col-lg-5 order-1 order-lg-2 hero-img">
-                            <img src="/static/adminpage/profilebar.png" className="img-fluid" alt="" />
+                        <div className="d-flex">
                         </div>
-                        </div>
+                      </div>
+                      <div className="col-lg-5 order-1 order-lg-2 hero-img">
+                        <img src="/static/adminpage/profilebar.png" className="img-fluid" alt="" />
+                      </div>
                     </div>
-                    {profile.length > 0 ? (
+                  </div>
+                  {profile.length > 0 ? (
                     <div className="row">
-                    {profile.map((profileItem, index) => (
+                      {profile.map((profileItem, index) => (
                         <React.Fragment key={profileItem._id}>
                           <div className="col-xl-4">
                             <div className="card">
@@ -279,128 +279,127 @@ const StudentProfile = () => {
                               </div>
                             </div>
                           </div>
-                        <div className="col-xl-8">
-                        <div className="card">
-                            <div className="card-body pt-3">
-                            <ul className="nav nav-tabs nav-tabs-bordered">
-                                <li className="nav-item">
-                                <button className="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Profile Details</button>
-                                </li>
-                                <li className="nav-item">
-                                <button className="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
-                                </li>
-                            </ul>
-                            <div className="tab-content pt-2">
-                                <div className="tab-pane fade show active profile-overview" id="profile-overview">
-                                <h5 className="card-title">Profile Details</h5>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Full Name</div>
-                                    <div className="col-lg-9 col-md-8">{profileItem.name}</div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Position</div>
-                                    <div className="col-lg-9 col-md-8">{profileItem.position}</div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Email</div>
-                                    <div className="col-lg-9 col-md-8">{profileItem.email}</div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Roll Number</div>
-                                    <div className="col-lg-9 col-md-8">{profileItem.roll}</div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Branch</div>
-                                    <div className="col-lg-9 col-md-8">{profileItem.branch}</div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-3 col-md-4 label">Join Date</div>
-                                    <div className="col-lg-9 col-md-8">{profileItem.joindate}</div>
-                                </div>
-                                </div>
-                                <div className="tab-pane fade profile-edit pt-3" id="profile-edit">
-                                <form onSubmit={handleEditBookDetails}>
+                          <div className="col-xl-8">
+                            <div className="card">
+                              <div className="card-body pt-3">
+                                <ul className="nav nav-tabs nav-tabs-bordered">
+                                  <li className="nav-item">
+                                    <button className="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Profile Details</button>
+                                   </li>
+                                   <li className="nav-item">
+                                     <button className="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                                    </li>
+                                </ul>
+                                <div className="tab-content pt-2">
+                                  <div className="tab-pane fade show active profile-overview" id="profile-overview">
+                                    <h5 className="card-title">Profile Details</h5>
+                                    <div className="row">
+                                      <div className="col-lg-3 col-md-4 label">Full Name</div>
+                                      <div className="col-lg-9 col-md-8">{profileItem.name}</div>
+                                    </div>
+                                    <div className="row">
+                                      <div className="col-lg-3 col-md-4 label">Position</div>
+                                      <div className="col-lg-9 col-md-8">{profileItem.position}</div>
+                                    </div>
+                                    <div className="row">
+                                      <div className="col-lg-3 col-md-4 label">Email</div>
+                                      <div className="col-lg-9 col-md-8">{profileItem.email}</div>
+                                    </div>
+                                    <div className="row">
+                                      <div className="col-lg-3 col-md-4 label">Roll Number</div>
+                                      <div className="col-lg-9 col-md-8">{profileItem.roll}</div>
+                                    </div>
+                                    <div className="row">
+                                      <div className="col-lg-3 col-md-4 label">Branch</div>
+                                      <div className="col-lg-9 col-md-8">{profileItem.branch}</div>
+                                    </div>
+                                    <div className="row">
+                                      <div className="col-lg-3 col-md-4 label">Join Date</div>
+                                      <div className="col-lg-9 col-md-8">{profileItem.joindate}</div>
+                                    </div>
+                                  </div>
+                                  
+                                  <div className="tab-pane fade profile-edit pt-3" id="profile-edit">
+                                    <form onSubmit={handleEditBookDetails}>
+                                      <div className="row mb-3">
+                                        <label htmlFor="inputText" className="col-sm-2 col-form-label">
+                                          Name
+                                        </label>
+                                        <div className="col-sm-10">
+                                          <input
+                                            type="text"
+                                            className="form-control"
+                                            id="name"
+                                            name="name"
+                                            defaultValue={profileItem.name}
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="row mb-3">
+                                        <label htmlFor="inputText" className="col-sm-2 col-form-label">
+                                          Department
+                                        </label>
+                                        <div className="col-sm-10">
+                                          <select
+                                            className="form-select"
+                                            id="branch"
+                                            name="branch"
+                                            defaultValue={profileItem.branch}
+                                          >
+                                            <option value="Computer Science">Computer Science</option>
+                                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                            <option value="Electrical Engineering">Electrical Engineering</option>
+                                            <option value="Mathematics and Computing">Mathematics and Computing</option>
+                                            <option value="Civil Engineering">Civil Engineering</option>
+                                            <option value="Chemical Engineering">Chemical Engineering</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div className="row mb-3">
+                                        <label htmlFor="inputNumber" className="col-sm-2 col-form-label">
+                                          Roll Number
+                                        </label>
+                                        <div className="col-sm-10">
+                                          <input
+                                            type="number"
+                                            className="form-control"
+                                            id="roll"
+                                            name="roll"
+                                            defaultValue={profileItem.roll}
+                                            />
+                                        </div>
+                                      </div>
                                 
-                                <div className="row mb-3">
-                                  <label htmlFor="inputText" className="col-sm-2 col-form-label">
-                                    Name
-                                  </label>
-                                  <div className="col-sm-10">
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id="name"
-                                      name="name"
-                                      defaultValue={profileItem.name}
-                                    />
+                                      <div className="row mb-3">
+                                        <label htmlFor="inputText" className="col-sm-2 col-form-label">
+                                          Email Id
+                                        </label>
+                                        <div className="col-sm-10">
+                                          <input
+                                            type="text"
+                                            className="form-control"
+                                            id="email"
+                                            name="email"
+                                            defaultValue={profileItem.email}
+                                            />
+                                        </div>
+                                      </div>
+                                      <button type="submit" className="btn btn-primary">
+                                        Save Changes
+                                      </button>
+                                    </form>
                                   </div>
                                 </div>
-                                <div className="row mb-3">
-                                  <label htmlFor="inputText" className="col-sm-2 col-form-label">
-                                    Department
-                                  </label>
-                                  <div className="col-sm-10">
-                                    <select
-                                      className="form-select"
-                                      id="branch"
-                                      name="branch"
-                                      defaultValue={profileItem.branch}
-                                    >
-                                      <option value="Computer Science">Computer Science</option>
-                                      <option value="Mechanical Engineering">Mechanical Engineering</option>
-                                      <option value="Electrical Engineering">Electrical Engineering</option>
-                                      <option value="Mathematics and Computing">Mathematics and Computing</option>
-                                      <option value="Civil Engineering">Civil Engineering</option>
-                                      <option value="Chemical Engineering">Chemical Engineering</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div className="row mb-3">
-                                  <label htmlFor="inputNumber" className="col-sm-2 col-form-label">
-                                    Roll Number
-                                  </label>
-                                  <div className="col-sm-10">
-                                    <input
-                                      type="number"
-                                      className="form-control"
-                                      id="roll"
-                                      name="roll"
-                                      defaultValue={profileItem.roll}
-                                      />
-                                  </div>
-                                </div>
-                          
-                                <div className="row mb-3">
-                                  <label htmlFor="inputText" className="col-sm-2 col-form-label">
-                                    Email Id
-                                  </label>
-                                  <div className="col-sm-10">
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id="email"
-                                      name="email"
-                                      defaultValue={profileItem.email}
-                                      />
-                                  </div>
-                                </div>
-                                <button type="submit" className="btn btn-primary">
-                                Save Changes
-                              </button>
-                              </form>
-                              </div>
                               </div>
                             </div>
-                        </div>
-                      </div>
-                    </React.Fragment>
-                  ))}
-                </div>
-              ) : (
-                <p>No book found</p>
-              )}
-                       
-                        </section>
+                          </div>
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  ) : (
+                    <p>No book found</p>
+                  )}       
+                </section>
                 </main>
         <footer id="footer" className="footer">
 
