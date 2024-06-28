@@ -132,14 +132,14 @@ const Profile = () => {
             </Dropdown.Header>
             <Dropdown.Divider />
             <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/profile">
+              <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/profile">
                 <i className="bi bi-person"></i>
                 <span>My Profile</span>
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/studentprofile">
+              <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/studentprofile">
                 <i className="bi bi-gear"></i>
                 <span>Account Settings</span>
               </Link>
@@ -168,27 +168,27 @@ const Profile = () => {
                 </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/studentdb">
+                <Link className="nav-link collapsed" to="/AdminPage/studentdb">
                 <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
                 </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/bookdb">
+                <Link className="nav-link collapsed" to="/AdminPage/bookdb">
                 <i className="bi bi-book"></i><span>Book Database</span>
                 </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/circulationmanagement">
+                <Link className="nav-link collapsed" to="/AdminPage/circulationmanagement">
                 <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
                 </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/reminder">
+                <Link className="nav-link collapsed" to="/AdminPage/reminder">
                 <i className="bi bi-alarm-fill"></i><span>Reminder</span>
                 </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link " to="/studentprofile">
+                <Link className="nav-link collapsed" to="/AdminPage/studentprofile">
                 <i className="bi bi-person"></i>
                 <span>Profile Edit</span>
                 </Link>
