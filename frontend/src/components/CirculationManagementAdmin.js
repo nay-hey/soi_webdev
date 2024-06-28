@@ -1,16 +1,19 @@
-import React, { useEffect, useRef, useState}  from 'react';
+//handles issue and return of a book
+//takes care of all return and issue policies including fine for late return and book count
+import React, { useEffect, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Image } from 'react-bootstrap';
 import axios from 'axios';
 
 import './AdminPage.css';
 import { Tooltip } from 'bootstrap';
 import { Link } from 'react-router-dom';
-import booksData from './books.json';
 
 const CirculationManagement = () => {
+
+  //issuing a book - uses form
   const [issueFormData, setIssueFormData] = useState({
     fname: '',
     lname: '',
@@ -21,28 +24,7 @@ const CirculationManagement = () => {
     returnDate: '',
   });
 
-  const [returnFormData, setReturnFormData] = useState({
-    fname: '',
-    lname: '',
-    email: '',
-    rollno: 0,
-    bookId: '',
-    returnDate: '',
-  });
-
-  const [formErrors, setFormErrors] = useState({});
-  const [bookDetails, setBookDetails] = useState(null);
-  useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    const returnDate = new Date();
-    returnDate.setDate(returnDate.getDate() + 15);
-    setIssueFormData({
-      ...issueFormData,
-      issueDate: today,
-      returnDate: returnDate.toISOString().split('T')[0],
-    });
-  }, []);
-
+  //handles change in issue form
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setIssueFormData((prevFormData) => {
@@ -66,28 +48,8 @@ const CirculationManagement = () => {
     });
   };
 
-  const handleChange2 = (e) => {
-    const { name, value, type, checked } = e.target;
-    setReturnFormData({...returnFormData, [name]: type === 'checkbox' ? checked : value,});
-
-    if (name === 'bookId') {
-      const formDataCopy = { ...returnFormData, [name]: value };
-      handleBookAction(formDataCopy); 
-    }
-  };
-
-  const handleBookAction = async (formData) => {
-    try {
-      console.log(formData)
-      const response = await axios.get(`http://localhost:5000/api/books/search?category=title&keyword=${formData.bookId}`);
-      console.log(response.data);
-      setBookDetails(response.data);
-    } catch (error) {
-      console.error('Error searching for book:', error);
-    } finally {
-    }
-  };
-
+//function to submit issue form
+//only allows 3 book issue for each student, and doesn't allow to issue a book if count is <2
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -169,8 +131,44 @@ const CirculationManagement = () => {
       alert(error.message);
     }
   };
+
+    //sets return date in issue form 15 days after today (default issue date)
+    useEffect(() => {
+      const today = new Date().toISOString().split('T')[0];
+      const returnDate = new Date();
+      returnDate.setDate(returnDate.getDate() + 15);
+      setIssueFormData({
+        ...issueFormData,
+        issueDate: today,
+        returnDate: returnDate.toISOString().split('T')[0],
+      });
+    }, []);
+  
   
 
+  //returning a book - uses form
+  const [returnFormData, setReturnFormData] = useState({
+    fname: '',
+    lname: '',
+    email: '',
+    rollno: 0,
+    bookId: '',
+    returnDate: '',
+  });
+
+  //handles change in return form  
+  const handleChange2 = (e) => {
+    const { name, value, type, checked } = e.target;
+    setReturnFormData({...returnFormData, [name]: type === 'checkbox' ? checked : value,});
+
+    if (name === 'bookId') {
+      const formDataCopy = { ...returnFormData, [name]: value };
+      handleBookAction(formDataCopy); 
+    }
+  };
+
+  //function to handle return book form
+  //sends alert if return date is later than set due date, deleting the book from issue table of db
   const handleDelete = async (e) => {
     e.preventDefault();
     const errors = validateForm(returnFormData);
@@ -239,6 +237,26 @@ const CirculationManagement = () => {
     }
   };
 
+
+  
+//displays the book once enterred in issue form or return form
+const [bookDetails, setBookDetails] = useState(null);
+  const handleBookAction = async (formData) => {
+    try {
+      console.log(formData)
+      const response = await axios.get(`http://localhost:5000/api/books/search?category=title&keyword=${formData.bookId}`);
+      console.log(response.data);
+      setBookDetails(response.data);
+    } catch (error) {
+      console.error('Error searching for book:', error);
+    } finally {
+    }
+  };
+
+  //takes account of errors in the form on missing any input area
+  const [formErrors, setFormErrors] = useState({});
+  
+ //sets rules for forms - for form errors
   const validateForm = (data) => {
     const errors = {};
     const emailPattern = /^[a-zA-Z0-9._%+-]+@iitdh\.ac\.in$/;
@@ -253,6 +271,7 @@ const CirculationManagement = () => {
     return errors;
   };
   
+  //manages sidebar
     useEffect(() => {
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -305,407 +324,404 @@ const CirculationManagement = () => {
 
   return (
     <div>
-          <section id="admin">
-      <header id="header" className="header fixed-top d-flex align-items-center">
-        <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <section id="admin">
+        <header id="header" className="header fixed-top d-flex align-items-center">
+          <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
               <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
               <h1>IIT Dharwad</h1>
             </div>
-
-        </div>
-        <nav id="navbar" className="navbar">
-              <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="libcom.html">Library Committee</a></li>
-                <li><a href="asklib.html">Ask a Librarian</a></li>
-                <li><a href="/AboutUs">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </nav>
-        <nav className="header-nav ms-auto">
-      <ul className="d-flex align-items-center list-unstyled m-0">
-        <li className="nav-item dropdown">
-          <DropdownButton
-            menuAlign="right"
-            title={
-              <span className="nav-link nav-profile d-flex align-items-center pe-0">
-                <Image
-                  src="/static/adminpage/profile.png"
-                  alt="Profile"
-                  className="rounded-circle me-2"
-                />
-                <span className="d-none d-md-block">
-                 User
-                </span>
-              </span>
-            }
-            id="dropdown-profile"
-          >
-            <Dropdown.Header>
-              <h6>User</h6>
-            </Dropdown.Header>
-            <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/profile">
-                <i className="bi bi-person"></i>
-                <span>My Profile</span>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/studentprofile">
-                <i className="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link className="dropdown-item d-flex align-items-center" to="/Login">
-                <i className="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </Link>
-            </Dropdown.Item>
-          </DropdownButton>
-        </li>
-      </ul>
-    </nav>
-           <i className="bi bi-list toggle-sidebar-btn"></i>
+          </div>
+          
+          <nav id="navbar" className="navbar">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="libcom.html">Library Committee</a></li>
+              <li><a href="asklib.html">Ask a Librarian</a></li>
+              <li><a href="/AboutUs">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </nav>
+          
+          <nav className="header-nav ms-auto">
+            <ul className="d-flex align-items-center list-unstyled m-0">
+              <li className="nav-item dropdown">
+                <DropdownButton
+                  menuAlign="right"
+                  title={
+                    <span className="nav-link nav-profile d-flex align-items-center pe-0">
+                      <Image
+                        src="/static/adminpage/profile.png"
+                        alt="Profile"
+                        className="rounded-circle me-2"
+                      />
+                      <span className="d-none d-md-block">
+                      User
+                      </span>
+                    </span>
+                  }
+                  id="dropdown-profile"
+                >
+                  <Dropdown.Header>
+                    <h6>User</h6>
+                  </Dropdown.Header>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>
+                    <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/profile">
+                      <i className="bi bi-person"></i>
+                      <span>My Profile</span>
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>
+                    <Link className="dropdown-item d-flex align-items-center" to="/AdminPage/studentprofile">
+                      <i className="bi bi-gear"></i>
+                      <span>Account Settings</span>
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>
+                    <Link className="dropdown-item d-flex align-items-center" to="/Login">
+                      <i className="bi bi-box-arrow-right"></i>
+                      <span>Sign Out</span>
+                    </Link>
+                  </Dropdown.Item>
+                </DropdownButton>
+              </li>
+            </ul>
+          </nav>
+          <i className="bi bi-list toggle-sidebar-btn"></i>
         </header>
+        
         <aside id="sidebar" className="sidebar">
-
-            <ul className="sidebar-nav" id="sidebar-nav">
-
+          <ul className="sidebar-nav" id="sidebar-nav">
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage">
-                <i className="bi bi-grid"></i>
-                <span>Home</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage">
+              <i className="bi bi-grid"></i>
+              <span>Home</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/studentdb">
-                <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage/studentdb">
+              <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/bookdb">
-                <i className="bi bi-book"></i><span>Book Database</span>
-                </Link>
+              <Link className="nav-link collapsed" to="/AdminPage/bookdb">
+              <i className="bi bi-book"></i><span>Book Database</span>
+              </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link " to="/AdminPage/circulationmanagement">
-                <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
-                </Link>
+              <Link className="nav-link " to="/AdminPage/circulationmanagement">
+              <i className="bi bi-nut-fill"></i><span>Circulation Management</span>
+              </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link collapsed" to="/AdminPage/reminder">
               <i className="bi bi-alarm-fill"></i><span>Reminder</span>
               </Link>
-          </li>
+            </li>
             <li className="nav-item">
               <Link className="nav-link collapsed" to="/AdminPage/studentprofile">
               <i className="bi bi-person"></i>
               <span>Profile Edit</span>
               </Link>
-          </li>
-          <li className="nav-item">
-                <Link className="nav-link collapsed" to="/AdminPage/notification">
-                <i class="bi bi-envelope"></i>
-                <span>Notification</span>
-                </Link>
             </li>
-            </ul>
-
-            </aside>
-                    
-        
+            <li className="nav-item">
+              <Link className="nav-link collapsed" to="/AdminPage/notification">
+              <i class="bi bi-envelope"></i>
+              <span>Notification</span>
+              </Link>
+            </li>
+          </ul>
+        </aside>
+          
   <main id="main" className="main">
 
-  <div className="pagetitle">
-    <h1>Form Validation</h1>
-    <nav>
-      <ol className="breadcrumb">
-        <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/AdminPage">Home</Link></li>
-        <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Circulation Management</li>
-      </ol>
-    </nav>
-  </div>
-  <section className="section">
-    <div className="row">
-      <div className="col-lg-6">
-
-      <div className="card">
-        <div className="card-body">
-          <h5 className="card-title">Book Issue Form</h5>
-          <p>Fill out the form below to issue a book.</p>
-          <form className="row g-3" onSubmit={(e) => handleSubmit(e)} noValidate>
-            <div className="col-md-4">
-              <label htmlFor="fname" className="form-label">First Name</label>
-              <input
-                type="text"
-                className={`form-control ${formErrors.fname ? 'is-invalid' : ''}`}
-                id="fname"
-                name="fname"
-                value={issueFormData.fname}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-              {formErrors.fname && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.fname}
-                          </div>
-                        )}
-            </div>
-            <div className="col-md-4">
-              <label htmlFor="lname" className="form-label">Last Name</label>
-              <input
-                type="text"
-                className={`form-control ${formErrors.lname ? 'is-invalid' : ''}`}
-                id="lname"
-                name="lname"
-                value={issueFormData.lname}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-              {formErrors.lname && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.lname}
-                          </div>
-                        )}
-            </div>
-            <div className="row mb-3">
-              <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
-              <div className="input-group mb-3">
-                <input
-                  type="text"
-                  className={`form-control ${formErrors.email ? 'is-invalid' : ''}`}
-                  name="email"
-                  value={issueFormData.email}
-                  onChange={(e) => handleChange(e)}
-                  required
-                />
-                </div>
-              {formErrors.email && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.email}
-                          </div>
-                        )}
-            </div>
-            <div className="row mb-3">
-              <label htmlFor="inputNumber" className="col-sm-2 col-form-label">Roll Number</label>
-              <div className="col-sm-10">
-              <input
-                  type="number"
-                  className={`form-control ${formErrors.rollno ? 'is-invalid' : ''}`}
-                  name="rollno"
-                  value={issueFormData.rollno}
-                  onChange={(e) => handleChange(e)}
-                  required
-                />
-              </div>
-              {formErrors.rollno && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.rollno}
-                          </div>
-                        )}
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="bookId" className="form-label">Book Title</label>
-              <input
-                type="text"
-                className={`form-control ${formErrors.bookId ? 'is-invalid' : ''}`}
-                id="bookId"
-                name="bookId"
-                value={issueFormData.bookId}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-              {formErrors.bookId && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.bookId}
-                          </div>
-                        )}
-            </div>
-            <div className="col-md-3">
-              <label htmlFor="issueDate" className="form-label">Issue Date</label>
-              <input
-                type="date"
-                className={`form-control ${formErrors.issueDate ? 'is-invalid' : ''}`}
-                id="issueDate"
-                name="issueDate"
-                value={issueFormData.issueDate}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-              {formErrors.issueDate && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.issueDate}
-                          </div>
-                        )}
-            </div>
-            <div className="col-md-3">
-              <label htmlFor="returnDate" className="form-label">Return Date</label>
-              <input
-                type="date"
-                className={`form-control ${formErrors.returnDate ? 'is-invalid' : ''}`}
-                id="returnDate"
-                name="returnDate"
-                value={issueFormData.returnDate}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-              {formErrors.returnDate && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.returnDate}
-                          </div>
-                        )}
-            </div>
-            <div className="col-12">
-              <button className="btn btn-primary" type="submit">Issue Book</button>
-            </div>
-          </form>
-        </div>
-        </div>
-          </div>
-          <div className="col-lg-6">
-
+    <div className="pagetitle">
+      <h1>Form Validation</h1>
+      <nav>
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/AdminPage">Home</Link></li>
+          <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Circulation Management</li>
+        </ol>
+      </nav>
+    </div>
+    <section className="section">
+      <div className="row">
+        <div className="col-lg-6">
           <div className="card">
-        <div className="card-body">
-          <h5 className="card-title">Book Return Form</h5>
-          <p>Fill out the form below to return a book.</p>
-          <form className="row g-3"  onSubmit={(e) => handleDelete(e)} noValidate>
-            <div className="col-md-4">
-              <label htmlFor="fname" className="form-label">First Name</label>
-              <input
-                type="text"
-                className={`form-control ${formErrors.fname ? 'is-invalid' : ''}`}
-                id="fname"
-                name="fname"
-                value={returnFormData.fname}
-                onChange={(e) => handleChange2(e)}
-                required
-                />
-                {formErrors.fname && (
-                  <div className="alert alert-danger" role="alert">
-                    {formErrors.fname}
-                  </div>
-                )}
-
-            </div>
-            <div className="col-md-4">
-              <label htmlFor="lname" className="form-label">Last Name</label>
-              <input
-                type="text"
-                className={`form-control ${formErrors.lname ? 'is-invalid' : ''}`}
-                id="lname"
-                name="lname"
-                value={returnFormData.lname}
-                onChange={(e) => handleChange2(e)}
-                required
-              />
-               {formErrors.lname && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.lname}
-                          </div>
-                        )}
-            </div>
-            <div className="row mb-3">
-              <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
-              <div className="input-group mb-3">
-                <input
-                  type="text"
-                  className={`form-control ${formErrors.email ? 'is-invalid' : ''}`}
-                  name="email"
-                  value={returnFormData.email}
-                  onChange={(e) => handleChange2(e)}
-                  required
-                />
+            <div className="card-body">
+              <h5 className="card-title">Book Issue Form</h5>
+              <p>Fill out the form below to issue a book.</p>
+              <form className="row g-3" onSubmit={(e) => handleSubmit(e)} noValidate>
+                <div className="col-md-4">
+                  <label htmlFor="fname" className="form-label">First Name</label>
+                  <input
+                    type="text"
+                    className={`form-control ${formErrors.fname ? 'is-invalid' : ''}`}
+                    id="fname"
+                    name="fname"
+                    value={issueFormData.fname}
+                    onChange={(e) => handleChange(e)}
+                    required
+                  />
+                  {formErrors.fname && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.fname}
+                              </div>
+                            )}
                 </div>
-              {formErrors.email && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.email}
-                          </div>
-                        )}
+                <div className="col-md-4">
+                  <label htmlFor="lname" className="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    className={`form-control ${formErrors.lname ? 'is-invalid' : ''}`}
+                    id="lname"
+                    name="lname"
+                    value={issueFormData.lname}
+                    onChange={(e) => handleChange(e)}
+                    required
+                  />
+                  {formErrors.lname && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.lname}
+                              </div>
+                            )}
+                </div>
+                <div className="row mb-3">
+                  <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
+                  <div className="input-group mb-3">
+                    <input
+                      type="text"
+                      className={`form-control ${formErrors.email ? 'is-invalid' : ''}`}
+                      name="email"
+                      value={issueFormData.email}
+                      onChange={(e) => handleChange(e)}
+                      required
+                    />
+                    </div>
+                  {formErrors.email && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.email}
+                              </div>
+                            )}
+                </div>
+                <div className="row mb-3">
+                  <label htmlFor="inputNumber" className="col-sm-2 col-form-label">Roll Number</label>
+                  <div className="col-sm-10">
+                  <input
+                      type="number"
+                      className={`form-control ${formErrors.rollno ? 'is-invalid' : ''}`}
+                      name="rollno"
+                      value={issueFormData.rollno}
+                      onChange={(e) => handleChange(e)}
+                      required
+                    />
+                  </div>
+                  {formErrors.rollno && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.rollno}
+                              </div>
+                            )}
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="bookId" className="form-label">Book Title</label>
+                  <input
+                    type="text"
+                    className={`form-control ${formErrors.bookId ? 'is-invalid' : ''}`}
+                    id="bookId"
+                    name="bookId"
+                    value={issueFormData.bookId}
+                    onChange={(e) => handleChange(e)}
+                    required
+                  />
+                  {formErrors.bookId && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.bookId}
+                              </div>
+                            )}
+                </div>
+                <div className="col-md-3">
+                  <label htmlFor="issueDate" className="form-label">Issue Date</label>
+                  <input
+                    type="date"
+                    className={`form-control ${formErrors.issueDate ? 'is-invalid' : ''}`}
+                    id="issueDate"
+                    name="issueDate"
+                    value={issueFormData.issueDate}
+                    onChange={(e) => handleChange(e)}
+                    required
+                  />
+                  {formErrors.issueDate && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.issueDate}
+                              </div>
+                            )}
+                </div>
+                <div className="col-md-3">
+                  <label htmlFor="returnDate" className="form-label">Return Date</label>
+                  <input
+                    type="date"
+                    className={`form-control ${formErrors.returnDate ? 'is-invalid' : ''}`}
+                    id="returnDate"
+                    name="returnDate"
+                    value={issueFormData.returnDate}
+                    onChange={(e) => handleChange(e)}
+                    required
+                  />
+                  {formErrors.returnDate && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.returnDate}
+                              </div>
+                            )}
+                </div>
+                <div className="col-12">
+                  <button className="btn btn-primary" type="submit">Issue Book</button>
+                </div>
+              </form>
             </div>
-            <div className="row mb-3">
-              <label htmlFor="inputNumber" className="col-sm-2 col-form-label">Roll Number</label>
-              <div className="col-sm-10">
-              <input
-                  type="number"
-                  className={`form-control ${formErrors.rollno ? 'is-invalid' : ''}`}
-                  name="rollno"
-                  value={returnFormData.rollno}
-                  onChange={(e) => handleChange2(e)}
-                  required
-                />
-              </div>
-              {formErrors.rollno && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.rollno}
-                          </div>
-                        )}
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="bookId" className="form-label">Book Title</label>
-              <input
-                type="text"
-                className={`form-control ${formErrors.bookId ? 'is-invalid' : ''}`}
-                id="bookId"
-                name="bookId"
-                value={returnFormData.bookId}
-                onChange={(e) => handleChange2(e)}
-                required
-              />
-              {formErrors.bookId && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.bookId}
-                          </div>
-                        )}
-            </div>
-            <div className="col-md-3">
-              <label htmlFor="returnDate" className="form-label">Return Date</label>
-              <input
-                type="date"
-                className={`form-control ${formErrors.returnDate ? 'is-invalid' : ''}`}
-                id="returnDate"
-                name="returnDate"
-                value={returnFormData.returnDate}
-                onChange={(e) => handleChange2(e)}
-                required
-              />
-             {formErrors.returnDate && (
-                          <div className="alert alert-danger" role="alert">
-                            {formErrors.returnDate}
-                          </div>
-                        )}
-            </div>
-            
-            <div className="col-12">
-              <button className="btn btn-primary" type="submit">Return Book</button>
-            </div>
-          </form>
+          </div>
         </div>
-      </div>
-          </div> 
-        </div> 
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-        <div className='card' style={{ width: '500px', textAlign: 'center', alignContent: 'center',  marginTop: '20px' }}>{bookDetails && (
-        <div className="row">
-            <h3>Book Details</h3>
-            <p><img src={bookDetails[0].imageUrl} style={{ width: '100px', height: '150px' }}></img></p>
-            <p>Title: {bookDetails[0].title}</p>
-            <p>Description: {bookDetails[0].description}</p>
-            <p>Author: {bookDetails[0].author}</p>
-            <p>Genre: {bookDetails[0].genre}</p>
-            <p>Department: {bookDetails[0].department}</p>
-            <p>Count: {bookDetails[0].count}</p>
-        </div>
-      )}
-      </div>
-      </div>
-  </section>
+        
+        <div className="col-lg-6">
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">Book Return Form</h5>
+              <p>Fill out the form below to return a book.</p>
+              <form className="row g-3"  onSubmit={(e) => handleDelete(e)} noValidate>
+                <div className="col-md-4">
+                  <label htmlFor="fname" className="form-label">First Name</label>
+                  <input
+                    type="text"
+                    className={`form-control ${formErrors.fname ? 'is-invalid' : ''}`}
+                    id="fname"
+                    name="fname"
+                    value={returnFormData.fname}
+                    onChange={(e) => handleChange2(e)}
+                    required
+                    />
+                    {formErrors.fname && (
+                      <div className="alert alert-danger" role="alert">
+                        {formErrors.fname}
+                      </div>
+                    )}
 
-</main>
+                </div>
+                <div className="col-md-4">
+                  <label htmlFor="lname" className="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    className={`form-control ${formErrors.lname ? 'is-invalid' : ''}`}
+                    id="lname"
+                    name="lname"
+                    value={returnFormData.lname}
+                    onChange={(e) => handleChange2(e)}
+                    required
+                  />
+                  {formErrors.lname && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.lname}
+                              </div>
+                            )}
+                </div>
+                <div className="row mb-3">
+                  <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
+                  <div className="input-group mb-3">
+                    <input
+                      type="text"
+                      className={`form-control ${formErrors.email ? 'is-invalid' : ''}`}
+                      name="email"
+                      value={returnFormData.email}
+                      onChange={(e) => handleChange2(e)}
+                      required
+                    />
+                    </div>
+                  {formErrors.email && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.email}
+                              </div>
+                            )}
+                </div>
+                <div className="row mb-3">
+                  <label htmlFor="inputNumber" className="col-sm-2 col-form-label">Roll Number</label>
+                  <div className="col-sm-10">
+                  <input
+                      type="number"
+                      className={`form-control ${formErrors.rollno ? 'is-invalid' : ''}`}
+                      name="rollno"
+                      value={returnFormData.rollno}
+                      onChange={(e) => handleChange2(e)}
+                      required
+                    />
+                  </div>
+                  {formErrors.rollno && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.rollno}
+                              </div>
+                            )}
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="bookId" className="form-label">Book Title</label>
+                  <input
+                    type="text"
+                    className={`form-control ${formErrors.bookId ? 'is-invalid' : ''}`}
+                    id="bookId"
+                    name="bookId"
+                    value={returnFormData.bookId}
+                    onChange={(e) => handleChange2(e)}
+                    required
+                  />
+                  {formErrors.bookId && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.bookId}
+                              </div>
+                            )}
+                </div>
+                <div className="col-md-3">
+                  <label htmlFor="returnDate" className="form-label">Return Date</label>
+                  <input
+                    type="date"
+                    className={`form-control ${formErrors.returnDate ? 'is-invalid' : ''}`}
+                    id="returnDate"
+                    name="returnDate"
+                    value={returnFormData.returnDate}
+                    onChange={(e) => handleChange2(e)}
+                    required
+                  />
+                {formErrors.returnDate && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.returnDate}
+                              </div>
+                            )}
+                </div>
+                
+                <div className="col-12">
+                  <button className="btn btn-primary" type="submit">Return Book</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div> 
+      </div> 
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+        <div className='card' style={{ width: '500px', textAlign: 'center', alignContent: 'center',  marginTop: '20px' }}>{bookDetails && (
+          <div className="row">
+              <h3>Book Details</h3>
+              <p><img src={bookDetails[0].imageUrl} style={{ width: '100px', height: '150px' }}></img></p>
+              <p>Title: {bookDetails[0].title}</p>
+              <p>Description: {bookDetails[0].description}</p>
+              <p>Author: {bookDetails[0].author}</p>
+              <p>Genre: {bookDetails[0].genre}</p>
+              <p>Department: {bookDetails[0].department}</p>
+              <p>Count: {bookDetails[0].count}</p>
+          </div>
+        )}
+        </div>
+      </div>
+    </section>
+
+  </main>
         <footer id="footer" className="footer">
 
             <div className="container">
