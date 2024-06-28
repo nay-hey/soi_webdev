@@ -1,24 +1,24 @@
-import React, { useEffect, useRef, useState}  from 'react';
+//displays student activity on Student Page 
+//uses the logged in profile id to display the reccomended book list, book issue history and reminder notifications for due dates
+import React, { useEffect, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Image } from 'react-bootstrap';
 import axios from 'axios';
 import './StudentPage.css';
-import styled from 'styled-components';
 import 'simple-datatables/dist/style.css';
 import { Tooltip } from 'bootstrap';
-import { DataTable } from 'simple-datatables';
 import { Link } from 'react-router-dom';
 
-
 const Studentdb = () => {
+  //catches the profile of the logged in user.
   const [profile, setProfile] = useState(null);
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/students/profile', {
+        const token = localStorage.getItem('token'); //uses the token set during login
+        const response = await fetch('http://localhost:5000/api/students/profile', { //router is name profile in studentRoutes.js of backend
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,16 +38,14 @@ const Studentdb = () => {
     fetchProfile();
   }, []);
   
+  //sets the issue history of the user
   const [items, setItem] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage, setEntriesPerPage] = useState(5);
   useEffect(() => {
     const fetchItem = async () => {
       if (profile) { // Only fetch items if profile is set
         try {
-          const response = await axios.get('http://localhost:5000/api/issues');
-          const filtered = response.data.filter(issue => issue.rollno == profile.roll);
+          const response = await axios.get('http://localhost:5000/api/issues'); //issueRoutes is used
+          const filtered = response.data.filter(issue => issue.rollno == profile.roll); //displays only the user history using roll number as the unique key
           filtered.sort((a, b) => {
             return new Date(b.returnDate) - new Date(a.returnDate); 
           });
@@ -61,7 +59,10 @@ const Studentdb = () => {
 
     fetchItem();
   }, [profile]); 
-
+//used for the search section and pagination - all used for the issue table
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [entriesPerPage, setEntriesPerPage] = useState(5);
  const filteredBooks = items.filter(item => {
       return Object.values(item).some(value =>
         String(value).toLowerCase().includes(searchTerm.toLowerCase())
@@ -73,16 +74,18 @@ const Studentdb = () => {
   
     // Change page
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+//sets the search Term
   const handleSearchChange = e => {
     setSearchTerm(e.target.value);
   };
+   
+  //labels the due date
   const getDueDateColor = (dueDate) => {
     const today = new Date();
     const due = new Date(dueDate);
     const timeDiff = due - today;
     const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-
+//black for past due date, red for 3 days remaining for due dats and green for not yet returned books.
     if (daysDiff < 0) {
       return 'black';
     } else if (daysDiff <= 3) {
@@ -91,7 +94,7 @@ const Studentdb = () => {
       return 'green';
     }
   };
-  
+  //used to toggle the sidebar with all the tabs for navigation
   useEffect(() => {
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
       const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
@@ -124,6 +127,8 @@ useEffect(() => {
     document.body.classList.remove('toggle-sidebar');
   }
 }, [isSidebarToggled]);
+
+//header is using this feature of sticked on scrolling down. reduces height on scrolling down.
 useEffect(() => {
   const selectHeader = document.querySelector('#header');
   const handleScroll = () => {
@@ -138,71 +143,68 @@ useEffect(() => {
 
 return (
   <div>
-          <section id="student">
-    <header id="header" className="header fixed-top d-flex align-items-center">
-      <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
+    <section id="student">
+      <header id="header" className="header fixed-top d-flex align-items-center">
+        <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
           <div className="logo d-flex align-items-center">
             <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
             <h1>IIT Dharwad</h1>
           </div>
-
-      </div>
-      <nav id="navbar" className="navbar">
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/AboutUs/team">Library Committee</a></li>
-              <li><a href="asklib.html">Ask a Librarian</a></li>
-              <li><a href="/AboutUs">About</a></li>
-              <li><a href="contact.html">Contact</a></li>
-            </ul>
-          </nav>
-      <nav className="header-nav ms-auto">
-    <ul className="d-flex align-items-center list-unstyled m-0">
-      <li className="nav-item dropdown">
-        <DropdownButton
-          menuAlign="right"
-          title={
-            <span className="nav-link nav-profile d-flex align-items-center pe-0">
-              <Image
-                src="/static/adminpage/profile.png"
-                alt="Profile"
-                className="rounded-circle me-2"
-              />
-              <span className="d-none d-md-block">
-                User
-              </span>
-            </span>
-          }
-          id="dropdown-profile"
-        >
-          <Dropdown.Header>
-            <h6>User</h6>
-          </Dropdown.Header>
-          <Dropdown.Divider />
-          <Dropdown.Item>
-            <Link className="dropdown-item d-flex align-items-center" to="/StudentPage/profile">
-              <i className="bi bi-person"></i>
-              <span>My Profile</span>
-            </Link>
-          </Dropdown.Item>
-          <Dropdown.Divider />
-          
-          <Dropdown.Item>
-            <Link className="dropdown-item d-flex align-items-center" to="/Login">
-              <i className="bi bi-box-arrow-right"></i>
-              <span>Sign Out</span>
-            </Link>
-          </Dropdown.Item>
-        </DropdownButton>
-      </li>
-    </ul>
-  </nav>
-         <i className="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+        <nav id="navbar" className="navbar">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/AboutUs/team">Library Committee</a></li>
+            <li><a href="asklib.html">Ask a Librarian</a></li>
+            <li><a href="/AboutUs">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <nav className="header-nav ms-auto">
+          <ul className="d-flex align-items-center list-unstyled m-0">
+            <li className="nav-item dropdown">
+              <DropdownButton
+                menuAlign="right"
+                title={
+                  <span className="nav-link nav-profile d-flex align-items-center pe-0">
+                    <Image
+                      src="/static/adminpage/profile.png"
+                      alt="Profile"
+                      className="rounded-circle me-2"
+                    />
+                    <span className="d-none d-md-block">
+                    User
+                    </span>
+                  </span>
+                }
+              id="dropdown-profile"
+              >
+                <Dropdown.Header>
+                  <h6>User</h6>
+                </Dropdown.Header>
+                <Dropdown.Divider />
+                <Dropdown.Item>
+                  <Link className="dropdown-item d-flex align-items-center" to="/StudentPage/profile">
+                    <i className="bi bi-person"></i>
+                    <span>My Profile</span>
+                  </Link>
+                </Dropdown.Item>
+                
+                <Dropdown.Divider />
+                <Dropdown.Item>
+                  <Link className="dropdown-item d-flex align-items-center" to="/Login">
+                    <i className="bi bi-box-arrow-right"></i>
+                    <span>Sign Out</span>
+                  </Link>
+                </Dropdown.Item>
+              </DropdownButton>
+            </li>
+          </ul>
+        </nav>
+        <i className="bi bi-list toggle-sidebar-btn"></i>
       </header>
       <aside id="sidebar" className="sidebar">
-
-          <ul className="sidebar-nav" id="sidebar-nav">
-
+        <ul className="sidebar-nav" id="sidebar-nav">
           <li className="nav-item">
               <Link className="nav-link collapsed" to="/StudentPage">
               <i className="bi bi-grid"></i>
@@ -231,35 +233,34 @@ return (
               <span>Contact</span>
               </Link>
           </li>
-          </ul>
-
-          </aside>
+        </ul>
+      </aside>
       <main id="main" className="main">
-
-          <div className="pagetitle">
+        <div className="pagetitle">
           <h1>Student Data</h1>
           <nav>
-              <ol className="breadcrumb">
+            <ol className="breadcrumb">
               <li className="breadcrumb-item"  style={{ color: "#ccc" }}><Link style={{ color: "#ccc" }} to="/AdminPage">Home</Link></li>
               <li className="breadcrumb-item active"  style={{ color: "#ccc" }}>Activity</li>
-              </ol>
+            </ol>
           </nav>
-          </div>
+        </div>
 
           <section className="section">
             <div className="row">
-                <div className="card">
-                  <div className="card-body pt-3">
-                    <ul className="nav nav-tabs nav-tabs-bordered">
-                      <li className="nav-item">
-                      <button className="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Notifications</button>
-                      </li> 
-                      <li className="nav-item">
-                      <button className="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">History</button>
-                      </li>
-                    </ul>
-                    <div className="tab-content pt-2">
-                      <div className="tab-pane fade show active profile-overview" id="profile-overview">
+              <div className="card">
+                <div className="card-body pt-3">
+                  <ul className="nav nav-tabs nav-tabs-bordered"> 
+                    <li className="nav-item">
+                      <button className="nav-link active" data-bs-toggle="tab" data-bs-target="#notifications">Notifications</button>
+                    </li> 
+                    <li className="nav-item">
+                      <button className="nav-link" data-bs-toggle="tab" data-bs-target="#history">History</button>
+                    </li>
+                  </ul>
+                    
+                  <div className="tab-content pt-2">  
+                    <div className="tab-pane fade show active notifications" id="notifications">
                       <section id="team" className="team">
                         <div className="container">
                           <div className="section-header">
@@ -268,126 +269,128 @@ return (
                           <div className="team-wrapper">
                             <div className="team-row">
                               <div className="member"  style={{ backgroundImage: "url('/static/book_img/Principles of Chemical Engineering Processes.png')" }}>
-                              <div className="description">
-                                <h3>Principles of Chemical</h3>
-                                <h3>Engineering Processes</h3>
-                                <p>Comprehensive guide to material and energy balance calculations in chemical processes.</p>
-                              </div>
+                                <div className="description">
+                                  <h3>Principles of Chemical</h3>
+                                  <h3>Engineering Processes</h3>
+                                  <p>Comprehensive guide to material and energy balance calculations in chemical processes.</p>
+                                </div>
                               </div>
                               <div className="member"  style={{ backgroundImage: "url('/static/book_img/Introduction to Engineering Experimentation.png')" }}>
-                              <div className="description">
-                                <h3>Introduction to Engineering </h3>
-                                <h3>Experimentation</h3>
-                                <p>Guide to the principles and practices of engineering experimentation.</p>
-                              </div>
+                                <div className="description">
+                                  <h3>Introduction to Engineering </h3>
+                                  <h3>Experimentation</h3>
+                                  <p>Guide to the principles and practices of engineering experimentation.</p>
+                                </div>
                               </div>
                               <div className="member"  style={{ backgroundImage: "url('/static/book_img/Electromagnetics for Engineers.png')" }}>
-                              <div className="description">
-                                <h3>Electromagnetics for Engineers</h3>
-                                <p>Introduction to the principles and applications of electromagnetics for engineers.</p>
-                              </div>
+                                <div className="description">
+                                  <h3>Electromagnetics for Engineers</h3>
+                                  <p>Introduction to the principles and applications of electromagnetics for engineers.</p>
+                                </div>
                               </div>
                               <div className="member"  style={{ backgroundImage: "url('/static/book_img/Construction Planning, Equipment, and Methods.png')" }}>
-                              <div className="description">
-                                <h3>Construction Planning,</h3>
-                                <h3> Equipment, and Methods</h3>
-                                <p>Guide to the planning and methods of construction projects.</p>
-                              </div>
+                                <div className="description">
+                                  <h3>Construction Planning,</h3>
+                                  <h3> Equipment, and Methods</h3>
+                                  <p>Guide to the planning and methods of construction projects.</p>
+                                </div>
                               </div>
                             </div>
                             <div className="team-row">
                               <div className="member"  style={{ backgroundImage: "url('/static/book_img/Operating System Concepts.png')" }}>
-                              <div className="description">
-                                <h3>Operating System Concepts</h3>
-                                <p>In-depth look at the design and implementation of operating systems.</p>
-                              </div>
+                                <div className="description">
+                                  <h3>Operating System Concepts</h3>
+                                  <p>In-depth look at the design and implementation of operating systems.</p>
+                                </div>
                               </div>
                               <div className="member"  style={{ backgroundImage: "url('/static/book_img/Electrical Engineering.png')" }}>
-                              <div className="description">
-                                <h3>Electrical Engineering: </h3>
-                                <h3>Principles and Applications</h3>
-                                <p>Comprehensive guide to fundamental principles and applications of electrical engineering.</p>
-                              </div>
+                                <div className="description">
+                                  <h3>Electrical Engineering: </h3>
+                                  <h3>Principles and Applications</h3>
+                                  <p>Comprehensive guide to fundamental principles and applications of electrical engineering.</p>
+                                </div>
                               </div>
                               <div className="member"  style={{ backgroundImage: "url('/static/book_img/Transportation Engineering and Planning.png')" }}>
-                              <div className="description">
-                                <h3>Transportation Engineering</h3>
-                                <h3>and Planning</h3>
-                                <p>Fundamentals of transportation engineering and planning concepts.</p>
-                              </div>
+                                <div className="description">
+                                  <h3>Transportation Engineering</h3>
+                                  <h3>and Planning</h3>
+                                  <p>Fundamentals of transportation engineering and planning concepts.</p>
+                                </div>
                               </div>
                               <div className="member"  style={{ backgroundImage: "url('/static/book_img/Masonry Structures.png')" }}>
-                              <div className="description">
-                                <h3>Masonry Structures:</h3>
-                                <h3>Behavior and Design</h3>
-                                <p>Comprehensive guide to the behavior and design of masonry structures.</p>
-                              </div>
+                                <div className="description">
+                                  <h3>Masonry Structures:</h3>
+                                  <h3>Behavior and Design</h3>
+                                  <p>Comprehensive guide to the behavior and design of masonry structures.</p>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </section>
-                      </div>
-                      <div className="tab-pane fade profile-edit pt-3" id="profile-edit">
+                    </div>
+                    
+                    <div className="tab-pane fade notifications pt-3" id="history">
                       <div className="row">
-                          <div className="card">
-                              <div className="card-body">
-                              <h5 className="card-title">Books Issued by members</h5>
-                              <div className="search-container">
-                            <input
-                              type="text"
-                              placeholder="Search by title ..."
-                              value={searchTerm}
-                              onChange={handleSearchChange}
-                            />
-                            <select
-                              className="form-control"
-                              value={entriesPerPage}
-                              onChange={(e) => setEntriesPerPage(parseInt(e.target.value))}
-                            >
-                              <option value="5">5 entries per page</option>
-                              <option value="10">10 entries per page</option>
-                              <option value={filteredBooks.length}>All entries</option>
-                            </select>
-                          </div>
-                              <table className="table table-bordered table-hover">
-                            <thead className="thead-dark">
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email Id</th>
-                                <th scope="col">Book Title</th>
-                                <th scope="col">Issued Date</th>
-                                <th scope="col">Due Date</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {currentEntries.map((item, index) => (
-                                <tr key={item.index}>
-                                  
-                                  <td>{index + 1}</td>
-                                  <td>{item.fname} {item.lname}</td>
-                                  <td>{item.email}</td>
-                                  <td>{item.bookId}</td>
-                                  <td>{item.issueDate}</td>
-                                  <td style={{ color: getDueDateColor(item.returnDate) }}>{item.returnDate}</td>
+                        <div className="card">
+                          <div className="card-body">
+                            <h5 className="card-title">Books Issued by members</h5>
+                            <div className="search-container">
+                              <input
+                                type="text"
+                                placeholder="Search by title ..."
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                              />
+                              <select
+                                className="form-control"
+                                value={entriesPerPage}
+                                onChange={(e) => setEntriesPerPage(parseInt(e.target.value))}
+                              >
+                                <option value="5">5 entries per page</option>
+                                <option value="10">10 entries per page</option>
+                                <option value={filteredBooks.length}>All entries</option>
+                              </select>
+                            </div>
+                              
+                            <table className="table table-bordered table-hover">
+                              <thead className="thead-dark">
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Name</th>
+                                  <th scope="col">Email Id</th>
+                                  <th scope="col">Book Title</th>
+                                  <th scope="col">Issued Date</th>
+                                  <th scope="col">Due Date</th>
                                 </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                          <div>
-                            <nav aria-label="Page navigation example">
-                              <ul className="pagination">
-                                {Array.from({ length: Math.ceil(filteredBooks.length / entriesPerPage) }, (_, index) => (
-                                  <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                                    <button className="page-link" onClick={() => paginate(index + 1)}>{index + 1}</button>
-                                  </li>
+                              </thead>
+                              <tbody>
+                                {currentEntries.map((item, index) => (
+                                  <tr key={item.index}>          
+                                    <td>{index + 1}</td>
+                                    <td>{item.fname} {item.lname}</td>
+                                    <td>{item.email}</td>
+                                    <td>{item.bookId}</td>
+                                    <td>{item.issueDate}</td>
+                                    <td style={{ color: getDueDateColor(item.returnDate) }}>{item.returnDate}</td>
+                                  </tr>
                                 ))}
-                              </ul>
-                            </nav>
+                              </tbody>
+                            </table>
+                          
+                            <div>
+                              <nav aria-label="Page navigation example">
+                                <ul className="pagination">
+                                  {Array.from({ length: Math.ceil(filteredBooks.length / entriesPerPage) }, (_, index) => (
+                                    <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                                      <button className="page-link" onClick={() => paginate(index + 1)}>{index + 1}</button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </nav>
+                            </div>  
                           </div>
                         </div>
-                          </div>
                       </div>
                     </div>
                   </div>
@@ -497,8 +500,8 @@ return (
 
           </div>
           </div>
-          </footer>
-          </section>
+        </footer>
+    </section>
   </div>
 );
 };
