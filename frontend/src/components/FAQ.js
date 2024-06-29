@@ -1,21 +1,29 @@
 // src/components/FAQ.js
+
+
 import React, { useState } from 'react';
-import '../styles/FAQ.css';
+import '../styles/FAQ.css'; 
 
 const FAQ = () => {
+    // State to control the visibility of the "Show More" section
     const [showMore, setShowMore] = useState(false);
+    
+    // State to control the visibility of each question's answer
     const [visibleQuestions, setVisibleQuestions] = useState(Array(10).fill(false));
 
+    // Function to toggle the visibility of a specific question's answer
     const toggleAnswer = (index) => {
         const updatedVisibility = [...visibleQuestions];
         updatedVisibility[index] = !updatedVisibility[index];
         setVisibleQuestions(updatedVisibility);
     };
 
+    // Function to toggle the visibility of the "Show More" section
     const toggleShowMore = () => {
         setShowMore(!showMore);
     };
 
+    // Array of FAQ questions and answers
     const questions = [
         { question: "What are the library's opening hours?", answer: "The library is open from 8 AM to 10 PM from Monday to Saturday." },
         { question: "How can I renew borrowed books?", answer: "You can renew borrowed books online through your library account or by visiting the library." },
@@ -29,22 +37,30 @@ const FAQ = () => {
         { question: "Can I access the library's digital archives?", answer: "Yes, the digital archives are accessible through the library's website." }
     ];
 
+    // Determine the list of questions to display based on the state of "showMore"
     const displayedQuestions = showMore ? questions : questions.slice(0, 5);
 
     return (
         <div className="faq">
+            {/*--------- FAQ Title------- */}
             <h2>Frequently Asked Questions</h2>
+            
+            {/*-- List of FAQ questions and answers-- */}
             <ul>
                 {displayedQuestions.map((item, index) => (
                     <li key={index} className="faq-item" onClick={() => toggleAnswer(index)}>
                         <div className="faq-question">
                             {item.question}
+                            {/* Arrow indicator for expandable answers */}
                             <span className="arrow">{visibleQuestions[index] ? '▲' : '▼'}</span>
                         </div>
+                        {/* Conditional rendering of the answer based on visibility state */}
                         {visibleQuestions[index] && <div className="faq-answer">{item.answer}</div>}
                     </li>
                 ))}
             </ul>
+            
+            {/* Toggle button to show more or less questions */}
             <div className="show-more" onClick={toggleShowMore}>
                 {showMore ? 'Show Less' : 'Show More'}
             </div>
