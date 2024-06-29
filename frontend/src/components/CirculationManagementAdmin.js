@@ -704,19 +704,22 @@ const [bookDetails, setBookDetails] = useState(null);
           </div>
         </div> 
       </div> 
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-        <div className='card' style={{ width: '500px', textAlign: 'center', alignContent: 'center',  marginTop: '20px' }}>{bookDetails && (
-          <div className="row">
-              <h3>Book Details</h3>
-              <p><img src={bookDetails[0].imageUrl} style={{ width: '100px', height: '150px' }}></img></p>
-              <p>Title: {bookDetails[0].title}</p>
-              <p>Description: {bookDetails[0].description}</p>
-              <p>Author: {bookDetails[0].author}</p>
-              <p>Genre: {bookDetails[0].genre}</p>
-              <p>Department: {bookDetails[0].department}</p>
-              <p>Count: {bookDetails[0].count}</p>
-          </div>
-        )}
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div className='card' style={{ width: '500px', textAlign: 'center', alignContent: 'center', marginTop: '20px' }}>
+          {bookDetails && bookDetails.length > 0 ? (
+            <div className="row">
+                <h3>Book Details</h3>
+                <p><img src={bookDetails[0].imageUrl} style={{ width: '100px', height: '150px' }} alt="Book Cover" /></p>
+                <p>Title: {bookDetails[0].title}</p>
+                <p>Description: {bookDetails[0].description}</p>
+                <p>Author: {bookDetails[0].author}</p>
+                <p>Genre: {bookDetails[0].genre}</p>
+                <p>Department: {bookDetails[0].department}</p>
+                <p>Count: {bookDetails[0].count}</p>
+            </div>
+          ) : (
+              <h3>No book found</h3>
+          )}
         </div>
       </div>
     </section>
