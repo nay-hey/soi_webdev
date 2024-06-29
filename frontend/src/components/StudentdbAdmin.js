@@ -24,7 +24,7 @@ const Studentdb = () => {
     fetchStudents();
   }, []);
 
-
+//Function to retrieve database information
   const fetchStudents = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/students');
@@ -40,7 +40,7 @@ const Studentdb = () => {
     setNewStudent({ ...newStudent, [name]: value });
   };
 
-    // Function to handle form submission (adding a new book)
+    // Function to handle form submission (adding a new member to the library)
     const handleSubmit = async (e) => {
       e.preventDefault();
       if (!newStudent.name || !newStudent.roll || !newStudent.email || !newStudent.branch || !newStudent.password || !newStudent.position) {
@@ -165,6 +165,7 @@ document.addEventListener('scroll', handleScroll);
   return (
     <div>
               <section id="admin">
+                {/*--------Header section: contains navigation tab and institute logo--------*/}
       <header id="header" className="header fixed-top d-flex align-items-center">
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
@@ -231,8 +232,11 @@ document.addEventListener('scroll', handleScroll);
     </nav>
            <i className="bi bi-list toggle-sidebar-btn"></i>
         </header>
-        <aside id="sidebar" className="sidebar">
+{/*--------End og Header section----------*/}
 
+        <aside id="sidebar" className="sidebar">
+{/* >>>Sidebar section containing tabs such as Student Database, Book Datebase, Circular Management, 
+Reminder, Profile Edit and Notification*/}
             <ul className="sidebar-nav" id="sidebar-nav">
 
             <li className="nav-item">
@@ -275,9 +279,13 @@ document.addEventListener('scroll', handleScroll);
             </ul>
 
             </aside>
+{/*-----End of sidebar navigation tabs-----*/}
 
+{/*---------Main content section--------*/}
         <main id="main" className="main">
+          {/*Main Page contains three tables that we navigated across*/}
           <div className="pagetitle">
+            {/*--------Student Data Table------*/}
             <h1>Student Data</h1>
             <nav>
               <ol className="breadcrumb">
@@ -288,7 +296,7 @@ document.addEventListener('scroll', handleScroll);
               </ol>
             </nav>
           </div>
-
+{/*----The student Database Page contains three tables namely: Student Data, Add Member, Delete Member--------*/}
           <section className="section">
             <div className="row">
               <div className="col-lg-12">
@@ -306,6 +314,7 @@ document.addEventListener('scroll', handleScroll);
                       </li>
                     </ul>
                     <div className="tab-content pt-2">
+                      {/*Feature to search a library member*/}
                       <div className="tab-pane fade show active profile-overview" id="profile-overview">
                       <div className="search-container">
                   <input
@@ -314,6 +323,7 @@ document.addEventListener('scroll', handleScroll);
                     value={searchTerm}
                     onChange={handleSearchChange}
                   />
+                  {/*Feature for varying the number of student entries per page*/}
                   <select
                     className="form-control"
                     value={entriesPerPage}
@@ -324,6 +334,7 @@ document.addEventListener('scroll', handleScroll);
                     <option value={filteredStudents.length}>All entries</option>
                   </select>
                 </div>
+                {/*Student Data Table columns*/}
                       <table className="table table-bordered table-hover">
                           <thead>
                             <tr>
@@ -350,6 +361,7 @@ document.addEventListener('scroll', handleScroll);
                         </table>
                         <div>
                         <nav aria-label="Page navigation example">
+                          {/*Pagination Feature that can help the user to navigate across different entries*/}
                           <ul className="pagination">
                             {Array.from({ length: Math.ceil(filteredStudents.length / entriesPerPage) }, (_, index) => (
                               <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
@@ -365,6 +377,9 @@ document.addEventListener('scroll', handleScroll);
                         <div className="row">
                           <div className="card">
                             <div className="card-body">
+                              {/*--------Add Member Table - Contains a form to add the detailsof a new member 
+                              and save it in the database -------*/}
+                              {/*The fields in the form include: Name, Roll number, Email, Branch, Position and password*/}
                               <h5 className="card-title">Add Member</h5>
                               <form onSubmit={handleSubmit}>
                                 <div className="mb-3">
@@ -383,10 +398,10 @@ document.addEventListener('scroll', handleScroll);
                                   <label htmlFor="branch" className="form-label">Branch</label>
                                   <select className="form-control" id="branch" name="branch" value={newStudent.branch} onChange={handleChange}>
                                     <option value="">Select Branch</option>
+                                    <option value="Mathematics and Computing">Mathematics and Computing</option>
                                     <option value="Computer Science">Computer Science</option>
                                     <option value="Electrical Engineering">Electrical Engineering</option>
                                     <option value="Mechanical Engineering">Mechanical Engineering</option>
-                                    <option value="Mathematics and Computing">Mathematics and Computing</option>
                                     <option value="Engineering Physics">Engineering Physics</option>
                                     <option value="Chemical Engineering">Chemical Engineering</option>
                                     <option value="Civil Engineering">Civil Engineering</option>
@@ -418,6 +433,7 @@ document.addEventListener('scroll', handleScroll);
                       </div>
 
                       <div className="tab-pane fade pt-3" id="profile-settings">
+                        {/*----------Delete Member Table-------*/}
                         <h6>Delete Member</h6>
                         <div className="search-container">
                       <input
@@ -436,6 +452,7 @@ document.addEventListener('scroll', handleScroll);
                         <option value={filteredStudents.length}>All entries</option>
                       </select>
                     </div>
+                    {/*Table Columns*/}
                         <table className="table table-bordered table-hover">
                           <thead>
                             <tr>
@@ -484,7 +501,7 @@ document.addEventListener('scroll', handleScroll);
             </div>
           </section>
         </main>
-
+                            {/*------- footer section-----*/}
         <footer id="footer" className="footer">
 
             <div className="container">
