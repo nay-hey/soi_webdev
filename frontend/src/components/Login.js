@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './login.css';
+// Import Bootstrap CSS and Javascript
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -23,6 +24,8 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  
+  // Function to handle student login with additional authorization check
   const handleLoginClick = async (e) => {
     e.preventDefault();
     try {
@@ -47,6 +50,7 @@ const Login = () => {
     }
   };
 
+  // Function to handle login for student or faculty with redirection based on user type
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
