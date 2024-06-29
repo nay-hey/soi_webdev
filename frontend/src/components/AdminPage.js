@@ -10,8 +10,10 @@ const AdminPage = () => {
 
   const token = localStorage.getItem('token');
   console.log("Token:", token);
+    // State to handle sidebar toggle
   const [isSidebarToggled, setIsSidebarToggled] = useState(false);
 
+  // useEffect to handle sidebar toggle button click
   useEffect(() => {
     const toggleSidebar = () => {
       setIsSidebarToggled(prevState => !prevState);
@@ -28,7 +30,7 @@ const AdminPage = () => {
       }
     };
   }, []);
-
+// useEffect to add/remove class for toggling sidebar
   useEffect(() => {
     if (isSidebarToggled) {
       document.body.classList.add('toggle-sidebar');
