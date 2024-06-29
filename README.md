@@ -49,12 +49,12 @@ This web application provides a user-friendly interface for both librarians and 
     - Create the `books` collection and insert books from the .json file:
         ```javascript
         db.createCollection("books")
-        db.books.insertMany({[copy paste contents of books.json]})
+        db.books.insertMany([copy paste contents of books.json])
         ```
     - Create the `students` collection and insert users from the users.json file:
         ```javascript
         db.createCollection("students")
-        db.students.insertMany({[copy paste contents of users.json]})
+        db.students.insertMany([copy paste contents of users.json])
         ```
     - Create the `issues` collection:
         ```javascript
