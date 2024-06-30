@@ -14,13 +14,16 @@ import axios from 'axios';
 import 'react-calendar/dist/Calendar.css';
 const Home = () => {
   const navigate = useNavigate();
+  // Handle login button click
   const handleLoginClick = (e) => {
     e.preventDefault();
     navigate('/Login');
     // Logic to load the profile.js script or redirect to the profile page
     window.location.href = './Login'//admin/index.html';  Change this to the correct path if necessary
 };
+  // useEffect hook to handle side effects
   useEffect(() => {
+    // Select the mobile navigation toggle button
     const mobileNavToogleButton = document.querySelector('.mobile-nav-toggle');
 
     if (mobileNavToogleButton) {
@@ -29,13 +32,13 @@ const Home = () => {
         mobileNavToogle();
       });
     }
-    
+    // Function to toggle mobile navigation
     const mobileNavToogle = () => {
       document.querySelector('body').classList.toggle('mobile-nav-active');
       mobileNavToogleButton.classList.toggle('bi-list');
       mobileNavToogleButton.classList.toggle('bi-x');
     };
-
+    // Add event listeners to navigation links
     document.querySelectorAll('#navbar a').forEach((navbarlink) => {
       if (!navbarlink.hash) return;
 
@@ -48,7 +51,7 @@ const Home = () => {
         }
       });
     });
-
+// Add event listeners to navigation dropdowns
     const navDropdowns = document.querySelectorAll('.navbar .dropdown > a');
 
     navDropdowns.forEach((el) => {
@@ -64,7 +67,7 @@ const Home = () => {
         }
       });
     });
-
+// Cleanup function to remove event listeners
     return () => {
       if (mobileNavToogleButton) {
         mobileNavToogleButton.removeEventListener('click', (event) => {
@@ -101,7 +104,7 @@ const Home = () => {
       });
     };
   }, []);
-
+// State hooks for managing component state
   const [activeTab, setActiveTab] = useState('everything');
   const [searchInput, setSearchInput] = useState('');
   const [searchCategory, setSearchCategory] = useState('title');
@@ -124,17 +127,18 @@ const Home = () => {
     publisher_id: 0,
     imageUrl: ''
   });
-
+// Handle tab click
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
+  // Handle search functionality
   const handleSearch = async () => {
     console.log('Book search');
     try {
       const response = await axios.get(`http://localhost:5000/api/books/search?category=${searchCategory}&keyword=${searchInput}`);
       console.log(response.data);
-      
+      // Update results state with the search response
       setResults(response.data);
     } catch (error) {
       console.error('Error searching for book:', error);
@@ -143,14 +147,14 @@ const Home = () => {
 
     
   };
-
+  // Handle filter change
   const handleFilterChange = (filter) => {
     setFilters({
       ...filters,
       [filter]: !filters[filter]
     });
   };
-
+// useEffect hook to initialize PureCounter library
   useEffect(() => {
     const initializePureCounter = () => {
       if (window.PureCounter) {
@@ -162,9 +166,9 @@ const Home = () => {
 
     initializePureCounter();
   }, []);
-
+// useState hook to manage the selected date in the calendar
   const [date, setDate] = useState(new Date());
-
+// useEffect hook to initialize the Swiper slider
 useEffect(() => {
     // Initialize Swiper
     if (typeof Swiper !== 'undefined') {
@@ -189,9 +193,9 @@ useEffect(() => {
       });
     }
   }, []);
-
+// useState hook to manage the current stage of the app (initially set to 'logo')
   const [stage, setStage] = useState('logo'); // Initial stage is 'logo'
-
+// useEffect hook to handle preloader logic
   useEffect(() => {
     const handleLoad = () => {
         setTimeout(() => {
@@ -205,10 +209,10 @@ useEffect(() => {
     window.addEventListener('load', handleLoad);
 
     return () => {
-        window.removeEventListener('load', handleLoad);
+        window.removeEventListener('load', handleLoad);// Cleanup event listener on unmount
     };
 }, []);
-
+// useEffect hook to implement sticky header on scroll
   useEffect(() => {
     // Sticky header on scroll
     const selectHeader = document.querySelector('#header');
@@ -238,17 +242,20 @@ useEffect(() => {
       }
     };
   }, []);
-
+// useRef hooks to reference container and announcements elements
   const containerRef = useRef(null);
   const announcementsRef = useRef(null);
+  // Array of image URLs for the image slider
   const images = [
     "/static/lib1.jpg",
     "/static/lib2.jpeg",
     "/static/lib3.jpeg",
     "/static/lib4.jpeg"
   ];
+  // useState hook to manage the current image index in the slider
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+  
+// useEffect hook to handle image slider logic
   useEffect(() => {
     // Image slider
     const interval = setInterval(() => {
@@ -258,6 +265,7 @@ useEffect(() => {
     return () => clearInterval(interval); 
   }, [images.length]);
 
+  // useEffect hook to handle announcements slider logic
   useEffect(() => {
     // Announcements slider
     const container = containerRef.current;
@@ -270,14 +278,15 @@ useEffect(() => {
     const slideAnnouncements = () => {
       position -= 1;
       if (Math.abs(position) >= announcements.scrollHeight) {
-        position = 0;
+        position = 0;// Reset position when the end is reached
       }
       announcements.style.transform = `translateY(${position}px)`;
     };
 
-    const intervalId = setInterval(slideAnnouncements, 50);
+    const intervalId = setInterval(slideAnnouncements, 50);//Slide announcements every 50ms
 
-    return () => clearInterval(intervalId);
+
+    return () => clearInterval(intervalId);// Cleanup interval on unmount
   }, []);
 
   return (
