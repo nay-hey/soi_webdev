@@ -246,7 +246,7 @@ Reminder, Profile Edit and Notification*/}
                 </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link " to="/studentdb">
+                <Link className="nav-link " to="/AdminPage/studentdb">
                 <i className="bi bi-layout-text-window-reverse"></i><span>Student Database</span>
                 </Link>
             </li>

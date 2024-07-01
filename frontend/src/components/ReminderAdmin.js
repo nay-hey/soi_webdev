@@ -85,7 +85,12 @@ const Reminder = () => {
         const fetchItem = async () => {
           try {
             const response = await axios.get('http://localhost:5000/api/issues');
-            setItem(response.data);
+            const items = response.data.map(item => ({
+              ...item,
+              issueDate: new Date(item.issueDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+              returnDate: new Date(item.returnDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+            }));
+            setItem(items);
           } catch (error) {
             console.error('Error fetching item:', error);
           }

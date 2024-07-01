@@ -44,12 +44,9 @@ const Studentdb = () => {
     const fetchItem = async () => {
       if (profile) { // Only fetch items if profile is set
         try {
-          const response = await axios.get('http://localhost:5000/api/issues'); //issueRoutes is used
+          const response = await axios.get('http://localhost:5000/api/issuesCopy'); //issueRoutes is used
           const filtered = response.data.filter(issue => issue.rollno == profile.roll); //displays only the user history using roll number as the unique key
-          filtered.sort((a, b) => {
-            return new Date(b.returnDate) - new Date(a.returnDate); 
-          });
-  
+           
           setItem(filtered);
         } catch (error) {
           console.error('Error fetching item:', error);

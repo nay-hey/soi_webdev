@@ -25,20 +25,13 @@ const CirculationManagement = () => {
   });
 
   //handles change in issue form
-  const handleChange = (e) => {
+   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setIssueFormData((prevFormData) => {
       const updatedFormData = {
         ...prevFormData,
         [name]: type === 'checkbox' ? checked : value,
       };
-  
-      if (name === 'issueDate') {
-        const newIssueDate = new Date(value);
-        const newReturnDate = new Date(newIssueDate);
-        newReturnDate.setDate(newReturnDate.getDate() + 15);
-        updatedFormData.returnDate = newReturnDate.toISOString().split('T')[0];
-      }
   
       if (name === 'bookId') {
         handleBookAction(updatedFormData);
@@ -93,6 +86,7 @@ const CirculationManagement = () => {
       
       // Step 1: Save issue details to your backend API
       const response = await axios.post('http://localhost:5000/api/issues', issueFormData);
+      const response3 = await axios.post('http://localhost:5000/api/issuesCopy', issueFormData);
       console.log('Saved issue details successfully:', response.data);
 
       const response2 = await fetch(`http://localhost:5000/api/books/${bookId}`, {
@@ -134,18 +128,37 @@ const CirculationManagement = () => {
 
     //sets return date in issue form 15 days after today (default issue date)
     useEffect(() => {
-      const today = new Date().toISOString().split('T')[0];
-      const returnDate = new Date();
-      returnDate.setDate(returnDate.getDate() + 15);
-      setIssueFormData({
-        ...issueFormData,
-        issueDate: today,
-        returnDate: returnDate.toISOString().split('T')[0],
-      });
-    }, []);
-  
-  
-
+      // Function to get current date in IST (Kolkata time)
+      const getISTDate = () => {
+        const now = new Date(); // Current date and time in local time zone
+        const ISTOffset = 330; // IST offset in minutes (India Standard Time is UTC+5:30)
+        const ISTTime = new Date(now.getTime() + (ISTOffset * 60000)); // Convert to IST
+        return ISTTime;
+      };
+    
+      // Function to calculate returnDate 15 days after issueDate
+      const calculateReturnDate = (issueDate) => {
+        const returnDate = new Date(issueDate);
+        returnDate.setDate(returnDate.getDate() + 15); // Add 15 days
+        return returnDate;
+      };
+    
+      const defaultIssueDate = getISTDate(); // Get current IST date and time
+      const defaultReturnDate = calculateReturnDate(defaultIssueDate); // Calculate returnDate
+    
+      // Format dates for datetime-local input
+      const formattedIssueDate = defaultIssueDate.toISOString().slice(0, 16); // Format as "yyyy-MM-ddThh:mm"
+      const formattedReturnDate = defaultReturnDate.toISOString().slice(0, 16); // Format as "yyyy-MM-ddThh:mm"
+    
+      // Set default issueDate and returnDate in IST when component mounts
+      setIssueFormData((prevFormData) => ({
+        ...prevFormData,
+        issueDate: formattedIssueDate,
+        returnDate: formattedReturnDate,
+      }));
+    }, []); // Empty dependency array ensures this effect runs only once on component mount
+    
+    
   //returning a book - uses form
   const [returnFormData, setReturnFormData] = useState({
     fname: '',
@@ -192,7 +205,7 @@ const CirculationManagement = () => {
     const providedReturnDate = new Date(returnDate);
 
     if (originalReturnDate < providedReturnDate) {
-      throw new Error('Failed to return book. Fine of Rs. 200 is required for late return.');
+      alert('Failed to return book. Fine of Rs. 200 is required for late return.');
     }
       const url = `http://localhost:5000/api/issues/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`;
       await axios.delete(url);
@@ -545,7 +558,7 @@ const [bookDetails, setBookDetails] = useState(null);
                 <div className="col-md-3">
                   <label htmlFor="issueDate" className="form-label">Issue Date</label>
                   <input
-                    type="date"
+                    type="datetime-local"
                     className={`form-control ${formErrors.issueDate ? 'is-invalid' : ''}`}
                     id="issueDate"
                     name="issueDate"
@@ -562,7 +575,7 @@ const [bookDetails, setBookDetails] = useState(null);
                 <div className="col-md-3">
                   <label htmlFor="returnDate" className="form-label">Return Date</label>
                   <input
-                    type="date"
+                    type="datetime-local"
                     className={`form-control ${formErrors.returnDate ? 'is-invalid' : ''}`}
                     id="returnDate"
                     name="returnDate"
@@ -681,7 +694,7 @@ const [bookDetails, setBookDetails] = useState(null);
                 <div className="col-md-3">
                   <label htmlFor="returnDate" className="form-label">Return Date</label>
                   <input
-                    type="date"
+                    type="datetime-local"
                     className={`form-control ${formErrors.returnDate ? 'is-invalid' : ''}`}
                     id="returnDate"
                     name="returnDate"
@@ -722,9 +735,11 @@ const [bookDetails, setBookDetails] = useState(null);
           )}
         </div>
       </div>
+
     </section>
 
   </main>
+  
         <footer id="footer" className="footer">
 
             <div className="container">
