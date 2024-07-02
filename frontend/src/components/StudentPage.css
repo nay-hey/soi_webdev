@@ -1273,26 +1273,65 @@
   }
 }
 
+#student .button-container {
+  display: flex; /* Use flexbox to place buttons side by side */
+  gap: 10px; /* Space between buttons */
+  align-items: center; /* Align items vertically center */
+}
+
+#student .reserve-button {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Padding */
+  font-size: 16px; /* Font size */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+}
+
+#student .reserve-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+#student .reserve-button:disabled {
+  background-color: #6c757d; /* Gray background when disabled */
+  cursor: not-allowed; /* Not-allowed cursor */
+  opacity: 0.7; /* Slightly transparent */
+}
+
+#student .reserve-button.liked {
+  background-color: #28a745; /* Green background if reserved */
+  border-color: #28a745; /* Green border */
+}
+
+#student .reserve-button.liked:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
 #student .like-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+  background: none; /* No background */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  display: flex; /* Flexbox for aligning icon and text */
+  align-items: center; /* Center items vertically */
+  gap: 5px; /* Space between icon and text */
 }
 
 #student .heart-icon {
-  font-size: 1.2rem; /* Adjust size as needed */
-  transition: transform 0.2s ease; /* Smooth animation on transform */
-  margin-right: 5px;
+  color: #ff0000; /* Red color */
+  font-size: 20px; /* Icon size */
+  transition: transform 0.3s; /* Smooth transition */
 }
 
-#student .heart-icon:hover {
-  transform: scale(1.2); /* Scale up animation on hover */
+#student .like-button:hover .heart-icon {
+  transform: scale(1.2); /* Slightly enlarge on hover */
 }
 
 #student .heart-icon.liked {
-  color: red; /* Color when liked */
+  color: #ff0000; /* Red color when liked */
 }
 
 

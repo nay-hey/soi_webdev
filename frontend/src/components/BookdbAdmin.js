@@ -9,8 +9,12 @@ import axios from 'axios';
 import './AdminPage.css';
 import { Tooltip } from 'bootstrap';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 
 const Bookdb = () => {
+
   //connects to books db and retrieves all the data to display on book overview
   const [books, setBooks] = useState([]);
   useEffect(() => {
@@ -706,6 +710,11 @@ const Bookdb = () => {
                                         <img src={profileItem.imageUrl} alt="Profile" />
                                         <h2>{profileItem.title}</h2>
                                         <h3>{profileItem.description}</h3>
+                                        <FontAwesomeIcon
+                                          icon={profileItem.liked ? faHeartSolid : faHeartRegular}
+                                          color={profileItem.liked ? 'red' : 'grey'}
+                                        />
+                                        {profileItem.likes}
                                       </div>
                                     </div>
                                   </div>
@@ -763,6 +772,20 @@ const Bookdb = () => {
                                             <div className="row">
                                               <div className="col-lg-3 col-md-4 label">Publisher Id</div>
                                               <div className="col-lg-9 col-md-8">{profileItem.publisher_id}</div>
+                                            </div>
+                                            <div className="row">
+                                              <div className="col-lg-3 col-md-4 label">Reservations</div>
+                                              <div className="col-lg-9 col-md-8">
+                                                {profileItem.reservedBy.length > 0 ? (
+                                                  <ul>
+                                                    {profileItem.reservedBy.map((userId, index) => (
+                                                      <li key={index}>{userId}</li>
+                                                    ))}
+                                                  </ul>
+                                                ) : (
+                                                  <p>No reservations</p>
+                                                )}
+                                              </div>
                                             </div>
                                           </div>
                         

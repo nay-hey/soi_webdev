@@ -107,11 +107,9 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Assuming router setup in your Express app
-
 router.put('/:id/like', async (req, res) => {
   const bookId = req.params.id;
-  const userId = req.body.userId; // Assuming userId is sent in the request body
+  const userRoll = req.body.userRoll; // Assuming userId is sent in the request body
 
   try {
     const book = await Book.findById(bookId);
@@ -120,26 +118,68 @@ router.put('/:id/like', async (req, res) => {
     }
     
     // Check if the user has already liked the book
-    const alreadyLiked = book.likedBy.some(user => user.equals(userId));
-    
-    if (alreadyLiked) {
-      // Unlike the book
-      book.likes -= 1;
-      book.likedBy = book.likedBy.filter(user => !user.equals(userId));
+    if (book.likedBy && Array.isArray(book.likedBy)) {
+      const alreadyLiked = book.likedBy.some(user => user === userRoll);
+      
+      if (alreadyLiked) {
+        // Unlike the book
+        book.likes -= 1;
+        book.likedBy = book.likedBy.filter(user => user !== userRoll);
+      } else {
+        // Like the book
+        book.likes += 1;
+        book.likedBy.push(userRoll);
+      }
+      
+      // Save the updated book object
+      const savedBook = await book.save();
+      
+      res.json({ message: 'Book liked/unliked successfully', likes: savedBook.likes, likedBy: savedBook.likedBy });
     } else {
-      // Like the book
-      book.likes += 1;
-      book.likedBy.push(userId);
+      return res.status(500).json({ message: 'LikedBy array missing or invalid in the book object' });
     }
-    
-    // Save the updated book object
-    const savedBook = await book.save();
-
-    res.json({ message: 'Book liked/unliked successfully', likes: savedBook.likes, likedBy: savedBook.likedBy });
   } catch (err) {
     console.error('Error liking/unliking the book:', err);
     res.status(500).json({ message: err.message });
   }
 });
+
+router.put('/:id/reserve', async (req, res) => {
+  const bookId = req.params.id;
+  const userRoll = req.body.userRoll; // Assuming userId is sent in the request body
+
+  try {
+    const book = await Book.findById(bookId);
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+    
+    // Check if the user has already reserved the book
+    if (book.reservedBy && Array.isArray(book.reservedBy)) {
+      const alreadyReserved = book.reservedBy.some(user => user === userRoll);
+      
+      if (alreadyReserved) {
+        // Unreserve the book
+        book.reserved -= 1;
+        book.reservedBy = book.reservedBy.filter(user => user !== userRoll);
+      } else {
+        // Reserve the book
+        book.reserved += 1;
+        book.reservedBy.push(userRoll);
+      }
+      
+      // Save the updated book object
+      const savedBook = await book.save();
+      
+      res.json({ message: 'Book reserved/not reserved successfully', reserved: savedBook.reserved, reservedBy: savedBook.reservedBy });
+    } else {
+      return res.status(500).json({ message: 'ReservedBy array missing or invalid in the book object' });
+    }
+  } catch (err) {
+    console.error('Error reserving/not reserving the book:', err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 module.exports = router;

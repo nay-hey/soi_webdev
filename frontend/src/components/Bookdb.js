@@ -69,8 +69,9 @@ const Bookdb = () => {
   };
   const handleLike = async (id) => {
     try {
+      console.log(user.roll, id);
       const response = await axios.put(`http://localhost:5000/api/books/${id}/like`, {
-        userId: user._id, // Sending user ID along with the request
+        userRoll: user.roll, // Sending user ID along with the request
       });
 
       // Update profile state to reflect the updated liked status
@@ -80,6 +81,29 @@ const Bookdb = () => {
             ...book,
             likes: response.data.likes,
             likedBy: response.data.likedBy,
+          };
+        }
+        return book;
+      });
+      setProfile(updatedProfile);
+    } catch (error) {
+      console.error('Error liking the book:', error);
+    }
+  };
+
+  const handleReserve = async (id) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/api/books/${id}/reserve`, {
+        userRoll: user.roll, // Sending user ID along with the request
+      });
+
+      // Update profile state to reflect the updated reserved status
+      const updatedProfile = profile.map(book => {
+        if (book._id === id) {
+          return {
+            ...book,
+            reserved: response.data.reserved,
+            reservedBy: response.data.reservedBy,
           };
         }
         return book;
@@ -298,13 +322,22 @@ const Bookdb = () => {
                           <img src={profileItem.imageUrl} alt="Profile" />
                           <h2>{profileItem.title}</h2>
                           <h3>{profileItem.description}</h3>
-                          <button onClick={() => handleLike(profileItem._id)} className="like-button">
-                            <FontAwesomeIcon
-                              icon={profileItem.likedBy.includes(user._id) ? faHeartSolid : faHeartRegular}
-                              className={`heart-icon ${profileItem.likedBy.includes(user._id) ? 'liked' : ''}`}
-                            />
-                            {profileItem.likes}
-                          </button>
+                          <div className="button-container">
+                            <button
+                              onClick={() => handleReserve(profileItem._id)}
+                              className={`reserve-button ${profileItem.reservedBy.includes(user.roll) ? 'liked' : ''}`}
+                              disabled={profileItem.reservedBy.includes(user.roll)}
+                            >
+                              {profileItem.reservedBy.includes(user.roll) ? 'Reserved' : 'Reserve'}
+                            </button>
+                            <button onClick={() => handleLike(profileItem._id)} className="like-button">
+                              <FontAwesomeIcon
+                                icon={profileItem.likedBy.includes(user.roll) ? faHeartSolid : faHeartRegular}
+                                className={`heart-icon ${profileItem.likedBy.includes(user.roll) ? 'liked' : ''}`}
+                              />
+                              {profileItem.likes}
+                            </button>
+                          </div>
                         </div>
                         </div>
                       </div>

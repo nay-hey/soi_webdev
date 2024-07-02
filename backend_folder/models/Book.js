@@ -15,7 +15,9 @@ const bookSchema = new mongoose.Schema({
   publisher_id: { type: Number, required: true },
   imageUrl: { type: String }, // Example field for book image URL
   likes: { type: Number, default: 0 }, // New field for likes
-  likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] // Array of user IDs who liked the book
+  likedBy: [{ type: String }], // Array of roll numbers who liked the book  
+  reserved: { type: Number, default: 0 }, // New field for reservations
+  reservedBy: [{ type: String }] // Array of roll numbers who reserved the book
 });
 
 const Book = mongoose.model('Book', bookSchema);
