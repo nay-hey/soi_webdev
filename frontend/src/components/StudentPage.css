@@ -1281,6 +1281,7 @@
 
 #student .reserve-button {
   background-color: #007bff; /* Blue background */
+  opacity: 0.7; /* Slightly transparent */
   color: white; /* White text */
   border: none; /* Remove border */
   padding: 10px 20px; /* Padding */
@@ -1295,13 +1296,9 @@
   transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
-#student .reserve-button:disabled {
-  background-color: #6c757d; /* Gray background when disabled */
-  cursor: not-allowed; /* Not-allowed cursor */
-  opacity: 0.7; /* Slightly transparent */
-}
 
 #student .reserve-button.liked {
+  opacity: 0.7; /* Slightly transparent */
   background-color: #28a745; /* Green background if reserved */
   border-color: #28a745; /* Green border */
 }

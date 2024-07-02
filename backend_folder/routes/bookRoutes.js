@@ -161,10 +161,12 @@ router.put('/:id/reserve', async (req, res) => {
       if (alreadyReserved) {
         // Unreserve the book
         book.reserved -= 1;
+        book.count +=1;
         book.reservedBy = book.reservedBy.filter(user => user !== userRoll);
       } else {
         // Reserve the book
         book.reserved += 1;
+        book.count -=1;
         book.reservedBy.push(userRoll);
       }
       

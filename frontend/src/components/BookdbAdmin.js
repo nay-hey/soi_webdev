@@ -33,14 +33,15 @@ const Bookdb = () => {
   //sets new book data on book-add
   const [newBookData, setNewBookData] = useState({
     title: '',
+    description: '',
     author: '',
     genre: '',
     department: 'Computer Science',
     count: 0,
     vendor: '',
-    vendorId: 0,
+    vendor_id: 0,
     publisher: '',
-    publisherId: 0,
+    publisher_id: 0,
     imageUrl: ''
   });
 
@@ -51,14 +52,15 @@ const Bookdb = () => {
       const response = await axios.post('http://localhost:5000/api/books', newBookData);
       setNewBookData({
         title: '',
+        description: '',
         author: '',
         genre: '',
         department: 'Computer Science',
         count: 0,
         vendor: '',
-        vendorId: 0,
+        vendor_id: 0,
         publisher: '',
-        publisherId: 0,
+        publisher_id: 0,
         imageUrl: ''
       });
       fetchBooks(); // Refresh books list after adding
@@ -547,15 +549,15 @@ const Bookdb = () => {
                               />
                             </div>
                             <div className="mb-3">
-                              <label htmlFor="vendorId" className="form-label">
+                              <label htmlFor="vendor_id" className="form-label">
                                 Vendor ID
                               </label>
                               <input
                                 type="number"
                                 className="form-control"
-                                id="vendorId"
-                                name="vendorId"
-                                value={newBookData.vendorId}
+                                id="vendor_id"
+                                name="vendor_id"
+                                value={newBookData.vendor_id}
                                 onChange={handleChange}
                               />
                             </div>
@@ -573,27 +575,27 @@ const Bookdb = () => {
                               />
                             </div>
                             <div className="mb-3">
-                              <label htmlFor="publisherId" className="form-label">
+                              <label htmlFor="publisher_id" className="form-label">
                                 Publisher ID
                               </label>
                               <input
                                 type="number"
                                 className="form-control"
-                                id="publisherId"
-                                name="publisherId"
-                                value={newBookData.publisherId}
+                                id="publisher_id"
+                                name="publisher_id"
+                                value={newBookData.publisher_id}
                                 onChange={handleChange}
                               />
                             </div>
                             <div className="mb-3">
-                              <label htmlFor="image" className="form-label">
+                              <label htmlFor="imageUrl" className="form-label">
                                 Book Image Path
                               </label>
                               <input
                                 type="text"
                                 className="form-control"
-                                id="image"
-                                name="image"
+                                id="imageUrl"
+                                name="imageUrl"
                                 value={newBookData.imageUrl}
                                 onChange={handleChange}
                               />
@@ -777,11 +779,11 @@ const Bookdb = () => {
                                               <div className="col-lg-3 col-md-4 label">Reservations</div>
                                               <div className="col-lg-9 col-md-8">
                                                 {profileItem.reservedBy.length > 0 ? (
-                                                  <ul>
+                                                  <ol>
                                                     {profileItem.reservedBy.map((userId, index) => (
                                                       <li key={index}>{userId}</li>
                                                     ))}
-                                                  </ul>
+                                                  </ol>
                                                 ) : (
                                                   <p>No reservations</p>
                                                 )}

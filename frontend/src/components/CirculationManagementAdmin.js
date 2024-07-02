@@ -99,7 +99,13 @@ const CirculationManagement = () => {
         },
         body: JSON.stringify({ count: count_val-1 }), // Send email and bookId in request body
       });
-  
+      if (bookResponse.data[0].reservedBy.includes(issueFormData.rollno)) {
+        
+        const response4 = await axios.put(`http://localhost:5000/api/books/${bookId}/reserve`, {
+          userRoll: issueFormData.rollno, // Sending user ID along with the request
+        });
+      }
+
       if (!response2.ok) {
         throw new Error('Failed to issue book');
       }
@@ -235,6 +241,8 @@ const CirculationManagement = () => {
         throw new Error('Failed to issue book');
       }
       console.log('Book returned successfully');
+      
+      setBookDetails(null);
       setReturnFormData({
         fname: '',
         lname: '',
@@ -732,6 +740,8 @@ const [bookDetails, setBookDetails] = useState(null);
                 <p>Genre: {bookDetails[0].genre}</p>
                 <p>Department: {bookDetails[0].department}</p>
                 <p>Count: {bookDetails[0].count}</p>
+                <p>Reserved: {bookDetails[0].reserved}</p>
+                <p>Reserved By: {bookDetails[0].reservedBy.join(', ')}</p>
             </div>
           ) : (
               <h3>No book found</h3>

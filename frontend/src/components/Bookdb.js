@@ -326,7 +326,6 @@ const Bookdb = () => {
                             <button
                               onClick={() => handleReserve(profileItem._id)}
                               className={`reserve-button ${profileItem.reservedBy.includes(user.roll) ? 'liked' : ''}`}
-                              disabled={profileItem.reservedBy.includes(user.roll)}
                             >
                               {profileItem.reservedBy.includes(user.roll) ? 'Reserved' : 'Reserve'}
                             </button>
