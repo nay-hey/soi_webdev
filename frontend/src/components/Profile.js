@@ -12,7 +12,7 @@ import { Tooltip } from 'bootstrap';
 
 const Profile = () => {
   //retrieves the user data who has logged in the student page
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState([]);
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -152,10 +152,6 @@ useEffect(() => {
 
 
 }, []);
-if (!profile) {
-  return <div>Loading...</div>; // Placeholder while data is being fetched
-}
-
 return (
   <div>
     <section id="student">

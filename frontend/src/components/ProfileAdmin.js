@@ -9,7 +9,8 @@ import './AdminPage.css';
 import { Tooltip } from 'bootstrap';
 
 const Profile = () => {
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState([]);
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -84,10 +85,6 @@ const Profile = () => {
 
   
   }, []);
-  if (!profile) {
-    return <div>Loading...</div>; // Placeholder while data is being fetched
-  }
-
   return (
     <div>
             <section id="admin">
