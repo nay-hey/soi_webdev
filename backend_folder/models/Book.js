@@ -10,10 +10,12 @@ const bookSchema = new mongoose.Schema({
   department: { type: String, required: true },
   count: { type: Number, required: true },
   vendor: { type: String, required: true },
-  vendorId: { type: Number, required: true },
+  vendor_id: { type: Number, required: true },
   publisher: { type: String, required: true },
-  publisherId: { type: Number, required: true },
-  imageUrl: { type: String } // Example field for book image URL
+  publisher_id: { type: Number, required: true },
+  imageUrl: { type: String }, // Example field for book image URL
+  likes: { type: Number, default: 0 }, // New field for likes
+  likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] // Array of user IDs who liked the book
 });
 
 const Book = mongoose.model('Book', bookSchema);

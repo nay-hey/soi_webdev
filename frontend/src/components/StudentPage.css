@@ -1273,6 +1273,28 @@
   }
 }
 
+#student .like-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+#student .heart-icon {
+  font-size: 1.2rem; /* Adjust size as needed */
+  transition: transform 0.2s ease; /* Smooth animation on transform */
+  margin-right: 5px;
+}
+
+#student .heart-icon:hover {
+  transform: scale(1.2); /* Scale up animation on hover */
+}
+
+#student .heart-icon.liked {
+  color: red; /* Color when liked */
+}
+
 
 /*--------------------------------------------------------------
 # Book Section

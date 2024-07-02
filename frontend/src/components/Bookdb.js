@@ -4,12 +4,40 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 
 import './StudentPage.css';
 import { Tooltip } from 'bootstrap';
 import { Link } from 'react-router-dom';
 
 const Bookdb = () => {
+  //catches the profile of the logged in user.
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem('token'); //uses the token set during login
+        const response = await fetch('http://localhost:5000/api/students/profile', { //router is name profile in studentRoutes.js of backend
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile data');
+        }
+        const profileData = await response.json();
+        setUser(profileData);
+      } catch (error) {
+        console.error('Error fetching profile:', error.message);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const [searchInput, setSearchInput] = useState('');
   const [searchCategory, setSearchCategory] = useState('title');
@@ -25,21 +53,42 @@ const Bookdb = () => {
     vendor_id: 0,
     publisher: '',
     publisher_id: 0,
-    imageUrl: ''
+    imageUrl: '',
+    likes: 0
   });
   // Function to handle searching books based on category and input
   const handleSearch = async () => {
     console.log('Book search');
     try {
       const response = await axios.get(`http://localhost:5000/api/books/search?category=${searchCategory}&keyword=${searchInput}`);
-      console.log(response.data);
       setProfile(response.data);
     } catch (error) {
       console.error('Error searching for book:', error);
     } finally {
     }
   };
-  
+  const handleLike = async (id) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/api/books/${id}/like`, {
+        userId: user._id, // Sending user ID along with the request
+      });
+
+      // Update profile state to reflect the updated liked status
+      const updatedProfile = profile.map(book => {
+        if (book._id === id) {
+          return {
+            ...book,
+            likes: response.data.likes,
+            likedBy: response.data.likedBy,
+          };
+        }
+        return book;
+      });
+      setProfile(updatedProfile);
+    } catch (error) {
+      console.error('Error liking the book:', error);
+    }
+  };
 
    useEffect(() => {
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -249,10 +298,17 @@ const Bookdb = () => {
                           <img src={profileItem.imageUrl} alt="Profile" />
                           <h2>{profileItem.title}</h2>
                           <h3>{profileItem.description}</h3>
+                          <button onClick={() => handleLike(profileItem._id)} className="like-button">
+                            <FontAwesomeIcon
+                              icon={profileItem.likedBy.includes(user._id) ? faHeartSolid : faHeartRegular}
+                              className={`heart-icon ${profileItem.likedBy.includes(user._id) ? 'liked' : ''}`}
+                            />
+                            {profileItem.likes}
+                          </button>
+                        </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                   <div className="col-xl-8">
                     <div className="card">
                       <div className="card-body pt-3">

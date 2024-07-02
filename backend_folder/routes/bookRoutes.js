@@ -25,9 +25,9 @@ router.post('/', [
   body('department').notEmpty().trim().escape(),
   body('count').isInt({ min: 0 }),
   body('vendor').optional().trim().escape(),
-  body('vendorId').optional().isInt({ min: 0 }),
+  body('vendor_id').optional().isInt({ min: 0 }),
   body('publisher').optional().trim().escape(),
-  body('publisherId').optional().isInt({ min: 0 }),
+  body('publisher_id').optional().isInt({ min: 0 }),
   body('imageUrl').optional().trim().escape(),
 ], async (req, res) => {
   const errors = validationResult(req);
@@ -35,7 +35,7 @@ router.post('/', [
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { title, description, author, genre, department, count, vendor, vendorId, publisher, publisherId, imageUrl } = req.body;
+  const { title, description, author, genre, department, count, vendor, vendor_id, publisher, publisher_id, imageUrl } = req.body;
 
   const newBook = new Book({
     title,
@@ -45,9 +45,9 @@ router.post('/', [
     department,
     count,
     vendor,
-    vendorId,
+    vendor_id,
     publisher,
-    publisherId,
+    publisher_id,
     imageUrl,
   });
 
@@ -103,6 +103,41 @@ router.put('/:id', async (req, res) => {
     }
     res.json({ message: 'Book updated successfully', book: updated });
   } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Assuming router setup in your Express app
+
+router.put('/:id/like', async (req, res) => {
+  const bookId = req.params.id;
+  const userId = req.body.userId; // Assuming userId is sent in the request body
+
+  try {
+    const book = await Book.findById(bookId);
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+    
+    // Check if the user has already liked the book
+    const alreadyLiked = book.likedBy.some(user => user.equals(userId));
+    
+    if (alreadyLiked) {
+      // Unlike the book
+      book.likes -= 1;
+      book.likedBy = book.likedBy.filter(user => !user.equals(userId));
+    } else {
+      // Like the book
+      book.likes += 1;
+      book.likedBy.push(userId);
+    }
+    
+    // Save the updated book object
+    const savedBook = await book.save();
+
+    res.json({ message: 'Book liked/unliked successfully', likes: savedBook.likes, likedBy: savedBook.likedBy });
+  } catch (err) {
+    console.error('Error liking/unliking the book:', err);
     res.status(500).json({ message: err.message });
   }
 });

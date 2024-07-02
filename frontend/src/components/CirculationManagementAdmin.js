@@ -63,7 +63,7 @@ const CirculationManagement = () => {
       // Count the number of times the email has occurred in the issues
       const emailOccurrences = allIssues.filter(issue => issue.email === issueFormData.email).length;
 
-      if (emailOccurrences >= 3) {
+      if (emailOccurrences >= 2) {
         throw new Error(`Failed to issue book. This user has already issued ${emailOccurrences} books.`);
       }
       
@@ -72,11 +72,14 @@ const CirculationManagement = () => {
   
       // Fetch bookId based on the bookTitle from your backend or local storage
       const bookResponse = await axios.get(`http://localhost:5000/api/books/search?category=title&keyword=${encodeURIComponent(bookTitle.bookId)}`);
-
       if (!bookResponse.data || bookResponse.data.length === 0) {
         throw new Error('Book not found');
       }
-  
+
+      const profileResponse = await axios.get(`http://localhost:5000/api/students/search?category=roll&keyword=${issueFormData.rollno}`);      
+      if (!profileResponse.data || profileResponse.data.length === 0) {
+        throw new Error('User not found');
+      }
       const bookId = bookResponse.data[0]._id; // Assuming the first book found is the correct one
       const count_val = bookResponse.data[0].count;
       // Step 3: Update book count via PUT request using the obtained bookId
