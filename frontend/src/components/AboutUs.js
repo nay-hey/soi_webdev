@@ -91,7 +91,7 @@ class AboutUs extends Component {
                                     title="Our Collection"
                                     image="/images/collection.jpeg"
                                     text="Discover our extensive collection."
-                                    link="/AboutUs/collection"
+                                    link="/#search1"
                                 />
                                 <Card
                                     title="Our Policy"
@@ -110,11 +110,10 @@ class AboutUs extends Component {
                     </section>
                     
                     {/* Image slider section */}
-                    <ImageSlider />
-                    
+                    <ImageSlider id="im1"/>
                     {/* Conclusion section with map and address */}
                     <section className="conclusion-section">
-                        <div className="row conclusion-container">
+                        <div className="row conclusion-container" id="im1">
                             <div className="col-9 map-container">
                                 <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3844.5405837788308!2d74.91245637489173!3d15.509124685092116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbf33005e13988b%3A0xf1f71dc79f0bdc6a!2sIIT%20DHARWAD%20LIBRARY!5e0!3m2!1sen!2sin!4v1717351437291!5m2!1sen!2sin"
