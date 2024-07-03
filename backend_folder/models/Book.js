@@ -17,7 +17,14 @@ const bookSchema = new mongoose.Schema({
   likes: { type: Number, default: 0 }, // New field for likes
   likedBy: [{ type: String }], // Array of roll numbers who liked the book  
   reserved: { type: Number, default: 0 }, // New field for reservations
-  reservedBy: [{ type: String }] // Array of roll numbers who reserved the book
+  reservedBy: [{ type: String }], // Array of roll numbers who reserved the book
+  comments: [
+    {
+      userRoll: String,
+      comment: String,
+      timestamp: { type: Date, default: Date.now }
+    }
+  ]
 });
 
 const Book = mongoose.model('Book', bookSchema);

@@ -247,76 +247,19 @@
   color: #D1DCE1;
   font-family: var(--font-primary);
 }
-#home .search-form-wrap {
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 9;
-  transition: 0.3s all ease;
-  visibility: hidden;
-  opacity: 0;
-}
-
-#home .search-form-wrap .search-form {
-  position: relative;
-}
-
-#home .search-form-wrap .search-form .form-control {
-  width: 300px;
-  border: none;
-  box-shadow: 0 15px 20px -10px rgba(black, 0.1);
-  padding-left: 40px;
-  padding-right: 40px;
-}
-
-#home .search-form-wrap .search-form .form-control:active,
-#home .search-form-wrap .search-form .form-control:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-#home .search-form-wrap .search-form .icon {
-  position: absolute;
-  left: 0;
-  top: 7px;
-  opacity: 0.5;
-  left: 10px;
-}
-
-#home .search-form-wrap .search-form .btn {
-  position: absolute;
-  top: 2px;
-  right: 4px;
-  padding: 0;
-  margin: 0;
-  line-height: 1;
-  font-size: 30px;
-}
-
-#home .search-form-wrap .search-form .btn:active,
-#home .search-form-wrap .search-form .btn:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-#home .search-form-wrap.active {
-  visibility: visible;
-  opacity: 1;
-}
 
 #home section {
   scroll-margin-top: 70px;
 }
-
 /*--------------------------------------------------------------
 # Desktop Navigation 
 --------------------------------------------------------------*/
 @media (min-width: 1280px) {
-  #home .navbar {
+  .navbar {
     padding: 0;
   }
 
-  #home .navbar ul {
+  .navbar ul {
     margin: 0;
     padding: 0;
     display: flex;
@@ -324,12 +267,12 @@
     align-items: center;
   }
 
-  #home .navbar li {
+  .navbar li {
     position: relative;
   }
 
-  #home .navbar a,
-  #home .navbar a:focus {
+  .navbar a,
+  .navbar a:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -343,37 +286,37 @@
     transition: 0.3s;
   }
 
-  #home .navbar a i,
-  #home  .navbar a:focus i {
+  .navbar a i,
+  .navbar a:focus i {
     font-size: 12px;
     line-height: 0;
     margin-left: 5px;
   }
 
-  #home .navbar a:hover,
-  #home .navbar .active,
-  #home .navbar .active:focus,
-  #home .navbar li:hover>a {
+  .navbar a:hover,
+  .navbar .active,
+  .navbar .active:focus,
+  .navbar li:hover>a {
     color: #D1DCE1;
     font-size: 18px;
     text-decoration: solid white;
   }
 
-  #home .navbar .getstarted,
-  #home  .navbar .getstarted:focus {
+  .navbar .getstarted,
+  .navbar .getstarted:focus {
     padding: 8px 20px;
     margin-left: 30px;
     border-radius: 4px;
     color: white;
   }
 
-  #home .navbar .getstarted:hover,
-  #home .navbar .getstarted:focus:hover {
+  .navbar .getstarted:hover,
+  .navbar .getstarted:focus:hover {
     color: white;
-    background: rgba(black, 0.8);
+    background: rgba(0, 0, 0, 0.8);
   }
 
-  #home .navbar .dropdown ul {
+  .navbar .dropdown ul {
     display: block;
     position: absolute;
     left: 14px;
@@ -389,7 +332,7 @@
     border-radius: 4px;
   }
 
-  #home .login-button {
+  .login-button {
     background-color: #0b1116;
     color: white;
     border: none;
@@ -401,14 +344,15 @@
     transition: background-color 0.3s ease;
   }
   
-  #home .login-button:hover {
+  .login-button:hover {
     background-color: #2C3E50;
   }
-  #home .navbar .dropdown ul li {
+
+  .navbar .dropdown ul li {
     min-width: 200px;
   }
 
-  #home .navbar .dropdown ul a {
+  .navbar .dropdown ul a {
     padding: 10px 20px;
     font-size: 15px;
     text-transform: none;
@@ -416,42 +360,46 @@
     color: #2C3E50;
   }
 
-  #home .navbar .dropdown ul a i {
+  .navbar .dropdown ul a i {
     font-size: 12px;
   }
 
-  #home  .navbar .dropdown ul a:hover,
-  #home .navbar .dropdown ul .active:hover,
-  #home .navbar .dropdown ul li:hover>a {
+  .navbar .dropdown ul a:hover,
+  .navbar .dropdown ul .active:hover,
+  .navbar .dropdown ul li:hover>a {
     color: #2C3E50;
   }
 
-  #home  .navbar .dropdown:hover>ul {
+  .navbar .dropdown:hover>ul {
     opacity: 1;
     top: 100%;
     visibility: visible;
   }
 
-  #home .navbar .dropdown .dropdown ul {
+  .navbar .dropdown .dropdown ul {
     top: 0;
     left: calc(100% - 30px);
     visibility: hidden;
   }
 
-  #home .navbar .dropdown .dropdown:hover>ul {
+  .navbar .dropdown .dropdown:hover>ul {
     opacity: 1;
     top: 0;
     left: 100%;
     visibility: visible;
   }
+
+  .mobile-nav-toggle {
+    display: none;
+  }
 }
 
 @media (min-width: 1280px) and (max-width: 1366px) {
-  #home  .navbar .dropdown .dropdown ul {
+  .navbar .dropdown .dropdown ul {
     left: -90%;
   }
 
-  #home .navbar .dropdown .dropdown:hover>ul {
+  .navbar .dropdown .dropdown:hover>ul {
     left: -100%;
   }
 }
@@ -460,28 +408,26 @@
 # Mobile Navigation
 --------------------------------------------------------------*/
 @media (max-width: 1279px) {
-  #home .navbar {
+  .navbar {
     padding: 0;
     z-index: 9997;
   }
 
-
-  #home  .navbar ul {
+  .navbar ul {
     display: none;
     position: absolute;
     inset: 50px 15px 15px 400px;
     text-decoration: none;
     text-align: center;
     border-radius: 10px;
-    text-decoration: none;
     background-color: #0b1116;
     overflow-y: auto;
     transition: 0.3s;
     z-index: 9998;
   }
 
-  #home .navbar a,
-  #home .navbar a:focus {
+  .navbar a,
+  .navbar a:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -495,21 +441,21 @@
     transition: 0.3s;
   }
 
-  #home .navbar a i,
-  #home  .navbar a:focus i {
+  .navbar a i,
+  .navbar a:focus i {
     font-size: 12px;
     line-height: 0;
     margin-left: 5px;
   }
 
-  #home .navbar a:hover,
-  #home  .navbar .active,
-  #home  .navbar .active:focus,
-  #home  .navbar li:hover>a {
+  .navbar a:hover,
+  .navbar .active,
+  .navbar .active:focus,
+  .navbar li:hover>a {
     color: var(--color-primary);
   }
 
-  #home .login-button {
+  .login-button {
     background-color: #0b1116;
     color: white;
     border: none;
@@ -520,14 +466,15 @@
     transition: background-color 0.3s ease;
   }
   
-  #home .login-button:hover {
+  .login-button:hover {
     background-color: #6f6f6f;
     color: #0b1116;
     font-size: 16px;
     font-weight: 600;
   }
-  #home .navbar .dropdown ul,
-  #home .navbar .dropdown .dropdown ul {
+
+  .navbar .dropdown ul,
+  .navbar .dropdown .dropdown ul {
     position: static;
     display: none;
     z-index: 99;
@@ -535,15 +482,15 @@
     margin: 10px 20px;
     background: white;
     transition: all 0.5s ease-in-out;
-    box-shadow: 0px 0px 30px rgba(black, 0.1);
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
   }
 
-  #home .navbar .dropdown>.dropdown-active,
-  #home .navbar .dropdown .dropdown>.dropdown-active {
+  .navbar .dropdown>.dropdown-active,
+  .navbar .dropdown .dropdown>.dropdown-active {
     display: block;
   }
 
-  #home .mobile-nav-toggle {
+  .mobile-nav-toggle {
     display: inline-block;
     color: var(--color-secondary);
     font-size: 28px;
@@ -552,15 +499,15 @@
     transition: 0.5s;
   }
 
-  #home .mobile-nav-toggle.bi-x {
+  .mobile-nav-toggle.bi-x {
     color: black;
   }
 
-  #home .mobile-nav-active {
+  .mobile-nav-active {
     overflow: hidden;
   }
-
-  #home .mobile-nav-active .mobile-nav-toggle {
+  
+  .mobile-nav-active .mobile-nav-toggle {
     position: fixed;
     top: 15px;
     right: 15px;
@@ -568,15 +515,15 @@
     color: white;
   }
 
-  #home .mobile-nav-active .navbar {
+  .mobile-nav-active .navbar {
     position: fixed;
     overflow: hidden;
     inset: 0;
-    background: rgba(black, 0.6);
+    background: rgba(0, 0, 0, 0.6);
     transition: 0.3s;
   }
 
-  #home .mobile-nav-active .navbar>ul {
+  .mobile-nav-active .navbar>ul {
     display: block;
   }
 }

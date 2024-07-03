@@ -60,13 +60,17 @@ const Bookdb = () => {
   const handleSearch = async () => {
     console.log('Book search');
     try {
-      const response = await axios.get(`http://localhost:5000/api/books/search?category=${searchCategory}&keyword=${searchInput}`);
+      let url = `http://localhost:5000/api/books/search?category=${searchCategory}`;
+      if (searchCategory !== 'reserved') {
+        url += `&keyword=${searchInput}`;
+      }
+      const response = await axios.get(url);
       setProfile(response.data);
     } catch (error) {
       console.error('Error searching for book:', error);
-    } finally {
     }
   };
+  
   const handleLike = async (id) => {
     try {
       console.log(user.roll, id);
@@ -113,6 +117,36 @@ const Bookdb = () => {
       console.error('Error liking the book:', error);
     }
   };
+
+  const [newComment, setNewComment] = useState(''); // State to store the new comment input
+
+  const handleChange = (e) => {
+    setNewComment(e.target.value);
+  };
+
+  const handleCommentSubmit = async (id) => {
+    try {
+      const response = await axios.post(`http://localhost:5000/api/books/${id}/comments`, {
+        userRoll: user.roll,
+        comment: newComment,
+      });
+      // Reset the comment input after successful submission
+      setNewComment('');
+      handleSearch();
+    } catch (error) {
+      console.error('Error submitting comment:', error);
+    }
+  };
+
+  const handleDeleteComment = async (bookId, commentId) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/books/${bookId}/comments/${commentId}`);
+      handleSearch(); // Refresh comments after deletion
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
 
    useEffect(() => {
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -274,7 +308,7 @@ const Bookdb = () => {
                 </nav>
                 </div>
                 <section id="profile-search">
-            <div className="container">
+            <div className="container" style={{ marginBottom: '100px'}}>
               <div className="row gy-4 justify-content-center justify-content-lg-between">
                 <div className="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
                   <div className="col-xl-4 profile-search">
@@ -291,6 +325,7 @@ const Bookdb = () => {
                         <option value="department">Department</option>
                         <option value="vendor">Vendor</option>
                         <option value="publisher">Publisher</option>
+                        <option value="reserved">Reserved</option>
                       </select>
                       <input
                         type="text"
@@ -298,12 +333,12 @@ const Bookdb = () => {
                         placeholder="Enter Keyword..."
                         value={searchInput}
                         onChange={(e) => setSearchInput(e.target.value)}
+                        disabled={searchCategory === 'reserved'} // Disable input if 'Reserved' is selected
                       />
                       <button id="search-button" onClick={handleSearch}>Search</button>
                     </div>
                   </div>
                   <div className="d-flex">
-                    {/* Any additional content */}
                   </div>
                 </div>
                 <div className="col-lg-5 order-1 order-lg-2 hero-img">
@@ -313,10 +348,10 @@ const Bookdb = () => {
             </div>
 
             {profile.length > 0 ? (
-              <div className="container">
-                <div className="row">
-                  {profile.map((profileItem, index) => (
-                    <div key={profileItem._id} className="col-xl-4">
+              <div className="row">
+                {profile.map((profileItem, index) => (
+                  <React.Fragment key={profileItem._id}>
+                    <div className="col-xl-4">
                       <div className="card">
                         <div className="card-body profile-card pt-4 d-flex flex-column align-items-center">
                           <img src={profileItem.imageUrl} alt="Profile" />
@@ -338,45 +373,100 @@ const Bookdb = () => {
                             </button>
                           </div>
                         </div>
-                        </div>
-                      </div>
-                    ))}
-                  <div className="col-xl-8">
-                    <div className="card">
-                      <div className="card-body pt-3">
-                        <h5 className="card-title">Book Details</h5>
-                        {profile.map((profileItem, index) => (
-                          <div key={index} className="row">
-                            <div className="col-lg-3 col-md-4 label">Title</div>
-                            <div className="col-lg-9 col-md-8">{profileItem.title}</div>
-                            <div className="col-lg-3 col-md-4 label">Description</div>
-                            <div className="col-lg-9 col-md-8">{profileItem.description}</div>
-                            <div className="col-lg-3 col-md-4 label">Author</div>
-                            <div className="col-lg-9 col-md-8">{profileItem.author}</div>
-                            <div className="col-lg-3 col-md-4 label">Genre</div>
-                            <div className="col-lg-9 col-md-8">{profileItem.genre}</div>
-                            <div className="col-lg-3 col-md-4 label">Department</div>
-                            <div className="col-lg-9 col-md-8">{profileItem.department}</div>
-                            <div className="col-lg-3 col-md-4 label">Count</div>
-                            <div className="col-lg-9 col-md-8">{profileItem.count}</div>
-                            <div className="col-lg-3 col-md-4 label">Vendor</div>
-                            <div className="col-lg-9 col-md-8">{profileItem.vendor}</div>
-                            <div className="col-lg-3 col-md-4 label">Vendor Id</div>
-                            <div className="col-lg-9 col-md-8">{profileItem.vendor_id}</div>
-                            <div className="col-lg-3 col-md-4 label">Publisher</div>
-                            <div className="col-lg-9 col-md-8">{profileItem.publisher}</div>
-                            <div className="col-lg-3 col-md-4 label">Publisher Id</div>
-                            <div className="col-lg-9 col-md-8">{profileItem.publisher_id}</div>
-                          </div>
-                        ))}
                       </div>
                     </div>
-                  </div>
-                </div>
+
+                    <div className="col-xl-8">
+                      <div className="card">
+                        <div className="card-body pt-3">
+                          <ul className="nav nav-tabs nav-tabs-bordered">
+                            <li className="nav-item">
+                              <button className="nav-link active" data-bs-toggle="tab" data-bs-target={`#book-overview-${index}`}>Details</button>
+                            </li>
+                            <li className="nav-item">
+                              <button className="nav-link" data-bs-toggle="tab" data-bs-target={`#book-comments-${index}`}>Comments</button>
+                            </li>
+                          </ul>
+                          <div className="tab-content pt-2">
+                            <div className="tab-pane fade show active book-overview" id={`book-overview-${index}`}>
+                              <h5 className="card-title">Book Details</h5>
+                              <div className="row">
+                                <div className="col-lg-3 col-md-4 label">Title</div>
+                                <div className="col-lg-9 col-md-8">{profileItem.title}</div>
+                                <div className="col-lg-3 col-md-4 label">Description</div>
+                                <div className="col-lg-9 col-md-8">{profileItem.description}</div>
+                                <div className="col-lg-3 col-md-4 label">Author</div>
+                                <div className="col-lg-9 col-md-8">{profileItem.author}</div>
+                                <div className="col-lg-3 col-md-4 label">Genre</div>
+                                <div className="col-lg-9 col-md-8">{profileItem.genre}</div>
+                                <div className="col-lg-3 col-md-4 label">Department</div>
+                                <div className="col-lg-9 col-md-8">{profileItem.department}</div>
+                                <div className="col-lg-3 col-md-4 label">Count</div>
+                                <div className="col-lg-9 col-md-8">{profileItem.count}</div>
+                                <div className="col-lg-3 col-md-4 label">Vendor</div>
+                                <div className="col-lg-9 col-md-8">{profileItem.vendor}</div>
+                                <div className="col-lg-3 col-md-4 label">Vendor Id</div>
+                                <div className="col-lg-9 col-md-8">{profileItem.vendor_id}</div>
+                                <div className="col-lg-3 col-md-4 label">Publisher</div>
+                                <div className="col-lg-9 col-md-8">{profileItem.publisher}</div>
+                                <div className="col-lg-3 col-md-4 label">Publisher Id</div>
+                                <div className="col-lg-9 col-md-8">{profileItem.publisher_id}</div>
+                              </div>
+                            </div>
+
+                            <div className="tab-pane fade book-comments pt-3" id={`book-comments-${index}`}>
+                              <h5 className="card-title">Comments:</h5>
+                              {profileItem.comments.map((comment, commentIndex) => (
+                                <div className="comment d-flex alert border-dark alert-dismissible fade show" key={commentIndex}>
+                                  <div className="flex-shrink-0">
+                                    <div className="avatar avatar-sm rounded-circle">
+                                      <img className="avatar-img" src="/static/adminpage/profile.png" alt="" />
+                                    </div>
+                                  </div>
+                                  <div className="flex-shrink-1 ms-2 ms-sm-3">
+                                    <div className="comment-meta d-flex">
+                                      <h6 className="me-2">{comment.userRoll}</h6>
+                                      <span className="text-muted">{comment.timestamp}</span>
+                                    </div>
+                                    <div className="comment-body">
+                                      {comment.comment}
+                                      {comment.userRoll === user.roll && (
+                                        <button
+                                          className="btn-close"
+                                          onClick={() => handleDeleteComment(profileItem._id, comment._id)}
+                                        ></button>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                              <div className="input-group mb-3">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  placeholder="Add a comment..."
+                                  value={newComment}
+                                  onChange={handleChange}
+                                />
+                                <button
+                                  className="btn btn-outline-secondary"
+                                  onClick={() => handleCommentSubmit(profileItem._id)}
+                                >
+                                  Submit
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </React.Fragment>
+                ))}
               </div>
             ) : (
               <p>No books found</p>
             )}
+
 
           </section>
         </main>

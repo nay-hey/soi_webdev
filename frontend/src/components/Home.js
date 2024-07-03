@@ -288,7 +288,28 @@ useEffect(() => {
 
     return () => clearInterval(intervalId);// Cleanup interval on unmount
   }, []);
-
+  useEffect(() => {
+    const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
+    const mobileNavShow = document.querySelector('.mobile-nav-show');
+    const mobileNavHide = document.querySelector('.mobile-nav-hide');
+    
+    function mobileNavToggle() {
+      document.body.classList.toggle('mobile-nav-active');
+      mobileNavShow.classList.toggle('d-none');
+      mobileNavHide.classList.toggle('d-none');
+    }
+    
+    mobileNavToggleButtons.forEach(button => {
+      button.addEventListener('click', mobileNavToggle);
+    });
+    
+    return () => {
+      mobileNavToggleButtons.forEach(button => {
+        button.removeEventListener('click', mobileNavToggle);
+      });
+    };
+  }, []);
+  
   return (
     <div>
       <section id="home">
@@ -308,7 +329,9 @@ useEffect(() => {
               </ul>
             </nav>
             <button className="login-button" onClick={handleLoginClick}>Login</button>
-            
+            <button className="mobile-nav-toggle mobile-nav-show bi bi-list"></button>
+            <button className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></button>
+    
           </div>
         </header>
         <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
