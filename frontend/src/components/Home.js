@@ -425,7 +425,7 @@ useEffect(() => {
                         <div className="ticker-container">
                           <div className="ticker">
                             <span>Latest News:</span>
-                            <marquee>News item 1 | News item 2 | News item 3 | News item 4 | News item 5 | News item 6 | News item 7 | News item 8 | News item 9 | News item 10</marquee>
+                            <marquee>New Training and Placement Officer Recruitment | Research Associate Recruitment | Junior Superintendent (Horticulture) Recruitment Update | Registrar Recruitment | Branch Change Policy Update | Junior Research Fellow (JRF) Recruitment | Project Associate Recruitment | Senior Project Associate Recruitment | Chief Operating Officer Recruitment | PhD Program Admissions</marquee>
                           </div>
                         </div>
                    </div>
@@ -436,31 +436,31 @@ useEffect(() => {
                         <h3>Trending</h3>
                         <ul className="trending-post">
                           <li>
-                            <a href="single-post.html">
+                            <a href="#">
                               <span className="number">1</span>
                               <h3>Library Membership</h3>
                             </a>
                           </li>
                           <li>
-                            <a href="single-post.html">
+                            <a href="#">
                               <span className="number">2</span>
                               <h3>Institutional Membership</h3>
                             </a>
                           </li>
                           <li>
-                            <a href="single-post.html">
+                            <a href="#">
                               <span className="number">3</span>
                               <h3>Current Awareness Programme</h3>
                             </a>
                           </li>
                           <li>
-                            <a href="single-post.html">
+                            <a href="#">
                               <span className="number">4</span>
                               <h3>Remote Login Facility</h3>
                             </a>
                           </li>
                           <li>
-                            <a href="single-post.html">
+                            <a href="#">
                               <span className="number">5</span>
                               <h3>News Editions</h3>
                             </a>
@@ -492,13 +492,13 @@ useEffect(() => {
                     <div className="trending">
                     <ul className="trending-post">
                           <li>
-                            <a href="single-post.html">
+                            <a href="#">
                               <span className="number">1</span>
                               <h3>Circulation</h3>
                             </a>
                           </li>
                           <li>
-                            <a href="single-post.html">
+                            <a href="#">
                               <span className="number">2</span>
                               <h3>Reference & Reading</h3>
                             </a>
