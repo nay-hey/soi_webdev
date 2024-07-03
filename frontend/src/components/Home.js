@@ -329,8 +329,8 @@ useEffect(() => {
                 <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                   <div className="icon-box">
                     <div className="icon"><i className="ri-stack-line"></i></div>
-                    <h4 className="title"><a href="">About Us</a></h4>
-                    <p className="description">College info. sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb</p>
+                    <h4 className="title"><a href="AboutUs">About Us</a></h4>
+                    <p className="description">Indian Institute of Technology Dharwad (IIT-DH) is one of the third Generation (3-G) IITs, which were established by the Ministry of Education (MoE), Government of India (GoI).</p>
                   </div>
                 </div>
 
@@ -338,23 +338,23 @@ useEffect(() => {
                   <div className="icon-box">
                     <div className="icon"><i className="ri-palette-line"></i></div>
                     <h4 className="title"><a href="">General Rules</a></h4>
-                    <p className="description">general rules of library. sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb</p>
+                    <p className="description">All library users are required to maintain silence within the library premises. Please handle books and other materials with care and return them by the due date to avoid fines.</p>
                   </div>
                 </div>
 
                 <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                   <div className="icon-box">
                     <div className="icon"><i className="ri-command-line"></i></div>
-                    <h4 className="title"><a href="">Collections</a></h4>
-                    <p className="description">collections of books and papers. sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb</p>
+                    <h4 className="title"><a href="#search1">Collections</a></h4>
+                    <p className="description">Our library houses an extensive collection of over 4,750 books across various disciplines, meticulously arranged by subject. We also provide access to several ISO standards in digital form.</p>
                   </div>
                 </div>
 
                 <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                   <div className="icon-box">
                     <div className="icon"><i className="ri-fingerprint-line"></i></div>
-                    <h4 className="title"><a href="">Library Commitee</a></h4>
-                    <p className="description">members of library commitee. sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb</p>
+                    <h4 className="title"><a href="AboutUs/team">Library Commitee</a></h4>
+                    <p className="description">The Library Committee, comprised of faculty and staff, is dedicated to enhancing library services and resources. </p>
                   </div>
                 </div>
 
@@ -368,41 +368,41 @@ useEffect(() => {
                   <div className="swiper sliderFeaturedPosts">
                     <div className="swiper-wrapper">
                       <div className="swiper-slide">
-                      <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib1.jpg')" }}>
+                      <a href="#newarr" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib1.jpg')" }}>
                           <div className="img-bg-inner">
-                            <h2>News one of importance</h2>
-                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
-                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
+                            <h2>New Arrivals</h2>
+                            <p>Explore our latest additions! </p>
+                            <p>Check out the new arrivals section for the most recent books and digital resources added to our collection.</p>
                           </div>
                         </a>
                       </div>
 
                       <div className="swiper-slide">
-                      <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib2.jpeg')" }}>
+                      <a href="#posts" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib2.jpeg')" }}>
                           <div className="img-bg-inner">
-                            <h2>News two of importance</h2>
-                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
-                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
+                            <h2>Library Events</h2>
+                            <p>Join us for exciting events!</p>
+                            <p>From author talks to study workshops, our library hosts a variety of events to engage and educate. </p>
                           </div>
                         </a>
                       </div>
 
                       <div className="swiper-slide">
-                      <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib3.jpeg')" }}>
+                      <a href="#search1" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib3.jpeg')" }}>
                           <div className="img-bg-inner">
-                            <h2>News three of importance</h2>
-                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
-                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
+                            <h2>E-Resources</h2>
+                            <p>Access a world of knowledge from anywhere!  </p>
+                            <p>Our library offers a vast array of e-books, audiobooks, and online databases for your convenience.</p>
                           </div>
                         </a>
                       </div>
 
                       <div className="swiper-slide">
-                      <a href="single-post.html" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib4.jpeg')" }}>
+                      <a href="AboutUs#im1" className="img-bg d-flex align-items-end" style={{ backgroundImage: "url('static/lib4.jpeg')" }}>
                           <div className="img-bg-inner">
-                            <h2>News four of importance</h2>
-                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
-                            <p>ola sxdcfgvhijokpijhgfcdxc gfvbhnjmkkjhgfdxfcvgbhjnk bgfcvgbhjnkkjhbgcfgvb </p>
+                            <h2>Study Spaces</h2>
+                            <p>Discover our comfortable study spaces!</p>
+                            <p>Whether you need a quiet corner or a collaborative area, our library provides the perfect environment for all your study needs. </p>
                           </div>
                         </a>
                       </div>
@@ -507,7 +507,7 @@ useEffect(() => {
                       </div>
                     </div>
                   </div>
-                  <div className="search-box-container">
+                  <div className="search-box-container" id="search1">
                       <div className="tabs">
                         <button className={`tablinks ${activeTab === 'everything' ? 'active' : ''}`} onClick={() => handleTabClick('everything')}>Everything</button>
                         <button className={`tablinks ${activeTab === 'journal-articles' ? 'active' : ''}`} onClick={() => handleTabClick('journal-articles')}>Journal Articles</button>
@@ -723,7 +723,7 @@ useEffect(() => {
             <section id="team" className="team">
               <div className="container">
                 <div className="section-header">
-                  <h2>New Arrivals</h2>
+                  <h2 id="newarr">New Arrivals</h2>
                 </div>
                 <div className="team-wrapper">
                   <div className="team-row">
