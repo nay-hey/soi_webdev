@@ -325,9 +325,6 @@ const Profile = () => {
                             <Image
                               src="/static/adminpage/profile.png"
                               alt="Profile"
-                              className="rounded-circle"
-                              width="100"
-                              height="100"
                             />
                             <h2>{profile.name}</h2>
                             <h3>{profile.position}</h3>

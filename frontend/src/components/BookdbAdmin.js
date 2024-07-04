@@ -187,9 +187,6 @@ const Bookdb = () => {
     }
   };
 
- 
-
-  
   //search feature for table  
   const [searchTerm, setSearchTerm] = useState('');
   // Function to handle search term change
@@ -199,12 +196,40 @@ const Bookdb = () => {
    //paginate feature
    const [currentPage, setCurrentPage] = useState(1);
    const [entriesPerPage, setEntriesPerPage] = useState(5);
+   
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+
+  const handleSort = key => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedBooks = [...books].sort((a, b) => {
+    if (sortConfig.key) {
+      const keyA = typeof a[sortConfig.key] === 'string' ? a[sortConfig.key].toUpperCase() : a[sortConfig.key];
+      const keyB = typeof b[sortConfig.key] === 'string' ? b[sortConfig.key].toUpperCase() : b[sortConfig.key];
+
+      if (keyA < keyB) {
+        return sortConfig.direction === 'asc' ? -1 : 1;
+      }
+      if (keyA > keyB) {
+        return sortConfig.direction === 'asc' ? 1 : -1;
+      }
+      return 0;
+    }
+    return 0;
+  });
+
    // Filter books based on search term
-   const filteredBooks = books.filter(book => {
-   return Object.values(book).some(value =>
-     String(value).toLowerCase().includes(searchTerm.toLowerCase())
-   );
- });
+   const filteredBooks = sortedBooks.filter(book => {
+    return Object.values(book).some(value =>
+      String(value).toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+  
  
    const indexOfLastEntry = currentPage * entriesPerPage;
    const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -542,17 +567,42 @@ const Bookdb = () => {
                             </select>
                           </div>
                           <table className="table table-bordered table-hover">
-                            <thead className="thead-dark">
-                              <tr>
+                              <thead className="thead-dark">
+                                <tr>
                                 <th>#</th>
-                                <th>Title</th>
-                                <th>Author</th>
-                                <th>Genre</th>
-                                <th>Department</th>
-                                <th>Count</th>
-                              </tr>
-                            </thead>
-                            <tbody>
+                                <th onClick={() => handleSort('title')} style={{ cursor: 'pointer' }}>
+                                    Title{' '}
+                                    {sortConfig.key === 'title' && (
+                                      <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
+                                    )}
+                                  </th>
+                                  <th onClick={() => handleSort('author')} style={{ cursor: 'pointer' }}>
+                                    Author{' '}
+                                    {sortConfig.key === 'author' && (
+                                      <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
+                                    )}
+                                  </th>
+                                  <th onClick={() => handleSort('genre')} style={{ cursor: 'pointer' }}>
+                                    Genre{' '}
+                                    {sortConfig.key === 'genre' && (
+                                      <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
+                                    )}
+                                  </th>
+                                  <th onClick={() => handleSort('department')} style={{ cursor: 'pointer' }}>
+                                    Department{' '}
+                                    {sortConfig.key === 'department' && (
+                                      <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
+                                    )}
+                                  </th>
+                                  <th onClick={() => handleSort('count')} style={{ cursor: 'pointer' }}>
+                                    Count{' '}
+                                    {sortConfig.key === 'count' && (
+                                      <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
+                                    )}
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
                               {currentEntries.map((book, index) => (
                                 <tr key={book._id}>
                                   <td>{index + 1}</td>
@@ -758,11 +808,36 @@ const Bookdb = () => {
                             <thead className="thead-dark">
                               <tr>
                                 <th>#</th>
-                                <th>Title</th>
-                                <th>Author</th>
-                                <th>Genre</th>
-                                <th>Department</th>
-                                <th>Count</th>
+                                <th onClick={() => handleSort('title')} style={{ cursor: 'pointer' }}>
+                                  Title{' '}
+                                  {sortConfig.key === 'title' && (
+                                    <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
+                                  )}
+                                </th>
+                                <th onClick={() => handleSort('author')} style={{ cursor: 'pointer' }}>
+                                  Author{' '}
+                                  {sortConfig.key === 'author' && (
+                                    <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
+                                  )}
+                                </th>
+                                <th onClick={() => handleSort('genre')} style={{ cursor: 'pointer' }}>
+                                  Genre{' '}
+                                  {sortConfig.key === 'genre' && (
+                                    <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
+                                  )}
+                                </th>
+                                <th onClick={() => handleSort('department')} style={{ cursor: 'pointer' }}>
+                                  Department{' '}
+                                  {sortConfig.key === 'department' && (
+                                    <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
+                                  )}
+                                </th>
+                                <th onClick={() => handleSort('count')} style={{ cursor: 'pointer' }}>
+                                  Count{' '}
+                                  {sortConfig.key === 'count' && (
+                                    <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
+                                  )}
+                                </th>
                                 <th>Actions</th>
                               </tr>
                             </thead>

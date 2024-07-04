@@ -378,9 +378,9 @@ useEffect(() => {
                           <div className="col-xl-4">
                             <div className="card">
                               <div className="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                                <img src={profileItem.imageUrl} alt="Profile" />
-                                <h2>{profileItem.title}</h2>
-                                <h3>{profileItem.description}</h3>
+                                <img src="/static/adminpage/profile.png" alt="Profile" />
+                                <h2>{profileItem.name}</h2>
+                                <h3>{profileItem.position}</h3>
                               </div>
                             </div>
                           </div>
@@ -420,7 +420,7 @@ useEffect(() => {
                                     </div>
                                     <div className="row">
                                       <div className="col-lg-3 col-md-4 label">Join Date</div>
-                                      <div className="col-lg-9 col-md-8">{profileItem.joindate}</div>
+                                      <div className="col-lg-9 col-md-8">{profileItem.timestamp}</div>
                                     </div>
                                   </div>
                                   

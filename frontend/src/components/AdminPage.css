@@ -1114,6 +1114,12 @@
   #admin  tbody tr:hover {
     background-color: #f2f2f2;
   }
+
+  #admin  .table .highlight-row {
+    background-color: lightblue !important; /* Adding !important to ensure it overrides other styles */
+  }
+  
+  
   
   .pagination {
     margin: 0;
