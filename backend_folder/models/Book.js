@@ -7,7 +7,7 @@ const bookSchema = new mongoose.Schema({
   description: { type: String, required: true },
   author: { type: String, required: true },
   genre: { type: String, required: true },
-  department: { type: String, required: true },
+  description: { type: String, required: true, index: 'text' },
   count: { type: Number, required: true },
   vendor: { type: String, required: true },
   vendor_id: { type: Number, required: true },

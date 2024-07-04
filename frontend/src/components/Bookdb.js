@@ -71,10 +71,25 @@ const Bookdb = () => {
         filteredBooks = filteredBooks.filter(book => book.reservedBy.includes(user.roll));
       }
   
+      // Highlight search keywords in book descriptions
+      filteredBooks = filteredBooks.map(book => ({
+        ...book,
+        description: highlightKeyword(book.description, searchInput),
+      }));
+
       setProfile(filteredBooks);
     } catch (error) {
       console.error('Error searching for book:', error);
     }
+  };
+  
+  const highlightKeyword = (text, keyword) => {
+    if (!keyword) return text;
+
+    const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
+    return parts.map((part, index) =>
+      part.toLowerCase() === keyword.toLowerCase() ? <mark key={index}>{part}</mark> : part
+    );
   };
   
   const handleLike = async (id) => {
@@ -411,12 +426,8 @@ const Bookdb = () => {
                                 <div className="col-lg-9 col-md-8">{profileItem.count}</div>
                                 <div className="col-lg-3 col-md-4 label">Vendor</div>
                                 <div className="col-lg-9 col-md-8">{profileItem.vendor}</div>
-                                <div className="col-lg-3 col-md-4 label">Vendor Id</div>
-                                <div className="col-lg-9 col-md-8">{profileItem.vendor_id}</div>
                                 <div className="col-lg-3 col-md-4 label">Publisher</div>
                                 <div className="col-lg-9 col-md-8">{profileItem.publisher}</div>
-                                <div className="col-lg-3 col-md-4 label">Publisher Id</div>
-                                <div className="col-lg-9 col-md-8">{profileItem.publisher_id}</div>
                               </div>
                             </div>
 

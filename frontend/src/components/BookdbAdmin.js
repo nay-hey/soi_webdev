@@ -107,15 +107,36 @@ const Bookdb = () => {
   const [searchInput, setSearchInput] = useState('');
   
   const [searchCategory, setSearchCategory] = useState('title');
-  const handleSearch = async () => {
+   // Function to handle searching books based on category and input
+   const handleSearch = async () => {
     console.log('Book search');
     try {
-      const response = await axios.get(`http://localhost:5000/api/books/search?category=${searchCategory}&keyword=${searchInput}`);
-      setProfile(response.data);
+      let url = `http://localhost:5000/api/books/search?category=${searchCategory}`;
+      if (searchCategory !== 'reserved') {
+        url += `&keyword=${searchInput}`;
+      }
+      const response = await axios.get(url);
+      let filteredBooks = response.data;
+  
+      // Highlight search keywords in book descriptions
+      filteredBooks = filteredBooks.map(book => ({
+        ...book,
+        description: highlightKeyword(book.description, searchInput),
+      }));
+
+      setProfile(filteredBooks);
     } catch (error) {
       console.error('Error searching for book:', error);
-    } finally {
     }
+  };
+  
+  const highlightKeyword = (text, keyword) => {
+    if (!keyword) return text;
+
+    const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
+    return parts.map((part, index) =>
+      part.toLowerCase() === keyword.toLowerCase() ? <mark key={index}>{part}</mark> : part
+    );
   };
   
     //to edit book data
