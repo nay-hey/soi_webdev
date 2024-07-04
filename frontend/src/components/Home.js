@@ -668,18 +668,18 @@ useEffect(() => {
                         <img src="/static/lib11.jpeg" alt="" className="img-fluid" />
                       </div>
 
-                      <p className="post-category">Politics</p>
+                      <p className="post-category">Inaugration of new library facilities.</p>
 
                       <h2 className="title">
-                        <a href="blog-details.html">jendag b naivn boainbdivna nk vanidbonadbkma</a>
+                        <a href="blog-details.html">Join us on 30/07/2024 from 10:30 to 11:30</a>
                       </h2>
 
                       <div className="d-flex align-items-center">
                         <img src="/images/bgnew1.jpg" alt="" className="img-fluid post-author-img flex-shrink-0" />
                         <div className="post-meta">
-                          <p className="post-author">Maria Doe</p>
+                          <p className="post-author">Library Management</p>
                           <p className="post-date">
-                          <time dateTime="2021-10-10">October 10, 2021</time>
+                          <time dateTime="2024-07-30">July 30, 2024</time>
                           </p>
                         </div>
                       </div>
@@ -694,10 +694,10 @@ useEffect(() => {
                         <img src="/static/Talk on Stress Management by Padma Shri Dr C R Chandrashekar _ IIT Dharwad and 7 more pages - Personal - Microsoft​ Edge 04-Jul-24 10_09_05 PM.png" alt="" className="img-fluid" />
                       </div>
 
-                      <p className="post-category">Talk</p>
+                      <p className="post-category">Talk on Stress Management</p>
 
                       <h2 className="title">
-                        <a href="blog-details.html">Stress Management</a>
+                        <a href="blog-details.html">Join us on 25/07/2024 from 15:30 to 16:30 .</a>
                       </h2>
 
                       <div className="d-flex align-items-center">
@@ -723,7 +723,7 @@ useEffect(() => {
                       <p className="post-category">Open House</p>
 
                       <h2 className="title">
-                        <a href="https://www.iitdh.ac.in/jee-advanced-2024">Join us on Tuesay, 11/06/2024 from 11:30 to 13:30 at CLT or online.</a>
+                        <a href="https://www.iitdh.ac.in/jee-advanced-2024">Join us on Tuesay, 31/07/2024 from 11:30 to 13:30 .</a>
                       </h2>
 
                       <div className="d-flex align-items-center">
@@ -731,7 +731,7 @@ useEffect(() => {
                         <div className="post-meta">
                           <p className="post-author">Mr. Appasaheb V Sheelavant</p>
                           <p className="post-date">
-                            <time dateTime="2024-11-06">July 11, 2024</time>
+                            <time dateTime="2024-31-07">July 31, 2024</time>
                           </p>
                         </div>
                       </div>

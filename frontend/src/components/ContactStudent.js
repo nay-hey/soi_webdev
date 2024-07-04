@@ -298,16 +298,10 @@ useEffect(() => {
                     <div className="info-box card">
                       <i className="bi bi-geo-alt"></i>
                       <h3>Address</h3>
-                      <p>A108 Adam Street,<br />New York, NY 535022</p>
+                      <p>Indian Institute of Technology Dharwad<br />Permanent Campus<br />Chikkamalligawad Village<br />Dharwad, Karnataka, India - 580007</p>
                     </div>
                   </div>
-                  <div className="col-lg-6" style={{ marginTop: '50px' }}>
-                    <div className="info-box card">
-                      <i className="bi bi-telephone"></i>
-                      <h3>Call Us</h3>
-                      <p>+1 5589 55488 55<br />+1 6678 254445 41</p>
-                    </div>
-                  </div>
+                  
                   <div className="col-lg-6" style={{ marginTop: '50px' }}>
                     <div className="info-box card">
                       <i className="bi bi-envelope"></i>
