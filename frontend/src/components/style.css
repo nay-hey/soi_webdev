@@ -492,17 +492,16 @@
 
   .mobile-nav-toggle {
     display: inline-block;
-    color: var(--color-secondary);
+    color: #D1DCE1;
     font-size: 28px;
     cursor: pointer;
     line-height: 0;
+    transform: rotate(90deg);
+    background-color: transparent;
     transition: 0.5s;
   }
-
-  .mobile-nav-toggle.bi-x {
-    color: black;
-  }
-
+  
+  
   .mobile-nav-active {
     overflow: hidden;
   }
@@ -512,9 +511,10 @@
     top: 15px;
     right: 15px;
     z-index: 9999;
-    color: white;
+    color: white; /* Change color for active state */
+    font-size: 32px; /* Increase font size for visibility */
   }
-
+  
   .mobile-nav-active .navbar {
     position: fixed;
     overflow: hidden;
@@ -522,11 +522,11 @@
     background: rgba(0, 0, 0, 0.6);
     transition: 0.3s;
   }
-
-  .mobile-nav-active .navbar>ul {
+  
+  .mobile-nav-active .navbar > ul {
     display: block;
   }
-}
+}  
 
 /*--------------------------------------------------------------
 # Hero Section

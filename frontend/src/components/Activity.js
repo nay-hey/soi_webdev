@@ -157,6 +157,8 @@ return (
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </nav>
+            <button className="mobile-nav-toggle mobile-nav-show bi bi-three-dots"></button>
+            <button className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></button>
         <nav className="header-nav ms-auto">
           <ul className="d-flex align-items-center list-unstyled m-0">
             <li className="nav-item dropdown">

@@ -152,6 +152,111 @@ useEffect(() => {
 
 
 }, []);
+
+// useEffect hook to handle side effects
+useEffect(() => {
+  // Select the mobile navigation toggle button
+  const mobileNavToogleButton = document.querySelector('.mobile-nav-toggle');
+
+  if (mobileNavToogleButton) {
+    mobileNavToogleButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      mobileNavToogle();
+    });
+  }
+  // Function to toggle mobile navigation
+  const mobileNavToogle = () => {
+    document.querySelector('body').classList.toggle('mobile-nav-active');
+    mobileNavToogleButton.classList.toggle('bi-three-dots:');
+    mobileNavToogleButton.classList.toggle('bi-x');
+  };
+  // Add event listeners to navigation links
+  document.querySelectorAll('#navbar a').forEach((navbarlink) => {
+    if (!navbarlink.hash) return;
+
+    const section = document.querySelector(navbarlink.hash);
+    if (!section) return;
+
+    navbarlink.addEventListener('click', () => {
+      if (document.querySelector('.mobile-nav-active')) {
+        mobileNavToogle();
+      }
+    });
+  });
+// Add event listeners to navigation dropdowns
+  const navDropdowns = document.querySelectorAll('.navbar .dropdown > a');
+
+  navDropdowns.forEach((el) => {
+    el.addEventListener('click', function (event) {
+      if (document.querySelector('.mobile-nav-active')) {
+        event.preventDefault();
+        this.classList.toggle('active');
+        this.nextElementSibling.classList.toggle('dropdown-active');
+
+        const dropDownIndicator = this.querySelector('.dropdown-indicator');
+        dropDownIndicator.classList.toggle('bi-chevron-up');
+        dropDownIndicator.classList.toggle('bi-chevron-down');
+      }
+    });
+  });
+// Cleanup function to remove event listeners
+  return () => {
+    if (mobileNavToogleButton) {
+      mobileNavToogleButton.removeEventListener('click', (event) => {
+        event.preventDefault();
+        mobileNavToogle();
+      });
+    }
+
+    document.querySelectorAll('#navbar a').forEach((navbarlink) => {
+      if (!navbarlink.hash) return;
+
+      const section = document.querySelector(navbarlink.hash);
+      if (!section) return;
+
+      navbarlink.removeEventListener('click', () => {
+        if (document.querySelector('.mobile-nav-active')) {
+          mobileNavToogle();
+        }
+      });
+    });
+
+    navDropdowns.forEach((el) => {
+      el.removeEventListener('click', function (event) {
+        if (document.querySelector('.mobile-nav-active')) {
+          event.preventDefault();
+          this.classList.toggle('active');
+          this.nextElementSibling.classList.toggle('dropdown-active');
+
+          const dropDownIndicator = this.querySelector('.dropdown-indicator');
+          dropDownIndicator.classList.toggle('bi-chevron-up');
+          dropDownIndicator.classList.toggle('bi-chevron-down');
+        }
+      });
+    });
+  };
+}, []);
+useEffect(() => {
+  const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
+  const mobileNavShow = document.querySelector('.mobile-nav-show');
+  const mobileNavHide = document.querySelector('.mobile-nav-hide');
+  
+  function mobileNavToggle() {
+    document.body.classList.toggle('mobile-nav-active');
+    mobileNavShow.classList.toggle('d-none');
+    mobileNavHide.classList.toggle('d-none');
+  }
+  
+  mobileNavToggleButtons.forEach(button => {
+    button.addEventListener('click', mobileNavToggle);
+  });
+  
+  return () => {
+    mobileNavToggleButtons.forEach(button => {
+      button.removeEventListener('click', mobileNavToggle);
+    });
+  };
+}, []); 
 return (
   <div>
     <section id="student">
@@ -171,8 +276,10 @@ return (
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </nav>
+            <button className="mobile-nav-toggle mobile-nav-show bi bi-three-dots"></button>
+            <button className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></button>
         <nav className="header-nav ms-auto">
-          <ul className="d-flex align-items-center list-unstyled m-0">
+          <ul className="d-flex align-items-center list-unstyled m-4">
             <li className="nav-item dropdown">
               <DropdownButton
                 menuAlign="right"

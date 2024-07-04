@@ -35,7 +35,7 @@ const Home = () => {
     // Function to toggle mobile navigation
     const mobileNavToogle = () => {
       document.querySelector('body').classList.toggle('mobile-nav-active');
-      mobileNavToogleButton.classList.toggle('bi-list');
+      mobileNavToogleButton.classList.toggle('bi-three-dots:');
       mobileNavToogleButton.classList.toggle('bi-x');
     };
     // Add event listeners to navigation links
@@ -329,7 +329,7 @@ useEffect(() => {
               </ul>
             </nav>
             <button className="login-button" onClick={handleLoginClick}>Login</button>
-            <button className="mobile-nav-toggle mobile-nav-show bi bi-list"></button>
+            <button className="mobile-nav-toggle mobile-nav-show bi bi-three-dots"></button>
             <button className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></button>
     
           </div>

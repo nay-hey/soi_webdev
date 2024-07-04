@@ -431,32 +431,31 @@
   }
 }
 
+
 /*--------------------------------------------------------------
 # Mobile Navigation
 --------------------------------------------------------------*/
 @media (max-width: 1279px) {
-  #student .navbar {
+  .navbar {
     padding: 0;
     z-index: 9997;
   }
 
-
-  #student  .navbar ul {
+  .navbar ul {
     display: none;
     position: absolute;
     inset: 50px 15px 15px 400px;
     text-decoration: none;
     text-align: center;
     border-radius: 10px;
-    text-decoration: none;
     background-color: #0b1116;
     overflow-y: auto;
     transition: 0.3s;
     z-index: 9998;
   }
 
-  #student .navbar a,
-  #student .navbar a:focus {
+  .navbar a,
+  .navbar a:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -470,21 +469,21 @@
     transition: 0.3s;
   }
 
-  #student .navbar a i,
-  #student  .navbar a:focus i {
+  .navbar a i,
+  .navbar a:focus i {
     font-size: 12px;
     line-height: 0;
     margin-left: 5px;
   }
 
-  #student .navbar a:hover,
-  #student  .navbar .active,
-  #student  .navbar .active:focus,
-  #student  .navbar li:hover>a {
+  .navbar a:hover,
+  .navbar .active,
+  .navbar .active:focus,
+  .navbar li:hover>a {
     color: var(--color-primary);
   }
 
-  #student .login-button {
+  .login-button {
     background-color: #0b1116;
     color: white;
     border: none;
@@ -495,14 +494,15 @@
     transition: background-color 0.3s ease;
   }
   
-  #student .login-button:hover {
+  .login-button:hover {
     background-color: #6f6f6f;
     color: #0b1116;
     font-size: 16px;
     font-weight: 600;
   }
-  #student .navbar .dropdown ul,
-  #student .navbar .dropdown .dropdown ul {
+
+  .navbar .dropdown ul,
+  .navbar .dropdown .dropdown ul {
     position: static;
     display: none;
     z-index: 99;
@@ -510,51 +510,51 @@
     margin: 10px 20px;
     background: white;
     transition: all 0.5s ease-in-out;
-    box-shadow: 0px 0px 30px rgba(black, 0.1);
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
   }
 
-  #student .navbar .dropdown>.dropdown-active,
-  #student .navbar .dropdown .dropdown>.dropdown-active {
+  .navbar .dropdown>.dropdown-active,
+  .navbar .dropdown .dropdown>.dropdown-active {
     display: block;
   }
 
-  #student .mobile-nav-toggle {
+  .mobile-nav-toggle {
     display: inline-block;
-    color: var(--color-secondary);
+    color: #D1DCE1;
     font-size: 28px;
     cursor: pointer;
     line-height: 0;
+    transform: rotate(90deg);
+    background-color: transparent;
     transition: 0.5s;
   }
-
-  #student .mobile-nav-toggle.bi-x {
-    color: black;
-  }
-
-  #student .mobile-nav-active {
+  
+  
+  .mobile-nav-active {
     overflow: hidden;
   }
-
-  #student .mobile-nav-active .mobile-nav-toggle {
+  
+  .mobile-nav-active .mobile-nav-toggle {
     position: fixed;
     top: 15px;
     right: 15px;
     z-index: 9999;
-    color: white;
+    color: white; /* Change color for active state */
+    font-size: 32px; /* Increase font size for visibility */
   }
-
-  #student .mobile-nav-active .navbar {
+  
+  .mobile-nav-active .navbar {
     position: fixed;
     overflow: hidden;
     inset: 0;
-    background: rgba(black, 0.6);
+    background: rgba(0, 0, 0, 0.6);
     transition: 0.3s;
   }
-
-  #student .mobile-nav-active .navbar>ul {
+  
+  .mobile-nav-active .navbar > ul {
     display: block;
   }
-}
+}  
   /*--------------------------------------------------------------
   # Header Nav
   --------------------------------------------------------------*/

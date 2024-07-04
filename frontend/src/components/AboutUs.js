@@ -59,6 +59,8 @@ class AboutUs extends Component {
                                     <li><a href="contact.html">Contact</a></li>
                                 </ul>
                             </nav>
+            <button className="mobile-nav-toggle mobile-nav-show bi bi-three-dots"></button>
+            <button className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></button>
                         </div>
                     </header>
                     

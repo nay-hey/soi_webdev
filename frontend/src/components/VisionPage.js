@@ -25,6 +25,8 @@ const VisionPage = () => {
               </ul>
             </nav>
              
+            <button className="mobile-nav-toggle mobile-nav-show bi bi-three-dots"></button>
+            <button className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></button>
           </div>
         </header>
         

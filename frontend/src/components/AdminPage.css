@@ -432,32 +432,31 @@
   }
 }
 
+
 /*--------------------------------------------------------------
 # Mobile Navigation
 --------------------------------------------------------------*/
 @media (max-width: 1279px) {
-  #admin .navbar {
+  .navbar {
     padding: 0;
     z-index: 9997;
   }
 
-
-  #admin  .navbar ul {
+  .navbar ul {
     display: none;
     position: absolute;
     inset: 50px 15px 15px 400px;
     text-decoration: none;
     text-align: center;
     border-radius: 10px;
-    text-decoration: none;
     background-color: #0b1116;
     overflow-y: auto;
     transition: 0.3s;
     z-index: 9998;
   }
 
-  #admin .navbar a,
-  #admin .navbar a:focus {
+  .navbar a,
+  .navbar a:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -471,21 +470,21 @@
     transition: 0.3s;
   }
 
-  #admin .navbar a i,
-  #admin  .navbar a:focus i {
+  .navbar a i,
+  .navbar a:focus i {
     font-size: 12px;
     line-height: 0;
     margin-left: 5px;
   }
 
-  #admin .navbar a:hover,
-  #admin  .navbar .active,
-  #admin  .navbar .active:focus,
-  #admin  .navbar li:hover>a {
+  .navbar a:hover,
+  .navbar .active,
+  .navbar .active:focus,
+  .navbar li:hover>a {
     color: var(--color-primary);
   }
 
-  #admin .login-button {
+  .login-button {
     background-color: #0b1116;
     color: white;
     border: none;
@@ -496,14 +495,15 @@
     transition: background-color 0.3s ease;
   }
   
-  #admin .login-button:hover {
+  .login-button:hover {
     background-color: #6f6f6f;
     color: #0b1116;
     font-size: 16px;
     font-weight: 600;
   }
-  #admin .navbar .dropdown ul,
-  #admin .navbar .dropdown .dropdown ul {
+
+  .navbar .dropdown ul,
+  .navbar .dropdown .dropdown ul {
     position: static;
     display: none;
     z-index: 99;
@@ -511,55 +511,54 @@
     margin: 10px 20px;
     background: white;
     transition: all 0.5s ease-in-out;
-    box-shadow: 0px 0px 30px rgba(black, 0.1);
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
   }
 
-  #admin .navbar .dropdown>.dropdown-active,
-  #admin .navbar .dropdown .dropdown>.dropdown-active {
+  .navbar .dropdown>.dropdown-active,
+  .navbar .dropdown .dropdown>.dropdown-active {
     display: block;
   }
 
-  #admin .mobile-nav-toggle {
+  .mobile-nav-toggle {
     display: inline-block;
-    color: var(--color-secondary);
+    color: #D1DCE1;
     font-size: 28px;
     cursor: pointer;
     line-height: 0;
+    transform: rotate(90deg);
+    background-color: transparent;
     transition: 0.5s;
   }
-
-  #admin .mobile-nav-toggle.bi-x {
-    color: black;
-  }
-
-  #admin .mobile-nav-active {
+  
+  
+  .mobile-nav-active {
     overflow: hidden;
   }
-
-  #admin .mobile-nav-active .mobile-nav-toggle {
+  
+  .mobile-nav-active .mobile-nav-toggle {
     position: fixed;
     top: 15px;
     right: 15px;
     z-index: 9999;
-    color: white;
+    color: white; /* Change color for active state */
+    font-size: 32px; /* Increase font size for visibility */
   }
-
-  #admin .mobile-nav-active .navbar {
+  
+  .mobile-nav-active .navbar {
     position: fixed;
     overflow: hidden;
     inset: 0;
-    background: rgba(black, 0.6);
+    background: rgba(0, 0, 0, 0.6);
     transition: 0.3s;
   }
-
-  #admin .mobile-nav-active .navbar>ul {
+  
+  .mobile-nav-active .navbar > ul {
     display: block;
   }
-}
+}  
   /*--------------------------------------------------------------
   # Header Nav
   --------------------------------------------------------------*/
-
 
   #admin  .header-nav ul {
     list-style: none;
@@ -595,84 +594,7 @@
     font-size: 14px;
     font-weight: 600;
   }
-  
-  #admin  .header-nav .badge-number {
-    position: absolute;
-    inset: -2px -5px auto auto;
-    font-weight: normal;
-    font-size: 12px;
-    padding: 3px 6px;
-  }
-  
-  #admin .header-nav .notifications {
-    inset: 8px -15px auto auto !important;
-  }
-  
-  #admin .header-nav .notifications .notification-item {
-    display: flex;
-    align-items: center;
-    padding: 15px 10px;
-    transition: 0.3s;
-  }
-  
-  #admin .header-nav .notifications .notification-item i {
-    margin: 0 20px 0 10px;
-    font-size: 24px;
-  }
-  
-  #admin  .header-nav .notifications .notification-item h4 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
-  
-  #admin  .header-nav .notifications .notification-item p {
-    font-size: 13px;
-    margin-bottom: 3px;
-    color: #919191;
-  }
-  
-  #admin  .header-nav .notifications .notification-item:hover {
-    background-color: #f6f9ff;
-  }
-  
-  #admin  .header-nav .messages {
-    inset: 8px -15px auto auto !important;
-  }
-  
-  #admin .message-item {
-    padding: 15px 10px;
-    margin-top: -10px;
-    transition: 0.3s;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  #admin .header-nav .messages .message-item a {
-    display: flex;
-  }
-  
-  #admin  .header-nav .messages .message-item img {
-    margin: 0 20px 0 10px;
-    max-height: 40px;
-  }
-  
-  #admin  .message-item h4 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: black;
-  }
-  
-  #admin  .message-item p {
-    font-size: 15px;
-    margin-bottom: 3px;
-    color: gray;
- } 
- #admin .header-nav .messages .message-item:hover {
-    background-color: #f6f9ff;
-  }
-  
+ 
   #admin  .header-nav .profile {
     min-width: 240px;
     padding-bottom: 0;
