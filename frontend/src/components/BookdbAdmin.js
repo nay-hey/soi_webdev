@@ -993,7 +993,9 @@ const Bookdb = () => {
                                                   <div className="flex-shrink-1 ms-2 ms-sm-3">
                                                     <div className="comment-meta d-flex">
                                                       <h6 className="me-2">{comment.userRoll}</h6>
-                                                      <span className="text-muted">{comment.timestamp}</span>
+                                                      <span className="text-muted">{new Date(comment.timestamp).toLocaleString('en-IN', {
+                                                        timeZone: 'Asia/Kolkata'  // Set to Kolkata time zone (IST)
+                                                      })}</span>
                                                     </div>
                                                     <div className="comment-body">
                                                     {comment.comment}

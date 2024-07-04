@@ -163,20 +163,35 @@ router.put('/:id/reserve', async (req, res) => {
     
     // Check if the user has already reserved the book
     if (book.reservedBy && Array.isArray(book.reservedBy)) {
-      const alreadyReserved = book.reservedBy.some(user => user === userRoll);
-      
-      if (alreadyReserved) {
-        // Unreserve the book
-        book.reserved -= 1;
-        book.count +=1;
-        book.reservedBy = book.reservedBy.filter(user => user !== userRoll);
-      } else {
-        // Reserve the book
-        book.reserved += 1;
-        book.count -=1;
-        book.reservedBy.push(userRoll);
+      const existingReservation = book.reservedBy.find(user => user.userRoll === userRoll);
+
+      if (existingReservation) {
+        // Check if reservation is still valid (within 3 days)
+        const reservationTime = new Date(existingReservation.timestamp);
+        const currentTime = new Date();
+        const reservationAgeInMs = currentTime - reservationTime;
+        const reservationAgeInDays = reservationAgeInMs / (1000 * 60 * 60 * 24);
+
+        if (reservationAgeInDays <= 3) {
+          // Reservation is still valid, return an appropriate message or status
+          return res.status(400).json({ message: 'Book already reserved by this user' });
+        } else {
+          // Reservation expired, remove it from reservedBy array
+          book.reservedBy = book.reservedBy.filter(user => user.userRoll !== userRoll);
+          book.reserved -= 1;
+          book.count += 1;
+        }
       }
-      
+
+      // Reserve the book
+      const newReservation = {
+        userRoll: userRoll,
+        timestamp: new Date().toISOString()
+      };
+      book.reserved += 1;
+      book.count -= 1;
+      book.reservedBy.push(newReservation);
+
       // Save the updated book object
       const savedBook = await book.save();
       
@@ -189,6 +204,7 @@ router.put('/:id/reserve', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
 
 router.get('/:id/comments', async (req, res) => {
   try {
