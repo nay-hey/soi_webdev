@@ -65,7 +65,13 @@ const Bookdb = () => {
         url += `&keyword=${searchInput}`;
       }
       const response = await axios.get(url);
-      setProfile(response.data);
+      let filteredBooks = response.data;
+  
+      if (searchCategory === 'reserved') {
+        filteredBooks = filteredBooks.filter(book => book.reservedBy.includes(user.roll));
+      }
+  
+      setProfile(filteredBooks);
     } catch (error) {
       console.error('Error searching for book:', error);
     }
