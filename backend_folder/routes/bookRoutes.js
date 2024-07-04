@@ -76,14 +76,20 @@ router.delete('/:id', async (req, res) => {
 router.get('/search', async (req, res) => {
   const { category, keyword } = req.query;
 
-  // Ensure both category and keyword are provided
-  if (!category || !keyword) {
-    return res.status(400).json({ message: 'Category and keyword are required' });
+  // Ensure category is provided
+  if (!category) {
+    return res.status(400).json({ message: 'Category is required' });
   }
 
   // Define the filter based on the query parameters
-  const filter = {};
-  filter[category] = { $regex: new RegExp(keyword, 'i') }; // Case-insensitive search
+  let filter = {};
+  if (category === 'reserved') {
+    filter['reservedBy'] = { $exists: true, $ne: [] }; // Adjust this according to your schema
+  } else if (keyword) {
+    filter[category] = { $regex: new RegExp(keyword, 'i') }; // Case-insensitive search
+  } else {
+    return res.status(400).json({ message: 'Keyword is required for categories other than reserved' });
+  }
 
   try {
     const books = await Book.find(filter);
@@ -92,6 +98,7 @@ router.get('/search', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
 router.put('/:id', async (req, res) => {
   const bookId = req.params.id;
   const updatedBook = req.body;
@@ -180,6 +187,51 @@ router.put('/:id/reserve', async (req, res) => {
   } catch (err) {
     console.error('Error reserving/not reserving the book:', err);
     res.status(500).json({ message: err.message });
+  }
+});
+
+router.get('/:id/comments', async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    res.json(book.comments);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching comments' });
+  }
+});
+
+router.post('/:id/comments', async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    const comment = {
+      userRoll: req.body.userRoll,
+      comment: req.body.comment,
+    };
+    book.comments.push(comment);
+    await book.save();
+    res.json(comment);
+  } catch (error) {
+    res.status(500).json({ error: 'Error adding comment' });
+  }
+});
+
+router.delete('/:id/comments/:commentId', async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    if (!book) {
+      return res.status(404).json({ error: 'Book not found' });
+    }
+
+    const commentIndex = book.comments.findIndex(comment => comment._id.toString() === req.params.commentId);
+    if (commentIndex === -1) {
+      return res.status(404).json({ error: 'Comment not found' });
+    }
+
+    book.comments.splice(commentIndex, 1);
+    await book.save();
+
+    res.json({ message: 'Comment deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error deleting comment' });
   }
 });
 

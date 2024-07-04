@@ -165,6 +165,9 @@ const Bookdb = () => {
       // Optionally handle error, e.g., show an error message to the user
     }
   };
+
+ 
+
   
   //search feature for table  
   const [searchTerm, setSearchTerm] = useState('');
@@ -731,6 +734,9 @@ const Bookdb = () => {
                                           <li className="nav-item">
                                             <button className="nav-link" data-bs-toggle="tab" data-bs-target="#book-edit">Edit</button>
                                           </li>
+                                          <li className="nav-item">
+                                            <button className="nav-link" data-bs-toggle="tab" data-bs-target="#book-comments">Comments</button>
+                                          </li>
                                         </ul>
                                         <div className="tab-content pt-2">
                                           <div className="tab-pane fade show active profile-overview" id="book-overview">
@@ -972,6 +978,31 @@ const Bookdb = () => {
                                                 Save Changes
                                               </button>
                                             </form>
+                                          </div>
+                                          <div class="tab-pane fade pt-3" id="book-comments">
+                                          <h5 className="card-title">Comments:</h5>
+                                            {profile.map((profileItem, index) => (
+                                              <div key={index} className="mb-2">
+                                                {profileItem.comments.map((comment, commentIndex) => (
+                                                  <div className="comment d-flex alert border-dark alert-dismissible fade show"  key={commentIndex}>
+                                                  <div className="flex-shrink-0">
+                                                    <div className="avatar avatar-sm rounded-circle">
+                                                      <img className="avatar-img" src="/static/adminpage/profile.png" alt=""  />
+                                                    </div>
+                                                  </div>
+                                                  <div className="flex-shrink-1 ms-2 ms-sm-3">
+                                                    <div className="comment-meta d-flex">
+                                                      <h6 className="me-2">{comment.userRoll}</h6>
+                                                      <span className="text-muted">{comment.timestamp}</span>
+                                                    </div>
+                                                    <div className="comment-body">
+                                                    {comment.comment}
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                ))}
+                                              </div>
+                                            ))}
                                           </div>
                                         </div>
                                       </div>
