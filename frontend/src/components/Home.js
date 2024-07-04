@@ -654,10 +654,12 @@ useEffect(() => {
               <div className="container">
 
                 <div className="section-header">
-                  <h2>Recent Blog Posts</h2>
+                  <h2>Upcoming events</h2>
                   <p>JB BKJBKJBbhbj va kjanvoian bkajnzgkiabnn kn lk akejg vaeouingpboa</p>
                 </div>
-
+                <div class="field-content"><i class="fa-regular fa-calendar"></i> <time datetime="2024-02-26T15:30:00Z">26/02/2024 03:30PM</time>
+                -jbojsfajn <time datetime="2024-02-26T16:30:00Z">26/02/2024 04:30PM</time>
+                </div>
                 <div className="row gy-4">
 
                   <div className="col-xl-4 col-md-6">
