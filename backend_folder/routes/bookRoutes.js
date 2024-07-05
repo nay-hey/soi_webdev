@@ -150,7 +150,6 @@ router.put('/:id/like', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
 router.put('/:id/reserve', async (req, res) => {
   const bookId = req.params.id;
   const userRoll = req.body.userRoll; // Assuming userId is sent in the request body
@@ -163,44 +162,30 @@ router.put('/:id/reserve', async (req, res) => {
     
     // Check if the user has already reserved the book
     if (book.reservedBy && Array.isArray(book.reservedBy)) {
-      const existingReservation = book.reservedBy.find(user => user.userRoll === userRoll);
+      const existingReservationIndex = book.reservedBy.findIndex(user => user === userRoll);
 
-      if (existingReservation) {
-        // Check if reservation is still valid (within 3 days)
-        const reservationTime = new Date(existingReservation.timestamp);
-        const currentTime = new Date();
-        const reservationAgeInMs = currentTime - reservationTime;
-        const reservationAgeInDays = reservationAgeInMs / (1000 * 60 * 60 * 24);
-
-        if (reservationAgeInDays <= 3) {
-          // Reservation is still valid, return an appropriate message or status
-          return res.status(400).json({ message: 'Book already reserved by this user' });
-        } else {
-          // Reservation expired, remove it from reservedBy array
-          book.reservedBy = book.reservedBy.filter(user => user.userRoll !== userRoll);
-          book.reserved -= 1;
-          book.count += 1;
-        }
+      if (existingReservationIndex !== -1) {
+        // Remove the reservation if found
+        book.reservedBy.splice(existingReservationIndex, 1);
+        book.reserved -= 1;
+        book.count += 1;
+      } else {
+        // Reserve the book if not already reserved by the user
+        const newReservation = userRoll;
+        book.reserved += 1;
+        book.count -= 1;
+        book.reservedBy.push(newReservation);
       }
-
-      // Reserve the book
-      const newReservation = {
-        userRoll: userRoll,
-        timestamp: new Date().toISOString()
-      };
-      book.reserved += 1;
-      book.count -= 1;
-      book.reservedBy.push(newReservation);
 
       // Save the updated book object
       const savedBook = await book.save();
       
-      res.json({ message: 'Book reserved/not reserved successfully', reserved: savedBook.reserved, reservedBy: savedBook.reservedBy });
+      res.json({ message: 'Reservation updated successfully', reserved: savedBook.reserved, reservedBy: savedBook.reservedBy });
     } else {
       return res.status(500).json({ message: 'ReservedBy array missing or invalid in the book object' });
     }
   } catch (err) {
-    console.error('Error reserving/not reserving the book:', err);
+    console.error('Error updating reservation status:', err);
     res.status(500).json({ message: err.message });
   }
 });

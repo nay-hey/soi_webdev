@@ -134,8 +134,9 @@ const Bookdb = () => {
         return book;
       });
       setProfile(updatedProfile);
+      handleSearch();
     } catch (error) {
-      console.error('Error liking the book:', error);
+      console.error('Error reserving the book:', error);
     }
   };
 
