@@ -456,7 +456,8 @@ const Reminder = () => {
                           <option value={filteredBooks.length}>All entries</option>
                         </select>
                       </div>
-                      <table className="table table-bordered table-hover">
+                      <div className="table-responsive-wrapper">
+                        <table className="table table-responsive table-bordered table-hover">
                         <thead className="thead-dark">
                           <tr>
                             <th scope="col">#</th>
@@ -488,6 +489,7 @@ const Reminder = () => {
                           ))}
                         </tbody>
                       </table>
+                      </div>
                       <div>
                         <nav aria-label="Page navigation example">
                           <ul className="pagination">

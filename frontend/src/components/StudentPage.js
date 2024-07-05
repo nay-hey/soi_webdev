@@ -214,6 +214,7 @@ const StudentPage = () => {
   return (
     <div>
       <section id="student">
+      <div className='studentpage'>
       <header id="header" className="header fixed-top d-flex align-items-center">
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
@@ -309,7 +310,7 @@ const StudentPage = () => {
             </li>
         </ul>
 
-        </aside>
+        </aside></div>
         <main id="main" className="main" >
 
         <div className="pagetitle">

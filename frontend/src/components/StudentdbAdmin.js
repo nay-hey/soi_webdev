@@ -440,7 +440,8 @@ Reminder, Profile Edit and Notification*/}
                   </select>
                 </div>
                 {/*Student Data Table columns*/}
-                      <table className="table table-bordered table-hover">
+                          <div className="table-responsive-wrapper">
+                          <table className="table table-responsive table-bordered table-hover">
                           <thead>
                             <tr>
                               <th>Position</th>
@@ -464,6 +465,7 @@ Reminder, Profile Edit and Notification*/}
                             ))}
                           </tbody>
                         </table>
+                        </div>
                         <div>
                         <nav aria-label="Page navigation example">
                           {/*Pagination Feature that can help the user to navigate across different entries*/}
@@ -558,7 +560,8 @@ Reminder, Profile Edit and Notification*/}
                       </select>
                     </div>
                     {/*Table Columns*/}
-                        <table className="table table-bordered table-hover">
+                          <div className="table-responsive-wrapper">
+                          <table className="table table-responsive table-bordered table-hover">
                           <thead>
                             <tr>
                               <th>Position</th>
@@ -586,6 +589,7 @@ Reminder, Profile Edit and Notification*/}
                             ))}
                           </tbody>
                         </table>
+                        </div>
                         <div>
                   <nav aria-label="Page navigation example">
                     <ul className="pagination">

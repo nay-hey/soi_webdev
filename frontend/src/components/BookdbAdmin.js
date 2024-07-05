@@ -14,7 +14,6 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 
 const Bookdb = () => {
-
   //connects to books db and retrieves all the data to display on book overview
   const [books, setBooks] = useState([]);
   useEffect(() => {
@@ -566,7 +565,8 @@ const Bookdb = () => {
                               <option value={filteredBooks.length}>All entries</option>
                             </select>
                           </div>
-                          <table className="table table-bordered table-hover">
+                          <div className="table-responsive-wrapper">
+                          <table className="table table-responsive table-bordered table-hover">
                               <thead className="thead-dark">
                                 <tr>
                                 <th>#</th>
@@ -615,6 +615,7 @@ const Bookdb = () => {
                               ))}
                             </tbody>
                           </table>
+                          </div>
                           <div>
                             <nav aria-label="Page navigation example">
                               <ul className="pagination">
@@ -804,7 +805,9 @@ const Bookdb = () => {
                               <option value={filteredBooks.length}>All entries</option>
                             </select>
                           </div>
-                          <table className="table table-bordered table-hover">
+                          
+                          <div className="table-responsive-wrapper">
+                          <table className="table table-responsive table-bordered table-hover">
                             <thead className="thead-dark">
                               <tr>
                                 <th>#</th>
@@ -857,6 +860,7 @@ const Bookdb = () => {
                               ))}
                             </tbody>
                           </table>
+                          </div>
                           <div>
                             <nav aria-label="Page navigation example">
                               <ul className="pagination">

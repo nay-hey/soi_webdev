@@ -160,7 +160,7 @@ return (
             <button className="mobile-nav-toggle mobile-nav-show bi bi-three-dots"></button>
             <button className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></button>
         <nav className="header-nav ms-auto">
-          <ul className="d-flex align-items-center list-unstyled m-0">
+          <ul className="d-flex align-items-center list-unstyled m-4">
             <li className="nav-item dropdown">
               <DropdownButton
                 menuAlign="right"
@@ -352,7 +352,8 @@ return (
                               </select>
                             </div>
                               
-                            <table className="table table-bordered table-hover">
+                          <div className="table-responsive-wrapper">
+                          <table className="table table-responsive table-bordered table-hover">
                               <thead className="thead-dark">
                                 <tr>
                                   <th scope="col">#</th>
@@ -376,7 +377,7 @@ return (
                                 ))}
                               </tbody>
                             </table>
-                          
+                          </div>
                             <div>
                               <nav aria-label="Page navigation example">
                                 <ul className="pagination">

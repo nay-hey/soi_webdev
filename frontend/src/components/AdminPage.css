@@ -5,7 +5,7 @@
     margin-top: 60px;
     padding: 20px 30px;
     transition: all 0.3s;
-    background: linear-gradient(rgba(14, 29, 52, 0.8), rgba(14, 29, 52, 0.6)), url('../../public/static/lib5.jpeg') center center;
+    background: linear-gradient(rgba(14, 29, 52, 0.86), rgba(14, 29, 52, 0.493)), url('../../public/static/lib5.jpeg') center center;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -644,7 +644,7 @@
     scrollbar-width: thin;
     scrollbar-color: #aab7cf transparent;
     box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
-    background-color: #fff;
+    background-color: #f0f0f0;
   }
   .sidebar ul{
     margin-top: 50px;
@@ -720,9 +720,9 @@
     align-items: center;
     font-size: 15px;
     font-weight: 600;
-    color: #4154f1;
+    color: #6c757d;
     transition: 0.3;
-    background: #d9e5fb;
+    background: #e6e6e6;
     padding: 10px 15px;
     border-radius: 4px;
   }
@@ -730,11 +730,11 @@
   .sidebar-nav .nav-link i {
     font-size: 16px;
     margin-right: 10px;
-    color: #4154f1;
+    color: #6c757d;
   }
   
   .sidebar-nav .nav-link.collapsed {
-    color: #012970;
+    color: #555;
     background: #fff;
   }
   
@@ -771,7 +771,7 @@
     align-items: center;
     font-size: 14px;
     font-weight: 600;
-    color: #012970;
+    color: #555;
     transition: 0.3;
     padding: 10px 0 10px 40px;
     transition: 0.3s;
@@ -1069,36 +1069,110 @@
     margin-bottom: 10px;
   }
   
-  #admin  .search-container {
-    display: flex;
-    align-items: center;
+  #admin .table-responsive {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#admin .table-responsive-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 20px;
+  border: 1px solid #ccc; 
+  max-width: 100%; 
+  white-space: nowrap;
+}
+
+#admin .table-responsive-wrapper::-webkit-scrollbar {
+  height: 10px;
+}
+
+#admin .table-responsive-wrapper::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+#admin .table-responsive-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+#admin .search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+#admin   .search-container input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-right: 10px; /* Add margin between input and select */
+}
+#admin .search-container input,
+#admin .search-container select {
+  width: 180px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  #admin .search-container {
+    flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 10px;
   }
-  
-  #admin   .search-container input[type="text"] {
+
+  #admin .search-container input {
     flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    margin-right: 10px; /* Add margin between input and select */
+    margin-right: 10px;
   }
-  
-  #admin   .search-container select {
-    width: 180px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
+
+  #admin .search-container select {
+    width: auto;
   }
-  
-  #admin  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+
+  #admin  .table-responsive-wrapper {
+    overflow-x: auto;
   }
-  
+}
+
+#admin .pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+#admin .page-link {
+  cursor: pointer;
+  margin: 2px;
+  text-decoration: none;
+  color: #007bff;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#admin .page-item.active .page-link {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+#admin .pagination .page-link {
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+#admin .pagination .page-link:hover {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
   #admin  th,
   #admin td {
     border: 1px solid #ddd;
@@ -1115,36 +1189,6 @@
     background-color: #f2f2f2;
   }
 
-  #admin  .table .highlight-row {
-    background-color: lightblue !important; /* Adding !important to ensure it overrides other styles */
-  }
-  
-  
-  
-  .pagination {
-    margin: 0;
-  }
-  
-  #admin .pagination .page-item {
-    cursor: pointer;
-  }
-  
-  #admin .pagination .page-item.active .page-link {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
-  }
-  
-  #admin .pagination .page-link {
-    color: #007bff;
-    border: 1px solid #007bff;
-  }
-  
-  #admin .pagination .page-link:hover {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
-  }
   
 /*--------------------------------------------------------------
 # Hero Section

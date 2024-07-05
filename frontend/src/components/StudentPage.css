@@ -5,7 +5,7 @@
     margin-top: 60px;
     padding: 20px 30px;
     transition: all 0.3s;
-    background: linear-gradient(rgba(14, 29, 52, 0.8), rgba(14, 29, 52, 0.6)), url('../../public/static/lib5.jpeg') center center;
+    background: linear-gradient(rgba(213, 123, 13, 0.6), rgba(255, 140, 0, 0.075)), url('../../public/images/intro.jpeg') center center;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -72,7 +72,7 @@
 }
 
 #student .dropdown-menu .dropdown-divider {
-  color: #a5c5fe;
+  color: #ffad66;
   margin: 8px;
 }
 
@@ -116,7 +116,7 @@
 }
 
 #student .dropdown-menu .dropdown-item:hover {
-  background-color: #f6f9ff;
+  background-color: #fffaf0;
 }
 
 @media (min-width: 768px) {
@@ -152,23 +152,23 @@
 
   /* Bordered Tabs */
   #student .nav-tabs-bordered {
-    border-bottom: 2px solid #ebeef4;
+    border-bottom: 2px solid #ffefd5;
   }
   
   #student  .nav-tabs-bordered .nav-link {
     margin-bottom: -2px;
     border: none;
-    color: #2c384e;
+    color: #4f4f4f;
   }
   
   #student  .nav-tabs-bordered .nav-link:hover,
   #student .nav-tabs-bordered .nav-link:focus {
-    color: #2c384e;
+    color: #4f4f4f;
   }
   
   #student  .nav-tabs-bordered .nav-link.active {
     background-color: #fff;
-    border:2px solid #ebeef4;
+    border:2px solid #ffefd5;
     color: black;
     border-bottom: none;
   }
@@ -180,7 +180,7 @@
     height: 120px;
     transition: all 0.5s;
     z-index: 997;
-    background-color: #1A2530;
+    background-color: #2f2f2f;
   }
   
   #student .header.sticked {
@@ -198,7 +198,7 @@
     margin-top: 6px;
     font-size: 50px;
     font-weight: 700;
-    color: #D1DCE1;
+    color: #f3f3f3;
     font-family: var(--font-primary);
   }
   #student .header.sticked .logo img {
@@ -212,7 +212,7 @@
     font-size: 30px;
     font-weight: 700;
     text-decoration: none;
-    color: #D1DCE1;
+    color: #f3f3f3;
     font-family: var(--font-primary);
   }
   
@@ -329,7 +329,7 @@
   #student .navbar .active,
   #student .navbar .active:focus,
   #student .navbar li:hover>a {
-    color: #D1DCE1;
+    color: #f3f3f3;
     font-size: 18px;
     text-decoration: solid white;
   }
@@ -365,7 +365,7 @@
   }
 
   #student .login-button {
-    background-color: #0b1116;
+    background-color: #1a1a1a;
     color: white;
     border: none;
     padding: 10px 50px;
@@ -448,7 +448,7 @@
     text-decoration: none;
     text-align: center;
     border-radius: 10px;
-    background-color: #0b1116;
+    background-color: #1a1a1a;
     overflow-y: auto;
     transition: 0.3s;
     z-index: 9998;
@@ -484,7 +484,7 @@
   }
 
   .login-button {
-    background-color: #0b1116;
+    background-color: #1a1a1a;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -496,7 +496,7 @@
   
   .login-button:hover {
     background-color: #6f6f6f;
-    color: #0b1116;
+    color: #1a1a1a;
     font-size: 16px;
     font-weight: 600;
   }
@@ -520,7 +520,7 @@
 
   .mobile-nav-toggle {
     display: inline-block;
-    color: #D1DCE1;
+    color: #f3f3f3;
     font-size: 28px;
     cursor: pointer;
     line-height: 0;
@@ -571,20 +571,20 @@
   
   #student  .header-nav .nav-icon {
     font-size: 22px;
-    color: #D1DCE1;
+    color: #f3f3f3;
     position: relative;
   }
   #student .header-nav .nav-icon:hover {
     font-size: 22px;
-    color: #D1DCE1;
+    color: #f3f3f3;
     position: relative;
   }
   
   #student .header-nav .nav-profile {
-    color: #D1DCE1;
+    color: #f3f3f3;
   }
   #student .header-nav .nav-profile:hover {
-    color: #18d26e;
+    color: #ff7f50;
   }
   #student  .header-nav .nav-profile img {
     max-height: 36px;
@@ -632,7 +632,7 @@
   }
   
   #student  .header-nav .notifications .notification-item:hover {
-    background-color: #f6f9ff;
+    background-color: #fffaf0;
   }
   
   #student  .header-nav .messages {
@@ -669,7 +669,7 @@
     color: gray;
  } 
  #student .header-nav .messages .message-item:hover {
-    background-color: #f6f9ff;
+    background-color: #fffaf0;
   }
   
   #student  .header-nav .profile {
@@ -702,13 +702,13 @@
   }
   
   #student  .header-nav .profile .dropdown-item:hover {
-    background-color: #f6f9ff;
+    background-color: #fffaf0;
   }
   
-  /*--------------------------------------------------------------
+    /*--------------------------------------------------------------
   # Sidebar
   --------------------------------------------------------------*/
-   .sidebar {
+  .sidebar {
     position: fixed;
     top: 60px;
     right: 0;
@@ -721,7 +721,7 @@
     scrollbar-width: thin;
     scrollbar-color: #aab7cf transparent;
     box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
-    background-color: #fff;
+    background-color: #f0f0f0;
   }
   .sidebar ul{
     margin-top: 50px;
@@ -797,9 +797,9 @@
     align-items: center;
     font-size: 15px;
     font-weight: 600;
-    color: #4154f1;
+    color: #6c757d;
     transition: 0.3;
-    background: #d9e5fb;
+    background: #e6e6e6;
     padding: 10px 15px;
     border-radius: 4px;
   }
@@ -807,11 +807,11 @@
   .sidebar-nav .nav-link i {
     font-size: 16px;
     margin-right: 10px;
-    color: #4154f1;
+    color: #6c757d;
   }
   
   .sidebar-nav .nav-link.collapsed {
-    color: #012970;
+    color: #555;
     background: #fff;
   }
   
@@ -848,7 +848,7 @@
     align-items: center;
     font-size: 14px;
     font-weight: 600;
-    color: #012970;
+    color: #555;
     transition: 0.3;
     padding: 10px 0 10px 40px;
     transition: 0.3s;
@@ -870,231 +870,282 @@
     background-color: #4154f1;
   }
   
-  /*--------------------------------------------------------------
+  
+   /*--------------------------------------------------------------
   # Profie Page
   --------------------------------------------------------------*/
   /* General section styling */
   #student .section .profile {
-  padding: 40px 0;
-  margin-top: 20px;
-  background-color: #f8f9fa;
-}
-#student .search-box {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  margin-bottom: 10px;
-}
-
-#student .search-box select, .search-box input {
-  padding: 10px;
-  margin-bottom: 5px;
-  border: 1px solid #D1DCE1;
-  border-radius: 4px; /* Optional: rounded corners */
-  width: 100%; /* Full width */
-  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
-}
-
-#student .search-box button {
-  background-color: #D1DCE1;
-  color: #0b1116;
-  border: none; /* Remove default border */
-  border-radius: 6px;
-  padding: 10px; /* Ensure consistent padding */
-  width: 100%; /* Full width */
-  cursor: pointer; /* Change cursor to pointer */
-  transition: background-color 0.3s; /* Smooth transition for hover effect */
-}
-
-#student .search-box button:hover {
-  background-color: #b0bec5; /* Slightly darker shade for hover effect */
-}
-
-/* Container styling */
-#student .container {
-  max-width: 1140px;
-  margin: 0 auto;
-}
-
-/* Row styling */
-#student .row.gy-4 {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-/* Column styling */
-#student .col-lg-5 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Profile search styling */
-#student .profile-search {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-#student .profile-search input[type="text"] {
-  width:700px;
-  max-width: 400px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-#student .profile-search button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-#student .profile-search button:hover {
-  background-color: #0056b3;
-}
-#student .profile-card img {
-    width: 100px;
-    height: 150px;
+    padding: 40px 0;
+    margin-top: 20px;
+    background-color: #f8f9fa;
   }
-  
-  #student  .profile-card h2 {
-    font-size: 24px;
-    font-weight: 700;
-    color: #2c384e;
-    margin: 10px 0 0 0;
-  }
-  
-  #student .profile-card h3 {
-    font-size: 18px;
-  }
-  
-  #student .profile-card .social-links a {
-    font-size: 20px;
-    display: inline-block;
-    color: rgba(1, 41, 112, 0.5);
-    line-height: 0;
-    margin-right: 10px;
-    transition: 0.3s;
-  }
-  
-  #student .profile .profile-card .social-links a:hover {
-    color: #012970;
-  }
-  
-  #student .profile .profile-overview .row {
-    margin-bottom: 20px;
-    font-size: 15px;
-  }
-  
-  #student .profile .profile-overview .card-title {
-    color: #012970;
-  }
-  
-  #student .profile .profile-overview .label {
-    font-weight: 600;
-    color: rgba(1, 41, 112, 0.6);
-  }
-  
-  #student .profile .profile-edit label {
-    font-weight: 600;
-    color: rgba(1, 41, 112, 0.6);
-  }
-  
-  #student .profile .profile-edit img {
-    max-width: 120px;
-  }
-
-  #student  .profile-overview {
-    padding: 20px;
-  }
-  
-  #student  h6 {
-    font-size: 1.2rem;
+  #student .search-box {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     margin-bottom: 10px;
   }
   
-  #student  .search-container {
+  #student .search-box select, .search-box input {
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #f3f3f3;
+    border-radius: 4px; /* Optional: rounded corners */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+  }
+  
+  #student .search-box button {
+    background-color: #f3f3f3;
+    color: #1a1a1a;
+    border: none; /* Remove default border */
+    border-radius: 6px;
+    padding: 10px; /* Ensure consistent padding */
+    width: 100%; /* Full width */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+  }
+  
+  #student .search-box button:hover {
+    background-color: #b0bec5; /* Slightly darker shade for hover effect */
+  }
+  
+  /* Container styling */
+  #student .container {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  
+  /* Row styling */
+  #student .row.gy-4 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  /* Column styling */
+  #student .col-lg-5 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Profile search styling */
+  #student .profile-search {
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  #student .profile-search input[type="text"] {
+    width:700px;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     margin-bottom: 10px;
   }
   
-  #student   .search-container input[type="text"] {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
+  #student .profile-search button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
     border-radius: 4px;
-    font-size: 14px;
-    margin-right: 10px; /* Add margin between input and select */
-  }
-  
-  #student   .search-container select {
-    width: 180px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  #student  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  #student  th,
-  #student td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  #student  th {
-    background-color: #f2f2f2;
-    font-size: 14px;
-  }
-  
-  #student  tbody tr:hover {
-    background-color: #f2f2f2;
-  }
-  
-  .pagination {
-    margin: 0;
-  }
-  
-  #student .pagination .page-item {
+    background-color: #ff4500;
+    color: white;
     cursor: pointer;
   }
   
-  #student .pagination .page-item.active .page-link {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
+  #student .profile-search button:hover {
+    background-color: #ff6347;
   }
+  #student .profile-card img {
+      width: 100px;
+      height: 150px;
+    }
+    
+    #student  .profile-card h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #4f4f4f;
+      margin: 10px 0 0 0;
+    }
+    
+    #student .profile-card h3 {
+      font-size: 18px;
+    }
+    
+    #student .profile-card .social-links a {
+      font-size: 20px;
+      display: inline-block;
+      color: rgba(255, 69, 0, 0.5);
+      line-height: 0;
+      margin-right: 10px;
+      transition: 0.3s;
+    }
+    
+    #student .profile .profile-card .social-links a:hover {
+      color: #ff4500;
+    }
+    
+    #student .profile .profile-overview .row {
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+    
+    #student .profile .profile-overview .card-title {
+      color: #ff4500;
+    }
+    
+    #student .profile .profile-overview .label {
+      font-weight: 600;
+      color: rgba(1, 41, 112, 0.6);
+    }
+    
+    #student .profile .profile-edit label {
+      font-weight: 600;
+      color: rgba(1, 41, 112, 0.6);
+    }
+    
+    #student .profile .profile-edit img {
+      max-width: 120px;
+    }
   
-  #student .pagination .page-link {
-    color: #007bff;
-    border: 1px solid #007bff;
-  }
-  
-  #student .pagination .page-link:hover {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
-  }
-  
+    #student  .profile-overview {
+      padding: 20px;
+    }
+    
+    #student  h6 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    
+    
+    #student .table-responsive {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    
+    #student .table-responsive-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 20px;
+      border: 1px solid #ccc; 
+      max-width: 100%; 
+      white-space: nowrap;
+    }
+    
+    #student .table-responsive-wrapper::-webkit-scrollbar {
+      height: 10px;
+    }
+    
+    #student .table-responsive-wrapper::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 10px;
+    }
+    
+    #student .table-responsive-wrapper::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
+    }
+    
+    #student .search-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    #student   .search-container input[type="text"] {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-right: 10px; /* Add margin between input and select */
+    }
+    #student .search-container input,
+    #student .search-container select {
+      width: 180px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    @media (min-width: 768px) {
+      #student .search-container {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    
+      #student .search-container input {
+        flex: 1;
+        margin-right: 10px;
+      }
+    
+      #student .search-container select {
+        width: auto;
+      }
+    
+      #student  .table-responsive-wrapper {
+        overflow-x: auto;
+      }
+    }
+    
+    #student .pagination {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 0;
+    }
+    
+    #student .page-link {
+      cursor: pointer;
+      margin: 2px;
+      text-decoration: none;
+      color: #007bff;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    #student .page-item.active .page-link {
+      background-color: #ff4500;
+      color: #fff;
+      border-color: #ff4500;
+    }
+    #student .pagination .page-link {
+      color: #ff4500;
+      border: 1px solid #ff4500;
+    }
+    
+    #student .pagination .page-link:hover {
+      background-color: #ff4500;
+      border-color: #ff4500;
+      color: #fff;
+    }
+    
+      #student  th,
+      #student td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      
+      #student  th {
+        background-color: #f5f5f5;
+        font-size: 14px;
+      }
+      
+      #student  tbody tr:hover {
+        background-color: #f5f5f5;
+      }
+    
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
@@ -1204,7 +1255,7 @@
 
 /* Accordion */
 #student .accordion-item {
-  border: 1px solid #ebeef4;
+  border: 1px solid #ffefd5;
 }
 
 #student .accordion-button:focus {
@@ -1213,8 +1264,8 @@
 }
 
 #student .accordion-button:not(.collapsed) {
-  color: #012970;
-  background-color: #f6f9ff;
+  color: #ff4500;
+  background-color: #fffaf0;
 }
 
 #student .accordion-flush .accordion-button {
@@ -1225,7 +1276,7 @@
 
 #student .accordion-flush .accordion-button:not(.collapsed) {
   box-shadow: none;
-  color: #4154f1;
+  color: #ff8c00;
 }
 
 #student .accordion-flush .accordion-body {
@@ -1245,7 +1296,7 @@
 #student .error-404 h1 {
   font-size: 180px;
   font-weight: 700;
-  color: #4154f1;
+  color: #ff8c00;
   margin-bottom: 0;
   line-height: 150px;
 }
@@ -1253,7 +1304,7 @@
 #student .error-404 h2 {
   font-size: 24px;
   font-weight: 700;
-  color: #012970;
+  color: #ff4500;
   margin-bottom: 30px;
 }
 
@@ -1280,7 +1331,7 @@
 }
 
 #student .reserve-button {
-  background-color: #007bff; /* Blue background */
+  background-color: #ff4500; /* Blue background */
   opacity: 0.7; /* Slightly transparent */
   color: white; /* White text */
   border: none; /* Remove border */
@@ -1292,19 +1343,19 @@
 }
 
 #student .reserve-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #ff6347; /* Darker blue on hover */
   transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 
 #student .reserve-button.liked {
   opacity: 0.7; /* Slightly transparent */
-  background-color: #28a745; /* Green background if reserved */
-  border-color: #28a745; /* Green border */
+  background-color: #7d6ac1; /* Green background if reserved */
+  border-color: #7d6ac1; /* Green border */
 }
 
 #student .reserve-button.liked:hover {
-  background-color: #218838; /* Darker green on hover */
+  background-color: #6341a5; /* Darker green on hover */
 }
 
 #student .like-button {
@@ -1402,7 +1453,7 @@
 }
 
 #student .team h2 {
-  color: #0b1116;
+  color: #1a1a1a;
 }
 
 #student .team .container {
@@ -1441,7 +1492,7 @@
   margin: 0;
   font-weight: 700;
   font-size: 16px;
-  color: #0b1116;
+  color: #1a1a1a;
 }
 
 #student .team-wrapper {
@@ -1480,12 +1531,12 @@
 #student .contact .info-box i {
   font-size: 38px;
   line-height: 0;
-  color: #4154f1;
+  color: #ff8c00;
 }
 
 #student .contact .info-box h3 {
   font-size: 20px;
-  color: #012970;
+  color: #ff4500;
   font-weight: 700;
   margin: 20px 0 10px 0;
 }
@@ -1497,89 +1548,6 @@
   margin-bottom: 0;
 }
 
-#student .contact .php-email-form .error-message {
-  display: none;
-  color: #fff;
-  background: #ed3c0d;
-  text-align: left;
-  padding: 15px;
-  margin-bottom: 24px;
-  font-weight: 600;
-}
-
-#student .contact .php-email-form .sent-message {
-  display: none;
-  color: #fff;
-  background: #18d26e;
-  text-align: center;
-  padding: 15px;
-  margin-bottom: 24px;
-  font-weight: 600;
-}
-
-#student .contact .php-email-form .loading {
-  display: none;
-  background: #fff;
-  text-align: center;
-  padding: 15px;
-  margin-bottom: 24px;
-}
-
-#student .contact .php-email-form .loading:before {
-  content: "";
-  display: inline-block;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  margin: 0 10px -6px 0;
-  border: 3px solid #18d26e;
-  border-top-color: #eee;
-  animation: animate-loading 1s linear infinite;
-}
-
-#student .contact .php-email-form input,
-#student .contact .php-email-form textarea {
-  border-radius: 0;
-  box-shadow: none;
-  font-size: 14px;
-  border-radius: 0;
-}
-
-#student .contact .php-email-form input:focus,
-#student .contact .php-email-form textarea:focus {
-  border-color: #4154f1;
-}
-
-#student .contact .php-email-form input {
-  padding: 10px 15px;
-}
-
-#student .contact .php-email-form textarea {
-  padding: 12px 15px;
-}
-
-#student .contact .php-email-form button[type=submit] {
-  background: #4154f1;
-  border: 0;
-  padding: 10px 30px;
-  color: #fff;
-  transition: 0.4s;
-  border-radius: 4px;
-}
-
-#student .contact .php-email-form button[type=submit]:hover {
-  background: #5969f3;
-}
-
-@keyframes animate-loading {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
 
 /*--------------------------------------------------------------
@@ -1588,9 +1556,9 @@
 #student .footer {
   font-size: 14px;
   font-weight: 600;
-  background-color: #1A2530;
+  background-color: #2f2f2f;
   padding: 50px 0;
-  color: #D1DCE1;
+  color: #f3f3f3;
 }
 
 #student .footer .logos {
@@ -1678,7 +1646,7 @@
 }
 
 #student .footer .footer-legal {
-  background: #0b1116;
+  background: #1a1a1a;
   padding: 40px 0;
   margin-bottom: -50px;
 }
@@ -1690,19 +1658,19 @@
   height: 40px;
   background-color: rgba(149, 165, 166, 0.5);
   border-radius: 50%;
-  color: #0b1116; 
+  color: #1a1a1a; 
   line-height: 40px;
   transition: 0.3s;
   align-items: center;
   justify-content: center;
-  border: 1px solid #0b1116; 
+  border: 1px solid #1a1a1a; 
   margin: 0 5px; 
 
 }
 
 #student .footer .footer-legal .social-links a:hover {
   color: rgba(149, 165, 166, 0.5);
-  background-color: #0b1116; 
+  background-color: #1a1a1a; 
   border: 1px solid rgba(149, 165, 166, 0.5);
 }
 
