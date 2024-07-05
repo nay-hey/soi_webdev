@@ -655,10 +655,9 @@ useEffect(() => {
 
                 <div className="section-header">
                   <h2>Upcoming events</h2>
-                  <p>JB BKJBKJBbhbj va kjanvoian bkajnzgkiabnn kn lk akejg vaeouingpboa</p>
+                  <p>Join us for exciting events! From author talks to study workshops, our library hosts a variety of events to engage and educate.</p>
                 </div>
-                <div class="field-content"><i class="fa-regular fa-calendar"></i> <time datetime="2024-02-26T15:30:00Z">26/02/2024 03:30PM</time>
-                -jbojsfajn <time datetime="2024-02-26T16:30:00Z">26/02/2024 04:30PM</time>
+                <div class="field-content"><i class="fa-regular fa-calendar"></i>
                 </div>
                 <div className="row gy-4">
 
@@ -666,21 +665,21 @@ useEffect(() => {
                     <article>
 
                       <div className="post-img">
-                        <img src="assets/img/blog/blog-1.jpg" alt="" className="img-fluid" />
+                        <img src="/static/lib11.jpeg" alt="" className="img-fluid" />
                       </div>
 
-                      <p className="post-category">Politics</p>
+                      <p className="post-category">Inaugration of new library facilities.</p>
 
                       <h2 className="title">
-                        <a href="blog-details.html">jendag b naivn boainbdivna nk vanidbonadbkma</a>
+                        <a href="blog-details.html">Join us on 30/07/2024 from 10:30 to 11:30</a>
                       </h2>
 
                       <div className="d-flex align-items-center">
-                        <img src="assets/img/blog/blog-author.jpg" alt="" className="img-fluid post-author-img flex-shrink-0" />
+                        <img src="/images/bgnew1.jpg" alt="" className="img-fluid post-author-img flex-shrink-0" />
                         <div className="post-meta">
-                          <p className="post-author">Maria Doe</p>
+                          <p className="post-author">Library Management</p>
                           <p className="post-date">
-                          <time dateTime="2021-10-10">October 10, 2021</time>
+                          <time dateTime="2024-07-30">July 30, 2024</time>
                           </p>
                         </div>
                       </div>
@@ -692,21 +691,21 @@ useEffect(() => {
                     <article>
 
                       <div className="post-img">
-                        <img src="assets/img/blog/blog-2.jpg" alt="" className="img-fluid" />
+                        <img src="/static/Talk on Stress Management by Padma Shri Dr C R Chandrashekar _ IIT Dharwad and 7 more pages - Personal - Microsoft​ Edge 04-Jul-24 10_09_05 PM.png" alt="" className="img-fluid" />
                       </div>
 
-                      <p className="post-category">Sports</p>
+                      <p className="post-category">Talk on Stress Management</p>
 
                       <h2 className="title">
-                        <a href="blog-details.html">iknwrj vns nkn bkolkjnhb</a>
+                        <a href="blog-details.html">Join us on 25/07/2024 from 15:30 to 16:30 .</a>
                       </h2>
 
                       <div className="d-flex align-items-center">
-                        <img src="assets/img/blog/blog-author-2.jpg" alt="" className="img-fluid post-author-img flex-shrink-0" />
+                        <img src="/static/Talk on Stress Management by Padma Shri Dr C R Chandrashekar _ IIT Dharwad and 7 more pages - Personal - Microsoft​ Edge 04-Jul-24 10_01_50 PM.png" alt="" className="img-fluid post-author-img flex-shrink-0" />
                         <div className="post-meta">
-                          <p className="post-author">Allisa Mayer</p>
+                          <p className="post-author">Padma Shri Dr C R Chandrashekar</p>
                           <p className="post-date">
-                            <time dateTime="2022-01-01">Jun 5, 2022</time>
+                            <time dateTime="2024-06-25">July 25, 2024</time>
                           </p>
                         </div>
                       </div>
@@ -718,21 +717,21 @@ useEffect(() => {
                     <article>
 
                       <div className="post-img">
-                        <img src="assets/img/blog/blog-3.jpg" alt="" className="img-fluid" />
+                        <img src="/static/Adv Open House_1.png" alt="" className="img-fluid" />
                       </div>
 
-                      <p className="post-category">Entertainment</p>
+                      <p className="post-category">Open House</p>
 
                       <h2 className="title">
-                        <a href="blog-details.html">Possimus soluta ut id suscipit ea ut in quo quia et soluta</a>
+                        <a href="https://www.iitdh.ac.in/jee-advanced-2024">Join us on Tuesay, 31/07/2024 from 11:30 to 13:30 .</a>
                       </h2>
 
                       <div className="d-flex align-items-center">
-                        <img src="assets/img/blog/blog-author-3.jpg" alt="" className="img-fluid post-author-img flex-shrink-0" />
+                        <img src="/images/Mr. Appasaheb V Sheelavant_Photo - Appasaheb Sheelavant.png" alt="" className="img-fluid post-author-img flex-shrink-0" />
                         <div className="post-meta">
-                          <p className="post-author">Mark Dower</p>
+                          <p className="post-author">Mr. Appasaheb V Sheelavant</p>
                           <p className="post-date">
-                            <time dateTime="2022-01-01">Jun 22, 2022</time>
+                            <time dateTime="2024-31-07">July 31, 2024</time>
                           </p>
                         </div>
                       </div>

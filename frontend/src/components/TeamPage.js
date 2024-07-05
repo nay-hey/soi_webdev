@@ -50,54 +50,46 @@ const TeamPage = () => {
                     <div className="team-member head">
                   {/* Main Head */}
                         <h2>Main Head</h2>
-                        <img src="/images/tate.jpeg" alt="Main Head" />
-                        <p>Dr. John Doe</p>
-                        <p>Chief Librarian</p>
-                        <p>Email: john.doe@example.com</p>
+                        <img src="/images/Prof Sangamesh Deepak R faculty-in-charge Library & Information Services (LIS) (KRC).jpg" alt="Main Head" />
+                        <p>Prof Sangamesh Deepak R</p>
+                        <p>FIC Library & Information Services (LIS) (KRC)</p>
+                        <p>Email: sangamesh@iitdh.ac.in</p>
+                        
                     </div>
                   {/* Sub heads */}
                     <div className="sub-heads">
                         <div className="team-member sub-head">
                             <h2>Sub Head</h2>
-                            <img src="/images/tate.jpeg" alt="Sub Head 1" />
-                            <p>Jane Smith</p>
-                            <p>Assistant Librarian</p>
-                            <p>Email: jane.smith@example.com</p>
+                            <img src="/images/Mrutyunjay Kadakol - Mrutyunjay C Kadakol.jpeg" alt="Sub Head 1" />
+                            <p>Mrutyunjay Chanabasappa Kadakol</p>
+                            <p>Junior Superintendent (Knowledge Resource and Information)</p>
+                            <p>Email: mrutyunjay.k@iitdh.ac.in</p>
+                            
                         </div>
                         <div className="team-member sub-head">
                             <h2>Sub Head</h2>
-                            <img src="/images/tate.jpeg" alt="Sub Head 2" />
-                            <p>Richard Roe</p>
-                            <p>Assistant Librarian</p>
-                            <p>Email: richard.roe@example.com</p>
+                            <img src="/images/madhu - Madhu E S.jpg" alt="Sub Head 2" />
+                            <p>Madhu E S</p>
+                            <p>Junior Superintendent (Knowledge Resource and Information)</p>
+                            <p>Email: madhu@iitdh.ac.in</p>
                         </div>
                     </div>
                     <div className="team-members">
                           {/* other team members */}
                         <div className="team-member">
-                            <img src="/images/tate.jpeg" alt="Team Member 1" />
-                            <p>Emily Davis</p>
-                            <p>Senior Librarian</p>
-                            <p>Email: emily.davis@example.com</p>
+                            <img src="/images/Mr. Appasaheb V Sheelavant_Photo - Appasaheb Sheelavant.png" alt="Team Member 1" />
+                            <p>Appasaheb Vijayanand Sheelavant</p>
+                            <p>Knowledge Resource and Information Officer</p>
+                            <p>Email: avsheelavant@iitdh.ac.in</p>
                         </div>
+                         
                         <div className="team-member">
-                            <img src="/images/billie.jpeg" alt="Team Member 2" />
-                            <p>Michael Brown</p>
-                            <p>Senior Librarian</p>
-                            <p>Email: michael.brown@example.com</p>
+                            <img src="/images/Uttkarsh Jaiswal General Secretary Academic Affairs UG.png" alt="Team Member 2" />
+                            <p>Uttkarsh Jaiswal</p>
+                            <p>General Secretary Academic Affairs UG</p>
+                            <p>Email: gsacad@iitdh.ac.in</p>
                         </div>
-                        <div className="team-member">
-                            <img src="/images/tate.jpeg" alt="Team Member 3" />
-                            <p>Sarah Wilson</p>
-                            <p>Junior Librarian</p>
-                            <p>Email: sarah.wilson@example.com</p>
-                        </div>
-                        <div className="team-member">
-                            <img src="/images/billie.jpeg" alt="Team Member 4" />
-                            <p>David Clark</p>
-                            <p>Junior Librarian</p>
-                            <p>Email: david.clark@example.com</p>
-                        </div>
+                        
                     </div>
                 </div>
                           {/* Back to 'About-Us link */}
