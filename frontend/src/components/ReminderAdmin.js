@@ -85,14 +85,25 @@ const Reminder = () => {
         const fetchItem = async () => {
           try {
             const response = await axios.get('http://localhost:5000/api/issues');
-            const items = response.data.map(item => ({
-              ...item,
-              issueDate: new Date(item.issueDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-              returnDate: new Date(item.returnDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-            }));
+            const items = response.data
+              .filter(item => item.status === 'Issued') // Filter items with status 'issued'
+              .map(item => ({
+                ...item,
+                issueDate: new Date(item.issueDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+                returnDate: new Date(item.returnDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+              }));
             setItem(items);
           } catch (error) {
             console.error('Error fetching item:', error);
+          }
+        };
+        const handleDelete = async (email, bookId) => {
+          try {
+            const response = await axios.delete(`http://localhost:5000/api/issues/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`);
+            console.log(response.data.message);
+            fetchItem();
+          } catch (error) {
+            console.error('Error deleting item:', error);
           }
         };
       //displays data of issuing books
@@ -467,6 +478,7 @@ const Reminder = () => {
                             <th scope="col">Book Title</th>
                             <th scope="col">Issued Date</th>
                             <th scope="col">Due Date</th>
+                            <th scope="col">Actions</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -485,6 +497,14 @@ const Reminder = () => {
                               <td>{item.bookId}</td>
                               <td>{item.issueDate}</td>
                               <td>{item.returnDate}</td>
+                              <td>
+                                <button
+                                  className="btn btn-danger"
+                                  onClick={() => handleDelete(item.email, item.bookId)}
+                                >
+                                  Delete
+                                </button>
+                              </td>                              
                             </tr>
                           ))}
                         </tbody>

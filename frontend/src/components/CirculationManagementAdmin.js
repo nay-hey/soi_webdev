@@ -22,6 +22,7 @@ const CirculationManagement = () => {
     bookId: '',
     issueDate: '',
     returnDate: '',
+    status: 'Issued',
   });
 
   //handles change in issue form
@@ -61,7 +62,7 @@ const CirculationManagement = () => {
       const allIssues = allIssuesResponse.data;
 
       // Count the number of times the email has occurred in the issues
-      const emailOccurrences = allIssues.filter(issue => issue.email === issueFormData.email).length;
+      const emailOccurrences = allIssues.filter(issue => issue.email === issueFormData.email && issue.status === 'Issued').length;
 
       if (emailOccurrences >= 2) {
         throw new Error(`Failed to issue book. This user has already issued ${emailOccurrences} books.`);
@@ -89,7 +90,6 @@ const CirculationManagement = () => {
       
       // Step 1: Save issue details to your backend API
       const response = await axios.post('http://localhost:5000/api/issues', issueFormData);
-      const response3 = await axios.post('http://localhost:5000/api/issuesCopy', issueFormData);
       console.log('Saved issue details successfully:', response.data);
 
       const response2 = await fetch(`http://localhost:5000/api/books/${bookId}`, {
@@ -122,8 +122,10 @@ const CirculationManagement = () => {
         bookId: '', // Assuming bookTitle is cleared after issuance
         issueDate: '',
         returnDate: '',
+        status: 'Issued',
       });
   
+      setDefaultDates();
       // Optionally, you can handle additional state updates or success messages here
     } catch (error) {
       console.error('Error performing action:', error);
@@ -136,35 +138,40 @@ const CirculationManagement = () => {
   };
 
     //sets return date in issue form 15 days after today (default issue date)
-    useEffect(() => {
-      // Function to get current date in IST (Kolkata time)
-      const getISTDate = () => {
-        const now = new Date(); // Current date and time in local time zone
-        const ISTOffset = 330; // IST offset in minutes (India Standard Time is UTC+5:30)
-        const ISTTime = new Date(now.getTime() + (ISTOffset * 60000)); // Convert to IST
-        return ISTTime;
-      };
-    
-      // Function to calculate returnDate 15 days after issueDate
-      const calculateReturnDate = (issueDate) => {
-        const returnDate = new Date(issueDate);
-        returnDate.setDate(returnDate.getDate() + 15); // Add 15 days
-        return returnDate;
-      };
-    
+
+    // Function to get current date in IST (Kolkata time)
+    const getISTDate = () => {
+      const now = new Date(); // Current date and time in local time zone
+      const ISTOffset = 330; // IST offset in minutes (India Standard Time is UTC+5:30)
+      const ISTTime = new Date(now.getTime() + (ISTOffset * 60000)); // Convert to IST
+      return ISTTime;
+    };
+
+     // Function to calculate returnDate 15 days after issueDate
+     const calculateReturnDate = (issueDate) => {
+      const returnDate = new Date(issueDate);
+      returnDate.setDate(returnDate.getDate() + 15); // Add 15 days
+      return returnDate;
+    };
+
+    // Function to set default issueDate and returnDate
+    const setDefaultDates = () => {
       const defaultIssueDate = getISTDate(); // Get current IST date and time
       const defaultReturnDate = calculateReturnDate(defaultIssueDate); // Calculate returnDate
-    
+
       // Format dates for datetime-local input
       const formattedIssueDate = defaultIssueDate.toISOString().slice(0, 16); // Format as "yyyy-MM-ddThh:mm"
       const formattedReturnDate = defaultReturnDate.toISOString().slice(0, 16); // Format as "yyyy-MM-ddThh:mm"
-    
-      // Set default issueDate and returnDate in IST when component mounts
+
+      // Set default issueDate and returnDate in IST
       setIssueFormData((prevFormData) => ({
         ...prevFormData,
         issueDate: formattedIssueDate,
         returnDate: formattedReturnDate,
       }));
+    };
+    useEffect(() => {
+      setDefaultDates();
     }, []); // Empty dependency array ensures this effect runs only once on component mount
     
     
@@ -176,18 +183,55 @@ const CirculationManagement = () => {
     rollno: 0,
     bookId: '',
     returnDate: '',
+    status: 'Returned',
   });
 
   //handles change in return form  
-  const handleChange2 = (e) => {
+  const handleChange2 = async (e) => {
     const { name, value, type, checked } = e.target;
-    setReturnFormData({...returnFormData, [name]: type === 'checkbox' ? checked : value,});
-
+  
+    // Update returnFormData with the new value
+    const updatedFormData = {
+      ...returnFormData,
+      [name]: type === 'checkbox' ? checked : value
+    };
+  
+    // If the changed field is 'returnDate', fetch issue details and update status
+    if (name === 'returnDate') {
+      try {
+        const issueResponse = await axios.get(`http://localhost:5000/api/issues/${encodeURIComponent(returnFormData.email)}/${encodeURIComponent(returnFormData.bookId)}`);
+        
+        if (!issueResponse.data || issueResponse.data.length === 0) {
+          throw new Error('Issue not found');
+        }
+  
+        const issue = issueResponse.data;
+        const originalReturnDate = new Date(issue.returnDate);
+        const providedReturnDate = new Date(value);
+  
+        // Check if provided return date is greater than original return date
+        if (providedReturnDate > originalReturnDate) {
+          updatedFormData.status = 'Late Return';
+          console.log('Status updated to Late Return');
+        } else {
+          updatedFormData.status = 'Returned';
+          console.log('Status updated to Returned');
+        }
+      } catch (error) {
+        console.error('Error fetching issue details:', error);
+        // Handle error fetching issue details here
+      }
+    }
+  
+    // Update returnFormData state
+    setReturnFormData(updatedFormData);
+  
+    // You can optionally call handleBookAction here with updatedFormData
     if (name === 'bookId') {
-      const formDataCopy = { ...returnFormData, [name]: value };
-      handleBookAction(formDataCopy); 
+      handleBookAction(updatedFormData);
     }
   };
+  
 
   //function to handle return book form
   //sends alert if return date is later than set due date, deleting the book from issue table of db
@@ -196,71 +240,73 @@ const CirculationManagement = () => {
     const errors = validateForm(returnFormData);
     setFormErrors(errors);
     if (Object.keys(errors).length > 0) {
-      // If there are errors, do not proceed with further actions
       console.error('Validation errors:', errors);
-      return; // Exit the function early
+      return;
     }
     try {
-      const { email, bookId, returnDate } = returnFormData;
-
-    // Fetch the issue details to get the original return date
-    const issueResponse = await axios.get(`http://localhost:5000/api/issues/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`);
-    if (!issueResponse.data || issueResponse.data.length === 0) {
-      throw new Error('Issue not found');
-    }
-
-    const issue = issueResponse.data; // Assuming the first issue found is the correct one
-    const originalReturnDate = new Date(issue.returnDate);
-    const providedReturnDate = new Date(returnDate);
-
-    if (originalReturnDate < providedReturnDate) {
-      alert('Failed to return book. Fine of Rs. 200 is required for late return.');
-    }
+      const { email, bookId, returnDate, status } = returnFormData;
+  
+      // Fetch the issue details to get the original return date
+      const issueResponse = await axios.get(`http://localhost:5000/api/issues/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`);
+      if (!issueResponse.data || issueResponse.data.length === 0) {
+        throw new Error('Issue not found');
+      }
+  
+      const issue = issueResponse.data;
+      const originalReturnDate = new Date(issue.returnDate);
+      const providedReturnDate = new Date(returnDate);
+  
+      if (originalReturnDate < providedReturnDate) {
+        alert('Failed to return book. Fine of Rs. 200 is required for late return.');
+      }
+  
+      // Update the issue status to "Returned"
       const url = `http://localhost:5000/api/issues/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`;
-      await axios.delete(url);
-      console.log('Book deleted');
-     
-      const bookTitle = returnFormData;
-      const bookResponse = await axios.get(`http://localhost:5000/api/books/search?category=title&keyword=${encodeURIComponent(bookTitle.bookId)}`);
+      await axios.put(url, { status: status });
+      console.log('Book status updated to Returned');
+  
+      const bookResponse = await axios.get(`http://localhost:5000/api/books/search?category=title&keyword=${encodeURIComponent(bookId)}`);
       if (!bookResponse.data || bookResponse.data.length === 0) {
         throw new Error('Book not found');
       }
-
-      const bookId2 = bookResponse.data[0]._id; // Assuming the first book found is the correct one
+  
+      const bookId2 = bookResponse.data[0]._id;
       const count_val = bookResponse.data[0].count;
-
+  
       const response2 = await fetch(`http://localhost:5000/api/books/${bookId2}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ count: count_val+1 }), // Send email and bookId in request body
+        body: JSON.stringify({ count: count_val + 1 }),
       });
   
       if (!response2.ok) {
-        throw new Error('Failed to issue book');
+        throw new Error('Failed to return book');
       }
       console.log('Book returned successfully');
-      
+  
       setBookDetails(null);
       setReturnFormData({
         fname: '',
         lname: '',
         email: '',
-        rollno: '',
+        rollno: 0,
         bookId: '',
         returnDate: '',
+        status: 'Returned',
       });
+      
+      setDefaultDates();
     } catch (error) {
-      console.error('Error deleting book:', error);
+      console.error('Error updating book status:', error);
       setFormErrors({
         ...formErrors,
-        bookId: 'Book not found or action failed', // Update specific field error
+        bookId: 'Book not found or action failed',
       });
       alert(error.message);
     }
   };
-
 
   
 //displays the book once enterred in issue form or return form
@@ -291,6 +337,7 @@ const [bookDetails, setBookDetails] = useState(null);
     if (!data.bookId) errors.bookId = 'Book name is required';
     if (!data.rollno) errors.rollno = 'Roll Number is required';
     if (!data.returnDate) errors.returnDate = 'Return Date is required';
+    if (!data.status) errors.status = 'Status is required';
 
     return errors;
   };
@@ -706,8 +753,28 @@ const [bookDetails, setBookDetails] = useState(null);
                               </div>
                             )}
                 </div>
-                <div className="col-12">
+                <div className="col-9">
                   <button className="btn btn-primary" type="submit">Issue Book</button>
+                </div>
+                <div className="col-md-3">
+                  <label htmlFor="status" className="form-label">Status</label>
+                  <select
+                    className="form-select"
+                    id="status"
+                    name="status"
+                    value={issueFormData.status}
+                    onChange={(e) => handleChange(e)}
+                    required
+                  >
+                    <option value="Issued">
+                      Issued
+                    </option>
+                   </select>
+                   {formErrors.status && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.status}
+                              </div>
+                            )}
                 </div>
               </form>
             </div>
@@ -825,7 +892,33 @@ const [bookDetails, setBookDetails] = useState(null);
                               </div>
                             )}
                 </div>
-                
+                <div className="col-md-3">
+                  <label htmlFor="status" className="form-label">Status</label>
+                  <select
+                    className="form-select"
+                    id="status"
+                    name="status"
+                    value={returnFormData.status}
+                    onChange={(e) => handleChange2(e)}
+                    required
+                  >
+                    <option value="Returned">
+                      Returned
+                    </option>
+                    <option value="Late Return">
+                      Late Return
+                    </option>
+                    <option value="Returned - book damage">
+                      Returned - book damage
+                    </option>
+                   </select>
+                   {formErrors.status && (
+                              <div className="alert alert-danger" role="alert">
+                                {formErrors.status}
+                              </div>
+                            )}
+                </div>
+
                 <div className="col-12">
                   <button className="btn btn-primary" type="submit">Return Book</button>
                 </div>

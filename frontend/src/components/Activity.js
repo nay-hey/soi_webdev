@@ -40,22 +40,42 @@ const Studentdb = () => {
   
   //sets the issue history of the user
   const [items, setItem] = useState([]);
-  useEffect(() => {
-    const fetchItem = async () => {
-      if (profile) { // Only fetch items if profile is set
-        try {
-          const response = await axios.get('http://localhost:5000/api/issuesCopy'); //issueRoutes is used
-          const filtered = response.data.filter(issue => issue.rollno == profile.roll); //displays only the user history using roll number as the unique key
-           
-          setItem(filtered);
-        } catch (error) {
-          console.error('Error fetching item:', error);
-        }
-      }
-    };
+  const fetchItem = async () => {
+    if (profile) { // Only fetch items if profile is set
+      try {
+        const response = await axios.get('http://localhost:5000/api/issues'); //issueRoutes is used
+        const filtered = response.data.filter(issue => issue.rollno == profile.roll); //displays only the user history using roll number as the unique key
+         
+        // Apply date formatting for issueDate and returnDate
+        const formattedItems = filtered.map(item => ({
+          ...item,
+          issueDate: new Date(item.issueDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+          returnDate: new Date(item.returnDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+        }));
 
+        setItem(formattedItems);
+        // Calculate fine amount based on 'Late Return' and 'Returned - book damage' statuses
+        const redCellsCount = filtered.reduce((count, item) => {
+          if (item.status === 'Late Return' || item.status === 'Returned - book damage') {
+            return count + 1;
+          }
+          return count;
+        }, 0);
+
+        const fine = redCellsCount * 200;
+        setFineAmount(fine); // Update fineAmount state
+      } catch (error) {
+        console.error('Error fetching item:', error);
+      }
+    }
+  };
+  useEffect(() => {
     fetchItem();
   }, [profile]); 
+  //fines
+
+  const [fineAmount, setFineAmount] = useState(0);
+  
 //used for the search section and pagination - all used for the issue table
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -75,7 +95,20 @@ const Studentdb = () => {
   const handleSearchChange = e => {
     setSearchTerm(e.target.value);
   };
-   
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'Issued':
+        return '#ffffe0';
+      case 'Returned':
+        return '#e0ffe0';
+      case 'Late Return':
+      case 'Returned - book damage':
+        return '#ffe0e0';
+      default:
+        return 'transparent';
+    }
+  };
+  
   //labels the due date
   const getDueDateColor = (dueDate) => {
     const today = new Date();
@@ -91,6 +124,17 @@ const Studentdb = () => {
       return 'green';
     }
   };
+
+  const handleDelete = async (email, bookId) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/issues/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`);
+      console.log(response.data.message);
+      fetchItem();
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  };
+
   //used to toggle the sidebar with all the tabs for navigation
   useEffect(() => {
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -357,26 +401,40 @@ return (
                               <thead className="thead-dark">
                                 <tr>
                                   <th scope="col">#</th>
-                                  <th scope="col">Name</th>
                                   <th scope="col">Email Id</th>
                                   <th scope="col">Book Title</th>
+                                  <th scope="col">Satus</th>
                                   <th scope="col">Issued Date</th>
                                   <th scope="col">Due Date</th>
+                                  <th scope="col">Actions</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 {currentEntries.map((item, index) => (
                                   <tr key={item.index}>          
                                     <td>{index + 1}</td>
-                                    <td>{item.fname} {item.lname}</td>
                                     <td>{item.email}</td>
                                     <td>{item.bookId}</td>
+                                    <td style={{ backgroundColor: getStatusColor(item.status) }}>{item.status}</td>
                                     <td>{item.issueDate}</td>
                                     <td style={{ color: getDueDateColor(item.returnDate) }}>{item.returnDate}</td>
+                                    <td>
+                                      {item.status !== 'Issued' && (
+                                        <button
+                                          className="btn btn-danger"
+                                          onClick={() => handleDelete(item.email, item.bookId)}
+                                        >
+                                          Delete
+                                        </button>
+                                      )}
+                                    </td>  
                                   </tr>
                                 ))}
                               </tbody>
                             </table>
+                            <div>
+                              <p>Total Fine Amount: {fineAmount}</p>
+                            </div>
                           </div>
                             <div>
                               <nav aria-label="Page navigation example">

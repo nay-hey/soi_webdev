@@ -7,7 +7,8 @@ const issueSchema = new mongoose.Schema({
   rollno: { type: Number, required: true },
   bookId: { type: String, required: true },
   issueDate: { type: Date, default: Date.now, required: true },
-  returnDate: { type: Date, required: true }
+  returnDate: { type: Date, required: true },
+  status: { type: String, required: true },
 });
 
 const Issue = mongoose.model('Issue', issueSchema);

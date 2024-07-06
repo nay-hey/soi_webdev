@@ -26,19 +26,19 @@ const MainContent = styled.main`
 `;
 
 const Title = styled.h1`
-  color: #004085;
+  color: #ff4500;
   font-size: 3rem;
   margin-bottom: 1rem;
 `;
 
 const Subtitle = styled.h2`
-  color: #0056b3;
+  color: #ff6347;
   font-size: 2rem;
   margin-bottom: 2rem;
 `;
 
 const Description = styled.p`
-  color: #6c757d;
+  color: #2f2f2f;
   font-size: 1.25rem;
   max-width: 800px;
 `;
@@ -60,12 +60,12 @@ const Card = styled.div`
 `;
 
 const CardTitle = styled.h3`
-  color: #0056b3;
+  color: #ff6347;
   margin-bottom: 1rem;
 `;
 
 const CardContent = styled.p`
-  color: #6c757d;
+  color: #4f4f4f;
 `;
 const StudentPage = () => {
 

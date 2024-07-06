@@ -22,13 +22,14 @@ router.post('/', [
   body('bookId').notEmpty().trim().escape(),
   body('issueDate').notEmpty().toDate(),
   body('returnDate').notEmpty().toDate(),
+  body('status').notEmpty().trim().escape(),
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { fname, lname, email, rollno, bookId, issueDate, returnDate } = req.body;
+  const { fname, lname, email, rollno, bookId, issueDate, returnDate, status } = req.body;
 
   const newIssue = new Issue({
     fname,
@@ -38,6 +39,7 @@ router.post('/', [
     bookId,
     issueDate,
     returnDate,
+    status,
   });
 
   try {
@@ -59,6 +61,28 @@ router.delete('/:email/:bookId', async (req, res) => {
       return res.status(404).json({ message: 'Issue not found' });
     }
     res.json({ message: 'Issue deleted' });
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Update issue status to "Returned"
+router.put('/:email/:bookId', async (req, res) => {
+  try {
+    const { email, bookId } = req.params;
+    const { status } = req.body; // Ensure status is provided in the request body
+
+    const updatedIssue = await Issue.findOneAndUpdate(
+      { email: decodeURIComponent(email), bookId: decodeURIComponent(bookId) },
+      { status: status }, // Update the status field
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedIssue) {
+      return res.status(404).json({ message: 'Issue not found' });
+    }
+    res.json({ message: 'Issue updated', issue: updatedIssue });
   } catch (err) {
     console.error('Error:', err);
     res.status(500).json({ message: err.message });

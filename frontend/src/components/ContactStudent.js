@@ -339,7 +339,7 @@ useEffect(() => {
                       <textarea name="message" className="form-control" placeholder="Message" id="message" rows="4" value={newNot.message} onChange={handleChange}></textarea>
                                 </div>
                       <div className="col-md-12 text-center">
-                        <button type="submit" className="btn btn-primary">Submit</button>
+                        <button type="submit" className="btn btn-primary" style={{ backgroundColor: '#ff4500', border: 'none' }}>Submit</button>
                       </div>
                     </div>
                   </form>

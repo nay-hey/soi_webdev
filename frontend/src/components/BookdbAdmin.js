@@ -94,7 +94,7 @@ const Bookdb = () => {
     description: '',
     author: '',
     genre: '',
-    department: '',
+    department: 'Computer Science',
     count: 0,
     vendor: '',
     vendor_id: 0,
