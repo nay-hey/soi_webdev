@@ -77,7 +77,7 @@ const Login = () => {
   return (
       <section id="loginpage">
     <div className="container-fluid" style={{
-      background: "linear-gradient(rgba(14, 29, 52, 0.8), rgba(14, 29, 52, 0.6)), url('static/lib5.jpeg') center center",
+      background: "linear-gradient(rgba(14, 29, 52, 0.8), rgba(14, 29, 52, 0.6)), url('static/lib8.jpeg') center center",
       backgroundSize: 'cover',
       minHeight: '100vh',
       display: 'flex',

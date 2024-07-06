@@ -368,7 +368,7 @@ useEffect(() => {
                 <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
                   <div className="icon-box">
                     <div className="icon"><i className="ri-command-line"></i></div>
-                    <h4 className="title"><a href="#search1">Collections</a></h4>
+                    <h4 className="title"><a href="#counts">Collections</a></h4>
                     <p className="description">Our library houses an extensive collection of over 4,750 books across various disciplines, meticulously arranged by subject. We also provide access to several ISO standards in digital form.</p>
                   </div>
                 </div>

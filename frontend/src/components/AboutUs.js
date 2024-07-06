@@ -93,7 +93,7 @@ class AboutUs extends Component {
                                     title="Our Collection"
                                     image="/images/collection.jpeg"
                                     text="Discover our extensive collection."
-                                    link="/#search1"
+                                    link="/#counts"
                                 />
                                 <Card
                                     title="Our Policy"

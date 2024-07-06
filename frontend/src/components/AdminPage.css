@@ -218,7 +218,8 @@
   
   #admin .header .toggle-sidebar-btn {
     font-size: 32px;
-    padding-left: 10px;
+    margin-right: 20px;
+    margin-left: -30px;
     cursor: pointer;
     color: white;
   }
@@ -445,8 +446,7 @@
   .navbar ul {
     display: none;
     position: absolute;
-    inset: 50px 15px 15px 400px;
-    text-decoration: none;
+    inset: 50px 15px 15px 400px; /* Adjust as needed */
     text-align: center;
     border-radius: 10px;
     background-color: #0b1116;
@@ -457,10 +457,8 @@
 
   .navbar a,
   .navbar a:focus {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
+    display: block; /* Change to block to ensure links are stacked vertically */
+    padding: 15px 20px; /* Increase padding for better touch target */
     font-family: var(--font-primary);
     text-decoration: none;
     font-size: 15px;
@@ -468,6 +466,17 @@
     color: white;
     white-space: nowrap;
     transition: 0.3s;
+    position: relative; /* Ensure relative positioning for divider */
+  }
+
+  .navbar a::after {
+    content: "";
+    position: absolute;
+    top: calc(100% - 1px); /* Position divider just below link */
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2); /* Divider color */
   }
 
   .navbar a i,
@@ -480,7 +489,7 @@
   .navbar a:hover,
   .navbar .active,
   .navbar .active:focus,
-  .navbar li:hover>a {
+  .navbar li:hover > a {
     color: var(--color-primary);
   }
 
@@ -488,13 +497,16 @@
     background-color: #0b1116;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 15px 20px; /* Increase padding for better touch target */
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    display: block; /* Ensure button is displayed as a block element */
+    text-align: center;
+    margin: 15px auto; /* Center the button */
   }
-  
+
   .login-button:hover {
     background-color: #6f6f6f;
     color: #0b1116;
@@ -514,8 +526,8 @@
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
   }
 
-  .navbar .dropdown>.dropdown-active,
-  .navbar .dropdown .dropdown>.dropdown-active {
+  .navbar .dropdown > .dropdown-active,
+  .navbar .dropdown .dropdown > .dropdown-active {
     display: block;
   }
 
@@ -529,12 +541,11 @@
     background-color: transparent;
     transition: 0.5s;
   }
-  
-  
+
   .mobile-nav-active {
     overflow: hidden;
   }
-  
+
   .mobile-nav-active .mobile-nav-toggle {
     position: fixed;
     top: 15px;
@@ -543,7 +554,7 @@
     color: white; /* Change color for active state */
     font-size: 32px; /* Increase font size for visibility */
   }
-  
+
   .mobile-nav-active .navbar {
     position: fixed;
     overflow: hidden;
@@ -551,11 +562,39 @@
     background: rgba(0, 0, 0, 0.6);
     transition: 0.3s;
   }
-  
+
   .mobile-nav-active .navbar > ul {
     display: block;
+    margin: 0; /* Reset margins for ul in mobile nav */
+    padding: 20px 0; /* Add padding to ul in mobile nav for better spacing */
   }
-}  
+
+  .mobile-nav-active .navbar a,
+  .mobile-nav-active .navbar a:focus {
+    display: block; /* Ensure links are displayed properly */
+    padding: 15px 20px; /* Adjust padding as needed */
+    font-size: 18px; /* Increase font size for better readability */
+    position: relative; /* Ensure relative positioning for divider */
+  }
+
+  .mobile-nav-active .navbar a::after {
+    content: "";
+    position: absolute;
+    top: calc(100% - 1px); /* Position divider just below link */
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2); /* Divider color */
+  }
+
+  .mobile-nav-active .navbar .dropdown ul,
+  .mobile-nav-active .navbar .dropdown .dropdown ul {
+    display: block; /* Display dropdowns properly in mobile nav */
+    margin: 10px 0; /* Adjust margins for dropdowns */
+    background: rgba(255, 255, 255, 0.9); /* Adjust background for dropdowns */
+  }
+}
+
   /*--------------------------------------------------------------
   # Header Nav
   --------------------------------------------------------------*/

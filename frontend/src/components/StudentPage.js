@@ -48,6 +48,11 @@ const CardContainer = styled.div`
   justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Card = styled.div`
@@ -57,6 +62,11 @@ const Card = styled.div`
   padding: 1.5rem;
   width: 300px;
   text-align: left;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 400px;
+  }
 `;
 
 const CardTitle = styled.h3`
