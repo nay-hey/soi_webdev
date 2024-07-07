@@ -306,7 +306,7 @@ useEffect(() => {
                     <div className="info-box card">
                       <i className="bi bi-envelope"></i>
                       <h3>Email Us</h3>
-                      <p>info@example.com<br />contact@example.com</p>
+                      <p>library@iitdh.ac.in<br />krdcstaff@iitdh.ac.in</p>
                     </div>
                   </div>
                   <div className="col-lg-6" style={{ marginTop: '50px' }}>
