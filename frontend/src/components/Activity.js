@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import { ProgressBar, Alert } from 'react-bootstrap';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 
-const Studentdb = () => {
+const Activity = () => {
   //catches the profile of the logged in user.
   const [profile, setProfile] = useState(null);
   useEffect(() => {
@@ -56,39 +56,76 @@ const Studentdb = () => {
     fetchItem();
   }, [profile]);
 
-  //reminder messages
-  const renderAlert = (dueDate) => {
+  const parseDate = (dateString) => {
+    try {
+        console.log("Parsing date:", dateString);
+        
+        // Split the date and time parts
+        const [datePart, timePartWithModifier] = dateString.split(', ');
+        const [timePart, modifier] = timePartWithModifier.split(' ');
+        
+        console.log("Date Part:", datePart);
+        console.log("Time Part:", timePart);
+        console.log("Modifier:", modifier);
+        
+        // Split the date into day, month, year
+        const [day, month, year] = datePart.split('/').map(Number);
+        console.log("Parsed Date - Day:", day, "Month:", month, "Year:", year);
+        
+        // Split the time into hours, minutes, seconds
+        const [hours, minutes, seconds] = timePart.split(':').map(Number);
+        console.log("Parsed Time - Hours:", hours, "Minutes:", minutes, "Seconds:", seconds);
+
+        // Adjust for AM/PM
+        let adjustedHours = hours;
+        if (modifier.toLowerCase() === 'pm' && hours < 12) {
+            adjustedHours += 12;
+        } else if (modifier.toLowerCase() === 'am' && hours === 12) {
+            adjustedHours = 0;
+        }
+        console.log("Adjusted Hours:", adjustedHours);
+
+        // Create the date object in local time
+        const date = new Date(year, month - 1, day, adjustedHours, minutes, seconds);
+        console.log("Created Date:", date);
+
+        return date;
+    } catch (error) {
+        console.error("Error parsing date:", error);
+        return new Date(NaN); // Return an invalid date
+    }
+};
+
+const renderAlert = (dueDate) => {
     const today = new Date();
-    const due = new Date(dueDate);
+    const due = parseDate(dueDate);
     const timeDiff = due - today;
     const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    if (daysDiff <= 2 ) {
-      return <Alert variant="warning">Due date is approaching in {Math.ceil(daysDiff)} day/days!</Alert>;
-    } else if (daysDiff == 0) {
-      return <Alert variant="danger">Due date is today!</Alert>;
+    if (daysDiff <= 2) {
+        return <Alert variant="warning">Due date is approaching in {Math.ceil(daysDiff)} day/days!</Alert>;
+    } else if (daysDiff === 0) {
+        return <Alert variant="danger">Due date is today!</Alert>;
     } else if (daysDiff < 0) {
-      return <Alert variant="danger">Due date was {Math.abs(Math.ceil(daysDiff))} days ago. Penalty fine alert!!!</Alert>;
+        return <Alert variant="danger">Due date was {Math.abs(Math.ceil(daysDiff))} days ago. Penalty fine alert!!!</Alert>;
     } else {
-      return <Alert variant="success">Happy reading!</Alert>; // Displayed when daysRemaining > 2
+        return <Alert variant="success">Happy reading!</Alert>; // Displayed when daysRemaining > 2
     }
-  };
+};
 
-  //day progress tracker
-  const calculateProgress = (issueDate, dueDate) => {
+const calculateProgress = (issueDate, dueDate) => {
     const now = new Date();
-   
-    const due = new Date(dueDate);
-    const dueIST = new Date(due.getTime() - (5 * 60 * 60 * 1000 + 40 * 60 * 1000)); // Subtract 5 hours 30 minutes
-    const loaned = new Date(issueDate);
-    const loanedIST = new Date(loaned.getTime() - (5 * 60 * 60 * 1000 + 40 * 60 * 1000)); // Subtract 5 hours 30 minutes
-    const range = dueIST - loanedIST;
+
+    const loaned = parseDate(issueDate);
+    const due = parseDate(dueDate);
+
+    const range = due - loaned;
     const dayGap = range / (1000 * 60 * 60 * 24);
-    const elap = now - loanedIST;
+    const elap = now - loaned;
     const elapDays = elap / (1000 * 60 * 60 * 24);
-   
+
     const result = (elapDays / dayGap) * 100;
-    console.log(now, issueDate, loanedIST, dueDate,dueIST, result, elapDays);
-   
+    console.log("Now:", now, "Issue Date:", loaned, "Due Date:", due, "Range", range, "Progress:", result, "Elapsed Days:", elap);
+
     return Math.max(result, 0);
 };
   
@@ -235,6 +272,28 @@ useEffect(() => {
   document.addEventListener('scroll', handleScroll);
 
 }, []);
+
+useEffect(() => {
+  const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
+  const mobileNavShow = document.querySelector('.mobile-nav-show');
+  const mobileNavHide = document.querySelector('.mobile-nav-hide');
+  
+  function mobileNavToggle() {
+    document.body.classList.toggle('mobile-nav-active');
+    mobileNavShow.classList.toggle('d-none');
+    mobileNavHide.classList.toggle('d-none');
+  }
+  
+  mobileNavToggleButtons.forEach(button => {
+    button.addEventListener('click', mobileNavToggle);
+  });
+  
+  return () => {
+    mobileNavToggleButtons.forEach(button => {
+      button.removeEventListener('click', mobileNavToggle);
+    });
+  };
+}, []); 
 
 return (
   <div>
@@ -650,4 +709,4 @@ return (
 );
 };
 
-export default Studentdb;
+export default Activity;
