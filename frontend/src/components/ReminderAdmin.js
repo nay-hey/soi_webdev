@@ -106,6 +106,28 @@ const Reminder = () => {
             console.error('Error deleting item:', error);
           }
         };
+
+        const handleReissue = async (email, bookId) => {
+          try {
+            const issueDate = new Date(); // Set the new issue date to the current date
+            const returnDate = new Date(issueDate);
+            returnDate.setDate(issueDate.getDate() + 15); // Example: Set return date to 14 days from issue date
+        
+            const response = await axios.put(`http://localhost:5000/api/issues/reissue/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`, {
+              issueDate,
+              returnDate
+            });
+        console.log(response.data);
+            if (response.status === 200) {
+              alert('Book reissued successfully');
+              // Update the state or refresh the issues list as needed
+            }
+          } catch (error) {
+            console.error('Error reissuing the book:', error);
+            alert('Failed to reissue the book');
+          }
+        };
+
       //displays data of issuing books
         const [searchTerm, setSearchTerm] = useState('');
         const [currentPage, setCurrentPage] = useState(1);
@@ -478,6 +500,7 @@ const Reminder = () => {
                             <th scope="col">Book Title</th>
                             <th scope="col">Issued Date</th>
                             <th scope="col">Due Date</th>
+                            <th scope="col">Reissue</th>
                             <th scope="col">Actions</th>
                           </tr>
                         </thead>
@@ -499,12 +522,20 @@ const Reminder = () => {
                               <td>{item.returnDate}</td>
                               <td>
                                 <button
+                                  className="btn btn-primary"
+                                  onClick={() => handleReissue(item.email, item.bookId)}
+                                >
+                                  Reissue
+                                </button>
+                              </td>   
+                              <td>
+                                <button
                                   className="btn btn-danger"
                                   onClick={() => handleDelete(item.email, item.bookId)}
                                 >
                                   Delete
                                 </button>
-                              </td>                              
+                              </td>                                                            
                             </tr>
                           ))}
                         </tbody>

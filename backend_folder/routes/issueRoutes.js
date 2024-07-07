@@ -103,4 +103,34 @@ router.get('/:email/:bookId', async (req, res) => {
   }
 });
 
+// Reissue a book
+router.put('/reissue/:email/:bookId', [
+  body('issueDate').notEmpty().toDate(),
+  body('returnDate').notEmpty().toDate(),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { email, bookId } = req.params;
+  const { issueDate, returnDate } = req.body;
+
+  try {
+    const updatedIssue = await Issue.findOneAndUpdate(
+      { email: decodeURIComponent(email), bookId: decodeURIComponent(bookId) },
+      { issueDate, returnDate },
+      { new: true }
+    );
+
+    if (!updatedIssue) {
+      return res.status(404).json({ message: 'Issue not found' });
+    }
+    res.json({ message: 'Book reissued', issue: updatedIssue });
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
