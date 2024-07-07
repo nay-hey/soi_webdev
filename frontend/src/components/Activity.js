@@ -10,6 +10,8 @@ import './StudentPage.css';
 import 'simple-datatables/dist/style.css';
 import { Tooltip } from 'bootstrap';
 import { Link } from 'react-router-dom';
+import { ProgressBar, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 
 const Studentdb = () => {
   //catches the profile of the logged in user.
@@ -37,6 +39,58 @@ const Studentdb = () => {
 
     fetchProfile();
   }, []);
+//fetch function for borrowed book details!!
+  useEffect(() => {
+    const fetchItem = async () => {
+      if (profile) {
+        try {
+          const response = await axios.get('http://localhost:5000/api/issues');
+          const filtered = response.data.filter(issue => issue.rollno === profile.roll);
+          setItem(filtered);
+        } catch (error) {
+          console.error('Error fetching item:', error);
+        }
+      }
+    };
+
+    fetchItem();
+  }, [profile]);
+
+  //reminder messages
+  const renderAlert = (dueDate) => {
+    const today = new Date();
+    const due = new Date(dueDate);
+    const timeDiff = due - today;
+    const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    if (daysDiff <= 2 ) {
+      return <Alert variant="warning">Due date is approaching in {Math.ceil(daysDiff)} day/days!</Alert>;
+    } else if (daysDiff == 0) {
+      return <Alert variant="danger">Due date is today!</Alert>;
+    } else if (daysDiff < 0) {
+      return <Alert variant="danger">Due date was {Math.abs(Math.ceil(daysDiff))} days ago. Penalty fine alert!!!</Alert>;
+    } else {
+      return <Alert variant="success">Happy reading!</Alert>; // Displayed when daysRemaining > 2
+    }
+  };
+
+  //day progress tracker
+  const calculateProgress = (issueDate, dueDate) => {
+    const now = new Date();
+   
+    const due = new Date(dueDate);
+    const dueIST = new Date(due.getTime() - (5 * 60 * 60 * 1000 + 40 * 60 * 1000)); // Subtract 5 hours 30 minutes
+    const loaned = new Date(issueDate);
+    const loanedIST = new Date(loaned.getTime() - (5 * 60 * 60 * 1000 + 40 * 60 * 1000)); // Subtract 5 hours 30 minutes
+    const range = dueIST - loanedIST;
+    const dayGap = range / (1000 * 60 * 60 * 24);
+    const elap = now - loanedIST;
+    const elapDays = elap / (1000 * 60 * 60 * 24);
+   
+    const result = (elapDays / dayGap) * 100;
+    console.log(now, issueDate, loanedIST, dueDate,dueIST, result, elapDays);
+   
+    return Math.max(result, 0);
+};
   
   //sets the issue history of the user
   const [items, setItem] = useState([]);
@@ -306,6 +360,38 @@ return (
                     <div className="tab-pane fade show active notifications" id="notifications">
                       <section id="team" className="team">
                         <div className="container">
+                        <Container>
+                    <h2>My Borrowed Books</h2>
+                    {currentEntries.map((book, index) => (
+                      <Card key={index} className="mb-3">
+                        <Card.Body>
+                          <Row>
+                            <Col md={8}>
+                              <h5>{book.bookId}</h5>
+                            </Col>
+                            <Col md={4}>
+                            
+                              <ProgressBar now={calculateProgress(book.issueDate, book.returnDate)} label={`${Math.floor(calculateProgress(book.issueDate, book.returnDate))}%`} 
+                             variant={'success'} // Example dynamic variant based on progress
+                              style={{
+                                height: '20px',
+                                backgroundColor: '#FFE161', // Example dynamic background color
+                                border: '1px solid #ced4da', // Example border style
+                              }}
+                              />
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col>
+                              {renderAlert(book.returnDate)}
+                            </Col>
+                          </Row>
+                        </Card.Body>
+                      </Card>
+                    ))}
+                    </Container>
+
+
                           <div className="section-header">
                             <h2>Based on your history...</h2>
                           </div>
@@ -403,7 +489,7 @@ return (
                                   <th scope="col">#</th>
                                   <th scope="col">Email Id</th>
                                   <th scope="col">Book Title</th>
-                                  <th scope="col">Satus</th>
+                                  <th scope="col">Status</th>
                                   <th scope="col">Issued Date</th>
                                   <th scope="col">Due Date</th>
                                   <th scope="col">Actions</th>
