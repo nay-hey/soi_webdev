@@ -1,0 +1,26 @@
+[{
+  "name": "Aditi Soukar",
+  "roll": "220030001",
+  "email": "220030001@iitdh.ac.in",
+  "branch": "Mechanical Engineering",
+  "password": "$2a$08$CMw.GBXWgGV/MspaGmJTPuxzVwu2vfctcZblEREBSJiJuIdf4iV9C",
+  "position": "Admin"
+},
+{
+  "name": "Tanvi Nayak",
+  "roll": "220120026",
+  "email": "220120026@iitdh.ac.in",
+  "branch": "Mathematics and Computing",
+  "password": "$2a$08$PGBrjjjJ8Bt2kEX6jp9UZ.ss2.6eyS0jVBS3kJbexYXgeS4pTs872",
+  "position": "Admin"
+  
+
+},
+{
+  "name": "Neha Gaonkar",
+  "roll": "220010034",
+  "email": "220010034@iitdh.ac.in",
+  "branch": "Computer Science",
+  "password": "$2a$08$seDZzyI.mR6me22cDN3fTOp1d9gPubakRSf5cN56IRPRPxuADaca.",
+  "position": "Student"
+}]

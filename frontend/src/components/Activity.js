@@ -10,8 +10,10 @@ import './StudentPage.css';
 import 'simple-datatables/dist/style.css';
 import { Tooltip } from 'bootstrap';
 import { Link } from 'react-router-dom';
+import { ProgressBar, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 
-const Studentdb = () => {
+const Activity = () => {
   //catches the profile of the logged in user.
   const [profile, setProfile] = useState(null);
   useEffect(() => {
@@ -37,8 +39,80 @@ const Studentdb = () => {
 
     fetchProfile();
   }, []);
+//fetch function for borrowed book details!!
+  useEffect(() => {
+    const fetchItem = async () => {
+      if (profile) {
+        try {
+          const response = await axios.get('http://localhost:5000/api/issues');
+          const filter = response.data.filter( issue => issue.rollno === profile.roll );
+          const filtered = filter.data.filter(item => item.status === 'Issued')
+          setItem(filtered);
+        } catch (error) {
+          console.error('Error fetching item:', error);
+        }
+      }
+    };
+
+    fetchItem();
+  }, [profile]);
+
   
-  //sets the issue history of the user
+const renderAlert = (dueDate) => {
+    const today = new Date();
+    const due = new Date(dueDate);
+    const timeDiff = due - today;
+    const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    if (daysDiff <= 2) {
+        return <Alert variant="warning">Due date is approaching in {Math.ceil(daysDiff)} day/days!</Alert>;
+    } else if (daysDiff === 0) {
+        return <Alert variant="danger">Due date is today!</Alert>;
+    } else if (daysDiff < 0) {
+        return <Alert variant="danger">Due date was {Math.abs(Math.ceil(daysDiff))} days ago. Penalty fine alert!!!</Alert>;
+    } else {
+        return <Alert variant="success">Happy reading!</Alert>; // Displayed when daysRemaining > 2
+    }
+};
+
+//day progress tracker
+  const calculateProgress = (issueDate, dueDate) => {
+    const now = new Date();
+   
+    const due = new Date(dueDate);
+    const dueIST = new Date(due.getTime() - (5 * 60 * 60 * 1000 + 40 * 60 * 1000)); // Subtract 5 hours 30 minutes
+    const loaned = new Date(issueDate);
+    const loanedIST = new Date(loaned.getTime() - (5 * 60 * 60 * 1000 + 40 * 60 * 1000)); // Subtract 5 hours 30 minutes
+    const range = dueIST - loanedIST;
+    const dayGap = range / (1000 * 60 * 60 * 24);
+    const elap = now - loanedIST;
+    const elapDays = elap / (1000 * 60 * 60 * 24);
+   
+    const result = (elapDays / dayGap) * 100;
+    console.log(result, due, "now:", now,  "duedatabase:", dueDate, "dueIST:", dueIST,  elapDays );
+   
+    return Math.max(result, 0);
+};
+
+// for reminder section only
+const [book, setbook] = useState([]);
+useEffect(() => {
+  const fetchBook = async () => {
+    if (profile) { // Only fetch items if profile is set
+      try {
+        const response = await axios.get('http://localhost:5000/api/issues '); //issueRoutes is used
+        const filtered = response.data.filter(issue => issue.rollno == profile.roll); //displays only the user history using roll number as the unique key
+         
+        setbook(filtered);
+      } catch (error) {
+        console.error('Error fetching book:', error);
+      }
+    }
+  };
+
+  fetchBook();
+}, [profile]); 
+
+//sets the issue history of the user
   const [items, setItem] = useState([]);
   const fetchItem = async () => {
     if (profile) { // Only fetch items if profile is set
@@ -85,10 +159,15 @@ const Studentdb = () => {
         String(value).toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
+    const filteredBook = book.filter(book => {
+      return Object.values(book).some(value =>
+        String(value).toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
     const indexOfLastEntry = currentPage * entriesPerPage;
     const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
     const currentEntries = filteredBooks.slice(indexOfFirstEntry, indexOfLastEntry);
-  
+    const currentBook = filteredBook.slice(indexOfFirstEntry, indexOfLastEntry);
     // Change page
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 //sets the search Term
@@ -181,6 +260,28 @@ useEffect(() => {
   document.addEventListener('scroll', handleScroll);
 
 }, []);
+
+useEffect(() => {
+  const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
+  const mobileNavShow = document.querySelector('.mobile-nav-show');
+  const mobileNavHide = document.querySelector('.mobile-nav-hide');
+  
+  function mobileNavToggle() {
+    document.body.classList.toggle('mobile-nav-active');
+    mobileNavShow.classList.toggle('d-none');
+    mobileNavHide.classList.toggle('d-none');
+  }
+  
+  mobileNavToggleButtons.forEach(button => {
+    button.addEventListener('click', mobileNavToggle);
+  });
+  
+  return () => {
+    mobileNavToggleButtons.forEach(button => {
+      button.removeEventListener('click', mobileNavToggle);
+    });
+  };
+}, []); 
 
 return (
   <div>
@@ -306,6 +407,39 @@ return (
                     <div className="tab-pane fade show active notifications" id="notifications">
                       <section id="team" className="team">
                         <div className="container">
+                        <Container>
+                    <h2>My Borrowed Books</h2>
+                    {currentBook.map((book, index) => ( book.status === 'Issued' &&
+                      <Card key={index} className="mb-3">
+                        <Card.Body>
+                          <Row>
+                            <Col md={8}>
+                             
+                              <h5>{book.bookId}</h5>
+                            </Col>
+                            <Col md={4}>
+                            
+                              <ProgressBar now={calculateProgress(book.issueDate, book.returnDate)} label={`${Math.floor(calculateProgress(book.issueDate, book.returnDate))}%`} 
+                             variant={'success'} // Example dynamic variant based on progress
+                              style={{
+                                height: '20px',
+                                backgroundColor: '#FFE161', // Example dynamic background color
+                                border: '1px solid #ced4da', // Example border style
+                              }}
+                              />
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col>
+                              {renderAlert(book.returnDate)}
+                            </Col>
+                          </Row>
+                        </Card.Body>
+                      </Card>
+                    ))}
+                    </Container>
+
+
                           <div className="section-header">
                             <h2>Based on your history...</h2>
                           </div>
@@ -403,7 +537,7 @@ return (
                                   <th scope="col">#</th>
                                   <th scope="col">Email Id</th>
                                   <th scope="col">Book Title</th>
-                                  <th scope="col">Satus</th>
+                                  <th scope="col">Status</th>
                                   <th scope="col">Issued Date</th>
                                   <th scope="col">Due Date</th>
                                   <th scope="col">Actions</th>
@@ -564,4 +698,4 @@ return (
 );
 };
 
-export default Studentdb;
+export default Activity;
