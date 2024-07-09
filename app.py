@@ -517,7 +517,7 @@ dept = [
 
 sentences=[]
 for i in range(len(genr)):
-    word=genr[i]+desc[i]+dept[i]
+    word=genr[i]+desc[i]+dept[i]+sentences1[i]
     sentences.append(word)
 # Generate embeddings for all sentences
 embeddings = [get_sentence_embedding(sentence) for sentence in sentences]
