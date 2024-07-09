@@ -514,7 +514,7 @@ const [bookDetails, setBookDetails] = useState(null);
               <li><a href="libcom.html">Library Committee</a></li>
               <li><a href="asklib.html">Ask a Librarian</a></li>
               <li><a href="/AboutUs">About</a></li>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#footer">Contact</a></li>
             </ul>
           </nav>
           

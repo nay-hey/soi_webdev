@@ -651,13 +651,13 @@
 }
 
 #home #hero .icon-box .title a {
-  color: #0b1116;
+  color: #1A2530;
   transition: 0.3s;
 }
 
 #home #hero .icon-box .description {
   font-size: 15px;
-  color: #0b1116;
+  color: #1A2530;
   line-height: 28px;
   margin-bottom: 0;
 }
@@ -669,7 +669,7 @@
   transition: all 0.3s ease-in-out;
   font-size: 36px;
   line-height: 1;
-  color: #0b1116;
+  color: #1A2530;
 }
 
 #home #hero .icon-box:hover .title a,
@@ -680,7 +680,7 @@
 #home #hero .icon-box::before {
   content: "";
   position: absolute;
-  background: #0b1116;
+  background: #1A2530;
   right: 0;
   left: 0;
   bottom: 0;
@@ -690,7 +690,7 @@
 }
 
 #home #hero .icon-box:hover::before {
-  background: #0b1116;
+  background: #1A2530;
   top: 0;
   border-radius: 0px;
 }
@@ -698,7 +698,7 @@
 
 #home #hero .icon-box:hover {
   transform: scale(1.08);
-  background: #0b1116;
+  background: #1A2530;
 }
 
 #home #hero .icon-box:hover .title a {

@@ -1,5 +1,5 @@
 //displays student activity on Student Page 
-//uses the logged in profile id to display the reccomended book list, book issue history and reminder notifications for due dates
+//uses the logged in profile id to display the recomended book list, book issue history and reminder notifications for due dates
 import React, { useEffect, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -299,7 +299,7 @@ return (
             <li><a href="/AboutUs/team">Library Committee</a></li>
             <li><a href="asklib.html">Ask a Librarian</a></li>
             <li><a href="/AboutUs">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#footer">Contact</a></li>
           </ul>
         </nav>
             <button className="mobile-nav-toggle mobile-nav-show bi bi-three-dots"></button>
