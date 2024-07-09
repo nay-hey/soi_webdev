@@ -45,7 +45,8 @@ const Activity = () => {
       if (profile) {
         try {
           const response = await axios.get('http://localhost:5000/api/issues');
-          const filtered = response.data.filter(issue => issue.rollno === profile.roll);
+          const filter = response.data.filter( issue => issue.rollno === profile.roll );
+          const filtered = filter.data.filter(item => item.status === 'Issued')
           setItem(filtered);
         } catch (error) {
           console.error('Error fetching item:', error);
@@ -56,49 +57,10 @@ const Activity = () => {
     fetchItem();
   }, [profile]);
 
-  const parseDate = (dateString) => {
-    try {
-        console.log("Parsing date:", dateString);
-        
-        // Split the date and time parts
-        const [datePart, timePartWithModifier] = dateString.split(', ');
-        const [timePart, modifier] = timePartWithModifier.split(' ');
-        
-        console.log("Date Part:", datePart);
-        console.log("Time Part:", timePart);
-        console.log("Modifier:", modifier);
-        
-        // Split the date into day, month, year
-        const [day, month, year] = datePart.split('/').map(Number);
-        console.log("Parsed Date - Day:", day, "Month:", month, "Year:", year);
-        
-        // Split the time into hours, minutes, seconds
-        const [hours, minutes, seconds] = timePart.split(':').map(Number);
-        console.log("Parsed Time - Hours:", hours, "Minutes:", minutes, "Seconds:", seconds);
-
-        // Adjust for AM/PM
-        let adjustedHours = hours;
-        if (modifier.toLowerCase() === 'pm' && hours < 12) {
-            adjustedHours += 12;
-        } else if (modifier.toLowerCase() === 'am' && hours === 12) {
-            adjustedHours = 0;
-        }
-        console.log("Adjusted Hours:", adjustedHours);
-
-        // Create the date object in local time
-        const date = new Date(year, month - 1, day, adjustedHours, minutes, seconds);
-        console.log("Created Date:", date);
-
-        return date;
-    } catch (error) {
-        console.error("Error parsing date:", error);
-        return new Date(NaN); // Return an invalid date
-    }
-};
-
+  
 const renderAlert = (dueDate) => {
     const today = new Date();
-    const due = parseDate(dueDate);
+    const due = new Date(dueDate);
     const timeDiff = due - today;
     const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
     if (daysDiff <= 2) {
@@ -112,24 +74,45 @@ const renderAlert = (dueDate) => {
     }
 };
 
-const calculateProgress = (issueDate, dueDate) => {
+//day progress tracker
+  const calculateProgress = (issueDate, dueDate) => {
     const now = new Date();
-
-    const loaned = parseDate(issueDate);
-    const due = parseDate(dueDate);
-
-    const range = due - loaned;
+   
+    const due = new Date(dueDate);
+    const dueIST = new Date(due.getTime() - (5 * 60 * 60 * 1000 + 40 * 60 * 1000)); // Subtract 5 hours 30 minutes
+    const loaned = new Date(issueDate);
+    const loanedIST = new Date(loaned.getTime() - (5 * 60 * 60 * 1000 + 40 * 60 * 1000)); // Subtract 5 hours 30 minutes
+    const range = dueIST - loanedIST;
     const dayGap = range / (1000 * 60 * 60 * 24);
-    const elap = now - loaned;
+    const elap = now - loanedIST;
     const elapDays = elap / (1000 * 60 * 60 * 24);
-
+   
     const result = (elapDays / dayGap) * 100;
-    console.log("Now:", now, "Issue Date:", loaned, "Due Date:", due, "Range", range, "Progress:", result, "Elapsed Days:", elap);
-
+    console.log(result, due, "now:", now,  "duedatabase:", dueDate, "dueIST:", dueIST,  elapDays );
+   
     return Math.max(result, 0);
 };
-  
-  //sets the issue history of the user
+
+// for reminder section only
+const [book, setbook] = useState([]);
+useEffect(() => {
+  const fetchBook = async () => {
+    if (profile) { // Only fetch items if profile is set
+      try {
+        const response = await axios.get('http://localhost:5000/api/issues '); //issueRoutes is used
+        const filtered = response.data.filter(issue => issue.rollno == profile.roll); //displays only the user history using roll number as the unique key
+         
+        setbook(filtered);
+      } catch (error) {
+        console.error('Error fetching book:', error);
+      }
+    }
+  };
+
+  fetchBook();
+}, [profile]); 
+
+//sets the issue history of the user
   const [items, setItem] = useState([]);
   const fetchItem = async () => {
     if (profile) { // Only fetch items if profile is set
@@ -176,10 +159,15 @@ const calculateProgress = (issueDate, dueDate) => {
         String(value).toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
+    const filteredBook = book.filter(book => {
+      return Object.values(book).some(value =>
+        String(value).toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
     const indexOfLastEntry = currentPage * entriesPerPage;
     const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
     const currentEntries = filteredBooks.slice(indexOfFirstEntry, indexOfLastEntry);
-  
+    const currentBook = filteredBook.slice(indexOfFirstEntry, indexOfLastEntry);
     // Change page
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 //sets the search Term
@@ -421,11 +409,12 @@ return (
                         <div className="container">
                         <Container>
                     <h2>My Borrowed Books</h2>
-                    {currentEntries.map((book, index) => (
+                    {currentBook.map((book, index) => ( book.status === 'Issued' &&
                       <Card key={index} className="mb-3">
                         <Card.Body>
                           <Row>
                             <Col md={8}>
+                             
                               <h5>{book.bookId}</h5>
                             </Col>
                             <Col md={4}>
