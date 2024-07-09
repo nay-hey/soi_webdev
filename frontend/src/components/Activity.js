@@ -1,5 +1,5 @@
 //displays student activity on Student Page 
-//uses the logged in profile id to display the reccomended book list, book issue history and reminder notifications for due dates
+//uses the logged in profile id to display the recomended book list, book issue history and reminder notifications for due dates
 import React, { useEffect, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
