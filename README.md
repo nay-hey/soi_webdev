@@ -38,36 +38,37 @@ This web application provides a user-friendly interface for both librarians and 
     ```
 
 2. Set up the MongoDB database:
-    - Open your terminal and start `mongosh`:
-        ```bash
-        mongosh
-        ```
-    - Create a new database named `library`:
-        ```javascript
-        use library
-        ```
-    - Create the `books` collection and insert books from the .json file:
-        ```javascript
-        db.createCollection("books")
-        db.books.insertMany([copy paste contents of books.json])
-        ```
-    - Create the `students` collection and insert users from the users.json file:
-        ```javascript
-        db.createCollection("students")
-        db.students.insertMany([copy paste contents of users.json])
-        ```
-    - Create the `issues` collection:
-        ```javascript
-        db.createCollection("issues")
-        ```
+    - Using `MongoDBCompass`:
+        - Create a database named `library`
+        - Inside it create a collection named `books`
+        - Click on the Add data button and upload the file `books.json`
 
-3. Set up the environment variables:
-    Create a `.env` file in the root directory and add the following:
-    ```env
-    MONGODB_URI=your_mongodb_uri
-    JWT_SECRET=your_jwt_secret
-    ```
-4. Starting frontend:
+    - Alternatively you can use the terminal commands as follows:
+        - Open your terminal and start `mongosh`:
+            ```bash
+            mongosh
+            ```
+        - Create a new database named `library`:
+            ```javascript
+            use library
+            ```
+        - Create the `books` collection and insert books from the .json file:
+            ```javascript
+            db.createCollection("books")
+            db.books.insertMany([copy paste contents of books.json])
+            ```
+        - Create the `students` collection and insert users from the users.json file:
+            ```javascript
+            db.createCollection("students")
+            db.students.insertMany([copy paste contents of users.json])
+            ```
+        - Create the `issues` collection:
+            ```javascript
+            db.createCollection("issues")
+            ```
+
+
+3. Starting frontend:
 
     - Change directory:
         ```bash
@@ -83,7 +84,7 @@ This web application provides a user-friendly interface for both librarians and 
         ```bash
         npm start
         ```
-5. Similarly for backend:
+4. Similarly for backend:
 
     - Change directory:
         ```bash
@@ -100,7 +101,7 @@ This web application provides a user-friendly interface for both librarians and 
         npm start
         ```
 
-7. Open your browser and navigate to `http://localhost:3000`.
+5. Open your browser and navigate to `http://localhost:3000`.
 
 ## Usage
 - **Home page:** This is the landing page from where you can access all other pages. 
