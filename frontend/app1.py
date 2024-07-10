@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify, send_from_directory, request
+from pymongo import MongoClient
 from flask_cors import CORS
 import numpy as np
 from transformers import BertTokenizer, BertModel
@@ -8,10 +9,8 @@ import torch
 # Load pre-trained BERT model and tokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased')
-
 app = Flask(__name__)
 CORS(app)
-
 # Function to generate sentence embeddings
 def get_sentence_embedding(sentence):
     inputs = tokenizer(sentence, return_tensors='pt', truncation=True, padding=True, max_length=512)
@@ -527,15 +526,31 @@ def similarity_search(query, embeddings, sentences, top_k=20):
     query_embedding = get_sentence_embedding(query).reshape(1, -1)
     similarities = cosine_similarity(query_embedding, embeddings)[0]
     top_k_indices = similarities.argsort()[-top_k:][::-1]
-    results = [(sentences1[idx], float(similarities[idx])) for idx in top_k_indices]
+    results=[]
+    for idx in top_k_indices:
+        if len(results) >= top_k:
+            break
+        if sentences1[idx] not in query:
+            results.append((sentences1[idx], float(similarities[idx])))
     return results
+# Connect to MongoDB
+client = MongoClient('mongodb://localhost:27017/')
+db = client['library']  # database name
+collection = db['issues']
 
-@app.route('/similarity', methods=['POST'])
-def similarity():
-    data = request.get_json()
-    query = data.get('query', '')
+@app.route('/get_book_titles', methods=['GET'])
+def get_book_titles():
+    # Fetch book titles from the issues collection
+    book_titles = collection.distinct('bookId')  # field name containing book titles
+    query=""
+    for i in book_titles:
+        query+=i
     results = similarity_search(query, embeddings, sentences)
     return jsonify(results)
 
+@app.route('/')
+def serve_html():
+    return send_from_directory('static', 'i1.html')
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)

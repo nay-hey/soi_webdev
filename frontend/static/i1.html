@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Titles</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('http://192.168.0.137:5000/get_book_titles') //change this depending on where your development server is running
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('book-titles');
+                    data.forEach(title => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = title;
+                        list.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching book titles:', error));
+        });
+    </script>
+</head>
+<body>
+    <h1>Book Titles</h1>
+    <ul id="book-titles"></ul>
+</body>
+</html>
