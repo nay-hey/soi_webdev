@@ -445,9 +445,6 @@ return (
                       </Card>
                     ))}
                     </Container>
-
-
-                          
                         <div className="section-header">
                           <h2>Based on your history...</h2>
                           <ul id="book-titles">
