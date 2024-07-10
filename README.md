@@ -34,7 +34,7 @@ This web application provides a user-friendly interface for both librarians and 
 ### Steps
 1. Clone the repository:
     ```bash
-    git clone https://github.com/nay-hey/Devshelf.git
+    git clone https://github.com/nay-hey/soi_webdev.git
     ```
 
 2. Set up the MongoDB database:
@@ -42,7 +42,8 @@ This web application provides a user-friendly interface for both librarians and 
         - Create a database named `library`
         - Inside it create a collection named `books`
         - Click on the Add data button and upload the file `books.json`
-
+        - Similarly, create a collection named `students` and add data from the `users.json` file.
+        - Lastly create a collection named `issues`.
     - Alternatively you can use the terminal commands as follows:
         - Open your terminal and start `mongosh`:
             ```bash
@@ -100,8 +101,17 @@ This web application provides a user-friendly interface for both librarians and 
         ```bash
         npm start
         ```
+5. Setting up recommendation system:
 
-5. Open your browser and navigate to `http://localhost:3000`.
+    - Change directory:
+        ```bash
+        cd frontend
+        ```
+    - Run the development server:
+        ```bash
+        python app1.py
+        ```
+6. Open your browser and navigate to `http://localhost:3000`.
 
 ## Usage
 - **Home page:** This is the landing page from where you can access all other pages. 
