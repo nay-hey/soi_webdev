@@ -530,7 +530,7 @@ def similarity_search(query, embeddings, sentences, top_k=20):
     for idx in top_k_indices:
         if len(results) >= top_k:
             break
-        if sentences1[idx] not in query:
+        if sentences1[idx].lower() not in query:
             results.append((sentences1[idx], float(similarities[idx])))
     return results
 # Connect to MongoDB
@@ -544,7 +544,7 @@ def get_book_titles():
     book_titles = collection.distinct('bookId')  # field name containing book titles
     query=""
     for i in book_titles:
-        query+=i
+        query+=i.lower()
     results = similarity_search(query, embeddings, sentences)
     return jsonify(results)
 
