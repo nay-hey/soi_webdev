@@ -42,7 +42,8 @@ This web application provides a user-friendly interface for both librarians and 
         - Create a database named `library`
         - Inside it create a collection named `books`
         - Click on the Add data button and upload the file `books.json`
-
+        - Similarly, create a collection named `students` and add data from the `users.json` file.
+        - Lastly create a collection named `issues`.
     - Alternatively you can use the terminal commands as follows:
         - Open your terminal and start `mongosh`:
             ```bash
