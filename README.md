@@ -34,7 +34,7 @@ This web application provides a user-friendly interface for both librarians and 
 ### Steps
 1. Clone the repository:
     ```bash
-    git clone https://github.com/nay-hey/Devshelf.git
+    git clone https://github.com/nay-hey/soi_webdev.git
     ```
 
 2. Set up the MongoDB database:
