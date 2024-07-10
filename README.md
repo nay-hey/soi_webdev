@@ -100,8 +100,17 @@ This web application provides a user-friendly interface for both librarians and 
         ```bash
         npm start
         ```
+5. Setting up recommendation system:
 
-5. Open your browser and navigate to `http://localhost:3000`.
+    - Change directory:
+        ```bash
+        cd frontend
+        ```
+    - Run the development server:
+        ```bash
+        python app1.py
+        ```
+6. Open your browser and navigate to `http://localhost:3000`.
 
 ## Usage
 - **Home page:** This is the landing page from where you can access all other pages. 
