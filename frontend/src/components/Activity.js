@@ -88,7 +88,6 @@ const renderAlert = (dueDate) => {
     const elapDays = elap / (1000 * 60 * 60 * 24);
    
     const result = (elapDays / dayGap) * 100;
-    console.log(result, due, "now:", now,  "duedatabase:", dueDate, "dueIST:", dueIST,  elapDays );
    
     return Math.max(result, 0);
 };
@@ -114,7 +113,7 @@ useEffect(() => {
 const [bookTitles, setBookTitles] = useState([]);
 
   useEffect(() => {
-    fetch('http://192.168.0.137:5000/get_book_titles')
+    fetch('http://localhost:5000/get_book_titles')
       .then(response => response.json())
       .then(data => setBookTitles(data))
       .catch(error => console.error('Error fetching book titles:', error));
@@ -214,7 +213,6 @@ const [bookTitles, setBookTitles] = useState([]);
   const handleDelete = async (email, bookId) => {
     try {
       const response = await axios.delete(`http://localhost:5000/api/issues/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`);
-      console.log(response.data.message);
       fetchItem();
     } catch (error) {
       console.error('Error deleting item:', error);
