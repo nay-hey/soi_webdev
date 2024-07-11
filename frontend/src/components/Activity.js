@@ -114,7 +114,7 @@ useEffect(() => {
 const [bookTitles, setBookTitles] = useState([]);
 
   useEffect(() => {
-    fetch('http://192.168.0.137:5000/get_book_titles')
+    fetch('http://localhost:5001/get_book_titles')
       .then(response => response.json())
       .then(data => setBookTitles(data))
       .catch(error => console.error('Error fetching book titles:', error));
