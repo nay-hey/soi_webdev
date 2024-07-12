@@ -113,7 +113,7 @@ useEffect(() => {
 }, [profile]); 
 const [bookTitles, setBookTitles] = useState([]);
 const [searchResults, setSearchResults] = useState([]);
-
+//recommendation system
 useEffect(() => {
   // Fetch book titles from the backend
   fetch('http://localhost:5001/get_book_titles')
