@@ -120,7 +120,7 @@ This web application provides a user-friendly interface for both librarians and 
     - When trying to login as a student use the credentials:- Roll number: 220010034 and password: mongoose
     - When trying to login as an admin use the credentials:- Roll number:  220030001 and password: mongoose 
 - **Admin Dashboard:** Log in with librarian credentials to manage books and members and access other special features.
-- **Student Dashboard:** Log in with member credentials to access several features like searching for books and viewing borrowing history.
+- **Student Dashboard:** Log in with member credentials to access several features like searching for books and viewing personalised recommendations based off your borrowing history.
 
 ### Screenshots
 ![Home Page](/home.png)
