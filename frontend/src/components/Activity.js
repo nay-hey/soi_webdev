@@ -475,7 +475,7 @@ return (
                       </Card>
                     ))}
                     </Container>
-                        <h2>Based on your history...</h2>
+                        <h2>You might also like</h2>
                         <div className="team-wrapper">
                           <div className="team-row">
                           {searchResults.map((book, index) => (
