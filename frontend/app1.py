@@ -522,7 +522,7 @@ for i in range(len(genr)):
 embeddings = [get_sentence_embedding(sentence) for sentence in sentences]
 
 # Function to perform similarity search
-def similarity_search(query, embeddings, sentences, top_k=20):
+def similarity_search(query, embeddings, sentences, top_k=9):
     query_embedding = get_sentence_embedding(query).reshape(1, -1)
     similarities = cosine_similarity(query_embedding, embeddings)[0]
     top_k_indices = similarities.argsort()[-top_k:][::-1]
@@ -553,4 +553,4 @@ def serve_html():
     return send_from_directory('static', 'i1.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='localhost', port=5001)

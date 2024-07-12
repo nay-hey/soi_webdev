@@ -14,6 +14,7 @@ import { ProgressBar, Alert } from 'react-bootstrap';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 
 const Activity = () => {
+  const defaultImageUrl = '/static/logo.svg.png';
   //catches the profile of the logged in user.
   const [profile, setProfile] = useState(null);
   useEffect(() => {
@@ -111,13 +112,44 @@ useEffect(() => {
   fetchBook();
 }, [profile]); 
 const [bookTitles, setBookTitles] = useState([]);
+const [searchResults, setSearchResults] = useState([]);
 
-  useEffect(() => {
-    fetch('http://localhost:5000/get_book_titles')
+useEffect(() => {
+  // Fetch book titles from the backend
+  fetch('http://localhost:5001/get_book_titles')
+    .then(response => response.json())
+    .then(data => {
+      // Flatten the array if it contains nested arrays
+      const flattenedTitles = data.flat();
+      setBookTitles(flattenedTitles);
+      searchBookDetails(flattenedTitles);
+    })
+    .catch(error => console.error('Error fetching book titles:', error));
+}, []);
+
+const searchBookDetails = (titles) => {
+  // Perform search requests for each title
+  const searchPromises = titles.map(title =>
+    fetch(`http://localhost:5000/api/books/search?category=title&keyword=${title}`)
       .then(response => response.json())
-      .then(data => setBookTitles(data))
-      .catch(error => console.error('Error fetching book titles:', error));
-  }, []);
+      .catch(error => {
+        console.error(`Error searching for book title "${title}":`, error);
+        return null; // Return null in case of error
+      })
+  );
+
+  // Wait for all search requests to complete and save the results
+  Promise.all(searchPromises)
+    .then(results => {
+      // Filter out null results
+      const validResults = results.filter(result => result !== null);
+      setSearchResults(validResults.flat()); // Flatten the array of results
+    })
+    .catch(error => console.error('Error searching book details:', error));
+};
+
+console.log(searchResults);
+
 //sets the issue history of the user
   const [items, setItem] = useState([]);
   const fetchItem = async () => {
@@ -443,13 +475,18 @@ return (
                       </Card>
                     ))}
                     </Container>
-                        <div className="section-header">
-                          <h2>Based on your history...</h2>
-                          <ul id="book-titles">
-                            {bookTitles.map((title, index) => (
-                              <li key={index}>{title}</li>
-                            ))}
-                          </ul>
+                        <h2>Based on your history...</h2>
+                        <div className="team-wrapper">
+                          <div className="team-row">
+                          {searchResults.map((book, index) => (
+                            <div key={index} className="member" style={{ backgroundImage: `url(${book.imageUrl || defaultImageUrl})`  }}>
+                              <div className="description">
+                                <h3>{book.title}</h3>
+                                <p>{book.description}</p>
+                              </div>
+                            </div>
+                          ))}
+                          </div>
                         </div>
                         </div>
                       </section>

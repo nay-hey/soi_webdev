@@ -10,7 +10,7 @@
     "vendor_id": 1003,
     "publisher": "Lpringer Nature",
     "publisher_id": 234567,
-    "imageUrl": "/static/book_img/Introduction to Algorithms.png"
+    "imageUrl": "/static/book_img/IntroductiontoAlgorithms.png"
   },
   {
     "title": "Artificial Intelligence: A Modern Approach",
@@ -23,7 +23,7 @@
     "vendor_id": 1004,
     "publisher": "KarperMollins Publishers",
     "publisher_id": 345678,
-    "imageUrl": "/static/book_img/Artificial Intelligence.png"
+    "imageUrl": "/static/book_img/ArtificialIntelligence.png"
   },
   {
     "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
@@ -36,7 +36,7 @@
     "vendor_id": 1003,
     "publisher": "Mengage Learning",
     "publisher_id": 901234,
-    "imageUrl": "/static/book_img/Clean Code.png"
+    "imageUrl": "/static/book_img/CleanCode.png"
   },
   {
     "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
@@ -49,7 +49,7 @@
     "vendor_id": 1006,
     "publisher": "Lpringer Nature",
     "publisher_id": 234567,
-    "imageUrl": "/static/book_img/Design Patterns.png"
+    "imageUrl": "/static/book_img/DesignPatterns.png"
   },
   {
     "title": "The Pragmatic Programmer: Your Journey to Mastery",
@@ -62,7 +62,7 @@
     "vendor_id": 1004,
     "publisher": "JarperCollins Publishers",
     "publisher_id": 123456,
-    "imageUrl": "/static/book_img/The Pragmatic Programmer.png"
+    "imageUrl": "/static/book_img/ThePragmaticProgrammer.png"
   },
   {
     "title": "Code Complete: A Practical Handbook of Software Construction",
@@ -75,7 +75,7 @@
     "vendor_id": 1007,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Code Complete.png"
+    "imageUrl": "/static/book_img/CodeComplete.png"
   },
   {
     "title": "Introduction to the Theory of Computation",
@@ -88,7 +88,7 @@
     "vendor_id": 1006,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Introduction to the Theory of Computation.png"
+    "imageUrl": "/static/book_img/IntroductiontotheTheoryofComputation.png"
   },
   {
     "title": "The Art of Computer Programming",
@@ -101,7 +101,7 @@
     "vendor_id": 1003,
     "publisher": "JarperCollins Publishers",
     "publisher_id": 123456,
-    "imageUrl": "/static/book_img/The Art of Computer Programming.png"
+    "imageUrl": "/static/book_img/TheArtofComputerProgramming.png"
   },
   {
     "title": "Structure and Interpretation of Computer Programs",
@@ -114,7 +114,7 @@
     "vendor_id": 1006,
     "publisher": "Bengage Learning",
     "publisher_id": 876543,
-    "imageUrl": "/static/book_img/Structure and Interpretation of Computer Programs.png"
+    "imageUrl": "/static/book_img/StructureandInterpretationofComputerPrograms.png"
   },
   {
     "title": "Computer Networks",
@@ -127,7 +127,7 @@
     "vendor_id": 1005,
     "publisher": "BcGraw-Hill Education",
     "publisher_id": 987654,
-    "imageUrl": "/static/book_img/Computer Networks.png"
+    "imageUrl": "/static/book_img/ComputerNetworks.png"
   },
   {
     "title": "Database System Concepts",
@@ -140,7 +140,7 @@
     "vendor_id": 1004,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Database System Concepts.png"
+    "imageUrl": "/static/book_img/DatabaseSystemConcepts.png"
   },
   {
     "title": "Operating System Concepts",
@@ -153,7 +153,7 @@
     "vendor_id": 1004,
     "publisher": "Nearson Education",
     "publisher_id": 654321,
-    "imageUrl": "/static/book_img/Operating System Concepts.png"
+    "imageUrl": "/static/book_img/OperatingSystemConcepts.png"
   },
   {
     "title": "Compilers: Principles, Techniques, and Tools",
@@ -179,7 +179,7 @@
     "vendor_id": 1005,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Deep Learning.png"
+    "imageUrl": "/static/book_img/DeepLearning.png"
   },
   {
     "title": "Computer Architecture: A Quantitative Approach",
@@ -192,7 +192,7 @@
     "vendor_id": 1004,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Computer Architecture.png"
+    "imageUrl": "/static/book_img/ComputerArchitecture.png"
   },
   {
     "title": "The C Programming Language",
@@ -205,7 +205,7 @@
     "vendor_id": 1006,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/The C Programming Language.png"
+    "imageUrl": "/static/book_img/TheCProgrammingLanguage.png"
   },
   {
     "title": "Python Crash Course",
@@ -218,7 +218,7 @@
     "vendor_id": 1003,
     "publisher": "Lpringer Nature",
     "publisher_id": 234567,
-    "imageUrl": "/static/book_img/Python Crash Course.png"
+    "imageUrl": "/static/book_img/PythonCrashCourse.png"
   },
   {
     "title": "Introduction to Machine Learning with Python",
@@ -231,7 +231,7 @@
     "vendor_id": 1006,
     "publisher": "Bengage Learning",
     "publisher_id": 876543,
-    "imageUrl": "/static/book_img/Introduction to Machine Learning with Python.png"
+    "imageUrl": "/static/book_img/IntroductiontoMachineLearningwithPython.png"
   },
   {
     "title": "Patterns of Enterprise Application Architecture",
@@ -244,7 +244,7 @@
     "vendor_id": 1003,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Patterns of Enterprise Application Architecture.png"
+    "imageUrl": "/static/book_img/PatternsofEnterpriseApplicationArchitecture.png"
   },
   {
     "title": "Algorithms Unlocked",
@@ -257,7 +257,7 @@
     "vendor_id": 1007,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Algorithms Unlocked.png"
+    "imageUrl": "/static/book_img/AlgorithmsUnlocked.png"
   },
   {
     "title": "Engineering Mechanics: Dynamics",
@@ -270,7 +270,7 @@
     "vendor_id": 1003,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Engineering Mechanics.png"
+    "imageUrl": "/static/book_img/EngineeringMechanics.png"
   },
   {
     "title": "Fundamentals of Thermodynamics",
@@ -283,7 +283,7 @@
     "vendor_id": 1003,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Fundamentals of Thermodynamics.png"
+    "imageUrl": "/static/book_img/FundamentalsofThermodynamics.png"
   },
   {
     "title": "Mechanical Engineering Design",
@@ -296,7 +296,7 @@
     "vendor_id": 1006,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Mechanical Engineering Design.png"
+    "imageUrl": "/static/book_img/MechanicalEngineeringDesign.png"
   },
   {
     "title": "Materials Science and Engineering: An Introduction",
@@ -309,7 +309,7 @@
     "vendor_id": 1004,
     "publisher": "Lpringer Nature",
     "publisher_id": 234567,
-    "imageUrl": "/static/book_img/Materials Science and Engineering.png"
+    "imageUrl": "/static/book_img/MaterialsScienceandEngineering.png"
   },
   {
     "title": "Fluid Mechanics",
@@ -322,7 +322,7 @@
     "vendor_id": 1007,
     "publisher": "Bengage Learning",
     "publisher_id": 876543,
-    "imageUrl": "/static/book_img/Fluid Mechanics.png"
+    "imageUrl": "/static/book_img/FluidMechanics.png"
   },
   {
     "title": "Mechanical Vibrations",
@@ -335,7 +335,7 @@
     "vendor_id": 1003,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Mechanical Vibrations.png"
+    "imageUrl": "/static/book_img/MechanicalVibrations.png"
   },
   {
     "title": "Introduction to Finite Elements in Engineering",
@@ -348,7 +348,7 @@
     "vendor_id": 1005,
     "publisher": "JarperCollins Publishers",
     "publisher_id": 123456,
-    "imageUrl": "/static/book_img/Introduction to Finite Elements in Engineering.png"
+    "imageUrl": "/static/book_img/IntroductiontoFiniteElementsinEngineering.png"
   },
   {
     "title": "Heat and Mass Transfer: Fundamentals and Applications",
@@ -361,7 +361,7 @@
     "vendor_id": 1003,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Heat and Mass Transfer.png"
+    "imageUrl": "/static/book_img/HeatandMassTransfer.png"
   },
   {
     "title": "Engineering Mechanics: Statics",
@@ -374,7 +374,7 @@
     "vendor_id": 1006,
     "publisher": "Mengage Learning",
     "publisher_id": 901234,
-    "imageUrl": "/static/book_img/Engineering Mechanics Statics.png"
+    "imageUrl": "/static/book_img/EngineeringMechanicsStatics.png"
   },
   {
     "title": "Theory of Machines and Mechanisms",
@@ -387,7 +387,7 @@
     "vendor_id": 1003,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Theory of Machines and Mechanisms.png"
+    "imageUrl": "/static/book_img/TheoryofMachinesandMechanisms.png"
   },
   {
     "title": "Fundamentals of Machine Component Design",
@@ -400,7 +400,7 @@
     "vendor_id": 1007,
     "publisher": "Nearson Education",
     "publisher_id": 654321,
-    "imageUrl": "/static/book_img/Fundamentals of Machine Component Design.png"
+    "imageUrl": "/static/book_img/FundamentalsofMachineComponentDesign.png"
   },
   {
     "title": "Advanced Engineering Mathematics",
@@ -413,7 +413,7 @@
     "vendor_id": 1003,
     "publisher": "KarperMollins Publishers",
     "publisher_id": 345678,
-    "imageUrl": "/static/book_img/Advanced Engineering Mathematics.png"
+    "imageUrl": "/static/book_img/AdvancedEngineeringMathematics.png"
   },
   {
     "title": "Mechanical Behavior of Materials",
@@ -426,7 +426,7 @@
     "vendor_id": 1003,
     "publisher": "Lpringer Nature",
     "publisher_id": 234567,
-    "imageUrl": "/static/book_img/Mechanical Behavior of Materials.png"
+    "imageUrl": "/static/book_img/MechanicalBehaviorofMaterials.png"
   },
   {
     "title": "Introduction to Robotics: Mechanics and Control",
@@ -439,7 +439,7 @@
     "vendor_id": 1006,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Introduction to Robotics.png"
+    "imageUrl": "/static/book_img/IntroductiontoRobotics.png"
   },
   {
     "title": "Principles of Heat Transfer",
@@ -452,7 +452,7 @@
     "vendor_id": 1006,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Principles of Heat Transfer.png"
+    "imageUrl": "/static/book_img/PrinciplesofHeatTransfer.png"
   },
   {
     "title": "Fundamentals of Fluid Mechanics",
@@ -465,7 +465,7 @@
     "vendor_id": 1003,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Fundamentals of Fluid Mechanics.png"
+    "imageUrl": "/static/book_img/FundamentalsofFluidMechanics.png"
   },
   {
     "title": "Engineering Vibrations",
@@ -478,7 +478,7 @@
     "vendor_id": 1003,
     "publisher": "Mengage Learning",
     "publisher_id": 901234,
-    "imageUrl": "/static/book_img/Engineering Vibrations.png"
+    "imageUrl": "/static/book_img/EngineeringVibrations.png"
   },
   {
     "title": "Mechanics of Materials",
@@ -491,7 +491,7 @@
     "vendor_id": 1004,
     "publisher": "BcGraw-Hill Education",
     "publisher_id": 987654,
-    "imageUrl": "/static/book_img/Mechanics of Materials.png"
+    "imageUrl": "/static/book_img/MechanicsofMaterials.png"
   },
   {
     "title": "Introduction to Engineering Experimentation",
@@ -504,7 +504,7 @@
     "vendor_id": 1003,
     "publisher": "Lpringer Nature",
     "publisher_id": 234567,
-    "imageUrl": "/static/book_img/Introduction to Engineering Experimentation.png"
+    "imageUrl": "/static/book_img/IntroductiontoEngineeringExperimentation.png"
   },
   {
     "title": "Mechanics of Composite Materials",
@@ -517,7 +517,7 @@
     "vendor_id": 1007,
     "publisher": "Nearson Education",
     "publisher_id": 654321,
-    "imageUrl": "/static/book_img/Mechanics of Composite Materials.png"
+    "imageUrl": "/static/book_img/MechanicsofCompositeMaterials.png"
   },
   {
     "title": "Electrical Engineering: Principles and Applications",
@@ -530,7 +530,7 @@
     "vendor_id": 1007,
     "publisher": "Nearson Education",
     "publisher_id": 654321,
-    "imageUrl": "/static/book_img/Electrical Engineering.png"
+    "imageUrl": "/static/book_img/ElectricalEngineering.png"
   },
   {
     "title": "Fundamentals of Electric Circuits",
@@ -543,7 +543,7 @@
     "vendor_id": 1006,
     "publisher": "KarperMollins Publishers",
     "publisher_id": 345678,
-    "imageUrl": "/static/book_img/Fundamentals of Electric Circuits.png"
+    "imageUrl": "/static/book_img/FundamentalsofElectricCircuits.png"
   },
   {
     "title": "Power System Analysis and Design",
@@ -556,7 +556,7 @@
     "vendor_id": 1003,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Power System Analysis and Design.png"
+    "imageUrl": "/static/book_img/PowerSystemAnalysisandDesign.png"
   },
   {
     "title": "Microelectronic Circuits",
@@ -569,7 +569,7 @@
     "vendor_id": 1004,
     "publisher": "Mengage Learning",
     "publisher_id": 901234,
-    "imageUrl": "/static/book_img/Microelectronic Circuits.png"
+    "imageUrl": "/static/book_img/MicroelectronicCircuits.png"
   },
   {
     "title": "Digital Design: With an Introduction to the Verilog HDL",
@@ -582,7 +582,7 @@
     "vendor_id": 1004,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Digital Design: With an Introduction to the Verilog HDL.png"
+    "imageUrl": "/static/book_img/DigitalDesign:WithanIntroductiontotheVerilogHDL.png"
   },
   {
     "title": "Signals and Systems",
@@ -595,7 +595,7 @@
     "vendor_id": 1004,
     "publisher": "Bengage Learning",
     "publisher_id": 876543,
-    "imageUrl": "/static/book_img/Signals and Systems.png"
+    "imageUrl": "/static/book_img/SignalsandSystems.png"
   },
   {
     "title": "Control Systems Engineering",
@@ -608,7 +608,7 @@
     "vendor_id": 1004,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Control Systems Engineering.png"
+    "imageUrl": "/static/book_img/ControlSystemsEngineering.png"
   },
   {
     "title": "Electric Machinery Fundamentals",
@@ -621,7 +621,7 @@
     "vendor_id": 1006,
     "publisher": "JarperCollins Publishers",
     "publisher_id": 123456,
-    "imageUrl": "/static/book_img/Electric Machinery Fundamentals.png"
+    "imageUrl": "/static/book_img/ElectricMachineryFundamentals.png"
   },
   {
     "title": "Electromagnetic Fields and Waves",
@@ -634,7 +634,7 @@
     "vendor_id": 1007,
     "publisher": "Nearson Education",
     "publisher_id": 654321,
-    "imageUrl": "/static/book_img/Electromagnetic Fields and Waves.png"
+    "imageUrl": "/static/book_img/ElectromagneticFieldsandWaves.png"
   },
   {
     "title": "Communication Systems",
@@ -647,7 +647,7 @@
     "vendor_id": 1003,
     "publisher": "Mengage Learning",
     "publisher_id": 901234,
-    "imageUrl": "/static/book_img/Communication Systems.png"
+    "imageUrl": "/static/book_img/CommunicationSystems.png"
   },
   {
     "title": "Power Electronics: Converters, Applications, and Design",
@@ -660,7 +660,7 @@
     "vendor_id": 1005,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Power Electronics.png"
+    "imageUrl": "/static/book_img/PowerElectronics.png"
   },
   {
     "title": "Digital Signal Processing: Principles, Algorithms, and Applications",
@@ -673,7 +673,7 @@
     "vendor_id": 1003,
     "publisher": "KarperMollins Publishers",
     "publisher_id": 345678,
-    "imageUrl": "/static/book_img/Digital Signal Processing.png"
+    "imageUrl": "/static/book_img/DigitalSignalProcessing.png"
   },
   {
     "title": "Electric Power Systems: A First Course",
@@ -686,7 +686,7 @@
     "vendor_id": 1004,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Electric Power Systems.png"
+    "imageUrl": "/static/book_img/ElectricPowerSystems.png"
   },
   {
     "title": "Analog Integrated Circuit Design",
@@ -699,7 +699,7 @@
     "vendor_id": 1007,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Analog Integrated Circuit Design.png"
+    "imageUrl": "/static/book_img/AnalogIntegratedCircuitDesign.png"
   },
   {
     "title": "Electromagnetics for Engineers",
@@ -712,7 +712,7 @@
     "vendor_id": 1007,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Electromagnetics for Engineers.png"
+    "imageUrl": "/static/book_img/ElectromagneticsforEngineers.png"
   },
   {
     "title": "Modern Control Engineering",
@@ -725,7 +725,7 @@
     "vendor_id": 1006,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Modern Control Engineering.png"
+    "imageUrl": "/static/book_img/ModernControlEngineering.png"
   },
   {
     "title": "Fundamentals of Applied Electromagnetics",
@@ -738,7 +738,7 @@
     "vendor_id": 1006,
     "publisher": "Mengage Learning",
     "publisher_id": 901234,
-    "imageUrl": "/static/book_img/Fundamentals of Applied Electromagnetics.png"
+    "imageUrl": "/static/book_img/FundamentalsofAppliedElectromagnetics.png"
   },
   {
     "title": "Introduction to Electric Circuits",
@@ -751,7 +751,7 @@
     "vendor_id": 1003,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Introduction to Electric Circuits.png"
+    "imageUrl": "/static/book_img/IntroductiontoElectricCircuits.png"
   },
   {
     "title": "Principles of Power Systems",
@@ -764,7 +764,7 @@
     "vendor_id": 1003,
     "publisher": "Nearson Education",
     "publisher_id": 654321,
-    "imageUrl": "/static/book_img/Principles of Power Systems.png"
+    "imageUrl": "/static/book_img/PrinciplesofPowerSystems.png"
   },
   {
     "title": "Introduction to Wireless and Mobile Systems",
@@ -777,7 +777,7 @@
     "vendor_id": 1007,
     "publisher": "Lpringer Nature",
     "publisher_id": 234567,
-    "imageUrl": "/static/book_img/Introduction to Wireless and Mobile Systems.png"
+    "imageUrl": "/static/book_img/IntroductiontoWirelessandMobileSystems.png"
   },
   {
     "title": "Principles of Foundation Engineering",
@@ -790,7 +790,7 @@
     "vendor_id": 1006,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Principles of Foundation Engineering.png"
+    "imageUrl": "/static/book_img/PrinciplesofFoundationEngineering.png"
   },
   {
     "title": "Structural Analysis",
@@ -803,7 +803,7 @@
     "vendor_id": 1007,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Structural Analysis.png"
+    "imageUrl": "/static/book_img/StructuralAnalysis.png"
   },
   {
     "title": "Concrete Technology",
@@ -816,7 +816,7 @@
     "vendor_id": 1004,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Concrete Technology.png"
+    "imageUrl": "/static/book_img/ConcreteTechnology.png"
   },
   {
     "title": "Water Resources Engineering",
@@ -829,7 +829,7 @@
     "vendor_id": 1005,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Water Resources Engineering.png"
+    "imageUrl": "/static/book_img/WaterResourcesEngineering.png"
   },
   {
     "title": "Transportation Engineering and Planning",
@@ -842,7 +842,7 @@
     "vendor_id": 1003,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Transportation Engineering and Planning.png"
+    "imageUrl": "/static/book_img/TransportationEngineeringandPlanning.png"
   },
   {
     "title": "Engineering Geology: An Environmental Approach",
@@ -855,7 +855,7 @@
     "vendor_id": 1004,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Engineering Geology.png"
+    "imageUrl": "/static/book_img/EngineeringGeology.png"
   },
   {
     "title": "Design of Reinforced Concrete",
@@ -868,7 +868,7 @@
     "vendor_id": 1004,
     "publisher": "KarperMollins Publishers",
     "publisher_id": 345678,
-    "imageUrl": "/static/book_img/Design of Reinforced Concrete.png"
+    "imageUrl": "/static/book_img/DesignofReinforcedConcrete.png"
   },
   {
     "title": "Principles of Geotechnical Engineering",
@@ -881,7 +881,7 @@
     "vendor_id": 1004,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Principles of Geotechnical Engineering.png"
+    "imageUrl": "/static/book_img/PrinciplesofGeotechnicalEngineering.png"
   },
   {
     "title": "Soil Mechanics in Engineering Practice",
@@ -894,7 +894,7 @@
     "vendor_id": 1006,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Soil Mechanics in Engineering Practice.png"
+    "imageUrl": "/static/book_img/SoilMechanicsinEngineeringPractice.png"
   },
   {
     "title": "Construction Planning, Equipment, and Methods",
@@ -907,7 +907,7 @@
     "vendor_id": 1006,
     "publisher": "Nearson Education",
     "publisher_id": 654321,
-    "imageUrl": "/static/book_img/Construction Planning, Equipment, and Methods.png"
+    "imageUrl": "/static/book_img/ConstructionPlanning,Equipment,and Methods.png"
   },
   {
     "title": "Environmental Engineering: Fundamentals, Sustainability, Design",
@@ -920,7 +920,7 @@
     "vendor_id": 1007,
     "publisher": "Lpringer Nature",
     "publisher_id": 234567,
-    "imageUrl": "/static/book_img/Environmental Engineering.png"
+    "imageUrl": "/static/book_img/EnvironmentalEngineering.png"
   },
   {
     "title": "Steel Design",
@@ -933,7 +933,7 @@
     "vendor_id": 1003,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Steel Design.png"
+    "imageUrl": "/static/book_img/SteelDesign.png"
   },
   {
     "title": "Hydrology and Hydraulic Systems",
@@ -946,7 +946,7 @@
     "vendor_id": 1004,
     "publisher": "Bengage Learning",
     "publisher_id": 876543,
-    "imageUrl": "/static/book_img/Hydrology and Hydraulic Systems.png"
+    "imageUrl": "/static/book_img/HydrologyandHydraulicSystems.png"
   },
   {
     "title": "Construction Project Management: A Practical Guide to Field Construction Management",
@@ -959,7 +959,7 @@
     "vendor_id": 1006,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Construction Project Management.png"
+    "imageUrl": "/static/book_img/ConstructionProjectManagement.png"
   },
   {
     "title": "Structural Steel Design",
@@ -972,7 +972,7 @@
     "vendor_id": 1006,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Structural Steel Design.png"
+    "imageUrl": "/static/book_img/StructuralSteelDesign.png"
   },
   {
     "title": "Geotechnical Engineering: Principles and Practices",
@@ -985,7 +985,7 @@
     "vendor_id": 1007,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Geotechnical Engineering: Principles and Practices.png"
+    "imageUrl": "/static/book_img/GeotechnicalEngineering:PrinciplesandPractices.png"
   },
   {
     "title": "Masonry Structures: Behavior and Design",
@@ -998,7 +998,7 @@
     "vendor_id": 1005,
     "publisher": "Lpringer Nature",
     "publisher_id": 234567,
-    "imageUrl": "/static/book_img/Masonry Structures.png"
+    "imageUrl": "/static/book_img/MasonryStructures.png"
   },
   {
     "title": "Advanced Mechanics of Materials and Applied Elasticity",
@@ -1011,7 +1011,7 @@
     "vendor_id": 1003,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Advanced Mechanics of Materials and Applied Elasticity.png"
+    "imageUrl": "/static/book_img/AdvancedMechanicsofMaterialsandAppliedElasticity.png"
   },
   {
     "title": "Introduction to Transportation Engineering",
@@ -1024,7 +1024,7 @@
     "vendor_id": 1003,
     "publisher": "Mengage Learning",
     "publisher_id": 901234,
-    "imageUrl": "/static/book_img/Introduction to Transportation Engineering.png"
+    "imageUrl": "/static/book_img/IntroductiontoTransportationEngineering.png"
   },
   {
     "title": "Bridge Engineering: Substructure Design",
@@ -1037,7 +1037,7 @@
     "vendor_id": 1005,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Bridge Engineering.png"
+    "imageUrl": "/static/book_img/BridgeEngineering.png"
   },
   {
     "title": "Chemical Engineering: Principles and Practice",
@@ -1050,7 +1050,7 @@
     "vendor_id": 1007,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Chemical Engineering.png"
+    "imageUrl": "/static/book_img/ChemicalEngineering.png"
   },
   {
     "title": "Transport Processes and Separation Process Principles",
@@ -1063,7 +1063,7 @@
     "vendor_id": 1006,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Transport Processes and Separation Process Principles.png"
+    "imageUrl": "/static/book_img/TransportProcessesandSeparationProcessPrinciples.png"
   },
   {
     "title": "Chemical Engineering Design: Principles, Practice and Economics of Plant and Process Design",
@@ -1076,7 +1076,7 @@
     "vendor_id": 1006,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Chemical Engineering Design.png"
+    "imageUrl": "/static/book_img/ChemicalEngineeringDesign.png"
   },
   {
     "title": "Elements of Chemical Reaction Engineering",
@@ -1089,7 +1089,7 @@
     "vendor_id": 1004,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Elements of Chemical Reaction Engineering.png"
+    "imageUrl": "/static/book_img/ElementsofChemicalReactionEngineering.png"
   },
   {
     "title": "Introduction to Chemical Engineering Thermodynamics",
@@ -1102,7 +1102,7 @@
     "vendor_id": 1006,
     "publisher": "Mengage Learning",
     "publisher_id": 901234,
-    "imageUrl": "/static/book_img/Introduction to Chemical Engineering Thermodynamics.png"
+    "imageUrl": "/static/book_img/IntroductiontoChemicalEngineeringThermodynamics.png"
   },
   {
     "title": "Process Dynamics and Control",
@@ -1115,7 +1115,7 @@
     "vendor_id": 1004,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Process Dynamics and Control.png"
+    "imageUrl": "/static/book_img/ProcessDynamicsandControl.png"
   },
   {
     "title": "Chemical Process Safety: Fundamentals with Applications",
@@ -1128,7 +1128,7 @@
     "vendor_id": 1003,
     "publisher": "KarperMollins Publishers",
     "publisher_id": 345678,
-    "imageUrl": "/static/book_img/Chemical Process Safety.png"
+    "imageUrl": "/static/book_img/ChemicalProcessSafety.png"
   },
   {
     "title": "Perry's Chemical Engineers' Handbook",
@@ -1141,7 +1141,7 @@
     "vendor_id": 1003,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Perry's Chemical Engineers' Handbook.png"
+    "imageUrl": "/static/book_img/Perry'sChemicalEngineers'Handbook.png"
   },
   {
     "title": "Biochemical Engineering Fundamentals",
@@ -1154,7 +1154,7 @@
     "vendor_id": 1003,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Biochemical Engineering Fundamentals.png"
+    "imageUrl": "/static/book_img/BiochemicalEngineeringFundamentals.png"
   },
   {
     "title": "Principles of Bioseparations Engineering",
@@ -1167,7 +1167,7 @@
     "vendor_id": 1003,
     "publisher": "KarperMollins Publishers",
     "publisher_id": 345678,
-    "imageUrl": "/static/book_img/Principles of Bioseparations Engineering.png"
+    "imageUrl": "/static/book_img/PrinciplesofBioseparationsEngineering.png"
   },
   {
     "title": "Fundamentals of Momentum, Heat, and Mass Transfer",
@@ -1180,7 +1180,7 @@
     "vendor_id": 1003,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Fundamentals of Momentum, Heat, and Mass Transfer.png"
+    "imageUrl": "/static/book_img/FundamentalsofMomentum,Heat,andMassTransfer.png"
   },
   {
     "title": "Separation Process Principles",
@@ -1193,7 +1193,7 @@
     "vendor_id": 1007,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Separation Process Principles.png"
+    "imageUrl": "/static/book_img/SeparationProcessPrinciples.png"
   },
   {
     "title": "Principles and Modern Applications of Mass Transfer Operations",
@@ -1206,7 +1206,7 @@
     "vendor_id": 1005,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Principles and Modern Applications of Mass Transfer Operations.png"
+    "imageUrl": "/static/book_img/PrinciplesandModernApplicationsofMassTransferOperations.png"
   },
   {
     "title": "Chemical Engineering Kinetics",
@@ -1219,7 +1219,7 @@
     "vendor_id": 1004,
     "publisher": "Bengage Learning",
     "publisher_id": 876543,
-    "imageUrl": "/static/book_img/Chemical Engineering Kinetics.png"
+    "imageUrl": "/static/book_img/ChemicalEngineeringKinetics.png"
   },
   {
     "title": "Process Design: Principles and Practices",
@@ -1232,7 +1232,7 @@
     "vendor_id": 1004,
     "publisher": "KarperMollins Publishers",
     "publisher_id": 345678,
-    "imageUrl": "/static/book_img/Process Design.png"
+    "imageUrl": "/static/book_img/ProcessDesign.png"
   },
   {
     "title": "Fluid Mechanics for Chemical Engineers",
@@ -1245,7 +1245,7 @@
     "vendor_id": 1004,
     "publisher": "KarperMollins Publishers",
     "publisher_id": 345678,
-    "imageUrl": "/static/book_img/Fluid Mechanics for Chemical Engineers.png"
+    "imageUrl": "/static/book_img/FluidMechanicsforChemicalEngineers.png"
   },
   {
     "title": "Introduction to Catalysis and Industrial Catalytic Processes",
@@ -1258,7 +1258,7 @@
     "vendor_id": 1003,
     "publisher": "JarperCollins Publishers",
     "publisher_id": 123456,
-    "imageUrl": "/static/book_img/Introduction to Catalysis and Industrial Catalytic Processes.png"
+    "imageUrl": "/static/book_img/IntroductiontoCatalysisandIndustrialCatalyticProcesses.png"
   },
   {
     "title": "Chemical Engineering Fluid Mechanics",
@@ -1271,7 +1271,7 @@
     "vendor_id": 1006,
     "publisher": "Mengage Learning",
     "publisher_id": 901234,
-    "imageUrl": "/static/book_img/Chemical Engineering Fluid Mechanics.png"
+    "imageUrl": "/static/book_img/ChemicalEngineeringFluidMechanics.png"
   },
   {
     "title": "Essentials of Chemical Reaction Engineering",
@@ -1284,7 +1284,7 @@
     "vendor_id": 1004,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/Essentials of Chemical Reaction Engineering.png"
+    "imageUrl": "/static/book_img/EssentialsofChemicalReactionEngineering.png"
   },
   {
     "title": "Principles of Chemical Engineering Processes: Material and Energy Balances",
@@ -1297,7 +1297,7 @@
     "vendor_id": 1004,
     "publisher": "Nearson Education",
     "publisher_id": 654321,
-    "imageUrl": "/static/book_img/Principles of Chemical Engineering Processes.png"
+    "imageUrl": "/static/book_img/PrinciplesofChemicalEngineeringProcesses.png"
   },
   {
     "title": "Introduction to Quantum Mechanics",
@@ -1310,7 +1310,7 @@
     "vendor_id": 1005,
     "publisher": "KarperMollins Publishers",
     "publisher_id": 345678,
-    "imageUrl": "/static/book_img/Introduction to Quantum Mechanics.png"
+    "imageUrl": "/static/book_img/IntroductiontoQuantumMechanics.png"
   },
   {
     "title": "Classical Mechanics",
@@ -1323,7 +1323,7 @@
     "vendor_id": 1006,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Classical Mechanics.png"
+    "imageUrl": "/static/book_img/ClassicalMechanics.png"
   },
   {
     "title": "Modern Physics for Scientists and Engineers",
@@ -1336,7 +1336,7 @@
     "vendor_id": 1004,
     "publisher": "Mengage Learning",
     "publisher_id": 901234,
-    "imageUrl": "/static/book_img/Modern Physics for Scientists and Engineers.png"
+    "imageUrl": "/static/book_img/ModernPhysicsforScientistsandEngineers.png"
   },
   {
     "title": "Engineering Electromagnetics",
@@ -1349,7 +1349,7 @@
     "vendor_id": 1004,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Engineering Electromagnetics.png"
+    "imageUrl": "/static/book_img/EngineeringElectromagnetics.png"
   },
   {
     "title": "Thermodynamics: An Engineering Approach",
@@ -1388,7 +1388,7 @@
     "vendor_id": 1005,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Solid State Physics.png"
+    "imageUrl": "/static/book_img/SolidStatePhysics.png"
   },
   {
     "title": "Statistical Physics",
@@ -1401,7 +1401,7 @@
     "vendor_id": 1006,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Statistical Physics.png"
+    "imageUrl": "/static/book_img/StatisticalPhysics.png"
   },
   {
     "title": "Fundamentals of Photonics",
@@ -1414,7 +1414,7 @@
     "vendor_id": 1005,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Fundamentals of Photonics.png"
+    "imageUrl": "/static/book_img/FundamentalsofPhotonics.png"
   },
   {
     "title": "Nuclear Physics: Principles and Applications",
@@ -1427,7 +1427,7 @@
     "vendor_id": 1007,
     "publisher": "Dambridge University Press",
     "publisher_id": 890123,
-    "imageUrl": "/static/book_img/Nuclear Physics.png"
+    "imageUrl": "/static/book_img/NuclearPhysics.png"
   },
   {
     "title": "The Physics of Solids",
@@ -1440,7 +1440,7 @@
     "vendor_id": 1004,
     "publisher": "JarperCollins Publishers",
     "publisher_id": 123456,
-    "imageUrl": "/static/book_img/The Physics of Solids.png"
+    "imageUrl": "/static/book_img/ThePhysicsofSolids.png"
   },
   {
     "title": "Introduction to Plasma Physics and Controlled Fusion",
@@ -1453,7 +1453,7 @@
     "vendor_id": 1005,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Introduction to Plasma Physics and Controlled Fusion.png"
+    "imageUrl": "/static/book_img/IntroductiontoPlasmaPhysicsandControlledFusion.png"
   },
   {
     "title": "An Introduction to Thermal Physics",
@@ -1466,7 +1466,7 @@
     "vendor_id": 1004,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/An Introduction to Thermal Physics.png"
+    "imageUrl": "/static/book_img/AnIntroductiontoThermalPhysics.png"
   },
   {
     "title": "Introduction to Solid State Physics",
@@ -1479,7 +1479,7 @@
     "vendor_id": 1005,
     "publisher": "Loxpord University Press",
     "publisher_id": 789012,
-    "imageUrl": "/static/book_img/Introduction to Solid State Physics.png"
+    "imageUrl": "/static/book_img/IntroductiontoSolidStatePhysics.png"
   },
   {
     "title": "Applied Physics for Engineers",
@@ -1492,7 +1492,7 @@
     "vendor_id": 1004,
     "publisher": "Lpringer Nature",
     "publisher_id": 234567,
-    "imageUrl": "/static/book_img/Applied Physics for Engineers.png"
+    "imageUrl": "/static/book_img/AppliedPhysicsforEngineers.png"
   },
   {
     "title": "Electronics and Communications for Scientists and Engineers",
@@ -1505,7 +1505,7 @@
     "vendor_id": 1007,
     "publisher": "Bengage Learning",
     "publisher_id": 876543,
-    "imageUrl": "/static/book_img/Electronics and Communications for Scientists and Engineers.png"
+    "imageUrl": "/static/book_img/ElectronicsandCommunicationsforScientistsandEngineers.png"
   },
   {
     "title": "Classical Electrodynamics",
@@ -1518,7 +1518,7 @@
     "vendor_id": 1005,
     "publisher": "KarperMollins Publishers",
     "publisher_id": 345678,
-    "imageUrl": "/static/book_img/Classical Electrodynamics.png"
+    "imageUrl": "/static/book_img/ClassicalElectrodynamics.png"
   },
   {
     "title": "Quantum Physics: A Fundamental Approach to Modern Physics",
@@ -1531,7 +1531,7 @@
     "vendor_id": 1004,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Quantum Physics.png"
+    "imageUrl": "/static/book_img/QuantumPhysics.png"
   },
   {
     "title": "The Feynman Lectures on Physics",
@@ -1544,7 +1544,7 @@
     "vendor_id": 1005,
     "publisher": "Rohn Wiley & Sons",
     "publisher_id": 456789,
-    "imageUrl": "/static/book_img/The Feynman Lectures on Physics.png"
+    "imageUrl": "/static/book_img/TheFeynmanLecturesonPhysics.png"
   },
   {
     "title": "Computational Physics",
@@ -1557,6 +1557,6 @@
     "vendor_id": 1006,
     "publisher": "Dearson Education",
     "publisher_id": 567890,
-    "imageUrl": "/static/book_img/Computational Physics.png"
+    "imageUrl": "/static/book_img/ComputationalPhysics.png"
   }
 ]
