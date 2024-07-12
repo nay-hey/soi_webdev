@@ -751,27 +751,27 @@ useEffect(() => {
                 </div>
                 <div className="team-wrapper">
                   <div className="team-row">
-                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Principles of Chemical Engineering Processes.png')" }}>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/PrinciplesofChemicalEngineeringProcesses.png')" }}>
                     <div className="description">
                       <h3>Principles of Chemical</h3>
                       <h3>Engineering Processes</h3>
                       <p>Comprehensive guide to material and energy balance calculations in chemical processes.</p>
                     </div>
                     </div>
-                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Introduction to Engineering Experimentation.png')" }}>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/IntroductiontoEngineeringExperimentation.png')" }}>
                     <div className="description">
                       <h3>Introduction to Engineering </h3>
                       <h3>Experimentation</h3>
                       <p>Guide to the principles and practices of engineering experimentation.</p>
                     </div>
                     </div>
-                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Electromagnetics for Engineers.png')" }}>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/ElectromagneticsforEngineers.png')" }}>
                     <div className="description">
                       <h3>Electromagnetics for Engineers</h3>
                       <p>Introduction to the principles and applications of electromagnetics for engineers.</p>
                     </div>
                     </div>
-                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Construction Planning, Equipment, and Methods.png')" }}>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/ConstructionPlanning,Equipment,andMethods.png')" }}>
                     <div className="description">
                       <h3>Construction Planning,</h3>
                       <h3> Equipment, and Methods</h3>
@@ -780,27 +780,27 @@ useEffect(() => {
                     </div>
                   </div>
                   <div className="team-row">
-                     <div className="member"  style={{ backgroundImage: "url('static/book_img/Operating System Concepts.png')" }}>
+                     <div className="member"  style={{ backgroundImage: "url('static/book_img/OperatingSystemConcepts.png')" }}>
                     <div className="description">
                       <h3>Operating System Concepts</h3>
                       <p>In-depth look at the design and implementation of operating systems.</p>
                     </div>
                     </div>
-                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Electrical Engineering.png')" }}>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/ElectricalEngineering.png')" }}>
                     <div className="description">
                       <h3>Electrical Engineering: </h3>
                       <h3>Principles and Applications</h3>
                       <p>Comprehensive guide to fundamental principles and applications of electrical engineering.</p>
                     </div>
                     </div>
-                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Transportation Engineering and Planning.png')" }}>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/TransportationEngineeringandPlanning.png')" }}>
                     <div className="description">
                       <h3>Transportation Engineering</h3>
                       <h3>and Planning</h3>
                       <p>Fundamentals of transportation engineering and planning concepts.</p>
                     </div>
                     </div>
-                    <div className="member"  style={{ backgroundImage: "url('static/book_img/Masonry Structures.png')" }}>
+                    <div className="member"  style={{ backgroundImage: "url('static/book_img/MasonryStructures.png')" }}>
                     <div className="description">
                       <h3>Masonry Structures:</h3>
                       <h3>Behavior and Design</h3>
