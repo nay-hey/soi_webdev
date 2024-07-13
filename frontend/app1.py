@@ -564,7 +564,6 @@ def get_book_titles():
     results = similarity_search(query.strip(), embeddings, sentences)
     return jsonify(results)
 
-
 @app.route('/')
 def serve_html():
     return send_from_directory('static', 'i1.html')
