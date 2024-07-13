@@ -83,33 +83,41 @@ router.get('/search', async (req, res) => {
 
   // Define the filter based on the query parameters
   let filter = {};
+  // If the category is 'reserved', find books that have a non-empty 'reservedBy' field
   if (category === 'reserved') {
-    filter['reservedBy'] = { $exists: true, $ne: [] }; // Adjust this according to your schema
-  } else if (keyword) {
+    filter['reservedBy'] = { $exists: true, $ne: [] }; 
+  } // If a keyword is provided, perform a case-insensitive search within the specified category
+    else if (keyword) {
     filter[category] = { $regex: new RegExp(keyword, 'i') }; // Case-insensitive search
-  } else {
-    return res.status(400).json({ message: 'Keyword is required for categories other than reserved' });
+  } else { 
+    return res.status(400).json({ message: 'Keyword is required for categories other than reserved' });// If neither 'reserved' category nor keyword is provided, return a 400 error
   }
 
   try {
+    // Attempt to find books matching the filter criteria
     const books = await Book.find(filter);
     res.json(books);
   } catch (err) {
+    // If an error occurs during the database query, return a 500 error
     res.status(500).json({ message: err.message });
   }
 });
-
+// Route to update a book by its ID
 router.put('/:id', async (req, res) => {
-  const bookId = req.params.id;
-  const updatedBook = req.body;
+  const bookId = req.params.id;// Extract the book ID from the request parameters
+  const updatedBook = req.body;// Get the updated book details from the request body
 
   try {
+    // Attempt to find and update the book by its ID, returning the updated book
     const updated = await Book.findByIdAndUpdate(bookId, updatedBook, { new: true });
+    // If the book is not found, return a 404 error
     if (!updated) {
       return res.status(404).json({ message: 'Book not found' });
     }
+    // If the book is successfully updated, return a success message and the updated book
     res.json({ message: 'Book updated successfully', book: updated });
   } catch (err) {
+    // If an error occurs during the update operation, return a 500 error
     res.status(500).json({ message: err.message });
   }
 });
@@ -190,48 +198,62 @@ router.put('/:id/reserve', async (req, res) => {
   }
 });
 
-
+// Route to get comments for a specific book
 router.get('/:id/comments', async (req, res) => {
   try {
+    // Find the book by its ID
     const book = await Book.findById(req.params.id);
+    // Return the comments of the book
     res.json(book.comments);
   } catch (error) {
+    // If an error occurs, return a 500 error with a message
     res.status(500).json({ error: 'Error fetching comments' });
   }
 });
-
+// Route to add a comment to a specific book
 router.post('/:id/comments', async (req, res) => {
   try {
+    // Find the book by its ID
     const book = await Book.findById(req.params.id);
+    // Create a new comment object
     const comment = {
       userRoll: req.body.userRoll,
       comment: req.body.comment,
     };
+    // Add the comment to the book's comments array
     book.comments.push(comment);
+    // Save the book with the new comment
     await book.save();
+    // Return the added comment
     res.json(comment);
   } catch (error) {
+    // If an error occurs, return a 500 error with a message
     res.status(500).json({ error: 'Error adding comment' });
   }
 });
-
+// Route to delete a specific comment from a book
 router.delete('/:id/comments/:commentId', async (req, res) => {
   try {
+    // Find the book by its ID
     const book = await Book.findById(req.params.id);
+    // If the book is not found, return a 404 error
     if (!book) {
       return res.status(404).json({ error: 'Book not found' });
     }
-
+    // Find the index of the comment to be deleted
     const commentIndex = book.comments.findIndex(comment => comment._id.toString() === req.params.commentId);
+    // If the comment is not found, return a 404 error
     if (commentIndex === -1) {
       return res.status(404).json({ error: 'Comment not found' });
     }
-
+    // Remove the comment from the comments array
     book.comments.splice(commentIndex, 1);
+    // Save the book without the deleted comment
     await book.save();
-
+    // Return a success message
     res.json({ message: 'Comment deleted successfully' });
   } catch (error) {
+    // If an error occurs, return a 500 error with a message
     res.status(500).json({ error: 'Error deleting comment' });
   }
 });
