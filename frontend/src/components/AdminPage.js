@@ -1,3 +1,4 @@
+//welcoming page in admin login
 import React, { useEffect, useRef, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -132,6 +133,7 @@ const AdminPage = () => {
       });
     };
   }, []);
+  //reponsive view of navigation bar in smaller sized window
   useEffect(() => {
     const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
     const mobileNavShow = document.querySelector('.mobile-nav-show');

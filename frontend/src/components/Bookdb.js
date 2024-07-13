@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState}  from 'react';
+//bookdb page handles the search for book feature in student page
+import React, { useEffect, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
@@ -39,6 +40,7 @@ const Bookdb = () => {
     fetchProfile();
   }, []);
 
+  //search feature with keyword 
   const [searchInput, setSearchInput] = useState('');
   const [searchCategory, setSearchCategory] = useState('title');
   const [profile, setProfile] = useState({
@@ -83,6 +85,7 @@ const Bookdb = () => {
     }
   };
   
+  //matches each text in description keyword
   const highlightKeyword = (text, keyword) => {
     if (!keyword) return text;
 
@@ -92,6 +95,7 @@ const Bookdb = () => {
     );
   };
   
+  //function to store like count(likes) as well as who has liked(likedBy) in db
   const handleLike = async (id) => {
     try {
       console.log(user.roll, id);
@@ -116,6 +120,7 @@ const Bookdb = () => {
     }
   };
 
+  //function to store reserve count(reserved) as well as who has reserved(reservedBy) in db
   const handleReserve = async (id) => {
     try {
       const response = await axios.put(`http://localhost:5000/api/books/${id}/reserve`, {
@@ -140,6 +145,7 @@ const Bookdb = () => {
     }
   };
 
+  //stored comments on books in db
   const [newComment, setNewComment] = useState(''); // State to store the new comment input
 
   const handleChange = (e) => {
@@ -159,7 +165,7 @@ const Bookdb = () => {
       console.error('Error submitting comment:', error);
     }
   };
-
+//  the user can also delete his comments
   const handleDeleteComment = async (bookId, commentId) => {
     try {
       await axios.delete(`http://localhost:5000/api/books/${bookId}/comments/${commentId}`);
@@ -301,6 +307,8 @@ useEffect(() => {
     });
   };
 }, []);
+
+  //reponsive view of navigation bar in smaller sized window
 useEffect(() => {
   const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
   const mobileNavShow = document.querySelector('.mobile-nav-show');

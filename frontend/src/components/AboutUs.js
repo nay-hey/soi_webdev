@@ -1,4 +1,4 @@
-// Import necessary libraries and components
+// About us page 
 import React, { Component } from 'react';
 import Card from './Card';
 import Footer from './Footer';

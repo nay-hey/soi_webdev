@@ -129,6 +129,7 @@ const Bookdb = () => {
     }
   };
   
+  //matches each text in description keyword
   const highlightKeyword = (text, keyword) => {
     if (!keyword) return text;
 
@@ -198,6 +199,7 @@ const Bookdb = () => {
    
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
+  //sorts the contents in table in ascending or descending order
   const handleSort = key => {
     let direction = 'asc';
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
@@ -371,6 +373,8 @@ const Bookdb = () => {
       });
     };
   }, []);
+  
+  //reponsive view of navigation bar in smaller sized window
   useEffect(() => {
     const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
     const mobileNavShow = document.querySelector('.mobile-nav-show');

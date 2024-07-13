@@ -36,7 +36,7 @@ const StudentProfile = () => {
   //to edit profile details
   const [profileItem, setProfileItem] = useState(profile);
   //function to handle form for editing profile 
-  const handleEditBookDetails = async (e) => {
+  const handleEditProfileDetails = async (e) => {
     e.preventDefault();
     try {
       const updatedProfileItem = {
@@ -425,7 +425,7 @@ useEffect(() => {
                                   </div>
                                   
                                   <div className="tab-pane fade profile-edit pt-3" id="profile-edit">
-                                    <form onSubmit={handleEditBookDetails}>
+                                    <form onSubmit={handleEditProfileDetails}>
                                       <div className="row mb-3">
                                         <label htmlFor="inputText" className="col-sm-2 col-form-label">
                                           Name

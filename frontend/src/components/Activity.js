@@ -58,7 +58,7 @@ const Activity = () => {
     fetchItem();
   }, [profile]);
 
-  
+  //displays msg for calculateProgress
 const renderAlert = (dueDate) => {
     const today = new Date();
     const due = new Date(dueDate);
@@ -217,6 +217,7 @@ console.log(searchResults);
   const handleSearchChange = e => {
     setSearchTerm(e.target.value);
   };
+  //sets colour style for status in history table
   const getStatusColor = (status) => {
     switch (status) {
       case 'Issued':
@@ -246,7 +247,7 @@ console.log(searchResults);
       return 'green';
     }
   };
-
+//allows the students to delete if need the issue from history table - applicable to non currently Issued status
   const handleDelete = async (email, bookId) => {
     try {
       const response = await axios.delete(`http://localhost:5000/api/issues/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`);
@@ -303,6 +304,7 @@ useEffect(() => {
 
 }, []);
 
+//navigation for responsive view
 useEffect(() => {
   const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
   const mobileNavShow = document.querySelector('.mobile-nav-show');
@@ -462,11 +464,11 @@ return (
                             <Col md={4}>
                             
                               <ProgressBar now={calculateProgress(book.issueDate, book.returnDate)} label={`${Math.floor(calculateProgress(book.issueDate, book.returnDate))}%`} 
-                             variant={'success'} // Example dynamic variant based on progress
+                             variant={'success'} //  dynamic variant based on progress
                               style={{
                                 height: '20px',
-                                backgroundColor: '#FFE161', // Example dynamic background color
-                                border: '1px solid #ced4da', // Example border style
+                                backgroundColor: '#FFE161', //  dynamic background color
+                                border: '1px solid #ced4da', //  border style
                               }}
                               />
                             </Col>
