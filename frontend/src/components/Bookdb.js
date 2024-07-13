@@ -266,13 +266,14 @@ useEffect(() => {
   });
 // Cleanup function to remove event listeners
   return () => {
+    // Remove click event listener from mobile navigation toggle button
     if (mobileNavToogleButton) {
       mobileNavToogleButton.removeEventListener('click', (event) => {
         event.preventDefault();
         mobileNavToogle();
       });
     }
-
+    // Remove click event listeners from navbar links
     document.querySelectorAll('#navbar a').forEach((navbarlink) => {
       if (!navbarlink.hash) return;
 
@@ -285,7 +286,7 @@ useEffect(() => {
         }
       });
     });
-
+    // Remove click event listeners from navigation dropdowns
     navDropdowns.forEach((el) => {
       el.removeEventListener('click', function (event) {
         if (document.querySelector('.mobile-nav-active')) {
@@ -301,27 +302,29 @@ useEffect(() => {
     });
   };
 }, []);
+// useEffect hook to add event listeners for mobile navigation toggle
 useEffect(() => {
   const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
   const mobileNavShow = document.querySelector('.mobile-nav-show');
   const mobileNavHide = document.querySelector('.mobile-nav-hide');
-  
+  // Function to toggle mobile navigation
   function mobileNavToggle() {
     document.body.classList.toggle('mobile-nav-active');
     mobileNavShow.classList.toggle('d-none');
     mobileNavHide.classList.toggle('d-none');
   }
-  
+  // Add click event listeners to mobile navigation toggle buttons
   mobileNavToggleButtons.forEach(button => {
     button.addEventListener('click', mobileNavToggle);
   });
-  
+  // Cleanup function to remove event listeners
   return () => {
     mobileNavToggleButtons.forEach(button => {
       button.removeEventListener('click', mobileNavToggle);
     });
   };
 }, []); 
+  // JSX for the React component
   return (
     <div>
           <section id="student">
