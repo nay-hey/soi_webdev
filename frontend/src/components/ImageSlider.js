@@ -1,6 +1,4 @@
-// src/components/ImageSlider.js
-
-// Import necessary libraries and styles
+// ImageSlider component
 import React from 'react';
 import Slider from 'react-slick'; // Importing the react-slick slider component
 import 'slick-carousel/slick/slick.css'; // Importing slick carousel base styles

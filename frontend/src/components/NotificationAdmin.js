@@ -1,20 +1,24 @@
-import React, { useEffect, useRef, useState}  from 'react';
+//Displays notifications on admin page
+//connected to notifications stored in adm001 table
+import React, { useEffect, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Image } from 'react-bootstrap';
 import './AdminPage.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 
 const Notification = () => {
+  //stores the notifications retrieved from db
     const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     fetchNotification();
   }, []);
 
+  //function to fetch the notifications 
   const fetchNotification = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/notification');
@@ -25,7 +29,7 @@ const Notification = () => {
     }
   };
   const [isSidebarToggled, setIsSidebarToggled] = useState(false);
-
+//handles toggling sidebar
   useEffect(() => {
     const toggleSidebar = () => {
       setIsSidebarToggled(prevState => !prevState);
@@ -50,6 +54,7 @@ const Notification = () => {
       document.body.classList.remove('toggle-sidebar');
     }
   }, [isSidebarToggled]);
+  //sticky header feature
   useEffect(() => {
     const selectHeader = document.querySelector('#header');
 
@@ -145,6 +150,8 @@ const Notification = () => {
       });
     };
   }, []);
+  
+  //reponsive view of navigation bar in smaller sized window
   useEffect(() => {
     const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
     const mobileNavShow = document.querySelector('.mobile-nav-show');

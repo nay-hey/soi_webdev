@@ -476,6 +476,8 @@ const [bookDetails, setBookDetails] = useState(null);
       });
     };
   }, []);
+  
+  //reponsive view of navigation bar in smaller sized window
   useEffect(() => {
     const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
     const mobileNavShow = document.querySelector('.mobile-nav-show');

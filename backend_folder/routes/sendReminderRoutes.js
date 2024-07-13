@@ -1,5 +1,4 @@
-// sendReminderRoutes.js
-
+//this route is currently not working
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');

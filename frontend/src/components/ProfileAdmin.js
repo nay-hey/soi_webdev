@@ -1,16 +1,18 @@
-import React, { useEffect, useRef, useState}  from 'react';
+//page to display admin profile after login
+import React, { useEffect, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Image } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
 import './AdminPage.css';
 import { Tooltip } from 'bootstrap';
 
 const Profile = () => {
+  //stores the profile details
   const [profile, setProfile] = useState([]);
-
+//handles function to store profiles
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -168,6 +170,7 @@ const Profile = () => {
       });
     };
   }, []);
+  //reponsive view of navigation bar in smaller sized window
   useEffect(() => {
     const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
     const mobileNavShow = document.querySelector('.mobile-nav-show');

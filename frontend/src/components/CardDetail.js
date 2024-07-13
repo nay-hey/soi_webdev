@@ -1,4 +1,4 @@
-// src/components/CardDetail.js
+// CardDetail component
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/CardDetail.css';

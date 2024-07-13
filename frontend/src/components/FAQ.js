@@ -1,6 +1,4 @@
-// src/components/FAQ.js
-
-
+//faq content component
 import React, { useState } from 'react';
 import '../styles/FAQ.css'; 
 

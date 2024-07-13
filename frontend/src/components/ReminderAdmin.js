@@ -97,6 +97,7 @@ const Reminder = () => {
             console.error('Error fetching item:', error);
           }
         };
+        //handles delete feature to delete issues if required
         const handleDelete = async (email, bookId) => {
           try {
             const response = await axios.delete(`http://localhost:5000/api/issues/${encodeURIComponent(email)}/${encodeURIComponent(bookId)}`);
@@ -107,6 +108,7 @@ const Reminder = () => {
           }
         };
 
+        //feature to handle reissue of a book 
         const handleReissue = async (email, bookId) => {
           try {
             const issueDate = new Date(); // Set the new issue date to the current date
@@ -281,6 +283,8 @@ const Reminder = () => {
       });
     };
   }, []);
+  
+  //reponsive view of navigation bar in smaller sized window
   useEffect(() => {
     const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
     const mobileNavShow = document.querySelector('.mobile-nav-show');

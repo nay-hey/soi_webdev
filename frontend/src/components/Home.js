@@ -1,3 +1,4 @@
+//Home page 
 import React, { useEffect, useRef, useState }  from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -288,6 +289,8 @@ useEffect(() => {
 
     return () => clearInterval(intervalId);// Cleanup interval on unmount
   }, []);
+  
+  //reponsive view of navigation bar in smaller sized window
   useEffect(() => {
     const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
     const mobileNavShow = document.querySelector('.mobile-nav-show');

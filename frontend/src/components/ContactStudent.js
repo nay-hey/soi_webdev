@@ -1,29 +1,28 @@
+//contact page in student dashboard
+//allows the students to contact the admin
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Dropdown, DropdownButton, Badge, Image } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Image } from 'react-bootstrap';
 import './StudentPage.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Contactdb = () => {
-  const [notifications, setNotifications] = useState([]);
-
-
-
+  //stores the notifications in this variable
   const [newNot, setNewNot] = useState({
     name: ''
-  });
- 
+  }); 
  
   const [submissionStatus, setSubmissionStatus] = useState('');
-
+//function to keep track of change in fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewNot({ ...newNot, [name]: value });
   };
 
+  //function to handle submit button ofr sending messages. Stores the messages in db using backend facility
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -164,6 +163,8 @@ useEffect(() => {
     });
   };
 }, []);
+
+  //reponsive view of navigation bar in smaller sized window
 useEffect(() => {
   const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
   const mobileNavShow = document.querySelector('.mobile-nav-show');

@@ -1,5 +1,3 @@
-// routes/bookRoutes.js
-
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
@@ -122,6 +120,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+//Put likes in db
 router.put('/:id/like', async (req, res) => {
   const bookId = req.params.id;
   const userRoll = req.body.userRoll; // Assuming userId is sent in the request body
@@ -158,6 +157,7 @@ router.put('/:id/like', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+//reservation of a book
 router.put('/:id/reserve', async (req, res) => {
   const bookId = req.params.id;
   const userRoll = req.body.userRoll; // Assuming userId is sent in the request body

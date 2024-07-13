@@ -199,7 +199,8 @@ useEffect(() => {
       }
     });
   });
-// Cleanup function to remove event listeners
+
+  //reponsive view of navigation bar in smaller sized window
   return () => {
     if (mobileNavToogleButton) {
       mobileNavToogleButton.removeEventListener('click', (event) => {
@@ -236,6 +237,7 @@ useEffect(() => {
     });
   };
 }, []);
+//reponsive view of navigation bar in smaller sized window
 useEffect(() => {
   const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
   const mobileNavShow = document.querySelector('.mobile-nav-show');

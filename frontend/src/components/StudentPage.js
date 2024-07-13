@@ -1,3 +1,4 @@
+//welcoming page in student page
 import React, { useEffect, useRef, useState}  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -79,6 +80,7 @@ const CardContent = styled.p`
 `;
 const StudentPage = () => {
 
+  //this handles the sidebar toggling
   const [isSidebarToggled, setIsSidebarToggled] = useState(false);
 
   useEffect(() => {
@@ -105,6 +107,7 @@ const StudentPage = () => {
       document.body.classList.remove('toggle-sidebar');
     }
   }, [isSidebarToggled]);
+  //sticky header feature
   useEffect(() => {
     const selectHeader = document.querySelector('#header');
 
@@ -200,6 +203,8 @@ const StudentPage = () => {
       });
     };
   }, []);
+  
+  //reponsive view of navigation bar in smaller sized window
   useEffect(() => {
     const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
     const mobileNavShow = document.querySelector('.mobile-nav-show');

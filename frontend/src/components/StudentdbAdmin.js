@@ -1,5 +1,6 @@
+//page that allows admin to add, delete, edit student user.
+//entire student database can be seen. Instead of registration we have allowed this facility
 import React, { useEffect, useState } from 'react';
-
 import axios from 'axios';
 import { Tooltip } from 'bootstrap';
 import { Link } from 'react-router-dom';
@@ -16,7 +17,7 @@ const Studentdb = () => {
 
   const [students, setStudents] = useState([]);
 
-
+//to create new student user
   const [newStudent, setNewStudent] = useState({ name: '', roll: '', email: '', branch: '',  password: '', position: ''});
 
 
@@ -81,6 +82,7 @@ const Studentdb = () => {
       }
     }
   };
+  //function to delete any user
   const handleDeleteStudent = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/api/students/${id}`);
@@ -91,6 +93,7 @@ const Studentdb = () => {
     }
   };
 
+  //search feature in the table
   const [searchTerm, setSearchTerm] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -243,6 +246,8 @@ useEffect(() => {
     });
   };
 }, []);
+
+  //reponsive view of navigation bar in smaller sized window
 useEffect(() => {
   const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
   const mobileNavShow = document.querySelector('.mobile-nav-show');

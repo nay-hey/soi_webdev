@@ -1,4 +1,4 @@
-// src/components/SimpleCard.js
+// SimpleCard component
 import React from 'react';
 import '../styles/SimpleCard.css';
 

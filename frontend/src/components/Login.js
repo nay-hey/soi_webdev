@@ -1,3 +1,4 @@
+//Login page to handle authorization to access the student and admin pages
 import React, { useState } from 'react';
 import './login.css';
 // Import Bootstrap CSS and Javascript
