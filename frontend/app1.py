@@ -540,13 +540,30 @@ collection = db['issues']
 
 @app.route('/get_book_titles', methods=['GET'])
 def get_book_titles():
-    # Fetch book titles from the issues collection
-    book_titles = collection.distinct('bookId')  # field name containing book titles
-    query=""
-    for i in book_titles:
-        query+=i.lower()
-    results = similarity_search(query, embeddings, sentences)
+    roll_number = request.args.get('rollNumber')
+    if not roll_number:
+        return jsonify({"error": "Roll number is required"}), 400
+
+    # Convert roll number to the appropriate data type if needed
+    try:
+        roll_number = int(roll_number)  # Convert to integer if roll number is stored as an integer
+    except ValueError:
+        pass  # Keep it as a string if conversion fails
+
+
+    # Fetch book titles from the issues collection filtered by the student's roll number
+    book_titles = collection.distinct('bookId', {'rollno': roll_number})
+
+    if not book_titles:
+        return jsonify({"error": "No books found for this roll number"}), 404
+
+    query = ""
+    for title in book_titles:
+        query += title.lower() + " "  # Ensure space between titles
+
+    results = similarity_search(query.strip(), embeddings, sentences)
     return jsonify(results)
+
 
 @app.route('/')
 def serve_html():

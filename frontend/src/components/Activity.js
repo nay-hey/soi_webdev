@@ -115,17 +115,22 @@ const [bookTitles, setBookTitles] = useState([]);
 const [searchResults, setSearchResults] = useState([]);
 //recommendation system
 useEffect(() => {
-  // Fetch book titles from the backend
-  fetch('http://localhost:5001/get_book_titles')
-    .then(response => response.json())
-    .then(data => {
-      // Flatten the array if it contains nested arrays
-      const flattenedTitles = data.flat();
-      setBookTitles(flattenedTitles);
-      searchBookDetails(flattenedTitles);
-    })
-    .catch(error => console.error('Error fetching book titles:', error));
-}, []);
+  if (profile) {
+    const fetchBookTitles = async () => {
+      try {
+        const response = await fetch(`http://localhost:5001/get_book_titles?rollNumber=${profile.roll}`);
+        const data = await response.json();
+        const flattenedTitles = data.flat();
+        setBookTitles(flattenedTitles);
+        searchBookDetails(flattenedTitles);
+      } catch (error) {
+        console.error('Error fetching book titles:', error);
+      }
+    };
+
+    fetchBookTitles();
+  }
+}, [profile]);
 
 const searchBookDetails = (titles) => {
   // Perform search requests for each title

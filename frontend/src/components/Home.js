@@ -598,11 +598,11 @@ useEffect(() => {
              
                       <span
                         data-purecounter-start="0"
-                        data-purecounter-end="232"
+                        data-purecounter-end="120"
                         data-purecounter-duration="1"
                         className="purecounter"
                       ></span>
-                      <p>Happy Clients</p>
+                      <p>Books</p>
                     </div>
                   </div>
 
@@ -611,11 +611,11 @@ useEffect(() => {
                       <i className="bi bi-journal-richtext"></i>
                       <span
                         data-purecounter-start="0"
-                        data-purecounter-end="521"
+                        data-purecounter-end="50"
                         data-purecounter-duration="1"
                         className="purecounter"
                       ></span>
-                      <p>Projects</p>
+                      <p>College Publications</p>
                     </div>
                   </div>
 
@@ -625,11 +625,11 @@ useEffect(() => {
              
                       <span
                         data-purecounter-start="0"
-                        data-purecounter-end="1463"
+                        data-purecounter-end="30"
                         data-purecounter-duration="1"
                         className="purecounter"
                       ></span>
-                      <p>Hours Of Support</p>
+                      <p>Ebooks</p>
                     </div>
                   </div>
 
@@ -643,7 +643,7 @@ useEffect(() => {
                         data-purecounter-duration="1"
                         className="purecounter"
                       ></span>
-                      <p>Hard Workers</p>
+                      <p>Newspaper Editions</p>
                     </div>
                   </div>
                 </div>
