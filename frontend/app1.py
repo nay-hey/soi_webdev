@@ -528,7 +528,7 @@ for i in range(len(genr)):
 embeddings = [get_sentence_embedding(sentence) for sentence in sentences]
 
 # Function to perform similarity search
-def similarity_search(query, embeddings, sentences, top_k=9):
+def similarity_search(query, embeddings, sentences, top_k=12):
     # Generate the embedding for the query sentence
     query_embedding = get_sentence_embedding(query).reshape(1, -1)
     # Calculate the cosine similarity between the query embedding and all stored embeddings
