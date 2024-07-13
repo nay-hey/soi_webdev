@@ -272,13 +272,14 @@ useEffect(() => {
   });
 // Cleanup function to remove event listeners
   return () => {
+    // Remove click event listener from mobile navigation toggle button
     if (mobileNavToogleButton) {
       mobileNavToogleButton.removeEventListener('click', (event) => {
         event.preventDefault();
         mobileNavToogle();
       });
     }
-
+    // Remove click event listeners from navbar links
     document.querySelectorAll('#navbar a').forEach((navbarlink) => {
       if (!navbarlink.hash) return;
 
@@ -291,7 +292,7 @@ useEffect(() => {
         }
       });
     });
-
+    // Remove click event listeners from navigation dropdowns
     navDropdowns.forEach((el) => {
       el.removeEventListener('click', function (event) {
         if (document.querySelector('.mobile-nav-active')) {
@@ -307,32 +308,32 @@ useEffect(() => {
     });
   };
 }, []);
-
-  //reponsive view of navigation bar in smaller sized window
 useEffect(() => {
   const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
   const mobileNavShow = document.querySelector('.mobile-nav-show');
   const mobileNavHide = document.querySelector('.mobile-nav-hide');
-  
+  // Function to toggle mobile navigation
   function mobileNavToggle() {
     document.body.classList.toggle('mobile-nav-active');
     mobileNavShow.classList.toggle('d-none');
     mobileNavHide.classList.toggle('d-none');
   }
-  
+  // Add click event listeners to mobile navigation toggle buttons
   mobileNavToggleButtons.forEach(button => {
     button.addEventListener('click', mobileNavToggle);
   });
-  
+  // Cleanup function to remove event listeners
   return () => {
     mobileNavToggleButtons.forEach(button => {
       button.removeEventListener('click', mobileNavToggle);
     });
   };
 }, []); 
+  // JSX for the React component
   return (
     <div>
-          <section id="student">
+      <section id="student">
+      {/* Header section */}
       <header id="header" className="header fixed-top d-flex align-items-center">
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
@@ -341,7 +342,7 @@ useEffect(() => {
             </div>
 
         </div>
-        
+        {/* Navbar section */}
         <nav id="navbar" className="navbar">
               <ul>
                 <li><a href="/">Home</a></li>
@@ -355,7 +356,7 @@ useEffect(() => {
             <button className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></button>
         <nav className="header-nav ms-auto">
       <ul className="d-flex align-items-center list-unstyled m-4">
-
+        {/* User profile dropdown */}
         <li className="nav-item dropdown">
           <DropdownButton
             menuAlign="right"
@@ -396,6 +397,7 @@ useEffect(() => {
     </nav>
            <i className="bi bi-list toggle-sidebar-btn"></i>
         </header>
+        {/* Sidebar section */}
         <aside id="sidebar" className="sidebar">
 
             <ul className="sidebar-nav" id="sidebar-nav">
@@ -431,6 +433,7 @@ useEffect(() => {
             </ul>
 
             </aside>
+            {/* Main content section */}
             <main id="main" className="main">
 
                 <div className="pagetitle">
@@ -481,7 +484,7 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-
+            {/* Display search results */}
             {profile.length > 0 ? (
               <div className="row">
                 {profile.map((profileItem, index) => (
@@ -544,7 +547,7 @@ useEffect(() => {
                                 <div className="col-lg-9 col-md-8">{profileItem.publisher}</div>
                               </div>
                             </div>
-
+                            {/* Comments section */}
                             <div className="tab-pane fade book-comments pt-3" id={`book-comments-${index}`}>
                               <h5 className="card-title">Comments:</h5>
                               {profileItem.comments.map((comment, commentIndex) => (

@@ -344,27 +344,32 @@ const Bookdb = () => {
           mobileNavToogle();
         });
       }
-
+      // Select all anchor links inside the navbar
       document.querySelectorAll('#navbar a').forEach((navbarlink) => {
+        // If the link does not have a hash (i.e., it doesn't link to a section), skip it
         if (!navbarlink.hash) return;
-
+        // Find the section that the link points to
         const section = document.querySelector(navbarlink.hash);
+        // If the section does not exist, skip it
         if (!section) return;
-
+        // Remove the click event listener from the link
         navbarlink.removeEventListener('click', () => {
+          // If the mobile navigation is active, toggle it off
           if (document.querySelector('.mobile-nav-active')) {
             mobileNavToogle();
           }
         });
       });
-
+      // Iterate through each nav dropdown element
       navDropdowns.forEach((el) => {
+        // Remove the click event listener from the dropdown
         el.removeEventListener('click', function (event) {
+          // If the mobile navigation is active, toggle the dropdown
           if (document.querySelector('.mobile-nav-active')) {
-            event.preventDefault();
-            this.classList.toggle('active');
-            this.nextElementSibling.classList.toggle('dropdown-active');
-
+            event.preventDefault();// Prevent the default action
+            this.classList.toggle('active');// Toggle the 'active' class
+            this.nextElementSibling.classList.toggle('dropdown-active');// Toggle the 'dropdown-active' class
+            // Toggle the dropdown indicator's icon between up and down
             const dropDownIndicator = this.querySelector('.dropdown-indicator');
             dropDownIndicator.classList.toggle('bi-chevron-up');
             dropDownIndicator.classList.toggle('bi-chevron-down');
@@ -376,20 +381,22 @@ const Bookdb = () => {
   
   //reponsive view of navigation bar in smaller sized window
   useEffect(() => {
+    // Select all mobile navigation toggle buttons
     const mobileNavToggleButtons = document.querySelectorAll('.mobile-nav-toggle');
+    // Select the mobile navigation show and hide elements
     const mobileNavShow = document.querySelector('.mobile-nav-show');
     const mobileNavHide = document.querySelector('.mobile-nav-hide');
-    
+    // Function to toggle the mobile navigation
     function mobileNavToggle() {
-      document.body.classList.toggle('mobile-nav-active');
-      mobileNavShow.classList.toggle('d-none');
-      mobileNavHide.classList.toggle('d-none');
+      document.body.classList.toggle('mobile-nav-active');// Toggle the 'mobile-nav-active' class on the body
+      mobileNavShow.classList.toggle('d-none');// Toggle the 'd-none' class on the show button
+      mobileNavHide.classList.toggle('d-none');// Toggle the 'd-none' class on the hide button
     }
-    
+    // Add click event listeners to each mobile navigation toggle button
     mobileNavToggleButtons.forEach(button => {
       button.addEventListener('click', mobileNavToggle);
     });
-    
+    // Cleanup function to remove the event listeners when the component unmount
     return () => {
       mobileNavToggleButtons.forEach(button => {
         button.removeEventListener('click', mobileNavToggle);
@@ -403,11 +410,12 @@ const Bookdb = () => {
         <header id="header" className="header fixed-top d-flex align-items-center">
           <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <div className="logo d-flex align-items-center">
+              {/* Logo section */}
               <img src="/static/logo.svg.png" alt="IIT Dharwad Logo" />
               <h1>IIT Dharwad</h1>
             </div>
           </div>
-        
+          {/* Navigation bar */}
           <nav id="navbar" className="navbar">
             <ul>
               <li><a href="/">Home</a></li>
@@ -417,9 +425,10 @@ const Bookdb = () => {
               <li><a href="#footer">Contact</a></li>
             </ul>
           </nav>
+            {/* Mobile navigation toggle buttons */}
             <button className="mobile-nav-toggle mobile-nav-show bi bi-three-dots"></button>
             <button className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></button>
-          
+          {/* User profile dropdown */}
           <nav className="header-nav ms-auto">
             <ul className="d-flex align-items-center list-unstyled m-5">
               <li className="nav-item dropdown">
@@ -469,6 +478,7 @@ const Bookdb = () => {
           </nav>
           <i className="bi bi-list toggle-sidebar-btn"></i>
         </header>
+          {/* Sidebar */}
           <aside id="sidebar" className="sidebar">
             <ul className="sidebar-nav" id="sidebar-nav">
               <li className="nav-item">
@@ -511,7 +521,7 @@ const Bookdb = () => {
               </li>
             </ul>
           </aside>
-        
+        {/* Main content area */}
         <main id="main" className="main">
 
             <div className="pagetitle">
@@ -523,12 +533,13 @@ const Bookdb = () => {
                   </ol>
               </nav>
             </div>
-
+            {/* Section for data tables */}
             <section className="section">
               <div className="row">
                 <div className="col-lg-12">
                   <div className="card">
                     <div className="card-body pt-3">
+                      {/* Tabs for different actions */}
                       <ul className="nav nav-tabs nav-tabs-bordered">
 
                         <li className="nav-item">
@@ -548,10 +559,12 @@ const Bookdb = () => {
                         </li>
 
                       </ul>
-                      
+                      {/* Tab content */}
                       <div className="tab-content pt-2">
+                        {/* Books Data Tab Content */}
                         <div className="tab-pane fade show active profile-overview" id="profile-overview">
                           <h6>Books Data</h6>
+                          {/* Search and Entries Per Page Controls */}
                           <div className="search-container">
                             <input
                               type="text"
@@ -569,35 +582,41 @@ const Bookdb = () => {
                               <option value={filteredBooks.length}>All entries</option>
                             </select>
                           </div>
+                          {/* Table Container */}
                           <div className="table-responsive-wrapper">
                           <table className="table table-responsive table-bordered table-hover">
                               <thead className="thead-dark">
                                 <tr>
                                 <th>#</th>
+                                {/* Sortable Title Column */}
                                 <th onClick={() => handleSort('title')} style={{ cursor: 'pointer' }}>
                                     Title{' '}
                                     {sortConfig.key === 'title' && (
                                       <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
                                     )}
                                   </th>
+                                  {/* Sortable Author Column */}
                                   <th onClick={() => handleSort('author')} style={{ cursor: 'pointer' }}>
                                     Author{' '}
                                     {sortConfig.key === 'author' && (
                                       <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
                                     )}
                                   </th>
+                                  {/* Sortable Genre Column */}
                                   <th onClick={() => handleSort('genre')} style={{ cursor: 'pointer' }}>
                                     Genre{' '}
                                     {sortConfig.key === 'genre' && (
                                       <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
                                     )}
                                   </th>
+                                  {/* Sortable Department Column */}
                                   <th onClick={() => handleSort('department')} style={{ cursor: 'pointer' }}>
                                     Department{' '}
                                     {sortConfig.key === 'department' && (
                                       <i className={`bi bi-caret-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
                                     )}
                                   </th>
+                                  {/* Sortable Count Column */}
                                   <th onClick={() => handleSort('count')} style={{ cursor: 'pointer' }}>
                                     Count{' '}
                                     {sortConfig.key === 'count' && (
@@ -607,6 +626,7 @@ const Bookdb = () => {
                                 </tr>
                               </thead>
                               <tbody>
+                              {/* Map through current entries and display each book */}
                               {currentEntries.map((book, index) => (
                                 <tr key={book._id}>
                                   <td>{index + 1}</td>
@@ -621,6 +641,7 @@ const Bookdb = () => {
                           </table>
                           </div>
                           <div>
+                            {/* Pagination Controls */}
                             <nav aria-label="Page navigation example">
                               <ul className="pagination">
                                 {Array.from({ length: Math.ceil(filteredBooks.length / entriesPerPage) }, (_, index) => (
@@ -634,7 +655,9 @@ const Bookdb = () => {
                         </div>
 
                         <div className="tab-pane fade profile-edit pt-3" id="profile-edit">
+                          {/* Form for Adding a New Book */}
                           <form onSubmit={handleSubmit}>
+                            {/* Title Input */}
                             <div className="row mb-3">
                               <label htmlFor="title" className="form-label">
                                 Title
@@ -648,6 +671,7 @@ const Bookdb = () => {
                                 onChange={handleChange}
                               />
                             </div>
+                            {/* Description Textarea */}
                             <div className="mb-3">
                               <label htmlFor="description" className="form-label">
                                 Description
@@ -660,6 +684,7 @@ const Bookdb = () => {
                                 onChange={handleChange}
                               ></textarea>
                             </div>
+                            {/* Author Input */}
                             <div className="mb-3">
                               <label htmlFor="author" className="form-label">
                                 Authors
@@ -673,6 +698,7 @@ const Bookdb = () => {
                                 onChange={handleChange}
                               />
                             </div>
+                            {/* Genre Input */}
                             <div className="mb-3">
                               <label htmlFor="genre" className="form-label">
                                 Genre
@@ -686,6 +712,7 @@ const Bookdb = () => {
                                 onChange={handleChange}
                               />
                             </div>
+                            {/* Department Dropdown */}
                             <div className="mb-3">
                               <label htmlFor="department" className="form-label">
                                 Department
@@ -708,6 +735,7 @@ const Bookdb = () => {
                                 </option>
                               </select>
                             </div>
+                            {/* Count Input */}
                             <div className="mb-3">
                               <label htmlFor="count" className="form-label">
                                 Count
@@ -721,6 +749,7 @@ const Bookdb = () => {
                                 onChange={handleChange}
                               />
                             </div>
+                            {/* Vendor Input */}
                             <div className="mb-3">
                               <label htmlFor="vendor" className="form-label">
                                 Vendor
@@ -734,6 +763,7 @@ const Bookdb = () => {
                                 onChange={handleChange}
                               />
                             </div>
+                            {/* Vendor ID Input */}
                             <div className="mb-3">
                               <label htmlFor="vendor_id" className="form-label">
                                 Vendor ID
@@ -747,6 +777,7 @@ const Bookdb = () => {
                                 onChange={handleChange}
                               />
                             </div>
+                            {/* Publisher Input */}
                             <div className="mb-3">
                               <label htmlFor="publisher" className="form-label">
                                 Publisher
@@ -760,6 +791,7 @@ const Bookdb = () => {
                                 onChange={handleChange}
                               />
                             </div>
+                            {/* Publisher ID Input */}
                             <div className="mb-3">
                               <label htmlFor="publisher_id" className="form-label">
                                 Publisher ID
@@ -773,6 +805,7 @@ const Bookdb = () => {
                                 onChange={handleChange}
                               />
                             </div>
+                            {/* Book Image Path Input */}
                             <div className="mb-3">
                               <label htmlFor="imageUrl" className="form-label">
                                 Book Image Path
@@ -786,6 +819,7 @@ const Bookdb = () => {
                                 onChange={handleChange}
                               />
                             </div>
+                            {/* Submit Button */}
                             <button type="submit" className="btn btn-primary">Add Book</button>
                           </form>
                         </div>

@@ -7,16 +7,22 @@ from sklearn.metrics.pairwise import cosine_similarity
 import torch
 
 # Load pre-trained BERT model and tokenizer
+# 'bert-base-uncased' is a version of BERT trained on lowercased English text
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased')
+# Initialize the Flask application
 app = Flask(__name__)
+# Enable Cross-Origin Resource Sharing (CORS) for the Flask app
 CORS(app)
 # Function to generate sentence embeddings
 def get_sentence_embedding(sentence):
+    # Tokenize the input sentence and convert it to tensors
     inputs = tokenizer(sentence, return_tensors='pt', truncation=True, padding=True, max_length=512)
+    # Get the outputs from the BERT model
     outputs = model(**inputs)
-    # Take the mean of the embeddings from the last hidden state
+    # Take the mean of the embeddings from the last hidden state to get a fixed-size vector
     sentence_embedding = outputs.last_hidden_state.mean(dim=1).squeeze()
+    # Detach the embedding from the computation graph and convert it to a NumPy array
     return sentence_embedding.detach().numpy()
 
 # Example sentences
@@ -516,15 +522,18 @@ dept = [
 
 sentences=[]
 for i in range(len(genr)):
-    word=genr[i]+desc[i]+dept[i]+sentences1[i]
+    word=genr[i]+" "+desc[i]+" "+dept[i]+" "+sentences1[i]
     sentences.append(word)
 # Generate embeddings for all sentences
 embeddings = [get_sentence_embedding(sentence) for sentence in sentences]
 
 # Function to perform similarity search
-def similarity_search(query, embeddings, sentences, top_k=9):
+def similarity_search(query, embeddings, sentences, top_k=12):
+    # Generate the embedding for the query sentence
     query_embedding = get_sentence_embedding(query).reshape(1, -1)
+    # Calculate the cosine similarity between the query embedding and all stored embeddings
     similarities = cosine_similarity(query_embedding, embeddings)[0]
+    # Get the indices of the top_k most similar sentences, sorted in descending order of similarity
     top_k_indices = similarities.argsort()[-top_k:][::-1]
     results=[]
     for idx in top_k_indices:
@@ -559,14 +568,10 @@ def get_book_titles():
 
     query = ""
     for title in book_titles:
-        query += title.lower() + " "  # Ensure space between titles
+        query += genr[sentences1.index(title)].lower()+ " "+desc[sentences1.index(title)].lower()+ " "+dept[sentences1.index(title)].lower()+ title.lower()+ " "  # Ensure space between titles
 
     results = similarity_search(query.strip(), embeddings, sentences)
     return jsonify(results)
-
-@app.route('/')
-def serve_html():
-    return send_from_directory('static', 'i1.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host='localhost', port=5001)
