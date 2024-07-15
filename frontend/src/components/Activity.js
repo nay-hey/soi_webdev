@@ -64,7 +64,7 @@ const renderAlert = (dueDate) => {
     const due = new Date(dueDate);
     const timeDiff = due - today;
     const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    if (daysDiff <= 2) {
+    if (daysDiff <= 2 && daysDiff > 0) {
         return <Alert variant="warning">Due date is approaching in {Math.ceil(daysDiff)} day/days!</Alert>;
     } else if (daysDiff === 0) {
         return <Alert variant="danger">Due date is today!</Alert>;
