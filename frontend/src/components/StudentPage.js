@@ -319,7 +319,7 @@ const StudentPage = () => {
         <li className="nav-item">
                 <Link className="nav-link collapsed" to="/StudentPage/contact">
                 <i class="bi bi-envelope"></i>
-                <span>Contact</span>
+                <span>Queries</span>
                 </Link>
             </li>
         </ul>
