@@ -10,17 +10,63 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Contactdb = () => {
+
+   //stores the profile details
+   const [profile, setProfile] = useState([]);
+   //handles function to store profiles
+     useEffect(() => {
+       const fetchProfile = async () => {
+         try {
+           const token = localStorage.getItem('token');
+           const response = await fetch('http://localhost:5000/api/students/profile', {
+             method: 'GET',
+             headers: {
+               Authorization: `Bearer ${token}`,
+               'Content-Type': 'application/json',
+             },
+           });
+           if (!response.ok) {
+             throw new Error('Failed to fetch profile data');
+           }
+           const profileData = await response.json();
+           setProfile(profileData);
+         } catch (error) {
+           console.error('Error fetching profile:', error.message);
+         }
+       };
+   
+       fetchProfile();
+     }, []);
+   
+     console.log(profile.name)
   //stores the notifications in this variable
   const [newNot, setNewNot] = useState({
-    name: ''
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
   }); 
  
   const [submissionStatus, setSubmissionStatus] = useState('');
+
+  // Update newNot state when profile changes
+  useEffect(() => {
+    if (profile.name) {
+      setNewNot((prevNot) => ({
+        ...prevNot,
+        name: profile.name || '',
+        email: profile.email || ''
+      }));
+    }
+  }, [profile]);
 //function to keep track of change in fields
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewNot({ ...newNot, [name]: value });
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setNewNot((prevNot) => ({
+    ...prevNot,
+    [name]: value
+  }));
+};
 
   //function to handle submit button ofr sending messages. Stores the messages in db using backend facility
   const handleSubmit = async (e) => {
@@ -30,15 +76,16 @@ const Contactdb = () => {
       const response = await axios.post('http://localhost:5000/api/notification', newNot);
       console.log('message received duhhh:', response.data);
       setNewNot({
-        name: '',
-        email: '',
+        name: profile.name || '',
+        email: profile.email || '',
         subject: '',
         message: ''
-      });
+      }, [profile]);
       setSubmissionStatus('Thank you for your message!');
     } catch (error) {
       console.error('Error adding a message:', error);
       setSubmissionStatus('An error occurred. Please try again.');
+      alert(error);
     }
   };
 
@@ -200,7 +247,6 @@ useEffect(() => {
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/AboutUs/team">Library Committee</a></li>
-              <li><a href="asklib.html">Ask a Librarian</a></li>
               <li><a href="/AboutUs">About</a></li>
               <li><a href="#footer">Contact</a></li>
             </ul>
@@ -323,14 +369,31 @@ useEffect(() => {
                 <div className="card p-4">
                   <form onSubmit={handleSubmit}>
                     <div className="row gy-4">
-                      <div className="col-md-12">
+                    <div className="col-md-12">
                       <label htmlFor="name" className="form-label">Name</label>
-                                  <input type="text" className="form-control" id="name" name="name" value={newNot.name} onChange={handleChange} />
-                                </div>
-                      <div className="col-md-12">
+                      <input 
+                        type="text" 
+                        className="form-control" 
+                        id="name" 
+                        name="name" 
+                        defaultValue={profile.name} 
+                        value={newNot.name} 
+                        onChange={handleChange} 
+                      />
+                    </div>
+                    <div className="col-md-12">
                       <label htmlFor="email" className="form-label">Email</label>
-                                  <input type="email" className="form-control" id="email" name="email" value={newNot.email} onChange={handleChange} />
-                                </div>
+                      <input 
+                        type="email" 
+                        className="form-control" 
+                        id="email" 
+                        name="email" 
+                        defaultValue={profile.email} 
+                        value={newNot.email} 
+                        onChange={handleChange} 
+                      />
+                    </div>
+
                       <div className="col-md-12">
                       <label htmlFor="subject" className="form-label">Subject</label>
                                   <input type="text" className="form-control" id="subject" name="subject" value={newNot.subject} onChange={handleChange} />

@@ -113,10 +113,12 @@ useEffect(() => {
 }, [profile]); 
 const [bookTitles, setBookTitles] = useState([]);
 const [searchResults, setSearchResults] = useState([]);
+const [loading, setLoading] = useState(false); // Add loading state
 //recommendation system
 useEffect(() => {
   if (profile) {
     const fetchBookTitles = async () => {
+      setLoading(true);
       try {
         const response = await fetch(`http://localhost:5001/get_book_titles?rollNumber=${profile.roll}`);
         const data = await response.json();
@@ -125,6 +127,8 @@ useEffect(() => {
         searchBookDetails(flattenedTitles);
       } catch (error) {
         console.error('Error fetching book titles:', error);
+      }finally {
+        setLoading(false); // Set loading to false after data is fetched (even if error occurs)
       }
     };
 
@@ -341,7 +345,6 @@ return (
           <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/AboutUs/team">Library Committee</a></li>
-            <li><a href="asklib.html">Ask a Librarian</a></li>
             <li><a href="/AboutUs">About</a></li>
             <li><a href="#footer">Contact</a></li>
           </ul>
@@ -482,19 +485,23 @@ return (
                       </Card>
                     ))}
                     </Container>
-                        <h2>You might also like</h2>
-                        <div className="team-wrapper">
-                          <div className="team-row">
-                          {searchResults.map((book, index) => (
-                            <div key={index} className="member" style={{ backgroundImage: `url(${book.imageUrl || defaultImageUrl})`  }}>
-                              <div className="description">
-                                <h3>{book.title}</h3>
-                                <p>{book.description}</p>
-                              </div>
+                    <h2>You might also like</h2>
+                        {loading ? (
+                          <p>Loading...</p> // Display loading message
+                        ) : (
+                          <div className="team-wrapper">
+                            <div className="team-row">
+                              {searchResults.map((book, index) => (
+                                <div key={index} className="member" style={{ backgroundImage: `url(${book.imageUrl || defaultImageUrl})` }}>
+                                  <div className="description">
+                                    <h3>{book.title}</h3>
+                                    <p>{book.description}</p>
+                                  </div>
+                                </div>
+                              ))}
                             </div>
-                          ))}
                           </div>
-                        </div>
+                        )}
                         </div>
                       </section>
                     </div>

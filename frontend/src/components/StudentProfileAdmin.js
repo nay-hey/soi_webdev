@@ -69,6 +69,7 @@ const StudentProfile = () => {
       
     } catch (error) {
       console.error('Error updating book details:', error);
+      alert(error);
       // Optionally handle error, e.g., show an error message to the user
     }
   };
@@ -242,7 +243,6 @@ useEffect(() => {
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/AboutUs/team">Library Committee</a></li>
-              <li><a href="asklib.html">Ask a Librarian</a></li>
               <li><a href="/AboutUs">About</a></li>
               <li><a href="#footer">Contact</a></li>
             </ul>

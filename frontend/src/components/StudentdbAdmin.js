@@ -44,44 +44,54 @@ const Studentdb = () => {
     // Function to handle form submission (adding a new member to the library)
     const handleSubmit = async (e) => {
       e.preventDefault();
+    
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@iitdh\.ac\.in$/;
+      
       if (!newStudent.name || !newStudent.roll || !newStudent.email || !newStudent.branch || !newStudent.password || !newStudent.position) {
         alert('Please fill in all fields.');
         return;
       }
+    
+      if (!emailPattern.test(newStudent.email)) {
+        alert('Please enter a valid email address with @iitdh.ac.in domain.');
+        return;
+      }
+    
       try {
         console.log('New student data:', newStudent);
         
         const response2 = await axios.get(`http://localhost:5000/api/students/search?category=roll&keyword=${newStudent.roll}`);
-        console.log("fge", response2)
+        console.log("Search response:", response2);
+    
         if (!response2.data || response2.data.length === 0) {
-        const response = await axios.post('http://localhost:5000/api/students', newStudent);
-       
-        console.log('student added:', response.data);
-        setNewStudent({
-         name: '',
-          roll: '', 
-          email: '',
-          branch: '',
-          password: '',
-          position: ''
-        });
-      
-        fetchStudents();
-        window.location.reload(); 
+          const response = await axios.post('http://localhost:5000/api/students', newStudent);
+          console.log('Student added:', response.data);
+    
+          setNewStudent({
+            name: '',
+            roll: '',
+            email: '',
+            branch: '',
+            password: '',
+            position: ''
+          });
+    
+          fetchStudents();
+          window.location.reload(); 
+        } else {        
+          throw new Error("Roll Number exists in the database.");
+        }
+      } catch (error) {
+        console.error('Error adding student:', error);
+        if (error.response && error.response.data) {
+          // Display backend error message if available
+          alert(`Error: ${error.response.data.message}`);
+        } else {
+          alert('Error adding student.');
+        }
       }
-      else {        
-        throw new Error("Roll Number exists in the database.")
-      }
-    } catch (error) {
-      console.error('Error adding students:', error);
-      if (error.response && error.response.data) {
-        // Display backend error message if available
-        alert(`Error: ${error.response.data.message}`);
-      } else {
-        alert('Error adding student.');
-      }
-    }
-  };
+    };
+    
   //function to delete any user
   const handleDeleteStudent = async (id) => {
     try {
@@ -286,7 +296,6 @@ useEffect(() => {
               <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/AboutUs/team">Library Committee</a></li>
-                <li><a href="asklib.html">Ask a Librarian</a></li>
                 <li><a href="/AboutUs">About</a></li>
                 <li><a href="#footer">Contact</a></li>
               </ul>

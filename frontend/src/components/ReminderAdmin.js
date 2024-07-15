@@ -320,7 +320,6 @@ const Reminder = () => {
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/AboutUs/team">Library Committee</a></li>
-              <li><a href="asklib.html">Ask a Librarian</a></li>
               <li><a href="/AboutUs">About</a></li>
               <li><a href="#footer">Contact</a></li>
             </ul>
