@@ -111,6 +111,7 @@ This web application provides a user-friendly interface for both librarians and 
         ```bash
         python app1.py
         ```
+    - `NOTE`: Everytime you borrow or delete a book from your history the recommendation system will take a few minutes to load. Feel free to visit other parts of the website while it loads. 
 6. Open your browser and navigate to `http://localhost:3000`.
 
 ## Usage
